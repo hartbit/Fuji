@@ -13,8 +13,12 @@
 #import "MOTestMacros.h"
 
 
-@interface MOResourceManagerTests : SenTestCase
+#define NONEXISTANT @"Nonexistent.png"
+#define INVALID @"Invalid.txt"
+#define VALID @"Valid.png"
 
+
+@interface MOResourceManagerTests : SenTestCase
 @end
 
 
@@ -34,43 +38,77 @@
 
 - (void)testLoadingNonexistentTexture
 {
-	STAssertThrows([[MOResourceManager sharedManager] textureWithName:@"Nonexistent.png"], @"The resource manager should assert when loading a texture that does not exist.");
-	STAssertFalse([[MOResourceManager sharedManager] resourceIsLoadedWithName:@"Nonexistent.png"], @"The resource manager should not load a texture that does not exist.");
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	STAssertFalse([resourceManager resourceIsLoadedWithName:NONEXISTANT], nil);
+	STAssertThrows([resourceManager textureWithName:NONEXISTANT], nil);
+	STAssertFalse([resourceManager resourceIsLoadedWithName:NONEXISTANT], nil);
 }
 
 - (void)testLoadingInvalidTexture
 {
-	STAssertThrows([[MOResourceManager sharedManager] textureWithName:@"Invalid.txt"], @"The resource manager should assert when loading an invalid texture file.");
-	STAssertFalse([[MOResourceManager sharedManager] resourceIsLoadedWithName:@"Nonexistent.png"], @"The resource manager should not load a texture that is invalid.");
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	STAssertFalse([resourceManager resourceIsLoadedWithName:INVALID], nil);
+	STAssertThrows([resourceManager textureWithName:INVALID], nil);
+	STAssertFalse([resourceManager resourceIsLoadedWithName:INVALID], nil);
 }
 
 - (void)testLoadingTexture
 {
-	STAssertFalse([[MOResourceManager sharedManager] resourceIsLoadedWithName:@"Valid.png"], @"The resource manager should not have a texture loaded to start with.");
-	MOTexture* texture = [[MOResourceManager sharedManager] textureWithName:@"Valid.png"];
-	STAssertNotNil(texture, @"The resource manager should load a valid texture file.");
-	STAssertTrue([[MOResourceManager sharedManager] resourceIsLoadedWithName:@"Valid.png"], @"The resource manager should have loaded a texture that is valid.");
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	STAssertFalse([resourceManager resourceIsLoadedWithName:VALID], nil);
+	MOTexture* texture = [resourceManager textureWithName:VALID];
+	STAssertNotNil(texture, nil);
+	STAssertTrue([resourceManager resourceIsLoadedWithName:VALID], nil);
 }
 
 - (void)testLoadingTextureAsynchronously
 {
-	STAssertFalse([[MOResourceManager sharedManager] resourceIsLoadedWithName:@"Valid.png"], @"The resource manager should not have a texture loaded to start with.");
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	STAssertFalse([resourceManager resourceIsLoadedWithName:VALID], nil);
 	
 	__block BOOL hasLoaded = NO;
-	
-	[[MOResourceManager sharedManager] textureWithName:@"Valid.png" completion:^(MOTexture* texture) {
-		STAssertNotNil(texture, @"The resource manager should have loaded a valid texture asynchronously by the time the completion block is called.");
-		STAssertTrue([[MOResourceManager sharedManager] resourceIsLoadedWithName:@"Valid.png"], @"The resource manager should have loaded a texture that is valid.");
+	[resourceManager textureWithName:VALID completion:^(MOTexture* texture) {
+		STAssertNotNil(texture, nil);
+		STAssertTrue([resourceManager resourceIsLoadedWithName:VALID], nil);
 		hasLoaded = YES;
 	}];
 	
 	MO_WAIT_FOR_FLAG(hasLoaded, 0.5);
-	STAssertTrue(hasLoaded, @"The resource manager should have loaded the texture under 500ms.");
+	STAssertTrue(hasLoaded, nil);
 }
 
 - (void)testLoadingTextureAsynchronouslyAcceptsNullBlock
 {
-	STAssertNoThrow([[MOResourceManager sharedManager] textureWithName:@"Valid.png" completion:NULL], @"The resource manager should accept a null completion block.");
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	[resourceManager textureWithName:VALID completion:NULL];
+	MO_WAIT_FOR_FLAG(NO, 0.5);
+}
+
+- (void)testLoadingTextureAsynchronouslyAcceptsNullBlockAfterLoaded
+{
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	[resourceManager textureWithName:VALID];
+	[resourceManager textureWithName:VALID completion:NULL];
+}
+
+- (void)testPurgingResourcesRemovesUnusedResources 
+{
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	
+	[resourceManager textureWithName:VALID];
+	STAssertTrue([resourceManager resourceIsLoadedWithName:VALID], nil);
+	[resourceManager purgeResources];
+	STAssertFalse([resourceManager resourceIsLoadedWithName:VALID], nil);
+}
+
+- (void)testPurgingResourcesDoesNotRemoveUsedResources
+{
+	MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+	
+	MOTexture* texture __attribute((unused)) = [resourceManager textureWithName:VALID];
+	STAssertTrue([resourceManager resourceIsLoadedWithName:VALID], nil);
+	[resourceManager purgeResources];
+	STAssertTrue([resourceManager resourceIsLoadedWithName:VALID], nil);
 }
 
 @end

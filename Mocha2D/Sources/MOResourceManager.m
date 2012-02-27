@@ -7,7 +7,6 @@
 //
 
 #import "MOResourceManager.h"
-#import "MOResourceInfo-Internal.h"
 #import "MOTexture-Internal.h"
 #import "MOMacros.h"
 
@@ -50,16 +49,15 @@
 {
 	NSAssert(MOStringIsValid(name), @"");
 	
-	MOResourceInfo* resourceInfo = [[self resources] objectForKey:name];
-	return [resourceInfo resource] != nil;
+	return [[self resources] objectForKey:name] != nil;
 }
 
 - (void)purgeResources
 {
-	[[self resources] enumerateKeysAndObjectsUsingBlock:^(id key, MOResourceInfo* resourceInfo, BOOL* stop) {
-		if ([[resourceInfo resource] retainCount] == 1)
+	[[self resources] enumerateKeysAndObjectsUsingBlock:^(id name, id resource, BOOL* stop) {
+		if ([resource retainCount] == 1)
 		{
-			[[self resources] removeObjectForKey:key];
+			[[self resources] removeObjectForKey:name];
 		}
 	}];
 }
@@ -68,43 +66,35 @@
 
 - (MOTexture*)textureWithName:(NSString*)name
 {
-	return [self textureWithName:name lifetime:MOResourceLifetimeShort];
-}
-
-- (MOTexture*)textureWithName:(NSString*)name lifetime:(MOResourceLifetime)lifetime
-{
 	NSAssert(MOStringIsValid(name), @"");
-	NSAssert(MOIsInInterval(lifetime, MOResourceLifetimeShort, MOResourceLifetimeApplication), @"");
 	
-	MOTexture* texture = [self resourceWithName:name type:[MOTexture class] lifetime:lifetime];
+	MOTexture* texture = [self resourceWithName:name type:[MOTexture class]];
 	
 	if (texture == nil)
 	{
 		texture = [[MOTexture alloc] initWithName:name];
-		[self setResource:texture withName:name lifetime:lifetime];
+		[self setResource:texture withName:name];
 		[texture release];
 	}
-
+	
 	return texture;
 }
 
 - (void)textureWithName:(NSString*)name completion:(void (^)(MOTexture* texture))completion;
 {
-	[self textureWithName:name lifetime:MOResourceLifetimeShort completion:completion];
-}
-
-- (void)textureWithName:(NSString*)name lifetime:(MOResourceLifetime)lifetime completion:(void (^)(MOTexture* texture))completion;
-{
 	NSAssert(MOStringIsValid(name), @"");
-	NSAssert(MOIsInInterval(lifetime, MOResourceLifetimeShort, MOResourceLifetimeApplication), @"");
 	
-	MOTexture* texture = [self resourceWithName:name type:[MOTexture class] lifetime:lifetime];
+	MOTexture* texture = [self resourceWithName:name type:[MOTexture class]];
 	
 	if (texture == nil)
 	{
 		[MOTexture textureWithName:name completion:^(MOTexture* texture) {
-			[self setResource:texture withName:name lifetime:lifetime];
-			completion(texture);
+			[self setResource:texture withName:name];
+			
+			if (completion != NULL)
+			{
+				completion(texture);
+			}
 		}];
 	}
 	else if (completion != NULL)
@@ -115,40 +105,28 @@
 
 #pragma mark - Private Methods
 
-- (id)resourceWithName:(NSString*)name type:(Class)class lifetime:(MOResourceLifetime)lifetime
+- (id)resourceWithName:(NSString*)name type:(Class)class
 {
 	NSAssert(MOStringIsValid(name), @"");
 	NSAssert(class != NULL, @"");
-	NSAssert(MOIsInInterval(lifetime, MOResourceLifetimeShort, MOResourceLifetimeApplication), @"");
 	
-	MOResourceInfo* resourceInfo = [[self resources] objectForKey:name];
+	id resource = [[self resources] objectForKey:name];
 	
-	if (resourceInfo != nil)
+	if ((resource != nil) && ![resource isKindOfClass:class])
 	{
-		if (![[resourceInfo resource] isKindOfClass:class])
-		{
-			NSAssert(nil, @"Invalid resource type");
-			return nil;
-		}
-		
-		if (lifetime > [resourceInfo lifetime])
-		{
-			[resourceInfo setLifetime:lifetime];
-		}
+		NSAssert(nil, @"Invalid resource type");
+		return nil;
 	}
 	
-	return [resourceInfo resource];
+	return resource;
 }
 
-- (void)setResource:(id)resource withName:(NSString*)name lifetime:(MOResourceLifetime)lifetime
+- (void)setResource:(id)resource withName:(NSString*)name
 {
 	NSAssert(resource != nil, @"");
 	NSAssert(MOStringIsValid(name), @"");
-	NSAssert(MOIsInInterval(lifetime, MOResourceLifetimeShort, MOResourceLifetimeApplication), @"");
 	
-	MOResourceInfo* resourceInfo = [[MOResourceInfo alloc] initWithResource:resource lifetime:lifetime];
-	[[self resources] setObject:resourceInfo forKey:name];
-	[resourceInfo release];
+	[[self resources] setObject:resource forKey:name];
 }
 
 @end

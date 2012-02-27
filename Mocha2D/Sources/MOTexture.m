@@ -53,6 +53,7 @@
 + (void)textureWithName:(NSString*)name completion:(void (^)(MOTexture* texture))completion
 {
 	NSAssert(MOStringIsValid(name), @"");
+	NSAssert(completion != NULL, @"");
 	
 	NSString* path = [self pathWithName:name];
 	

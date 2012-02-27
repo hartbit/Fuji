@@ -27,8 +27,6 @@
 		63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303914F7791700923CB9 /* MOResourceManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303E14F77CEE00923CB9 /* MOTexture.h */; };
 		63E6304114F77CEE00923CB9 /* MOTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303F14F77CEE00923CB9 /* MOTexture.m */; };
-		63E6304414F780AB00923CB9 /* MOResourceInfo-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6304214F780AB00923CB9 /* MOResourceInfo-Internal.h */; };
-		63E6304514F780AB00923CB9 /* MOResourceInfo-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6304314F780AB00923CB9 /* MOResourceInfo-Internal.m */; };
 		63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
 		63E6304B14F78C7C00923CB9 /* MOResourceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */; };
 		63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
@@ -71,14 +69,11 @@
 		63B5739014F4D38000451E2E /* Mocha2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mocha2D.h; sourceTree = "<group>"; };
 		63B5739814F4D38000451E2E /* Mocha2DTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Mocha2DTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		63B5739B14F4D38000451E2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		63E6303814F7791700923CB9 /* MOResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOResourceManager.h; sourceTree = "<group>"; };
 		63E6303914F7791700923CB9 /* MOResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManager.m; sourceTree = "<group>"; };
 		63E6303D14F77B5F00923CB9 /* MOMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOMacros.h; sourceTree = "<group>"; };
 		63E6303E14F77CEE00923CB9 /* MOTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOTexture.h; sourceTree = "<group>"; };
 		63E6303F14F77CEE00923CB9 /* MOTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOTexture.m; sourceTree = "<group>"; };
-		63E6304214F780AB00923CB9 /* MOResourceInfo-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MOResourceInfo-Internal.h"; sourceTree = "<group>"; };
-		63E6304314F780AB00923CB9 /* MOResourceInfo-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MOResourceInfo-Internal.m"; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManagerTests.m; sourceTree = "<group>"; };
 		63E6305514F7932A00923CB9 /* Invalid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Invalid.txt; sourceTree = "<group>"; };
@@ -188,7 +183,6 @@
 				636A987614F4ED0700FF2D12 /* UIKit.framework */,
 				63B5738B14F4D38000451E2E /* Foundation.framework */,
 				63B5739914F4D38000451E2E /* SenTestingKit.framework */,
-				63B5739B14F4D38000451E2E /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -253,8 +247,6 @@
 		63E630BF14F7EFDD00923CB9 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				63E6304214F780AB00923CB9 /* MOResourceInfo-Internal.h */,
-				63E6304314F780AB00923CB9 /* MOResourceInfo-Internal.m */,
 				63FD0D7E14FABC0E001E3164 /* MOTexture-Internal.h */,
 			);
 			name = Internal;
@@ -278,7 +270,6 @@
 				6349CEEA14F4DFDD00DEF564 /* MOViewController.h in Headers */,
 				63E6303A14F7791700923CB9 /* MOResourceManager.h in Headers */,
 				63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */,
-				63E6304414F780AB00923CB9 /* MOResourceInfo-Internal.h in Headers */,
 				63FD0DFD14FAD857001E3164 /* UIDevice+MOAdditions.h in Headers */,
 				63FD0E0114FADA31001E3164 /* UIScreen+MOAdditions.h in Headers */,
 				635D54FB14FB940F002A9A2E /* DDASLLogger.h in Headers */,
@@ -390,7 +381,6 @@
 				6349CEEB14F4DFDD00DEF564 /* MOViewController.m in Sources */,
 				63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */,
 				63E6304114F77CEE00923CB9 /* MOTexture.m in Sources */,
-				63E6304514F780AB00923CB9 /* MOResourceInfo-Internal.m in Sources */,
 				63FD0DFE14FAD857001E3164 /* UIDevice+MOAdditions.m in Sources */,
 				63FD0E0214FADA31001E3164 /* UIScreen+MOAdditions.m in Sources */,
 				63FD0E0314FADD4A001E3164 /* NSBundle+MOAdditions.m in Sources */,
@@ -495,6 +485,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "Libraries/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -509,6 +500,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "Libraries/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
