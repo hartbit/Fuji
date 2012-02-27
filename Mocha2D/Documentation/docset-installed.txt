@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/david/Library/Developer/Shared/Documentation/DocSets/com.hart-dev.Mocha2D.docset
+Time: 2012-02-26 09:16:15 +0000

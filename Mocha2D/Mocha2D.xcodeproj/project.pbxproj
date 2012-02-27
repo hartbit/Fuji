@@ -1,0 +1,501 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6349CEEA14F4DFDD00DEF564 /* MOViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6349CEE814F4DFDD00DEF564 /* MOViewController.h */; };
+		6349CEEB14F4DFDD00DEF564 /* MOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6349CEE914F4DFDD00DEF564 /* MOViewController.m */; };
+		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
+		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
+		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
+		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
+		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
+		63B573A014F4D38000451E2E /* libMocha2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738814F4D38000451E2E /* libMocha2D.a */; };
+		63E6303A14F7791700923CB9 /* MOResourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303814F7791700923CB9 /* MOResourceManager.h */; };
+		63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303914F7791700923CB9 /* MOResourceManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303E14F77CEE00923CB9 /* MOTexture.h */; };
+		63E6304114F77CEE00923CB9 /* MOTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303F14F77CEE00923CB9 /* MOTexture.m */; };
+		63E6304414F780AB00923CB9 /* MOResourceInfo-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6304214F780AB00923CB9 /* MOResourceInfo-Internal.h */; };
+		63E6304514F780AB00923CB9 /* MOResourceInfo-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6304314F780AB00923CB9 /* MOResourceInfo-Internal.m */; };
+		63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
+		63E6304B14F78C7C00923CB9 /* MOResourceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */; };
+		63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
+		63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
+		63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
+		63E6305614F7932A00923CB9 /* Invalid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63E6305514F7932A00923CB9 /* Invalid.txt */; };
+		63E6305814F793E200923CB9 /* Valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E6305714F793E200923CB9 /* Valid.png */; };
+		63FD0DFD14FAD857001E3164 /* UIDevice+MOAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */; };
+		63FD0DFE14FAD857001E3164 /* UIDevice+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */; };
+		63FD0E0114FADA31001E3164 /* UIScreen+MOAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD0DFF14FADA31001E3164 /* UIScreen+MOAdditions.h */; };
+		63FD0E0214FADA31001E3164 /* UIScreen+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD0E0014FADA31001E3164 /* UIScreen+MOAdditions.m */; };
+		63FD0E0314FADD4A001E3164 /* NSBundle+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		63B5739E14F4D38000451E2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63B5737F14F4D38000451E2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63B5738714F4D38000451E2E;
+			remoteInfo = Mocha2D;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6349CEE814F4DFDD00DEF564 /* MOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOViewController.h; sourceTree = "<group>"; };
+		6349CEE914F4DFDD00DEF564 /* MOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOViewController.m; sourceTree = "<group>"; };
+		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		63B5738814F4D38000451E2E /* libMocha2D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMocha2D.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		63B5739014F4D38000451E2E /* Mocha2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mocha2D.h; sourceTree = "<group>"; };
+		63B5739814F4D38000451E2E /* Mocha2DTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Mocha2DTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		63B5739B14F4D38000451E2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		63E6303814F7791700923CB9 /* MOResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOResourceManager.h; sourceTree = "<group>"; };
+		63E6303914F7791700923CB9 /* MOResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManager.m; sourceTree = "<group>"; };
+		63E6303D14F77B5F00923CB9 /* MOMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOMacros.h; sourceTree = "<group>"; };
+		63E6303E14F77CEE00923CB9 /* MOTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOTexture.h; sourceTree = "<group>"; };
+		63E6303F14F77CEE00923CB9 /* MOTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOTexture.m; sourceTree = "<group>"; };
+		63E6304214F780AB00923CB9 /* MOResourceInfo-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MOResourceInfo-Internal.h"; sourceTree = "<group>"; };
+		63E6304314F780AB00923CB9 /* MOResourceInfo-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MOResourceInfo-Internal.m"; sourceTree = "<group>"; };
+		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManagerTests.m; sourceTree = "<group>"; };
+		63E6305514F7932A00923CB9 /* Invalid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Invalid.txt; sourceTree = "<group>"; };
+		63E6305714F793E200923CB9 /* Valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid.png; sourceTree = "<group>"; };
+		63E6305914F7A6F300923CB9 /* NSBundle+MOAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MOAdditions.h"; sourceTree = "<group>"; };
+		63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MOAdditions.m"; sourceTree = "<group>"; };
+		63FD0D7E14FABC0E001E3164 /* MOTexture-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MOTexture-Internal.h"; sourceTree = "<group>"; };
+		63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+MOAdditions.h"; sourceTree = "<group>"; };
+		63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+MOAdditions.m"; sourceTree = "<group>"; };
+		63FD0DFF14FADA31001E3164 /* UIScreen+MOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+MOAdditions.h"; sourceTree = "<group>"; };
+		63FD0E0014FADA31001E3164 /* UIScreen+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+MOAdditions.m"; sourceTree = "<group>"; };
+		63FD0E3714FAEEDB001E3164 /* MOTestMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOTestMacros.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		63B5738514F4D38000451E2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */,
+				636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */,
+				636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */,
+				63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63B5739414F4D38000451E2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */,
+				63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */,
+				63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */,
+				63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */,
+				63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */,
+				63B573A014F4D38000451E2E /* libMocha2D.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6349CED514F4D4C200DEF564 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				6349CEE814F4DFDD00DEF564 /* MOViewController.h */,
+				6349CEE914F4DFDD00DEF564 /* MOViewController.m */,
+			);
+			name = Rendering;
+			sourceTree = "<group>";
+		};
+		6349CED614F4D50300DEF564 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Rendering;
+			sourceTree = "<group>";
+		};
+		63B5737D14F4D38000451E2E = {
+			isa = PBXGroup;
+			children = (
+				63B5738D14F4D38000451E2E /* Sources */,
+				63B573A114F4D38000451E2E /* Tests */,
+				63B5738A14F4D38000451E2E /* Frameworks */,
+				63B5738914F4D38000451E2E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		63B5738914F4D38000451E2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63B5738814F4D38000451E2E /* libMocha2D.a */,
+				63B5739814F4D38000451E2E /* Mocha2DTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		63B5738A14F4D38000451E2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63E6304614F781EB00923CB9 /* OpenGLES.framework */,
+				636A987814F4ED0B00FF2D12 /* GLKit.framework */,
+				636A987614F4ED0700FF2D12 /* UIKit.framework */,
+				63B5738B14F4D38000451E2E /* Foundation.framework */,
+				63B5739914F4D38000451E2E /* SenTestingKit.framework */,
+				63B5739B14F4D38000451E2E /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		63B5738D14F4D38000451E2E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				63E6303614F778F100923CB9 /* Resources */,
+				6349CED514F4D4C200DEF564 /* Rendering */,
+				63E6303C14F77B4B00923CB9 /* Support */,
+				63B5739014F4D38000451E2E /* Mocha2D.h */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		63B573A114F4D38000451E2E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				63E6304814F78C6A00923CB9 /* Resources */,
+				6349CED614F4D50300DEF564 /* Rendering */,
+				63FD0E3614FAEECA001E3164 /* Support */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		63E6303614F778F100923CB9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63E630BF14F7EFDD00923CB9 /* Internal */,
+				63E6303814F7791700923CB9 /* MOResourceManager.h */,
+				63E6303914F7791700923CB9 /* MOResourceManager.m */,
+				63E6303E14F77CEE00923CB9 /* MOTexture.h */,
+				63E6303F14F77CEE00923CB9 /* MOTexture.m */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		63E6303C14F77B4B00923CB9 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				63E6303D14F77B5F00923CB9 /* MOMacros.h */,
+				63E6305914F7A6F300923CB9 /* NSBundle+MOAdditions.h */,
+				63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */,
+				63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */,
+				63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */,
+				63FD0DFF14FADA31001E3164 /* UIScreen+MOAdditions.h */,
+				63FD0E0014FADA31001E3164 /* UIScreen+MOAdditions.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		63E6304814F78C6A00923CB9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */,
+				63E6305514F7932A00923CB9 /* Invalid.txt */,
+				63E6305714F793E200923CB9 /* Valid.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		63E630BF14F7EFDD00923CB9 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				63E6304214F780AB00923CB9 /* MOResourceInfo-Internal.h */,
+				63E6304314F780AB00923CB9 /* MOResourceInfo-Internal.m */,
+				63FD0D7E14FABC0E001E3164 /* MOTexture-Internal.h */,
+			);
+			name = Internal;
+			sourceTree = "<group>";
+		};
+		63FD0E3614FAEECA001E3164 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				63FD0E3714FAEEDB001E3164 /* MOTestMacros.h */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		63B5738614F4D38000451E2E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6349CEEA14F4DFDD00DEF564 /* MOViewController.h in Headers */,
+				63E6303A14F7791700923CB9 /* MOResourceManager.h in Headers */,
+				63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */,
+				63E6304414F780AB00923CB9 /* MOResourceInfo-Internal.h in Headers */,
+				63FD0DFD14FAD857001E3164 /* UIDevice+MOAdditions.h in Headers */,
+				63FD0E0114FADA31001E3164 /* UIScreen+MOAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		63B5738714F4D38000451E2E /* Mocha2D */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63B573AC14F4D38000451E2E /* Build configuration list for PBXNativeTarget "Mocha2D" */;
+			buildPhases = (
+				63B5738414F4D38000451E2E /* Sources */,
+				63B5738514F4D38000451E2E /* Frameworks */,
+				63B5738614F4D38000451E2E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mocha2D;
+			productName = Mocha2D;
+			productReference = 63B5738814F4D38000451E2E /* libMocha2D.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		63B5739714F4D38000451E2E /* Mocha2DTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63B573AF14F4D38000451E2E /* Build configuration list for PBXNativeTarget "Mocha2DTests" */;
+			buildPhases = (
+				63B5739314F4D38000451E2E /* Sources */,
+				63B5739414F4D38000451E2E /* Frameworks */,
+				63B5739514F4D38000451E2E /* Resources */,
+				63B5739614F4D38000451E2E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				63B5739F14F4D38000451E2E /* PBXTargetDependency */,
+			);
+			name = Mocha2DTests;
+			productName = Mocha2DTests;
+			productReference = 63B5739814F4D38000451E2E /* Mocha2DTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		63B5737F14F4D38000451E2E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "hart[dev]";
+			};
+			buildConfigurationList = 63B5738214F4D38000451E2E /* Build configuration list for PBXProject "Mocha2D" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 63B5737D14F4D38000451E2E;
+			productRefGroup = 63B5738914F4D38000451E2E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				63B5738714F4D38000451E2E /* Mocha2D */,
+				63B5739714F4D38000451E2E /* Mocha2DTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		63B5739514F4D38000451E2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63E6305614F7932A00923CB9 /* Invalid.txt in Resources */,
+				63E6305814F793E200923CB9 /* Valid.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		63B5739614F4D38000451E2E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		63B5738414F4D38000451E2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6349CEEB14F4DFDD00DEF564 /* MOViewController.m in Sources */,
+				63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */,
+				63E6304114F77CEE00923CB9 /* MOTexture.m in Sources */,
+				63E6304514F780AB00923CB9 /* MOResourceInfo-Internal.m in Sources */,
+				63FD0DFE14FAD857001E3164 /* UIDevice+MOAdditions.m in Sources */,
+				63FD0E0214FADA31001E3164 /* UIScreen+MOAdditions.m in Sources */,
+				63FD0E0314FADD4A001E3164 /* NSBundle+MOAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63B5739314F4D38000451E2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63E6304B14F78C7C00923CB9 /* MOResourceManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		63B5739F14F4D38000451E2E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63B5738714F4D38000451E2E /* Mocha2D */;
+			targetProxy = 63B5739E14F4D38000451E2E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		63B573AA14F4D38000451E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		63B573AB14F4D38000451E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = NS_BLOCK_ASSERTIONS;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		63B573AD14F4D38000451E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Mocha2D.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		63B573AE14F4D38000451E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Mocha2D.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		63B573B014F4D38000451E2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		63B573B114F4D38000451E2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		63B5738214F4D38000451E2E /* Build configuration list for PBXProject "Mocha2D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B573AA14F4D38000451E2E /* Debug */,
+				63B573AB14F4D38000451E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63B573AC14F4D38000451E2E /* Build configuration list for PBXNativeTarget "Mocha2D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B573AD14F4D38000451E2E /* Debug */,
+				63B573AE14F4D38000451E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63B573AF14F4D38000451E2E /* Build configuration list for PBXNativeTarget "Mocha2DTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B573B014F4D38000451E2E /* Debug */,
+				63B573B114F4D38000451E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 63B5737F14F4D38000451E2E /* Project object */;
+}

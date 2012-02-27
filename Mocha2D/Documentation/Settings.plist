@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--project-name</key>
+	<string>Mocha2D</string>
+	<key>--project-company</key>
+	<string>hart[dev]</string>
+	<key>--company-id</key>
+	<string>com.hart-dev</string>
+	<key>--templates</key>
+	<string>Templates</string>
+	<key>--repeat-first-par</key>
+	<false/>
+	<key>--create-html</key>
+	<true/>
+	<key>--create-docset</key>
+	<true/>
+	<key>--install-docset</key>
+	<true/>
+	<key>--ignore</key>
+	<string>.m</string>
+	<key>--ignore</key>
+	<string>-Internal.h</string>
+	<key>--input</key>
+	<array>
+		<string>../Sources</string>
+	</array>
+	<key>--output</key>
+	<string>.</string>
+</dict>
+</plist>
