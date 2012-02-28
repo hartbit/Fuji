@@ -29,6 +29,11 @@
 
 - (NSString*)platformPathForResource:(NSString*)name ofType:(NSString*)extension
 {
+	MOAssertError(MOStringIsValid(name), @"name=%@", name);
+	MOAssertError(MOStringIsValid(extension), @"extension=%@", extension);
+	
+	NSAssert(name != nil, @"");
+	
 	NSString* platformSuffix = [[UIDevice currentDevice] platformSuffix];
 	NSString* scaleSuffix = [[UIScreen mainScreen] scaleSuffix];
 	BOOL hasScaleSuffix = MOStringIsValid(scaleSuffix);

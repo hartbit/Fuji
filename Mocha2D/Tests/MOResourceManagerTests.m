@@ -11,6 +11,7 @@
 #import "MOResourceManager.h"
 #import "MOTexture.h"
 #import "MOTestMacros.h"
+#import "NSBundle+MOAdditions.h"
 
 
 #define NONEXISTANT @"Nonexistent.png"

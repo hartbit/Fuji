@@ -47,7 +47,7 @@
 
 - (BOOL)resourceIsLoadedWithName:(NSString*)name
 {
-	NSAssert(MOStringIsValid(name), @"");
+	MOAssertError(MOStringIsValid(name), @"name=%@", name);
 	
 	return [[self resources] objectForKey:name] != nil;
 }
@@ -66,7 +66,7 @@
 
 - (MOTexture*)textureWithName:(NSString*)name
 {
-	NSAssert(MOStringIsValid(name), @"");
+	MOAssertError(MOStringIsValid(name), @"name=%@", name);
 	
 	MOTexture* texture = [self resourceWithName:name type:[MOTexture class]];
 	
@@ -82,7 +82,7 @@
 
 - (void)textureWithName:(NSString*)name completion:(void (^)(MOTexture* texture))completion;
 {
-	NSAssert(MOStringIsValid(name), @"");
+	MOAssertError(MOStringIsValid(name), @"name=%@", name);
 	
 	MOTexture* texture = [self resourceWithName:name type:[MOTexture class]];
 	
@@ -107,8 +107,8 @@
 
 - (id)resourceWithName:(NSString*)name type:(Class)class
 {
-	NSAssert(MOStringIsValid(name), @"");
-	NSAssert(class != NULL, @"");
+	MOAssertError(MOStringIsValid(name), @"name=%@", name);
+	MOAssertError(class != NULL, nil);
 	
 	id resource = [[self resources] objectForKey:name];
 	
@@ -123,8 +123,8 @@
 
 - (void)setResource:(id)resource withName:(NSString*)name
 {
-	NSAssert(resource != nil, @"");
-	NSAssert(MOStringIsValid(name), @"");
+	MOAssertError(resource != nil, nil);
+	MOAssertError(MOStringIsValid(name), @"name=%@", name);
 	
 	[[self resources] setObject:resource forKey:name];
 }

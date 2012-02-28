@@ -9,16 +9,18 @@
 /* Begin PBXBuildFile section */
 		6349CEEA14F4DFDD00DEF564 /* MOViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6349CEE814F4DFDD00DEF564 /* MOViewController.h */; };
 		6349CEEB14F4DFDD00DEF564 /* MOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6349CEE914F4DFDD00DEF564 /* MOViewController.m */; };
-		635D54FB14FB940F002A9A2E /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 635D54F314FB940F002A9A2E /* DDASLLogger.h */; };
-		635D54FC14FB940F002A9A2E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D54F414FB940F002A9A2E /* DDASLLogger.m */; };
-		635D54FD14FB940F002A9A2E /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 635D54F514FB940F002A9A2E /* DDFileLogger.h */; };
-		635D54FE14FB940F002A9A2E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D54F614FB940F002A9A2E /* DDFileLogger.m */; };
-		635D54FF14FB940F002A9A2E /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 635D54F714FB940F002A9A2E /* DDLog.h */; };
-		635D550014FB940F002A9A2E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D54F814FB940F002A9A2E /* DDLog.m */; };
-		635D550114FB940F002A9A2E /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 635D54F914FB940F002A9A2E /* DDTTYLogger.h */; };
-		635D550214FB940F002A9A2E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D54FA14FB940F002A9A2E /* DDTTYLogger.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
+		638FAF5114FBCC6F0034BD8E /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4914FBCC6F0034BD8E /* DDASLLogger.h */; };
+		638FAF5214FBCC6F0034BD8E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF4A14FBCC6F0034BD8E /* DDASLLogger.m */; };
+		638FAF5314FBCC6F0034BD8E /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4B14FBCC6F0034BD8E /* DDFileLogger.h */; };
+		638FAF5414FBCC6F0034BD8E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF4C14FBCC6F0034BD8E /* DDFileLogger.m */; };
+		638FAF5514FBCC6F0034BD8E /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4D14FBCC6F0034BD8E /* DDLog.h */; };
+		638FAF5614FBCC6F0034BD8E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF4E14FBCC6F0034BD8E /* DDLog.m */; };
+		638FAF5714FBCC6F0034BD8E /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4F14FBCC6F0034BD8E /* DDTTYLogger.h */; };
+		638FAF5814FBCC6F0034BD8E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF5014FBCC6F0034BD8E /* DDTTYLogger.m */; };
+		63A159A514FD1DB500364D24 /* MOScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 63A159A314FD1DB500364D24 /* MOScene.h */; };
+		63A159A614FD1DB500364D24 /* MOScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* MOScene.m */; };
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
@@ -54,16 +56,20 @@
 /* Begin PBXFileReference section */
 		6349CEE814F4DFDD00DEF564 /* MOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOViewController.h; sourceTree = "<group>"; };
 		6349CEE914F4DFDD00DEF564 /* MOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOViewController.m; sourceTree = "<group>"; };
-		635D54F314FB940F002A9A2E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Lumberjack/DDASLLogger.h; sourceTree = "<group>"; };
-		635D54F414FB940F002A9A2E /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Lumberjack/DDASLLogger.m; sourceTree = "<group>"; };
-		635D54F514FB940F002A9A2E /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Lumberjack/DDFileLogger.h; sourceTree = "<group>"; };
-		635D54F614FB940F002A9A2E /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Lumberjack/DDFileLogger.m; sourceTree = "<group>"; };
-		635D54F714FB940F002A9A2E /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Lumberjack/DDLog.h; sourceTree = "<group>"; };
-		635D54F814FB940F002A9A2E /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Lumberjack/DDLog.m; sourceTree = "<group>"; };
-		635D54F914FB940F002A9A2E /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Lumberjack/DDTTYLogger.h; sourceTree = "<group>"; };
-		635D54FA14FB940F002A9A2E /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Lumberjack/DDTTYLogger.m; sourceTree = "<group>"; };
+		634F0EF714FBCF86003F1F88 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		638FAF4914FBCC6F0034BD8E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = "Libraries/Cocoa Lumberjack/DDASLLogger.h"; sourceTree = SOURCE_ROOT; };
+		638FAF4A14FBCC6F0034BD8E /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = "Libraries/Cocoa Lumberjack/DDASLLogger.m"; sourceTree = SOURCE_ROOT; };
+		638FAF4B14FBCC6F0034BD8E /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = "Libraries/Cocoa Lumberjack/DDFileLogger.h"; sourceTree = SOURCE_ROOT; };
+		638FAF4C14FBCC6F0034BD8E /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = "Libraries/Cocoa Lumberjack/DDFileLogger.m"; sourceTree = SOURCE_ROOT; };
+		638FAF4D14FBCC6F0034BD8E /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = "Libraries/Cocoa Lumberjack/DDLog.h"; sourceTree = SOURCE_ROOT; };
+		638FAF4E14FBCC6F0034BD8E /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = "Libraries/Cocoa Lumberjack/DDLog.m"; sourceTree = SOURCE_ROOT; };
+		638FAF4F14FBCC6F0034BD8E /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = "Libraries/Cocoa Lumberjack/DDTTYLogger.h"; sourceTree = SOURCE_ROOT; };
+		638FAF5014FBCC6F0034BD8E /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = "Libraries/Cocoa Lumberjack/DDTTYLogger.m"; sourceTree = SOURCE_ROOT; };
+		638FAF5914FBCCDB0034BD8E /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Libraries/Hamcrest/OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		63A159A314FD1DB500364D24 /* MOScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOScene.h; sourceTree = "<group>"; };
+		63A159A414FD1DB500364D24 /* MOScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOScene.m; sourceTree = "<group>"; };
 		63B5738814F4D38000451E2E /* libMocha2D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMocha2D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63B5739014F4D38000451E2E /* Mocha2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mocha2D.h; sourceTree = "<group>"; };
@@ -121,6 +127,8 @@
 			children = (
 				6349CEE814F4DFDD00DEF564 /* MOViewController.h */,
 				6349CEE914F4DFDD00DEF564 /* MOViewController.m */,
+				63A159A314FD1DB500364D24 /* MOScene.h */,
+				63A159A414FD1DB500364D24 /* MOScene.m */,
 			);
 			name = Rendering;
 			sourceTree = "<group>";
@@ -143,14 +151,14 @@
 		635D54F214FB93FB002A9A2E /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
-				635D54F314FB940F002A9A2E /* DDASLLogger.h */,
-				635D54F414FB940F002A9A2E /* DDASLLogger.m */,
-				635D54F514FB940F002A9A2E /* DDFileLogger.h */,
-				635D54F614FB940F002A9A2E /* DDFileLogger.m */,
-				635D54F714FB940F002A9A2E /* DDLog.h */,
-				635D54F814FB940F002A9A2E /* DDLog.m */,
-				635D54F914FB940F002A9A2E /* DDTTYLogger.h */,
-				635D54FA14FB940F002A9A2E /* DDTTYLogger.m */,
+				638FAF4914FBCC6F0034BD8E /* DDASLLogger.h */,
+				638FAF4A14FBCC6F0034BD8E /* DDASLLogger.m */,
+				638FAF4B14FBCC6F0034BD8E /* DDFileLogger.h */,
+				638FAF4C14FBCC6F0034BD8E /* DDFileLogger.m */,
+				638FAF4D14FBCC6F0034BD8E /* DDLog.h */,
+				638FAF4E14FBCC6F0034BD8E /* DDLog.m */,
+				638FAF4F14FBCC6F0034BD8E /* DDTTYLogger.h */,
+				638FAF5014FBCC6F0034BD8E /* DDTTYLogger.m */,
 			);
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
@@ -178,6 +186,8 @@
 		63B5738A14F4D38000451E2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				634F0EF714FBCF86003F1F88 /* libstdc++.dylib */,
+				638FAF5914FBCCDB0034BD8E /* OCHamcrestIOS.framework */,
 				63E6304614F781EB00923CB9 /* OpenGLES.framework */,
 				636A987814F4ED0B00FF2D12 /* GLKit.framework */,
 				636A987614F4ED0700FF2D12 /* UIKit.framework */,
@@ -272,10 +282,11 @@
 				63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */,
 				63FD0DFD14FAD857001E3164 /* UIDevice+MOAdditions.h in Headers */,
 				63FD0E0114FADA31001E3164 /* UIScreen+MOAdditions.h in Headers */,
-				635D54FB14FB940F002A9A2E /* DDASLLogger.h in Headers */,
-				635D54FD14FB940F002A9A2E /* DDFileLogger.h in Headers */,
-				635D54FF14FB940F002A9A2E /* DDLog.h in Headers */,
-				635D550114FB940F002A9A2E /* DDTTYLogger.h in Headers */,
+				638FAF5114FBCC6F0034BD8E /* DDASLLogger.h in Headers */,
+				638FAF5314FBCC6F0034BD8E /* DDFileLogger.h in Headers */,
+				638FAF5514FBCC6F0034BD8E /* DDLog.h in Headers */,
+				638FAF5714FBCC6F0034BD8E /* DDTTYLogger.h in Headers */,
+				63A159A514FD1DB500364D24 /* MOScene.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +317,7 @@
 				63B5739314F4D38000451E2E /* Sources */,
 				63B5739414F4D38000451E2E /* Frameworks */,
 				63B5739514F4D38000451E2E /* Resources */,
-				63B5739614F4D38000451E2E /* ShellScript */,
+				63B5739614F4D38000451E2E /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -358,13 +369,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		63B5739614F4D38000451E2E /* ShellScript */ = {
+		63B5739614F4D38000451E2E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,10 +396,11 @@
 				63FD0DFE14FAD857001E3164 /* UIDevice+MOAdditions.m in Sources */,
 				63FD0E0214FADA31001E3164 /* UIScreen+MOAdditions.m in Sources */,
 				63FD0E0314FADD4A001E3164 /* NSBundle+MOAdditions.m in Sources */,
-				635D54FC14FB940F002A9A2E /* DDASLLogger.m in Sources */,
-				635D54FE14FB940F002A9A2E /* DDFileLogger.m in Sources */,
-				635D550014FB940F002A9A2E /* DDLog.m in Sources */,
-				635D550214FB940F002A9A2E /* DDTTYLogger.m in Sources */,
+				638FAF5214FBCC6F0034BD8E /* DDASLLogger.m in Sources */,
+				638FAF5414FBCC6F0034BD8E /* DDFileLogger.m in Sources */,
+				638FAF5614FBCC6F0034BD8E /* DDLog.m in Sources */,
+				638FAF5814FBCC6F0034BD8E /* DDTTYLogger.m in Sources */,
+				63A159A614FD1DB500364D24 /* MOScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +470,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/Mocha2D.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries/Hamcrest\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -468,7 +484,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/Mocha2D.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries/Hamcrest\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

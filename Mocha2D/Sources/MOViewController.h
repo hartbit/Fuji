@@ -8,9 +8,14 @@
 
 #import <GLKit/GLKit.h>
 
+
+@class MOScene;
+
 /** MOViewController
  * This is the view controller class.
  */
-@interface MOViewController : GLKViewController
+@interface MOViewController : GLKViewController <GLKViewDelegate>
+
+@property (nonatomic, strong) MOScene* scene;
 
 @end
