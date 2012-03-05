@@ -1,0 +1,3 @@
+[submodule "Mocha2D/Libraries/Kiwi"]
+	path = Mocha2D/Libraries/Kiwi
+	url = https://github.com/allending/Kiwi.git
