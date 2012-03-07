@@ -12,8 +12,12 @@
 
 @interface MOTransform : MOComponent
 
-@property (nonatomic, readonly) GLKVector2 position;
-@property (nonatomic, readonly) float rotation;
-@property (nonatomic, readonly) GLKVector2 scale;
+@property (nonatomic) GLKVector2 position;
+@property (nonatomic) float positionX;
+@property (nonatomic) float positionY;
+@property (nonatomic) float rotation;
+@property (nonatomic) GLKVector2 scale;
+@property (nonatomic) float scaleX;
+@property (nonatomic) float scaleY;
 
 @end
