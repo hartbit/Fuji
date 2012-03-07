@@ -54,12 +54,15 @@
 
 - (void)purgeResources
 {
+	[[self resources] removeAllObjects];
+/*
 	[[self resources] enumerateKeysAndObjectsUsingBlock:^(id name, id resource, BOOL* stop) {
 		if ([resource retainCount] == 1)
 		{
 			[[self resources] removeObjectForKey:name];
 		}
 	}];
+*/
 }
 
 #pragma mark - Texture Loading
@@ -74,7 +77,6 @@
 	{
 		texture = [[MOTexture alloc] initWithName:name];
 		[self setResource:texture withName:name];
-		[texture release];
 	}
 	
 	return texture;

@@ -63,14 +63,3 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 	}); \
 	return _sSharedInstance; \
 } while(0)
-
-
-static __inline__ GLKVector3 MOColor3WithBytes(GLubyte red, GLubyte green, GLubyte blue)
-{
-	return (GLKVector3){ red/255.0f, green/255.0f, blue/255.0f };
-}
-
-static __inline__ GLKVector4 MOColor4WithBytes(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
-{
-	return (GLKVector4){ red/255.0f, green/255.0f, blue/255.0f, alpha/255.0f };
-}

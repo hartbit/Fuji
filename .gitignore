@@ -13,7 +13,5 @@ build/
 
 xcuserdata
 
-Resources/Atlases/*.plist
-Resources/Atlases/*.png
-Resources/Atlases/*.pvr.ccz
-Resources/Sounds/*.caf
+Pods
+

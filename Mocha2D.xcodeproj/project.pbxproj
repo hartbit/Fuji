@@ -7,67 +7,76 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63117F2414FFAD3700A04563 /* MOGameObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2214FFAD3700A04563 /* MOGameObject.h */; };
+		63117F2514FFAD3700A04563 /* MOGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* MOGameObject.m */; };
+		63117F2914FFB87A00A04563 /* MOComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2714FFB87A00A04563 /* MOComponent.h */; };
+		63117F2A14FFB87A00A04563 /* MOComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* MOComponent.m */; };
+		63117F2D14FFB9E800A04563 /* MOTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2C14FFB9AD00A04563 /* MOTransform.m */; };
+		63117F2F14FFBBCB00A04563 /* MOComponent-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2E14FFBBCB00A04563 /* MOComponent-Internal.h */; };
+		633EE87C14FEE4E900281AC1 /* MOMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 633EE87A14FEE4E900281AC1 /* MOMath.h */; };
+		633EE87D14FEE4E900281AC1 /* MOMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 633EE87B14FEE4E900281AC1 /* MOMath.m */; };
+		634263351507904F003BFF83 /* MOComponentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F3114FFBF1300A04563 /* MOComponentSpec.m */; };
+		634263361507913C003BFF83 /* MOTransformSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F3414FFC07500A04563 /* MOTransformSpec.m */; };
 		6349CEEA14F4DFDD00DEF564 /* MOViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6349CEE814F4DFDD00DEF564 /* MOViewController.h */; };
 		6349CEEB14F4DFDD00DEF564 /* MOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6349CEE914F4DFDD00DEF564 /* MOViewController.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
-		638FAF5114FBCC6F0034BD8E /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4914FBCC6F0034BD8E /* DDASLLogger.h */; };
-		638FAF5214FBCC6F0034BD8E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF4A14FBCC6F0034BD8E /* DDASLLogger.m */; };
-		638FAF5314FBCC6F0034BD8E /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4B14FBCC6F0034BD8E /* DDFileLogger.h */; };
-		638FAF5414FBCC6F0034BD8E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF4C14FBCC6F0034BD8E /* DDFileLogger.m */; };
-		638FAF5514FBCC6F0034BD8E /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4D14FBCC6F0034BD8E /* DDLog.h */; };
-		638FAF5614FBCC6F0034BD8E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF4E14FBCC6F0034BD8E /* DDLog.m */; };
-		638FAF5714FBCC6F0034BD8E /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 638FAF4F14FBCC6F0034BD8E /* DDTTYLogger.h */; };
-		638FAF5814FBCC6F0034BD8E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 638FAF5014FBCC6F0034BD8E /* DDTTYLogger.m */; };
+		6384F30215051E3F0041D04A /* MOGameObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F588711505008800AAD0FF /* MOGameObjectSpec.m */; };
 		63A159A514FD1DB500364D24 /* MOScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 63A159A314FD1DB500364D24 /* MOScene.h */; };
 		63A159A614FD1DB500364D24 /* MOScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* MOScene.m */; };
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
-		63B573A014F4D38000451E2E /* libMocha2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738814F4D38000451E2E /* libMocha2D.a */; };
 		63E6303A14F7791700923CB9 /* MOResourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303814F7791700923CB9 /* MOResourceManager.h */; };
-		63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303914F7791700923CB9 /* MOResourceManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303914F7791700923CB9 /* MOResourceManager.m */; };
 		63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303E14F77CEE00923CB9 /* MOTexture.h */; };
 		63E6304114F77CEE00923CB9 /* MOTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303F14F77CEE00923CB9 /* MOTexture.m */; };
 		63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
-		63E6304B14F78C7C00923CB9 /* MOResourceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */; };
 		63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
 		63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		63E6305614F7932A00923CB9 /* Invalid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63E6305514F7932A00923CB9 /* Invalid.txt */; };
 		63E6305814F793E200923CB9 /* Valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E6305714F793E200923CB9 /* Valid.png */; };
+		63F339B21506633200BF36A9 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F339B11506633200BF36A9 /* libPods-test.a */; };
+		63F339C415066B7100BF36A9 /* MOGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* MOGameObject.m */; };
+		63F339C515066B7500BF36A9 /* MOScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* MOScene.m */; };
+		63F339C615066B7500BF36A9 /* MOComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* MOComponent.m */; };
+		63F339C715066B7500BF36A9 /* MOTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2C14FFB9AD00A04563 /* MOTransform.m */; };
+		63F339C815066B7A00BF36A9 /* MOResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303914F7791700923CB9 /* MOResourceManager.m */; };
+		63F339C915066B7A00BF36A9 /* MOTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303F14F77CEE00923CB9 /* MOTexture.m */; };
+		63F339CA15066B7F00BF36A9 /* MOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6349CEE914F4DFDD00DEF564 /* MOViewController.m */; };
+		63F339CB15066BF300BF36A9 /* MOMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 633EE87B14FEE4E900281AC1 /* MOMath.m */; };
+		63F339CC15066BF300BF36A9 /* NSBundle+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */; };
+		63F339CD15066BF300BF36A9 /* UIDevice+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */; };
+		63F339CE15066BF300BF36A9 /* UIScreen+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD0E0014FADA31001E3164 /* UIScreen+MOAdditions.m */; };
+		63F5885A1504E1EC00AAD0FF /* MOResourceManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F588591504E1EC00AAD0FF /* MOResourceManagerSpec.m */; };
+		63F588721505008800AAD0FF /* MOGameObjectSpec.m in Resources */ = {isa = PBXBuildFile; fileRef = 63F588711505008800AAD0FF /* MOGameObjectSpec.m */; };
 		63FD0DFD14FAD857001E3164 /* UIDevice+MOAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */; };
 		63FD0DFE14FAD857001E3164 /* UIDevice+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */; };
 		63FD0E0114FADA31001E3164 /* UIScreen+MOAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD0DFF14FADA31001E3164 /* UIScreen+MOAdditions.h */; };
 		63FD0E0214FADA31001E3164 /* UIScreen+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FD0E0014FADA31001E3164 /* UIScreen+MOAdditions.m */; };
 		63FD0E0314FADD4A001E3164 /* NSBundle+MOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */; };
+		AC27C6AEAE7E4FF7AEEDA7BA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C58DA6BA0EC42DA91C25F25 /* libPods.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		63B5739E14F4D38000451E2E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63B5737F14F4D38000451E2E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63B5738714F4D38000451E2E;
-			remoteInfo = Mocha2D;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		4C58DA6BA0EC42DA91C25F25 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		63117F2214FFAD3700A04563 /* MOGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOGameObject.h; sourceTree = "<group>"; };
+		63117F2314FFAD3700A04563 /* MOGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGameObject.m; sourceTree = "<group>"; };
+		63117F2614FFAD9500A04563 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		63117F2714FFB87A00A04563 /* MOComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOComponent.h; sourceTree = "<group>"; };
+		63117F2814FFB87A00A04563 /* MOComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOComponent.m; sourceTree = "<group>"; };
+		63117F2B14FFB9AD00A04563 /* MOTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOTransform.h; sourceTree = "<group>"; };
+		63117F2C14FFB9AD00A04563 /* MOTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOTransform.m; sourceTree = "<group>"; };
+		63117F2E14FFBBCB00A04563 /* MOComponent-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MOComponent-Internal.h"; sourceTree = "<group>"; };
+		63117F3114FFBF1300A04563 /* MOComponentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOComponentSpec.m; sourceTree = "<group>"; };
+		63117F3414FFC07500A04563 /* MOTransformSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOTransformSpec.m; sourceTree = "<group>"; };
+		633EE87A14FEE4E900281AC1 /* MOMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOMath.h; sourceTree = "<group>"; };
+		633EE87B14FEE4E900281AC1 /* MOMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOMath.m; sourceTree = "<group>"; };
 		6349CEE814F4DFDD00DEF564 /* MOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOViewController.h; sourceTree = "<group>"; };
 		6349CEE914F4DFDD00DEF564 /* MOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOViewController.m; sourceTree = "<group>"; };
-		634F0EF714FBCF86003F1F88 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		638FAF4914FBCC6F0034BD8E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = "Libraries/Cocoa Lumberjack/DDASLLogger.h"; sourceTree = SOURCE_ROOT; };
-		638FAF4A14FBCC6F0034BD8E /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = "Libraries/Cocoa Lumberjack/DDASLLogger.m"; sourceTree = SOURCE_ROOT; };
-		638FAF4B14FBCC6F0034BD8E /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = "Libraries/Cocoa Lumberjack/DDFileLogger.h"; sourceTree = SOURCE_ROOT; };
-		638FAF4C14FBCC6F0034BD8E /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = "Libraries/Cocoa Lumberjack/DDFileLogger.m"; sourceTree = SOURCE_ROOT; };
-		638FAF4D14FBCC6F0034BD8E /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = "Libraries/Cocoa Lumberjack/DDLog.h"; sourceTree = SOURCE_ROOT; };
-		638FAF4E14FBCC6F0034BD8E /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = "Libraries/Cocoa Lumberjack/DDLog.m"; sourceTree = SOURCE_ROOT; };
-		638FAF4F14FBCC6F0034BD8E /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = "Libraries/Cocoa Lumberjack/DDTTYLogger.h"; sourceTree = SOURCE_ROOT; };
-		638FAF5014FBCC6F0034BD8E /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = "Libraries/Cocoa Lumberjack/DDTTYLogger.m"; sourceTree = SOURCE_ROOT; };
-		638FAF5914FBCCDB0034BD8E /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Libraries/Hamcrest/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		63A159A314FD1DB500364D24 /* MOScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOScene.h; sourceTree = "<group>"; };
 		63A159A414FD1DB500364D24 /* MOScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOScene.m; sourceTree = "<group>"; };
 		63B5738814F4D38000451E2E /* libMocha2D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMocha2D.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,17 +90,20 @@
 		63E6303E14F77CEE00923CB9 /* MOTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOTexture.h; sourceTree = "<group>"; };
 		63E6303F14F77CEE00923CB9 /* MOTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOTexture.m; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManagerTests.m; sourceTree = "<group>"; };
 		63E6305514F7932A00923CB9 /* Invalid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Invalid.txt; sourceTree = "<group>"; };
 		63E6305714F793E200923CB9 /* Valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid.png; sourceTree = "<group>"; };
 		63E6305914F7A6F300923CB9 /* NSBundle+MOAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MOAdditions.h"; sourceTree = "<group>"; };
 		63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MOAdditions.m"; sourceTree = "<group>"; };
+		63F339B11506633200BF36A9 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63F339B41506665700BF36A9 /* Pods-test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
+		63F339BB150667FD00BF36A9 /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		63F588591504E1EC00AAD0FF /* MOResourceManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManagerSpec.m; sourceTree = "<group>"; };
+		63F588711505008800AAD0FF /* MOGameObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGameObjectSpec.m; sourceTree = "<group>"; };
 		63FD0D7E14FABC0E001E3164 /* MOTexture-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MOTexture-Internal.h"; sourceTree = "<group>"; };
 		63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+MOAdditions.h"; sourceTree = "<group>"; };
 		63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+MOAdditions.m"; sourceTree = "<group>"; };
 		63FD0DFF14FADA31001E3164 /* UIScreen+MOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+MOAdditions.h"; sourceTree = "<group>"; };
 		63FD0E0014FADA31001E3164 /* UIScreen+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+MOAdditions.m"; sourceTree = "<group>"; };
-		63FD0E3714FAEEDB001E3164 /* MOTestMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOTestMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +115,7 @@
 				636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */,
 				636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */,
 				63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */,
+				AC27C6AEAE7E4FF7AEEDA7BA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,25 +123,57 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F339B21506633200BF36A9 /* libPods-test.a in Frameworks */,
 				63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */,
-				63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */,
 				63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */,
+				63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */,
 				63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */,
 				63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */,
-				63B573A014F4D38000451E2E /* libMocha2D.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63117F1E14FFAAFE00A04563 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				63F588711505008800AAD0FF /* MOGameObjectSpec.m */,
+				63117F3114FFBF1300A04563 /* MOComponentSpec.m */,
+				63117F3414FFC07500A04563 /* MOTransformSpec.m */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
+		633EE84D14FE78B200281AC1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				633EE87414FED8C400281AC1 /* Internal */,
+				63A159A314FD1DB500364D24 /* MOScene.h */,
+				63A159A414FD1DB500364D24 /* MOScene.m */,
+				63117F2214FFAD3700A04563 /* MOGameObject.h */,
+				63117F2314FFAD3700A04563 /* MOGameObject.m */,
+				63117F2714FFB87A00A04563 /* MOComponent.h */,
+				63117F2814FFB87A00A04563 /* MOComponent.m */,
+				63117F2B14FFB9AD00A04563 /* MOTransform.h */,
+				63117F2C14FFB9AD00A04563 /* MOTransform.m */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
+		633EE87414FED8C400281AC1 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				63117F2E14FFBBCB00A04563 /* MOComponent-Internal.h */,
+			);
+			name = Internal;
+			sourceTree = "<group>";
+		};
 		6349CED514F4D4C200DEF564 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
 				6349CEE814F4DFDD00DEF564 /* MOViewController.h */,
 				6349CEE914F4DFDD00DEF564 /* MOViewController.m */,
-				63A159A314FD1DB500364D24 /* MOScene.h */,
-				63A159A414FD1DB500364D24 /* MOScene.m */,
 			);
 			name = Rendering;
 			sourceTree = "<group>";
@@ -140,37 +185,15 @@
 			name = Rendering;
 			sourceTree = "<group>";
 		};
-		635D54F114FB93F1002A9A2E /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				635D54F214FB93FB002A9A2E /* CocoaLumberjack */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
-		635D54F214FB93FB002A9A2E /* CocoaLumberjack */ = {
-			isa = PBXGroup;
-			children = (
-				638FAF4914FBCC6F0034BD8E /* DDASLLogger.h */,
-				638FAF4A14FBCC6F0034BD8E /* DDASLLogger.m */,
-				638FAF4B14FBCC6F0034BD8E /* DDFileLogger.h */,
-				638FAF4C14FBCC6F0034BD8E /* DDFileLogger.m */,
-				638FAF4D14FBCC6F0034BD8E /* DDLog.h */,
-				638FAF4E14FBCC6F0034BD8E /* DDLog.m */,
-				638FAF4F14FBCC6F0034BD8E /* DDTTYLogger.h */,
-				638FAF5014FBCC6F0034BD8E /* DDTTYLogger.m */,
-			);
-			path = CocoaLumberjack;
-			sourceTree = "<group>";
-		};
 		63B5737D14F4D38000451E2E = {
 			isa = PBXGroup;
 			children = (
 				63B5738D14F4D38000451E2E /* Sources */,
-				635D54F114FB93F1002A9A2E /* Libraries */,
 				63B573A114F4D38000451E2E /* Tests */,
 				63B5738A14F4D38000451E2E /* Frameworks */,
 				63B5738914F4D38000451E2E /* Products */,
+				63F339BB150667FD00BF36A9 /* Pods.xcconfig */,
+				63F339B41506665700BF36A9 /* Pods-test.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,13 +209,13 @@
 		63B5738A14F4D38000451E2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				634F0EF714FBCF86003F1F88 /* libstdc++.dylib */,
-				638FAF5914FBCCDB0034BD8E /* OCHamcrestIOS.framework */,
 				63E6304614F781EB00923CB9 /* OpenGLES.framework */,
 				636A987814F4ED0B00FF2D12 /* GLKit.framework */,
 				636A987614F4ED0700FF2D12 /* UIKit.framework */,
 				63B5738B14F4D38000451E2E /* Foundation.framework */,
 				63B5739914F4D38000451E2E /* SenTestingKit.framework */,
+				4C58DA6BA0EC42DA91C25F25 /* libPods.a */,
+				63F339B11506633200BF36A9 /* libPods-test.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -201,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				63E6303614F778F100923CB9 /* Resources */,
+				633EE84D14FE78B200281AC1 /* Scene */,
 				6349CED514F4D4C200DEF564 /* Rendering */,
 				63E6303C14F77B4B00923CB9 /* Support */,
 				63B5739014F4D38000451E2E /* Mocha2D.h */,
@@ -212,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				63E6304814F78C6A00923CB9 /* Resources */,
+				63117F1E14FFAAFE00A04563 /* Scene */,
 				6349CED614F4D50300DEF564 /* Rendering */,
 				63FD0E3614FAEECA001E3164 /* Support */,
 			);
@@ -234,6 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				63E6303D14F77B5F00923CB9 /* MOMacros.h */,
+				633EE87A14FEE4E900281AC1 /* MOMath.h */,
+				633EE87B14FEE4E900281AC1 /* MOMath.m */,
 				63E6305914F7A6F300923CB9 /* NSBundle+MOAdditions.h */,
 				63E6305A14F7A75500923CB9 /* NSBundle+MOAdditions.m */,
 				63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */,
@@ -247,7 +274,7 @@
 		63E6304814F78C6A00923CB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				63E6304A14F78C7C00923CB9 /* MOResourceManagerTests.m */,
+				63F588591504E1EC00AAD0FF /* MOResourceManagerSpec.m */,
 				63E6305514F7932A00923CB9 /* Invalid.txt */,
 				63E6305714F793E200923CB9 /* Valid.png */,
 			);
@@ -265,7 +292,7 @@
 		63FD0E3614FAEECA001E3164 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				63FD0E3714FAEEDB001E3164 /* MOTestMacros.h */,
+				63117F2614FFAD9500A04563 /* Prefix.pch */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -282,11 +309,11 @@
 				63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */,
 				63FD0DFD14FAD857001E3164 /* UIDevice+MOAdditions.h in Headers */,
 				63FD0E0114FADA31001E3164 /* UIScreen+MOAdditions.h in Headers */,
-				638FAF5114FBCC6F0034BD8E /* DDASLLogger.h in Headers */,
-				638FAF5314FBCC6F0034BD8E /* DDFileLogger.h in Headers */,
-				638FAF5514FBCC6F0034BD8E /* DDLog.h in Headers */,
-				638FAF5714FBCC6F0034BD8E /* DDTTYLogger.h in Headers */,
 				63A159A514FD1DB500364D24 /* MOScene.h in Headers */,
+				633EE87C14FEE4E900281AC1 /* MOMath.h in Headers */,
+				63117F2414FFAD3700A04563 /* MOGameObject.h in Headers */,
+				63117F2914FFB87A00A04563 /* MOComponent.h in Headers */,
+				63117F2F14FFBBCB00A04563 /* MOComponent-Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +327,7 @@
 				63B5738414F4D38000451E2E /* Sources */,
 				63B5738514F4D38000451E2E /* Frameworks */,
 				63B5738614F4D38000451E2E /* Headers */,
+				02587F2CC40C4CE399F0508F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,11 +346,11 @@
 				63B5739414F4D38000451E2E /* Frameworks */,
 				63B5739514F4D38000451E2E /* Resources */,
 				63B5739614F4D38000451E2E /* Run Script */,
+				02587F2CC40C4CE399F0508F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				63B5739F14F4D38000451E2E /* PBXTargetDependency */,
 			);
 			name = Mocha2DTests;
 			productName = Mocha2DTests;
@@ -363,12 +391,27 @@
 			files = (
 				63E6305614F7932A00923CB9 /* Invalid.txt in Resources */,
 				63E6305814F793E200923CB9 /* Valid.png in Resources */,
+				63F588721505008800AAD0FF /* MOGameObjectSpec.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		02587F2CC40C4CE399F0508F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 		63B5739614F4D38000451E2E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,11 +439,11 @@
 				63FD0DFE14FAD857001E3164 /* UIDevice+MOAdditions.m in Sources */,
 				63FD0E0214FADA31001E3164 /* UIScreen+MOAdditions.m in Sources */,
 				63FD0E0314FADD4A001E3164 /* NSBundle+MOAdditions.m in Sources */,
-				638FAF5214FBCC6F0034BD8E /* DDASLLogger.m in Sources */,
-				638FAF5414FBCC6F0034BD8E /* DDFileLogger.m in Sources */,
-				638FAF5614FBCC6F0034BD8E /* DDLog.m in Sources */,
-				638FAF5814FBCC6F0034BD8E /* DDTTYLogger.m in Sources */,
 				63A159A614FD1DB500364D24 /* MOScene.m in Sources */,
+				633EE87D14FEE4E900281AC1 /* MOMath.m in Sources */,
+				63117F2514FFAD3700A04563 /* MOGameObject.m in Sources */,
+				63117F2A14FFB87A00A04563 /* MOComponent.m in Sources */,
+				63117F2D14FFB9E800A04563 /* MOTransform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,25 +451,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63E6304B14F78C7C00923CB9 /* MOResourceManagerTests.m in Sources */,
+				63F339C415066B7100BF36A9 /* MOGameObject.m in Sources */,
+				63F339C515066B7500BF36A9 /* MOScene.m in Sources */,
+				63F339C615066B7500BF36A9 /* MOComponent.m in Sources */,
+				63F339C715066B7500BF36A9 /* MOTransform.m in Sources */,
+				63F339C815066B7A00BF36A9 /* MOResourceManager.m in Sources */,
+				63F339C915066B7A00BF36A9 /* MOTexture.m in Sources */,
+				63F339CA15066B7F00BF36A9 /* MOViewController.m in Sources */,
+				63F5885A1504E1EC00AAD0FF /* MOResourceManagerSpec.m in Sources */,
+				6384F30215051E3F0041D04A /* MOGameObjectSpec.m in Sources */,
+				63F339CB15066BF300BF36A9 /* MOMath.m in Sources */,
+				63F339CC15066BF300BF36A9 /* NSBundle+MOAdditions.m in Sources */,
+				63F339CD15066BF300BF36A9 /* UIDevice+MOAdditions.m in Sources */,
+				63F339CE15066BF300BF36A9 /* UIScreen+MOAdditions.m in Sources */,
+				634263351507904F003BFF83 /* MOComponentSpec.m in Sources */,
+				634263361507913C003BFF83 /* MOTransformSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		63B5739F14F4D38000451E2E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63B5738714F4D38000451E2E /* Mocha2D */;
-			targetProxy = 63B5739E14F4D38000451E2E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		63B573AA14F4D38000451E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -450,7 +498,6 @@
 		63B573AB14F4D38000451E2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
@@ -468,12 +515,11 @@
 		};
 		63B573AD14F4D38000451E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63F339BB150667FD00BF36A9 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Mocha2D.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Libraries/Hamcrest\"",
-				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -482,12 +528,11 @@
 		};
 		63B573AE14F4D38000451E2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63F339BB150667FD00BF36A9 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Mocha2D.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Libraries/Hamcrest\"",
-				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -496,30 +541,48 @@
 		};
 		63B573B014F4D38000451E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63F339B41506665700BF36A9 /* Pods-test.xcconfig */;
 			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tests/Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Tests/Info.plist;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "Libraries/**";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
 		63B573B114F4D38000451E2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63F339B41506665700BF36A9 /* Pods-test.xcconfig */;
 			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tests/Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Tests/Info.plist;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "Libraries/**";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
