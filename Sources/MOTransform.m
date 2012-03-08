@@ -12,6 +12,9 @@
 
 @interface MOTransform ()
 
+@property (nonatomic) GLKMatrix4 matrix;
+@property (nonatomic) BOOL needsUpdate;
+
 @end
 
 
@@ -20,8 +23,16 @@
 @synthesize position = _position;
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
+@synthesize matrix = _matrix;
+@synthesize needsUpdate = _needsUpdate;
 
 #pragma mark - Properties
+
+- (void)setPosition:(GLKVector2)position
+{
+	_position = position;
+	[self setNeedsUpdate:YES];
+}
 
 - (float)positionX
 {
@@ -47,6 +58,18 @@
 	[self setPosition:position];
 }
 
+- (void)setRotation:(float)rotation
+{
+	_rotation = rotation;
+	[self setNeedsUpdate:YES];
+}
+
+- (void)setScale:(GLKVector2)scale
+{
+	_scale = scale;
+	[self setNeedsUpdate:YES];
+}
+
 - (float)scaleX
 {
 	return [self scale].x;
@@ -69,6 +92,33 @@
 	GLKVector2 scale = [self scale];
 	scale.y = scaleY;
 	[self setScale:scale];
+}
+
+- (GLKMatrix4)matrix
+{
+	if ([self needsUpdate])
+	{
+		GLKVector2 position = [self position];
+		_matrix = GLKMatrix4MakeTranslation(position.x, position.y, 0);
+		
+		float rotation = [self rotation];
+		
+		if (rotation != 0)
+		{
+			_matrix = GLKMatrix4Rotate(_matrix, rotation, 0, 0, 1);
+		}
+		
+		GLKVector2 scale = [self scale];
+		
+		if (!GLKVector2AllEqualToScalar(scale, 1))
+		{
+			_matrix = GLKMatrix4Scale(_matrix, scale.x, scale.y, 1);
+		}
+		
+		[self setNeedsUpdate:NO];
+	}
+	
+	return _matrix;
 }
 
 #pragma mark - MOComponent Methods

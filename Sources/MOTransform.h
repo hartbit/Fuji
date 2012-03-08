@@ -19,5 +19,6 @@
 @property (nonatomic) GLKVector2 scale;
 @property (nonatomic) float scaleX;
 @property (nonatomic) float scaleY;
+@property (nonatomic, readonly) GLKMatrix4 matrix;
 
 @end
