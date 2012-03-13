@@ -7,8 +7,11 @@
 //
 
 #import "MOScene.h"
+#import "MOGameObject.h"
+#import "MOGameObject-Internal.h"
 #import "MOMacros.h"
 #import "MOMath.h"
+#import "MOColor.h"
 
 
 @implementation MOScene
@@ -21,12 +24,20 @@
 {
 	if ((self = [super init]))
 	{
-		[self setBackgroundColor:MOColor3WithBytes(100, 149, 237)];
+		[self setBackgroundColor:MOColorCornflowerBlue];
 	}
 	
 	return self;
 }
 
+#pragma mark - Public Methods
+
+- (MOGameObject*)addGameObject
+{
+	return [[MOGameObject alloc] initWithScene:self];
+}
+
+/*
 - (void)update
 {
 	
@@ -34,8 +45,8 @@
 
 - (void)render
 {
-	GLKVector3 backgroundColor = [self backgroundColor];
-	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1);
+	GLKVector4 backgroundColor = [self backgroundColor];
+	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	float vertices[] = {
@@ -49,5 +60,6 @@
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDisableVertexAttribArray(GLKVertexAttribPosition);
 }
+*/
 
 @end

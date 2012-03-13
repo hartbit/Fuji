@@ -39,15 +39,15 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 		} else { \
 			description = [NSString stringWithFormat:@"Assertion failed: '%@' (%@)", conditionString, (format)]; \
 		} \
-		DD##logMacro(description, ##__VA_ARGS__); \
+		DDLog##logMacro(description, ##__VA_ARGS__); \
 		MO##failMacro(description, ##__VA_ARGS__); \
 	} \
 } while(0)
 
-#define MOAssertError(condition, format, ...) _MOAssert(LogError, Fail, condition, @#condition, format, ##__VA_ARGS__)
-#define MOAssertWarn(condition, format, ...) _MOAssert(LogWarn, Fail, condition, @#condition, format, ##__VA_ARGS__)
-#define MOCAssertError(condition, format, ...) _MOAssert(CLogError, CFail, condition, @#condition, format, ##__VA_ARGS__)
-#define MOCAssertWarn(condition, format, ...) _MOAssert(CLogWarn, CFail, condition, @#condition, format, ##__VA_ARGS__)
+#define MOAssertError(condition, format, ...) _MOAssert(Error, Fail, condition, @#condition, format, ##__VA_ARGS__)
+#define MOAssertWarn(condition, format, ...) _MOAssert(Warn, Fail, condition, @#condition, format, ##__VA_ARGS__)
+#define MOCAssertError(condition, format, ...) _MOAssert(CError, CFail, condition, @#condition, format, ##__VA_ARGS__)
+#define MOCAssertWarn(condition, format, ...) _MOAssert(CWarn, CFail, condition, @#condition, format, ##__VA_ARGS__)
 
 
 #define MOStringIsValid(string) ((string) != nil) && ([string length] != 0)

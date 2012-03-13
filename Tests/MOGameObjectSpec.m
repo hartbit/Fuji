@@ -6,6 +6,13 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#import <SenTestingKit/SenTestingKit.h>
+#define SPT_CEDAR_SYNTAX
+#import "Specta.h"
+#define EXP_SHORTHAND
+#import "Expecta.h"
+#import "OCMock.h"
+#import "Mocha2D.h"
 #import	"MOComponent-Internal.h"
 
 
@@ -15,11 +22,11 @@ describe(@"MOGameObject", ^{
 	__block MOGameObject* gameObject = nil;
 	
 	beforeEach(^{
-		gameObject = [MOGameObject new];
+		gameObject = [[MOScene new] addGameObject];
 	});
 	
-	it(@"should return a valid game object", ^{
-		expect(gameObject).toNot.beNil();
+	it(@"should raise when initialized directly", ^{
+		STAssertThrows([MOGameObject new], nil);
 	});
 	
 	context(@"addComponentWithClass:", ^{

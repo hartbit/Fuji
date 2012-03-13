@@ -6,6 +6,6 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack
-  - Expecta
+  - Expecta (from `https://TrahDivad@github.com/TrahDivad/expecta.git')
   - OCMock
   - Specta

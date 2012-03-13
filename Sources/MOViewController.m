@@ -101,13 +101,13 @@
 
 - (void)update
 {
-	[[self scene] update];
+//	[[self scene] update];
 }
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
 	[[self effect] prepareToDraw];
-	[[self scene] render];
+//	[[self scene] render];
 }
 
 @end

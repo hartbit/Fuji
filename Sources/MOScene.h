@@ -10,11 +10,12 @@
 #import <GLKit/GLKit.h>
 
 
+@class MOGameObject;
+
 @interface MOScene : NSObject
 
-@property (nonatomic, assign) GLKVector3 backgroundColor;
+@property (nonatomic, assign) GLKVector4 backgroundColor;
 
-- (void)update;
-- (void)render;
+- (MOGameObject*)addGameObject;
 
 @end

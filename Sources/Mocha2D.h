@@ -12,17 +12,18 @@
 #import "MOResourceManager.h"
 
 // Scene
-#import	"MOScene.h"
-#import	"MOGameObject.h"
-#import	"MOComponent.h"
-#import	"MOTransform.h"
+#import "MOScene.h"
+#import "MOGameObject.h"
+#import "MOComponent.h"
+#import "MOTransform.h"
 
 // Rendering
 #import "MOViewController.h"
 
 // Support
 #import "MOMacros.h"
-#import	"MOMath.h"
-#import	"NSBundle+MOAdditions.h"
-#import	"UIDevice+MOAdditions.h"
+#import "MOColor.h"
+#import "MOMath.h"
+#import "NSBundle+MOAdditions.h"
+#import "UIDevice+MOAdditions.h"
 #import "UIScreen+MOAdditions.h"

@@ -13,8 +13,11 @@
 		63117F2A14FFB87A00A04563 /* MOComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* MOComponent.m */; };
 		63117F2D14FFB9E800A04563 /* MOTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2C14FFB9AD00A04563 /* MOTransform.m */; };
 		63117F2F14FFBBCB00A04563 /* MOComponent-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2E14FFBBCB00A04563 /* MOComponent-Internal.h */; };
+		633459F11508FABC00E9F794 /* MOSceneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 633459EF1508F5DA00E9F794 /* MOSceneSpec.m */; };
+		633459F41508FC8800E9F794 /* MOMathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 633459F21508FC8200E9F794 /* MOMathSpec.m */; };
 		633EE87C14FEE4E900281AC1 /* MOMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 633EE87A14FEE4E900281AC1 /* MOMath.h */; };
 		633EE87D14FEE4E900281AC1 /* MOMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 633EE87B14FEE4E900281AC1 /* MOMath.m */; };
+		63413D78150908B600AF04B2 /* MOColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63413D77150908B600AF04B2 /* MOColor.m */; };
 		634263351507904F003BFF83 /* MOComponentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F3114FFBF1300A04563 /* MOComponentSpec.m */; };
 		634263361507913C003BFF83 /* MOTransformSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F3414FFC07500A04563 /* MOTransformSpec.m */; };
 		6349CEEA14F4DFDD00DEF564 /* MOViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6349CEE814F4DFDD00DEF564 /* MOViewController.h */; };
@@ -27,6 +30,8 @@
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
+		63CF544C150DF96500071A45 /* MOColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63413D77150908B600AF04B2 /* MOColor.m */; };
+		63CF5450150DFA7400071A45 /* MOColorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CF544E150DF98900071A45 /* MOColorSpec.m */; };
 		63E6303A14F7791700923CB9 /* MOResourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303814F7791700923CB9 /* MOResourceManager.h */; };
 		63E6303B14F7791700923CB9 /* MOResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6303914F7791700923CB9 /* MOResourceManager.m */; };
 		63E6304014F77CEE00923CB9 /* MOTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E6303E14F77CEE00923CB9 /* MOTexture.h */; };
@@ -71,8 +76,13 @@
 		63117F2E14FFBBCB00A04563 /* MOComponent-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MOComponent-Internal.h"; sourceTree = "<group>"; };
 		63117F3114FFBF1300A04563 /* MOComponentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOComponentSpec.m; sourceTree = "<group>"; };
 		63117F3414FFC07500A04563 /* MOTransformSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOTransformSpec.m; sourceTree = "<group>"; };
+		633459EF1508F5DA00E9F794 /* MOSceneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOSceneSpec.m; sourceTree = "<group>"; };
+		633459F21508FC8200E9F794 /* MOMathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOMathSpec.m; sourceTree = "<group>"; };
+		633D3C30150DFF9C0061FB36 /* MOGameObject-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MOGameObject-Internal.h"; sourceTree = "<group>"; };
 		633EE87A14FEE4E900281AC1 /* MOMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOMath.h; sourceTree = "<group>"; };
 		633EE87B14FEE4E900281AC1 /* MOMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOMath.m; sourceTree = "<group>"; };
+		63413D751509009700AF04B2 /* MOColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOColor.h; sourceTree = "<group>"; };
+		63413D77150908B600AF04B2 /* MOColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOColor.m; sourceTree = "<group>"; };
 		6349CEE814F4DFDD00DEF564 /* MOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOViewController.h; sourceTree = "<group>"; };
 		6349CEE914F4DFDD00DEF564 /* MOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOViewController.m; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -84,6 +94,7 @@
 		63B5739014F4D38000451E2E /* Mocha2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mocha2D.h; sourceTree = "<group>"; };
 		63B5739814F4D38000451E2E /* Mocha2DTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Mocha2DTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		63CF544E150DF98900071A45 /* MOColorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOColorSpec.m; sourceTree = "<group>"; };
 		63E6303814F7791700923CB9 /* MOResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOResourceManager.h; sourceTree = "<group>"; };
 		63E6303914F7791700923CB9 /* MOResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManager.m; sourceTree = "<group>"; };
 		63E6303D14F77B5F00923CB9 /* MOMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOMacros.h; sourceTree = "<group>"; };
@@ -99,6 +110,7 @@
 		63F339BB150667FD00BF36A9 /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		63F588591504E1EC00AAD0FF /* MOResourceManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOResourceManagerSpec.m; sourceTree = "<group>"; };
 		63F588711505008800AAD0FF /* MOGameObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOGameObjectSpec.m; sourceTree = "<group>"; };
+		63F6F347150A45EE009E1BC3 /* MOTestFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOTestFunctions.h; sourceTree = "<group>"; };
 		63FD0D7E14FABC0E001E3164 /* MOTexture-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MOTexture-Internal.h"; sourceTree = "<group>"; };
 		63FD0DFB14FAD857001E3164 /* UIDevice+MOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+MOAdditions.h"; sourceTree = "<group>"; };
 		63FD0DFC14FAD857001E3164 /* UIDevice+MOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+MOAdditions.m"; sourceTree = "<group>"; };
@@ -138,6 +150,7 @@
 		63117F1E14FFAAFE00A04563 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				633459EF1508F5DA00E9F794 /* MOSceneSpec.m */,
 				63F588711505008800AAD0FF /* MOGameObjectSpec.m */,
 				63117F3114FFBF1300A04563 /* MOComponentSpec.m */,
 				63117F3414FFC07500A04563 /* MOTransformSpec.m */,
@@ -164,6 +177,7 @@
 		633EE87414FED8C400281AC1 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				633D3C30150DFF9C0061FB36 /* MOGameObject-Internal.h */,
 				63117F2E14FFBBCB00A04563 /* MOComponent-Internal.h */,
 			);
 			name = Internal;
@@ -259,6 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				63E6303D14F77B5F00923CB9 /* MOMacros.h */,
+				63413D751509009700AF04B2 /* MOColor.h */,
+				63413D77150908B600AF04B2 /* MOColor.m */,
 				633EE87A14FEE4E900281AC1 /* MOMath.h */,
 				633EE87B14FEE4E900281AC1 /* MOMath.m */,
 				63E6305914F7A6F300923CB9 /* NSBundle+MOAdditions.h */,
@@ -292,6 +308,9 @@
 		63FD0E3614FAEECA001E3164 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				633459F21508FC8200E9F794 /* MOMathSpec.m */,
+				63CF544E150DF98900071A45 /* MOColorSpec.m */,
+				63F6F347150A45EE009E1BC3 /* MOTestFunctions.h */,
 				63117F2614FFAD9500A04563 /* Prefix.pch */,
 			);
 			name = Support;
@@ -444,6 +463,7 @@
 				63117F2514FFAD3700A04563 /* MOGameObject.m in Sources */,
 				63117F2A14FFB87A00A04563 /* MOComponent.m in Sources */,
 				63117F2D14FFB9E800A04563 /* MOTransform.m in Sources */,
+				63413D78150908B600AF04B2 /* MOColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +486,10 @@
 				63F339CE15066BF300BF36A9 /* UIScreen+MOAdditions.m in Sources */,
 				634263351507904F003BFF83 /* MOComponentSpec.m in Sources */,
 				634263361507913C003BFF83 /* MOTransformSpec.m in Sources */,
+				633459F11508FABC00E9F794 /* MOSceneSpec.m in Sources */,
+				633459F41508FC8800E9F794 /* MOMathSpec.m in Sources */,
+				63CF544C150DF96500071A45 /* MOColor.m in Sources */,
+				63CF5450150DFA7400071A45 /* MOColorSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

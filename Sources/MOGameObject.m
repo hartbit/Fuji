@@ -7,12 +7,31 @@
 //
 
 #import "MOGameObject.h"
+#import "MOGameObject-Internal.h"
+#import "MOScene.h"
 #import "MOComponent.h"
 #import "MOComponent-Internal.h"
 #import "MOMacros.h"
 
 
 @implementation MOGameObject
+
+#pragma mark - Initialization
+
+- (id)init
+{
+	MOFail(@"Can not create a game object outside of a scene.");
+	return nil;
+}
+
+- (id)initWithScene:(MOScene*)scene
+{
+	if ((self = [super init]))
+	{
+	}
+	
+	return self;
+}
 
 #pragma mark - Public Methods
 

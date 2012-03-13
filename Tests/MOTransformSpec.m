@@ -6,6 +6,14 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#import <SenTestingKit/SenTestingKit.h>
+#define SPT_CEDAR_SYNTAX
+#import "Specta.h"
+#define EXP_SHORTHAND
+#import "Expecta.h"
+#import "Mocha2D.h"
+#import "MOTestFunctions.h"
+
 
 SPEC_BEGIN(MOTransformSpec)
 
@@ -13,7 +21,7 @@ describe(@"MOTransform", ^{
 	__block MOTransform* transform = nil;
 	
 	beforeEach(^{
-		MOGameObject* gameObject = [MOGameObject new];
+		MOGameObject* gameObject = [[MOScene new] addGameObject];
 		transform = (MOTransform*)[gameObject addComponentWithClass:[MOTransform class]];
 	});
 	

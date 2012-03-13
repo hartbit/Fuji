@@ -26,7 +26,7 @@
 
 - (id)init
 {
-	MOFail(@"Can not create a component outside of a Game Object.");
+	MOFail(@"Can not create a component outside of a game object.");
 	return nil;
 }
 

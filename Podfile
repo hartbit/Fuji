@@ -4,6 +4,6 @@ dependency 'CocoaLumberjack'
 
 target :test do
 	dependency 'Specta'
-	dependency 'Expecta'
+	dependency 'Expecta', :git => 'https://TrahDivad@github.com/TrahDivad/expecta.git'
 	dependency 'OCMock'
 end
