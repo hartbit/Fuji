@@ -19,19 +19,28 @@
 
 SPEC_BEGIN(MOComponentSpec)
 
-describe(@"MOComponent", ^{
-	context(@"init", ^{
-		it(@"should raise when initialized directly", ^{
+describe(@"A component object", ^{
+	context(@"when initialized with init", ^{
+		it(@"throws an exception", ^{
 			STAssertThrows([MOComponent new], nil);
 		});
 	});
 		
-	context(@"initWithGameObject:", ^{
-		it(@"should return a valid component with the gameObject property set", ^{
-			id mockGameObject = mock([MOGameObject class]);
-			MOComponent* component = [[MOComponent alloc] initWithGameObject:mockGameObject];
-			expect(component).to.beAnInstanceOf([MOComponent class]);
-			expect([component gameObject]).to.beIdenticalTo((__bridge void*)mockGameObject);
+	context(@"when initialized with initWithGameObject:", ^{
+		__block MOGameObject* gameObject = nil;
+		__block MOComponent* component = nil;
+		
+		beforeEach(^{
+			gameObject = mock([MOGameObject class]);
+			component = [[MOComponent alloc] initWithGameObject:gameObject];
+		});
+		
+		it(@"is not nil", ^{
+			expect(component).toNot.beNil();
+		});
+		
+		it(@"has the gameObject property set", ^{
+			expect([component gameObject]).to.beIdenticalTo((__bridge void*)gameObject);
 		});
 	});
 });
