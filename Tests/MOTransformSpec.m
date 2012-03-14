@@ -17,7 +17,7 @@
 
 SPEC_BEGIN(MOTransformSpec)
 
-describe(@"MOTransform", ^{
+describe(@"A transform component", ^{
 	__block MOTransform* transform = nil;
 	
 	beforeEach(^{
@@ -25,91 +25,116 @@ describe(@"MOTransform", ^{
 		transform = (MOTransform*)[gameObject addComponentWithClass:[MOTransform class]];
 	});
 	
-	context(@"position", ^{
-		it(@"should have an initial position of (0, 0)", ^{
-			expect(GLKVector2AllEqualToVector2([transform position], GLKVector2Zero)).to.beTruthy();
+	context(@"when created", ^{
+		it(@"has an initial position of (0, 0)", ^{
+			expect([transform position].x).to.equal(0);
+			expect([transform position].y).to.equal(0);
 			expect([transform positionX]).to.equal(0);
 			expect([transform positionY]).to.equal(0);
 		});
 		
-		it(@"should be possible to set the position", ^{
-			GLKVector2 aPosition = GLKVector2Make(4, 7);
-			[transform setPosition:aPosition];
-			expect(GLKVector2AllEqualToVector2([transform position], aPosition)).to.beTruthy();
-			expect([transform positionX]).to.equal(4);
-			expect([transform positionY]).to.equal(7);
-		});
-		
-		it(@"should be possible to set the position elements seperately", ^{
-			[transform setPositionX:3];
-			expect([transform positionX]).to.equal(3);
-			expect([transform position].x).to.equal(3);
-			[transform setPositionY:8];
-			expect([transform positionY]).to.equal(8);
-			expect([transform position].y).to.equal(8);
-		});
-	});
-	
-	context(@"rotation", ^{
-		it(@"should have an initial rotation of 0", ^{
+		it(@"has an initial rotation of 0", ^{
 			expect([transform rotation]).to.equal(0);
 		});
 		
-		it(@"should be possible to set the rotation", ^{
-			[transform setRotation:M_PI];
-			expect([transform rotation]).to.equal(M_PI);
-		});
-	});
-	
-	context(@"scale", ^{
-		it(@"should have an initial scale of (1, 1)", ^{
-			expect(GLKVector2AllEqualToVector2([transform scale], GLKVector2One)).to.beTruthy();
+		it(@"has an initial scale of (1, 1)", ^{
+			expect([transform scale].x).to.equal(1);
+			expect([transform scale].y).to.equal(1);
 			expect([transform scaleX]).to.equal(1);
 			expect([transform scaleY]).to.equal(1);
 		});
 		
-		it(@"should be possible to set the scale", ^{
-			GLKVector2 aScale = GLKVector2Make(2.3f, 6.5f);
-			[transform setScale:aScale];
-			expect(GLKVector2AllEqualToVector2([transform scale], aScale)).to.beTruthy();
-			expect([transform scaleX]).to.equal(2.3f);
-			expect([transform scaleY]).to.equal(6.5f);
-		});
-		
-		it(@"should be possible to set the scale elements seperately", ^{
-			[transform setScaleX:4.0f];
-			expect([transform scaleX]).to.equal(4.0f);
-			expect([transform scale].x).to.equal(4.0f);
-			[transform setScaleY:0.5f];
-			expect([transform scaleY]).to.equal(0.5f);
-			expect([transform scale].y).to.equal(0.5f);
+		it(@"has an initial matrix of identity", ^{
+			expect(GLKMatrix4EqualToMatrix4([transform matrix], GLKMatrix4Identity)).to.beTruthy();
 		});
 	});
 	
-	context(@"transform", ^{
-		it(@"should have an initial value of identity", ^{
-			expect(GLKMatrix4EqualToMatrix4([transform matrix], GLKMatrix4Identity)).to.beTruthy();
+	context(@"after setting the position to (4, 7)", ^{
+		beforeEach(^{
+			[transform setPosition:GLKVector2Make(4, 7)];
 		});
 		
-		it(@"should contain the position", ^{
-			[transform setPosition:GLKVector2Make(2, 8)];
-			
-			GLKMatrix4 matrix = GLKMatrix4Make(1,0,0,0,0,1,0,0,0,0,1,0,2,8,0,1);
-			expect(GLKMatrix4EqualToMatrix4([transform matrix], matrix)).to.beTruthy();
+		it(@"has a position of (4, 7)", ^{
+			expect([transform position].x).to.equal(4);
+			expect([transform position].y).to.equal(7);
+			expect([transform positionX]).to.equal(4);
+			expect([transform positionY]).to.equal(7);
 		});
 		
-		it(@"should contain the rotation", ^{
-			[transform setRotation:M_PI/2];
-			
-			GLKMatrix4 matrix = GLKMatrix4Make(0,1,0,0,-1,0,0,0,0,0,1,0,0,0,0,1);
-			expect(GLKMatrix4CloseToMatrix4([transform matrix], matrix)).to.beTruthy();			
+		it(@"has a matrix with a translation of (4, 7)", ^{
+			GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(4, 7, 0);
+			expect(GLKMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
+		});
+	});
+	
+	context(@"after setting the position coordinates seperately to (5, 9)", ^{
+		beforeEach(^{
+			[transform setPositionX:5];
+			[transform setPositionY:9];
 		});
 		
-		it(@"should contain the scale", ^{
+		it(@"has a position of (5, 9)", ^{
+			expect([transform position].x).to.equal(5);
+			expect([transform position].y).to.equal(9);
+			expect([transform positionX]).to.equal(5);
+			expect([transform positionY]).to.equal(9);
+		});
+		
+		it(@"has a matrix with a translation of (5, 9)", ^{
+			GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(5, 9, 0);
+			expect(GLKMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
+		});
+	});
+	
+	context(@"after setting the rotation to Pi", ^{
+		beforeEach(^{
+			[transform setRotation:M_PI];
+		});
+		
+		it(@"has a rotation of Pi", ^{
+			expect([transform rotation]).to.equal(M_PI);
+		});
+		
+		it(@"has a matrix with a rotation of Pi around Z", ^{
+			GLKMatrix4 rotationMatrix = GLKMatrix4MakeZRotation(M_PI);
+			expect(GLKMatrix4CloseToMatrix4([transform matrix], rotationMatrix)).to.beTruthy();
+		});
+	});
+	
+	context(@"after setting the scale to (0.5, 2)", ^{
+		beforeEach(^{
 			[transform setScale:GLKVector2Make(0.5, 2)];
-			
-			GLKMatrix4 matrix = GLKMatrix4Make(0.5,0,0,0,0,2,0,0,0,0,1,0,0,0,0,1);
-			expect(GLKMatrix4EqualToMatrix4([transform matrix], matrix)).to.beTruthy();
+		});
+		
+		it(@"has a scale of (0.5, 2)", ^{
+			expect([transform scale].x).to.equal(0.5);
+			expect([transform scale].y).to.equal(2);
+			expect([transform scaleX]).to.equal(0.5);
+			expect([transform scaleY]).to.equal(2);
+		});
+		
+		it(@"has a matrix with a scale of (0.5, 2)", ^{
+			GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(0.5, 2, 1);
+			expect(GLKMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
+		});
+	});
+	
+	context(@"after setting the scale factors seperately to (1.4, 0.8)", ^{
+		beforeEach(^{
+			[transform setScaleX:1.4];
+			[transform setScaleY:0.8];
+		});
+		
+		it(@"has a scale of (1.4, 0.8)", ^{
+			expect([transform scale].x).to.equal(1.4);
+			expect([transform scale].y).to.equal(0.8);
+			expect([transform scaleX]).to.equal(1.4);
+			expect([transform scaleY]).to.equal(0.8);
+		});
+		
+		it(@"has a matrix with a scale of (1.4, 0.8)", ^{
+			GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(1.4, 0.8, 1);
+			expect(GLKMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
 		});
 	});
 });
