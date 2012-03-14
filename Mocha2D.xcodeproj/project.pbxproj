@@ -364,8 +364,8 @@
 				63B5739314F4D38000451E2E /* Sources */,
 				63B5739414F4D38000451E2E /* Frameworks */,
 				63B5739514F4D38000451E2E /* Resources */,
-				63B5739614F4D38000451E2E /* Run Script */,
 				02587F2CC40C4CE399F0508F /* Copy Pods Resources */,
+				63B5739614F4D38000451E2E /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -544,7 +544,6 @@
 				DSTROOT = /tmp/Mocha2D.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -557,7 +556,6 @@
 				DSTROOT = /tmp/Mocha2D.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -574,13 +572,13 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tests/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TEST,
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Tests/Info.plist;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-lstdc++",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = octest;
@@ -598,13 +596,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tests/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TEST,
+					NS_BLOCK_ASSERTIONS,
+				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Tests/Info.plist;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-lstdc++",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = octest;

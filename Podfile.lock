@@ -1,11 +1,13 @@
 PODS:
   - CocoaLumberjack (1.3.2)
   - Expecta (0.1.3)
-  - OCMock (1.77.1)
+  - OCHamcrest (1.7)
+  - OCMockito (0.21):
+    - OCHamcrest
   - Specta (0.1.4)
 
 DEPENDENCIES:
   - CocoaLumberjack
-  - Expecta (from `https://TrahDivad@github.com/TrahDivad/expecta.git')
-  - OCMock
+  - Expecta (from `https://github.com/TrahDivad/expecta.git')
+  - OCMockito (defined in Podfile)
   - Specta

@@ -10,25 +10,30 @@
 #import <GLKit/GLKit.h>
 
 
+#pragma mark - NSProxy/weak Fix
+
+#ifdef TEST
+#define WEAK unsafe_unretained
+#else
+#define WEAK weak
+#endif
+
+#pragma mark - Assertions
+
 #ifdef DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #else
 static const int ddLogLevel = LOG_LEVEL_WARN;
 #endif
 
-
 #if !defined(NS_BLOCK_ASSERTIONS)
-
 #define MOFail(format, ...) \
 	[[NSAssertionHandler currentHandler] handleFailureInMethod:_cmd object:self file:[NSString stringWithUTF8String:__FILE__] lineNumber:__LINE__ description:(format), ##__VA_ARGS__]
 #define MOCFail(format, ...) \
 	[[NSAssertionHandler currentHandler] handleFailureInFunction:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] file:[NSString stringWithUTF8String:__FILE__] lineNumber:__LINE__ description:(format), ##__VA_ARGS__]
-
 #else
-
 #define MOFail(format, ...) do {} while (0)
 #define MOCFail(format, ...) do {} while (0)
-
 #endif
 
 #define _MOAssert(logMacro, failMacro, condition, conditionString, format, ...) do { \
@@ -49,10 +54,10 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 #define MOCAssertError(condition, format, ...) _MOAssert(CError, CFail, condition, @#condition, format, ##__VA_ARGS__)
 #define MOCAssertWarn(condition, format, ...) _MOAssert(CWarn, CFail, condition, @#condition, format, ##__VA_ARGS__)
 
+#pragma mark - Misc
 
 #define MOStringIsValid(string) ((string) != nil) && ([string length] != 0)
 #define MOIsInInterval(value, min, max) ((value) >= (min)) && ((value) <= (max))
-
 
 // From http://lukeredpath.co.uk/blog/a-note-on-objective-c-singletons.html
 #define MO_SINGLETON_WITH_BLOCK(block) do { \

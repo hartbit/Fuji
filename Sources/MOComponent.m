@@ -13,7 +13,7 @@
 
 @interface MOComponent ()
 
-@property (nonatomic, weak) MOGameObject* gameObject;
+@property (nonatomic, WEAK) MOGameObject* gameObject;
 
 @end
 

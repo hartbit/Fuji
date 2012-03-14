@@ -11,7 +11,8 @@
 #import "Specta.h"
 #define EXP_SHORTHAND
 #import "Expecta.h"
-#import "OCMock.h"
+#define MOCKITO_SHORTHAND
+#import "OCMockito.h"
 #import "Mocha2D.h"
 #import "MOComponent-Internal.h"
 
@@ -27,11 +28,10 @@ describe(@"MOComponent", ^{
 		
 	context(@"initWithGameObject:", ^{
 		it(@"should return a valid component with the gameObject property set", ^{
-			//id mockGameObject = [OCMockObject niceMockForClass:[MOGameObject class]];
-			MOGameObject* gameObject = [[MOScene new] addGameObject];
-			MOComponent* component = [[MOComponent alloc] initWithGameObject:gameObject];
+			id mockGameObject = mock([MOGameObject class]);
+			MOComponent* component = [[MOComponent alloc] initWithGameObject:mockGameObject];
 			expect(component).to.beAnInstanceOf([MOComponent class]);
-			expect([component gameObject]).to.beIdenticalTo((__bridge void*)gameObject);
+			expect([component gameObject]).to.beIdenticalTo((__bridge void*)mockGameObject);
 		});
 	});
 });

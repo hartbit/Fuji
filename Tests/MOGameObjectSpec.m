@@ -11,7 +11,7 @@
 #import "Specta.h"
 #define EXP_SHORTHAND
 #import "Expecta.h"
-#import "OCMock.h"
+#import "OCMockito.h"
 #import "Mocha2D.h"
 #import	"MOComponent-Internal.h"
 
@@ -49,19 +49,18 @@ describe(@"MOGameObject", ^{
 		});
 		
 		it(@"should initialize the newly created component", ^{
-			id transformClassMock = [OCMockObject mockForClassObject:[MOTransform class]];
-			id transformMock = [OCMockObject niceMockForClass:[MOTransform class]];
+			Class transformClassMock = mockClass([MOTransform class]);
+			id transformMock = mock([MOTransform class]);
 			
-			BOOL yes = YES;
-			[[[transformClassMock stub] andReturnValue:OCMOCK_VALUE(yes)] isSubclassOfClass:[MOComponent class]];
-			[[[transformClassMock stub] andReturn:transformMock] alloc];
-			id __attribute__((unused)) c = [[[transformMock expect] andReturn:transformMock] initWithGameObject:gameObject];
-			[[transformMock expect] awake];
-
+			[given([transformClassMock isSubclassOfClass:[MOComponent class]]) willReturnBool:YES];
+			[given([transformClassMock alloc]) willReturn:transformMock];
+			[given([transformMock initWithGameObject:gameObject]) willReturn:transformMock];
+			
 			MOComponent* component = [gameObject addComponentWithClass:transformClassMock];
 			expect(component).to.beIdenticalTo((__bridge void*)transformMock);
 			
-			[transformMock verify];
+			id __attribute__((unused)) c = [verify(transformMock) initWithGameObject:gameObject];
+			[verify(transformMock) awake];
 		});
 	});
 });

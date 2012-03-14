@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MOMacros.h"
 
 
 @class MOGameObject;
 
 @interface MOComponent : NSObject
 
-@property (nonatomic, weak, readonly) MOGameObject* gameObject;
+@property (nonatomic, WEAK, readonly) MOGameObject* gameObject;
 
 - (void)awake;
 
