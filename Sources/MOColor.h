@@ -295,4 +295,4 @@ extern const GLKVector4 MOColorYellow;
 extern const GLKVector4 MOColorYellowGreen;
 
 
-#define MOColorWithBytes(red, green, blue, alpha) (GLKVector4){ (red)/255.0f, (green)/255.0f, (blue)/255.0f, (alpha)/255.0f }
+#define MOColorWithBytes(red, green, blue, alpha) (GLKVector4){(red)/255.0f, (green)/255.0f, (blue)/255.0f, (alpha)/255.0f}
