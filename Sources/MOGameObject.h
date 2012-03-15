@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MOMacros.h"
 
 
+@class MOScene;
 @class MOComponent;
 
 @interface MOGameObject : NSObject
+
+@property (nonatomic, WEAK, readonly) MOScene* scene;
 
 - (MOComponent*)addComponentWithClass:(Class)componentClass;
 

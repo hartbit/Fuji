@@ -14,7 +14,16 @@
 #import "MOMacros.h"
 
 
+@interface MOGameObject ()
+
+@property (nonatomic, WEAK) MOScene* scene;
+
+@end
+
+
 @implementation MOGameObject
+
+@synthesize scene = _scene;
 
 #pragma mark - Initialization
 
@@ -26,8 +35,11 @@
 
 - (id)initWithScene:(MOScene*)scene
 {
+	MOAssertError(scene != nil, @"scene=%@", scene);
+	
 	if ((self = [super init]))
 	{
+		[self setScene:scene];
 	}
 	
 	return self;

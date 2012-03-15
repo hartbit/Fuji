@@ -13,43 +13,47 @@
 #import "Expecta.h"
 #import "Mocha2D.h"
 #import "MOTestFunctions.h"
+#import "MOGameObject.h"
+#import "MOComponent.h"
+#import "MOComponent-Internal.h"
+#import "MOTransform.h"
 
 
 SPEC_BEGIN(MOTransformSpec)
 
 describe(@"A transform component", ^{
+	__block MOGameObject* gameObject = nil;
 	__block MOTransform* transform = nil;
 	
 	beforeEach(^{
-		MOGameObject* gameObject = [[MOScene new] addGameObject];
-		transform = (MOTransform*)[gameObject addComponentWithClass:[MOTransform class]];
+		gameObject = mock([MOGameObject class]);
+		transform = [[MOTransform alloc] initWithGameObject:gameObject];
+		[transform awake];
 	});
 	
-	context(@"when created", ^{
-		it(@"has an initial position of (0, 0)", ^{
-			expect([transform position].x).to.equal(0);
-			expect([transform position].y).to.equal(0);
-			expect([transform positionX]).to.equal(0);
-			expect([transform positionY]).to.equal(0);
-		});
+	it(@"has an initial position of (0, 0)", ^{
+		expect([transform position].x).to.equal(0);
+		expect([transform position].y).to.equal(0);
+		expect([transform positionX]).to.equal(0);
+		expect([transform positionY]).to.equal(0);
+	});
 		
-		it(@"has an initial rotation of 0", ^{
-			expect([transform rotation]).to.equal(0);
-		});
+	it(@"has an initial rotation of 0", ^{
+		expect([transform rotation]).to.equal(0);
+	});
 		
-		it(@"has an initial scale of (1, 1)", ^{
-			expect([transform scale].x).to.equal(1);
-			expect([transform scale].y).to.equal(1);
-			expect([transform scaleX]).to.equal(1);
-			expect([transform scaleY]).to.equal(1);
-		});
+	it(@"has an initial scale of (1, 1)", ^{
+		expect([transform scale].x).to.equal(1);
+		expect([transform scale].y).to.equal(1);
+		expect([transform scaleX]).to.equal(1);
+		expect([transform scaleY]).to.equal(1);
+	});
 		
-		it(@"has an initial matrix of identity", ^{
-			expect(GLKMatrix4EqualToMatrix4([transform matrix], GLKMatrix4Identity)).to.beTruthy();
-		});
+	it(@"has an initial matrix of identity", ^{
+		expect(GLKMatrix4EqualToMatrix4([transform matrix], GLKMatrix4Identity)).to.beTruthy();
 	});
 	
-	context(@"after setting the position to (4, 7)", ^{
+	context(@"set the position to (4, 7)", ^{
 		beforeEach(^{
 			[transform setPosition:GLKVector2Make(4, 7)];
 		});
@@ -67,7 +71,7 @@ describe(@"A transform component", ^{
 		});
 	});
 	
-	context(@"after setting the position coordinates seperately to (5, 9)", ^{
+	context(@"set the position coordinates seperately to (5, 9)", ^{
 		beforeEach(^{
 			[transform setPositionX:5];
 			[transform setPositionY:9];
@@ -86,7 +90,7 @@ describe(@"A transform component", ^{
 		});
 	});
 	
-	context(@"after setting the rotation to Pi", ^{
+	context(@"set the rotation to Pi", ^{
 		beforeEach(^{
 			[transform setRotation:M_PI];
 		});
@@ -101,7 +105,7 @@ describe(@"A transform component", ^{
 		});
 	});
 	
-	context(@"after setting the scale to (0.5, 2)", ^{
+	context(@"set the scale to (0.5, 2)", ^{
 		beforeEach(^{
 			[transform setScale:GLKVector2Make(0.5, 2)];
 		});
@@ -119,7 +123,7 @@ describe(@"A transform component", ^{
 		});
 	});
 	
-	context(@"after setting the scale factors seperately to (1.4, 0.8)", ^{
+	context(@"set the scale factors seperately to (1.4, 0.8)", ^{
 		beforeEach(^{
 			[transform setScaleX:1.4];
 			[transform setScaleY:0.8];

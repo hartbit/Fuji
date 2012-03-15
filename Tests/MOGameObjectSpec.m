@@ -13,54 +13,78 @@
 #import "Expecta.h"
 #import "OCMockito.h"
 #import "Mocha2D.h"
-#import	"MOComponent-Internal.h"
+#import "MOGameObject-Internal.h"
+#import "MOComponent-Internal.h
 
 
 SPEC_BEGIN(MOGameObjectSpec)
 
-describe(@"MOGameObject", ^{
-	__block MOGameObject* gameObject = nil;
-	
-	beforeEach(^{
-		gameObject = [[MOScene new] addGameObject];
+describe(@"A game object", ^{
+	context(@"initialized with init", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([MOGameObject new], nil);
+		});
 	});
 	
-	it(@"should raise when initialized directly", ^{
-		STAssertThrows([MOGameObject new], nil);
+	context(@"initialized with a nil scene", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows(((void)[[MOGameObject alloc] initWithScene:nil]), nil);
+		});
 	});
 	
-	context(@"addComponentWithClass:", ^{
-		it(@"should raise when given a NULL class", ^{
-			STAssertThrows([gameObject addComponentWithClass:NULL], nil);
+	context(@"initialized with a valid scene", ^{
+		__block MOScene* scene = nil;
+		__block MOGameObject* gameObject = nil;
+		
+		beforeEach(^{
+			scene = mock([MOScene class]);
+			gameObject = [[MOGameObject alloc] initWithScene:scene];
 		});
 		
-		it(@"should raise when given a class that does not subclass MOComponent", ^{
-			STAssertThrows([gameObject addComponentWithClass:[NSString class]], nil);
-		});
-		   
-		it(@"should raise when given the MOComponent class", ^{
-			STAssertThrows([gameObject addComponentWithClass:[MOComponent class]], nil);
+		it(@"is not nil", ^{
+			expect(gameObject).toNot.beNil();
 		});
 		
-		it(@"should return an instance of the class if the class is a subclass of MOComponent", ^{
-			expect([MOTransform class]).to.beASubclassOf([MOComponent class]);
-			MOComponent* component = [gameObject addComponentWithClass:[MOTransform class]];
-			expect(component).to.beAnInstanceOf([MOTransform class]);
+		it(@"has the scene property set", ^{
+			expect([gameObject scene]).to.beIdenticalTo((__bridge void*)scene);
 		});
 		
-		it(@"should initialize the newly created component", ^{
-			Class transformClassMock = mockClass([MOTransform class]);
-			id transformMock = mock([MOTransform class]);
+		context(@"added a component with a NULL class", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:NULL], nil);
+			});
+		});
+		
+		context(@"added a component with a class that does not subclass MOComponent", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[NSString class]], nil);
+			});
+		});
+		
+		context(@"added a component with the MOComponent class", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[MOComponent class]], nil);
+			});
+		});
+		
+		context(@"added a component with a class that subclasses MOComponent", ^{
+			__block MOComponent* componentMock = nil;
+			__block MOComponent* component = nil;
 			
-			[given([transformClassMock isSubclassOfClass:[MOComponent class]]) willReturnBool:YES];
-			[given([transformClassMock alloc]) willReturn:transformMock];
-			[given([transformMock initWithGameObject:gameObject]) willReturn:transformMock];
+			beforeEach(^{
+				id componentSubclass = mockClass([MOComponent class]);
+				componentMock = mock([MOComponent class]);
+				[given([componentSubclass isSubclassOfClass:[MOComponent class]]) willReturnBool:YES];
+				[given([componentSubclass alloc]) willReturn:componentMock];
+				[given([componentMock initWithGameObject:gameObject]) willReturn:componentMock];
+				component = [gameObject addComponentWithClass:componentSubclass];
+			});
 			
-			MOComponent* component = [gameObject addComponentWithClass:transformClassMock];
-			expect(component).to.beIdenticalTo((__bridge void*)transformMock);
-			
-			id __attribute__((unused)) c = [verify(transformMock) initWithGameObject:gameObject];
-			[verify(transformMock) awake];
+			it(@"initializes a component and returns it", ^{
+				[verify(componentMock) initWithGameObject:gameObject];
+				[verify(componentMock) awake];
+				expect(component).to.beIdenticalTo((__bridge void*)componentMock);
+			});
 		});
 	});
 });

@@ -20,13 +20,19 @@
 SPEC_BEGIN(MOComponentSpec)
 
 describe(@"A component object", ^{
-	context(@"when initialized with init", ^{
+	context(@"initialized with init", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([MOComponent new], nil);
 		});
 	});
+	
+	context(@"initialized with a nil game object", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([[MOComponent alloc] initWithGameObject:nil], nil);
+		});
+	});
 		
-	context(@"when initialized with initWithGameObject:", ^{
+	context(@"initialized with a valid game object", ^{
 		__block MOGameObject* gameObject = nil;
 		__block MOComponent* component = nil;
 		

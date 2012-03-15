@@ -578,6 +578,7 @@
 					"$(inherited)",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -601,6 +602,7 @@
 					NS_BLOCK_ASSERTIONS,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

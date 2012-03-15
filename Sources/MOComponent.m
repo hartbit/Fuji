@@ -32,6 +32,8 @@
 
 - (id)initWithGameObject:(MOGameObject*)gameObject
 {
+	MOAssertError(gameObject != nil, @"gameObject=%@", gameObject);
+	
 	if ((self = [super init]))
 	{
 		[self setGameObject:gameObject];
