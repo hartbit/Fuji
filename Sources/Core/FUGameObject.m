@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#include "Prefix.pch"
 #import "FUGameObject.h"
 #import "FUGameObject-Internal.h"
 #import "FUScene.h"
@@ -17,6 +18,7 @@
 @interface FUGameObject ()
 
 @property (nonatomic, WEAK) FUScene* scene;
+@property (nonatomic, strong) NSMutableSet* components;
 
 @end
 
@@ -24,6 +26,19 @@
 @implementation FUGameObject
 
 @synthesize scene = _scene;
+@synthesize components = _components;
+
+#pragma mark - Properties
+
+- (NSMutableSet*)components
+{
+	if (_components == nil)
+	{
+		[self setComponents:[NSMutableSet set]];
+	}
+	
+	return _components;
+}
 
 #pragma mark - Initialization
 
@@ -59,7 +74,13 @@
 		return nil;
 	}
 	
+	if ([componentClass isUnique] && ([self componentWithClass:componentClass] != nil))
+	{
+		return nil;
+	}
+	
 	FUComponent* component = [[componentClass alloc] initWithGameObject:self];
+	[[self components] addObject:component];
 	[component awake];
 	return component;
 }
@@ -70,6 +91,14 @@
 	{
 		FULogError(@"Expected 'componentClass' to be a subclass of FUComponent, got '%@'", NSStringFromClass(componentClass));
 		return nil;
+	}
+	
+	for (FUComponent* component in [self components])
+	{
+		if ([component class] == componentClass)
+		{
+			return component;
+		}
 	}
 	
 	return nil;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#include "Prefix.pch"
 #import "FUScene.h"
 #import "FUGameObject.h"
 #import "FUGameObject-Internal.h"

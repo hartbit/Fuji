@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#include "Prefix.pch"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
 #import "FULog.h"
