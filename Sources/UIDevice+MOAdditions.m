@@ -1,15 +1,15 @@
 //
 //  UIDevice+HDAdditions.m
-//  MOAdditions
+//  FUAdditions
 //
 //  Created by David Hart on 23/02/2011.
 //  Copyright 2011 hart[dev]. All rights reserved.
 //
 
-#import "UIDevice+MOAdditions.h"
+#import "UIDevice+FUAdditions.h"
 
 
-@implementation UIDevice (MOAdditions)
+@implementation UIDevice (FUAdditions)
 
 #pragma mark - Class Methods
 

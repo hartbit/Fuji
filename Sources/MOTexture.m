@@ -1,26 +1,26 @@
 //
-//  MOTexture.m
-//  Mocha2D
+//  FUTexture.m
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "MOTexture.h"
+#import "FUTexture.h"
 #import <GLKit/GLKit.h>
-#import "NSBundle+MOAdditions.h"
-#import "MOTexture-Internal.h"
-#import "MOMacros.h"
+#import "NSBundle+FUAdditions.h"
+#import "FUTexture-Internal.h"
+#import "FUMacros.h"
 
 
-@interface MOTexture ()
+@interface FUTexture ()
 
 @property (nonatomic, assign) GLuint identifier;
 
 @end
 
 
-@implementation MOTexture
+@implementation FUTexture
 
 @synthesize identifier = _identifier;
 
@@ -41,7 +41,7 @@
 
 + (NSString*)pathWithName:(NSString*)name
 {
-	NSAssert(MOStringIsValid(name), @"");
+	NSAssert(FUStringIsValid(name), @"");
 	
 	NSString* nameWithoutExtension = [name stringByDeletingPathExtension];
 	NSString* extension = [name pathExtension];
@@ -50,9 +50,9 @@
 
 #pragma mark - Initialization
 
-+ (void)textureWithName:(NSString*)name completion:(void (^)(MOTexture* texture))completion
++ (void)textureWithName:(NSString*)name completion:(void (^)(FUTexture* texture))completion
 {
-	NSAssert(MOStringIsValid(name), @"");
+	NSAssert(FUStringIsValid(name), @"");
 	NSAssert(completion != NULL, @"");
 	
 	NSString* path = [self pathWithName:name];
@@ -60,14 +60,14 @@
 	[[self asynchronousLoader] textureWithContentsOfFile:path options:nil queue:NULL completionHandler:^(GLKTextureInfo* textureInfo, NSError* error) {
 		NSAssert(textureInfo != nil, [error localizedDescription]);
 		
-		MOTexture* texture = [[self alloc] initWithTextureInfo:textureInfo];
+		FUTexture* texture = [[self alloc] initWithTextureInfo:textureInfo];
 		completion(texture);
 	}];
 }
 
 - (id)initWithName:(NSString*)name
 {
-	NSAssert(MOStringIsValid(name), @"");
+	NSAssert(FUStringIsValid(name), @"");
 	
 	NSString* path = [[self class] pathWithName:name];
 	

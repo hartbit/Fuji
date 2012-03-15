@@ -1,6 +1,6 @@
 //
-//  NSBundle+MOAdditions.h
-//  Mocha2D
+//  NSBundle+FUAdditions.h
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface NSBundle (MOAdditions)
+@interface NSBundle (FUAdditions)
 
 + (NSBundle*)currentBundle;
 

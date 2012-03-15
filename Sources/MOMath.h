@@ -1,18 +1,18 @@
 //
-//  MOMath.h
-//  Mocha2D
+//  FUMath.h
+//  Fuji
 //
 //  Created by Hart David on 29.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
 #import <GLKit/GLKit.h>
-#import "MOMacros.h"
+#import "FUMacros.h"
 
 
-static __inline__ float MOClamp(float value, float min, float max)
+static __inline__ float FUClamp(float value, float min, float max)
 {
-	MOCAssertError(min < max, @"min=%f, max=%f", min, max);
+	FUCAssertError(min < max, @"min=%f, max=%f", min, max);
 	
 	if (value < min)
 	{

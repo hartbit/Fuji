@@ -1,48 +1,44 @@
 //
-//  MOSceneSpec.m
-//  Mocha2D
+//  FUSceneSpec.m
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-#define SPT_CEDAR_SYNTAX
-#import "Specta.h"
-#define EXP_SHORTHAND
-#import "Expecta.h"
-#import "Mocha2D.h"
+#include "Prefix.pch"
+#import "FujiCore.h"
 
 
-SPEC_BEGIN(MOSceneSpec)
+SPEC_BEGIN(FUSceneSpec)
 
 describe(@"A scene", ^{
-	__block MOScene* scene = nil;
+	__block FUScene* scene = nil;
 	
 	beforeEach(^{
-		scene = [MOScene new];
+		scene = [FUScene new];
 	});
 	
 	it(@"is not nil", ^{
 		expect(scene).toNot.beNil();
 	});
-	
+	/*
 	it(@"has an initial background color of Cornflower Blue", ^{
-		expect(GLKVector4AllEqualToVector4([scene backgroundColor], MOColorCornflowerBlue)).to.beTruthy();
+		expect(GLKVector4AllEqualToVector4([scene backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
 	});
 	
 	context(@"set the background color to gray", ^{
 		beforeEach(^{
-			[scene setBackgroundColor:MOColorGray];
+			[scene setBackgroundColor:FUColorGray];
 		});
 		
 		it(@"has a background color of gray", ^{
-			expect(GLKVector4AllEqualToVector4([scene backgroundColor], MOColorGray)).to.beTruthy();
+			expect(GLKVector4AllEqualToVector4([scene backgroundColor], FUColorGray)).to.beTruthy();
 		});
 	});
-	
+	*/
 	context(@"created a game object", ^{
-		__block MOGameObject* gameObject = nil;
+		__block FUGameObject* gameObject = nil;
 		
 		beforeEach(^{
 			gameObject = [scene createGameObject];
@@ -50,7 +46,7 @@ describe(@"A scene", ^{
 		
 		it(@"returns a valid game object with the scene property set", ^{
 			expect(gameObject).toNot.beNil();
-			expect(gameObject).to.beAnInstanceOf([MOGameObject class]);
+			expect(gameObject).to.beAnInstanceOf([FUGameObject class]);
 			expect([gameObject scene]).to.beIdenticalTo((__bridge void*)scene);
 		});
 	});

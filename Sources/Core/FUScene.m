@@ -1,40 +1,24 @@
 //
-//  MOScene.m
-//  Mocha2D
+//  FUScene.m
+//  Fuji
 //
 //  Created by Hart David on 28.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "MOScene.h"
-#import "MOGameObject.h"
-#import "MOGameObject-Internal.h"
-#import "MOMacros.h"
-#import "MOMath.h"
-#import "MOColor.h"
+#import "FUScene.h"
+#import "FUGameObject.h"
+#import "FUGameObject-Internal.h"
+#import "FUMacros.h"
 
 
-@implementation MOScene
-
-@synthesize backgroundColor = _backgroundColor;
-
-#pragma mark - Initialization
-
-- (id)init
-{
-	if ((self = [super init]))
-	{
-		[self setBackgroundColor:MOColorCornflowerBlue];
-	}
-	
-	return self;
-}
+@implementation FUScene
 
 #pragma mark - Public Methods
 
-- (MOGameObject*)createGameObject
+- (FUGameObject*)createGameObject
 {
-	return [[MOGameObject alloc] initWithScene:self];
+	return [[FUGameObject alloc] initWithScene:self];
 }
 
 /*

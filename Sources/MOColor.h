@@ -1,6 +1,6 @@
 //
-//  MOColor.h
-//  Mocha2D
+//  FUColor.h
+//  Fuji
 //
 //  Created by Hart David on 08.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -10,289 +10,289 @@
 
 
 /** A system-defined color with the value R:240 G:248 B:255 A:255. */
-extern const GLKVector4 MOColorAliceBlue;
+extern const GLKVector4 FUColorAliceBlue;
 /** A system-defined color with the value R:250 G:235 B:215 A:255. */
-extern const GLKVector4 MOColorAntiqueWhite;
+extern const GLKVector4 FUColorAntiqueWhite;
 /** A system-defined color with the value R:0 G:255 B:255 A:255. */
-extern const GLKVector4 MOColorAqua;
+extern const GLKVector4 FUColorAqua;
 /** A system-defined color with the value R:127 G:255 B:212 A:255. */
-extern const GLKVector4 MOColorAquamarine;
+extern const GLKVector4 FUColorAquamarine;
 /** A system-defined color with the value R:240 G:255 B:255 A:255. */
-extern const GLKVector4 MOColorAzure;
+extern const GLKVector4 FUColorAzure;
 /** A system-defined color with the value R:245 G:245 B:220 A:255. */
-extern const GLKVector4 MOColorBeige;
+extern const GLKVector4 FUColorBeige;
 /** A system-defined color with the value R:255 G:228 B:196 A:255. */
-extern const GLKVector4 MOColorBisque;
+extern const GLKVector4 FUColorBisque;
 /** A system-defined color with the value R:0 G:0 B:0 A:255. */
-extern const GLKVector4 MOColorBlack;
+extern const GLKVector4 FUColorBlack;
 /** A system-defined color with the value R:255 G:235 B:205 A:255. */
-extern const GLKVector4 MOColorBlanchedAlmond;
+extern const GLKVector4 FUColorBlanchedAlmond;
 /** A system-defined color with the value R:0 G:0 B:255 A:255. */
-extern const GLKVector4 MOColorBlue;
+extern const GLKVector4 FUColorBlue;
 /** A system-defined color with the value R:138 G:43 B:226 A:255. */
-extern const GLKVector4 MOColorBlueViolet;
+extern const GLKVector4 FUColorBlueViolet;
 /** A system-defined color with the value R:165 G:42 B:42 A:255. */
-extern const GLKVector4 MOColorBrown;
+extern const GLKVector4 FUColorBrown;
 /** A system-defined color with the value R:222 G:184 B:135 A:255. */
-extern const GLKVector4 MOColorBurlyWood;
+extern const GLKVector4 FUColorBurlyWood;
 /** A system-defined color with the value R:95 G:158 B:160 A:255. */
-extern const GLKVector4 MOColorCadetBlue;
+extern const GLKVector4 FUColorCadetBlue;
 /** A system-defined color with the value R:127 G:255 B:0 A:255. */
-extern const GLKVector4 MOColorChartreuse;
+extern const GLKVector4 FUColorChartreuse;
 /** A system-defined color with the value R:210 G:105 B:30 A:255. */
-extern const GLKVector4 MOColorChocolate;
+extern const GLKVector4 FUColorChocolate;
 /** A system-defined color with the value R:255 G:127 B:80 A:255. */
-extern const GLKVector4 MOColorCoral;
+extern const GLKVector4 FUColorCoral;
 /** A system-defined color with the value R:100 G:149 B:237 A:255. */
-extern const GLKVector4 MOColorCornflowerBlue;
+extern const GLKVector4 FUColorCornflowerBlue;
 /** A system-defined color with the value R:255 G:248 B:220 A:255. */
-extern const GLKVector4 MOColorCornsilk;
+extern const GLKVector4 FUColorCornsilk;
 /** A system-defined color with the value R:220 G:20 B:60 A:255. */
-extern const GLKVector4 MOColorCrimson;
+extern const GLKVector4 FUColorCrimson;
 /** A system-defined color with the value R:0 G:255 B:255 A:255. */
-extern const GLKVector4 MOColorCyan;
+extern const GLKVector4 FUColorCyan;
 /** A system-defined color with the value R:0 G:0 B:139 A:255. */
-extern const GLKVector4 MOColorDarkBlue;
+extern const GLKVector4 FUColorDarkBlue;
 /** A system-defined color with the value R:0 G:139 B:139 A:255. */
-extern const GLKVector4 MOColorDarkCyan;
+extern const GLKVector4 FUColorDarkCyan;
 /** A system-defined color with the value R:184 G:134 B:11 A:255. */
-extern const GLKVector4 MOColorDarkGoldenrod;
+extern const GLKVector4 FUColorDarkGoldenrod;
 /** A system-defined color with the value R:169 G:169 B:169 A:255. */
-extern const GLKVector4 MOColorDarkGray;
+extern const GLKVector4 FUColorDarkGray;
 /** A system-defined color with the value R:0 G:100 B:0 A:255. */
-extern const GLKVector4 MOColorDarkGreen;
+extern const GLKVector4 FUColorDarkGreen;
 /** A system-defined color with the value R:189 G:183 B:107 A:255. */
-extern const GLKVector4 MOColorDarkKhaki;
+extern const GLKVector4 FUColorDarkKhaki;
 /** A system-defined color with the value R:139 G:0 B:139 A:255. */
-extern const GLKVector4 MOColorDarkMagenta;
+extern const GLKVector4 FUColorDarkMagenta;
 /** A system-defined color with the value R:85 G:107 B:47 A:255. */
-extern const GLKVector4 MOColorDarkOliveGreen;
+extern const GLKVector4 FUColorDarkOliveGreen;
 /** A system-defined color with the value R:255 G:140 B:0 A:255. */
-extern const GLKVector4 MOColorDarkOrange;
+extern const GLKVector4 FUColorDarkOrange;
 /** A system-defined color with the value R:153 G:50 B:204 A:255. */
-extern const GLKVector4 MOColorDarkOrchid;
+extern const GLKVector4 FUColorDarkOrchid;
 /** A system-defined color with the value R:139 G:0 B:0 A:255. */
-extern const GLKVector4 MOColorDarkRed;
+extern const GLKVector4 FUColorDarkRed;
 /** A system-defined color with the value R:233 G:150 B:122 A:255. */
-extern const GLKVector4 MOColorDarkSalmon;
+extern const GLKVector4 FUColorDarkSalmon;
 /** A system-defined color with the value R:143 G:188 B:139 A:255. */
-extern const GLKVector4 MOColorDarkSeaGreen;
+extern const GLKVector4 FUColorDarkSeaGreen;
 /** A system-defined color with the value R:72 G:61 B:139 A:255. */
-extern const GLKVector4 MOColorDarkSlateBlue;
+extern const GLKVector4 FUColorDarkSlateBlue;
 /** A system-defined color with the value R:47 G:79 B:79 A:255. */
-extern const GLKVector4 MOColorDarkSlateGray;
+extern const GLKVector4 FUColorDarkSlateGray;
 /** A system-defined color with the value R:0 G:206 B:209 A:255. */
-extern const GLKVector4 MOColorDarkTurquoise;
+extern const GLKVector4 FUColorDarkTurquoise;
 /** A system-defined color with the value R:148 G:0 B:211 A:255. */
-extern const GLKVector4 MOColorDarkViolet;
+extern const GLKVector4 FUColorDarkViolet;
 /** A system-defined color with the value R:255 G:20 B:147 A:255. */
-extern const GLKVector4 MOColorDeepPink;
+extern const GLKVector4 FUColorDeepPink;
 /** A system-defined color with the value R:0 G:191 B:255 A:255. */
-extern const GLKVector4 MOColorDeepSkyBlue;
+extern const GLKVector4 FUColorDeepSkyBlue;
 /** A system-defined color with the value R:105 G:105 B:105 A:255. */
-extern const GLKVector4 MOColorDimGray;
+extern const GLKVector4 FUColorDimGray;
 /** A system-defined color with the value R:30 G:144 B:255 A:255. */
-extern const GLKVector4 MOColorDodgerBlue;
+extern const GLKVector4 FUColorDodgerBlue;
 /** A system-defined color with the value R:178 G:34 B:34 A:255. */
-extern const GLKVector4 MOColorFirebrick;
+extern const GLKVector4 FUColorFirebrick;
 /** A system-defined color with the value R:255 G:250 B:240 A:255. */
-extern const GLKVector4 MOColorFloralWhite;
+extern const GLKVector4 FUColorFloralWhite;
 /** A system-defined color with the value R:34 G:139 B:34 A:255. */
-extern const GLKVector4 MOColorForestGreen;
+extern const GLKVector4 FUColorForestGreen;
 /** A system-defined color with the value R:255 G:0 B:255 A:255. */
-extern const GLKVector4 MOColorFuchsia;
+extern const GLKVector4 FUColorFuchsia;
 /** A system-defined color with the value R:220 G:220 B:220 A:255. */
-extern const GLKVector4 MOColorGainsboro;
+extern const GLKVector4 FUColorGainsboro;
 /** A system-defined color with the value R:248 G:248 B:255 A:255. */
-extern const GLKVector4 MOColorGhostWhite;
+extern const GLKVector4 FUColorGhostWhite;
 /** A system-defined color with the value R:255 G:215 B:0 A:255. */
-extern const GLKVector4 MOColorGold;
+extern const GLKVector4 FUColorGold;
 /** A system-defined color with the value R:218 G:165 B:32 A:255. */
-extern const GLKVector4 MOColorGoldenrod;
+extern const GLKVector4 FUColorGoldenrod;
 /** A system-defined color with the value R:128 G:128 B:128 A:255. */
-extern const GLKVector4 MOColorGray;
+extern const GLKVector4 FUColorGray;
 /** A system-defined color with the value R:0 G:128 B:0 A:255. */
-extern const GLKVector4 MOColorGreen;
+extern const GLKVector4 FUColorGreen;
 /** A system-defined color with the value R:173 G:255 B:47 A:255. */
-extern const GLKVector4 MOColorGreenYellow;
+extern const GLKVector4 FUColorGreenYellow;
 /** A system-defined color with the value R:240 G:255 B:240 A:255. */
-extern const GLKVector4 MOColorHoneydew;
+extern const GLKVector4 FUColorHoneydew;
 /** A system-defined color with the value R:255 G:105 B:180 A:255. */
-extern const GLKVector4 MOColorHotPink;
+extern const GLKVector4 FUColorHotPink;
 /** A system-defined color with the value R:205 G:92 B:92 A:255. */
-extern const GLKVector4 MOColorIndianRed;
+extern const GLKVector4 FUColorIndianRed;
 /** A system-defined color with the value R:75 G:0 B:130 A:255. */
-extern const GLKVector4 MOColorIndigo;
+extern const GLKVector4 FUColorIndigo;
 /** A system-defined color with the value R:255 G:255 B:240 A:255. */
-extern const GLKVector4 MOColorIvory;
+extern const GLKVector4 FUColorIvory;
 /** A system-defined color with the value R:240 G:230 B:140 A:255. */
-extern const GLKVector4 MOColorKhaki;
+extern const GLKVector4 FUColorKhaki;
 /** A system-defined color with the value R:230 G:230 B:250 A:255. */
-extern const GLKVector4 MOColorLavender;
+extern const GLKVector4 FUColorLavender;
 /** A system-defined color with the value R:255 G:240 B:245 A:255. */
-extern const GLKVector4 MOColorLavenderBlush;
+extern const GLKVector4 FUColorLavenderBlush;
 /** A system-defined color with the value R:124 G:252 B:0 A:255. */
-extern const GLKVector4 MOColorLawnGreen;
+extern const GLKVector4 FUColorLawnGreen;
 /** A system-defined color with the value R:255 G:250 B:205 A:255. */
-extern const GLKVector4 MOColorLemonChiffon;
+extern const GLKVector4 FUColorLemonChiffon;
 /** A system-defined color with the value R:173 G:216 B:230 A:255. */
-extern const GLKVector4 MOColorLightBlue;
+extern const GLKVector4 FUColorLightBlue;
 /** A system-defined color with the value R:240 G:128 B:128 A:255. */
-extern const GLKVector4 MOColorLightCoral;
+extern const GLKVector4 FUColorLightCoral;
 /** A system-defined color with the value R:224 G:255 B:255 A:255. */
-extern const GLKVector4 MOColorLightCyan;
+extern const GLKVector4 FUColorLightCyan;
 /** A system-defined color with the value R:250 G:250 B:210 A:255. */
-extern const GLKVector4 MOColorLightGoldenrodYellow;
+extern const GLKVector4 FUColorLightGoldenrodYellow;
 /** A system-defined color with the value R:211 G:211 B:211 A:255. */
-extern const GLKVector4 MOColorLightGray;
+extern const GLKVector4 FUColorLightGray;
 /** A system-defined color with the value R:144 G:238 B:144 A:255. */
-extern const GLKVector4 MOColorLightGreen;
+extern const GLKVector4 FUColorLightGreen;
 /** A system-defined color with the value R:255 G:182 B:193 A:255. */
-extern const GLKVector4 MOColorLightPink;
+extern const GLKVector4 FUColorLightPink;
 /** A system-defined color with the value R:255 G:160 B:122 A:255. */
-extern const GLKVector4 MOColorLightSalmon;
+extern const GLKVector4 FUColorLightSalmon;
 /** A system-defined color with the value R:32 G:178 B:170 A:255. */
-extern const GLKVector4 MOColorLightSeaGreen;
+extern const GLKVector4 FUColorLightSeaGreen;
 /** A system-defined color with the value R:135 G:206 B:250 A:255. */
-extern const GLKVector4 MOColorLightSkyBlue;
+extern const GLKVector4 FUColorLightSkyBlue;
 /** A system-defined color with the value R:119 G:136 B:153 A:255. */
-extern const GLKVector4 MOColorLightSlateGray;
+extern const GLKVector4 FUColorLightSlateGray;
 /** A system-defined color with the value R:176 G:196 B:222 A:255. */
-extern const GLKVector4 MOColorLightSteelBlue;
+extern const GLKVector4 FUColorLightSteelBlue;
 /** A system-defined color with the value R:255 G:255 B:224 A:255. */
-extern const GLKVector4 MOColorLightYellow;
+extern const GLKVector4 FUColorLightYellow;
 /** A system-defined color with the value R:0 G:255 B:0 A:255. */
-extern const GLKVector4 MOColorLime;
+extern const GLKVector4 FUColorLime;
 /** A system-defined color with the value R:50 G:205 B:50 A:255. */
-extern const GLKVector4 MOColorLimeGreen;
+extern const GLKVector4 FUColorLimeGreen;
 /** A system-defined color with the value R:250 G:240 B:230 A:255. */
-extern const GLKVector4 MOColorLinen;
+extern const GLKVector4 FUColorLinen;
 /** A system-defined color with the value R:255 G:0 B:255 A:255. */
-extern const GLKVector4 MOColorMagenta;
+extern const GLKVector4 FUColorMagenta;
 /** A system-defined color with the value R:128 G:0 B:0 A:255. */
-extern const GLKVector4 MOColorMaroon;
+extern const GLKVector4 FUColorMaroon;
 /** A system-defined color with the value R:102 G:205 B:170 A:255. */
-extern const GLKVector4 MOColorMediumAquamarine;
+extern const GLKVector4 FUColorMediumAquamarine;
 /** A system-defined color with the value R:0 G:0 B:205 A:255. */
-extern const GLKVector4 MOColorMediumBlue;
+extern const GLKVector4 FUColorMediumBlue;
 /** A system-defined color with the value R:186 G:85 B:211 A:255. */
-extern const GLKVector4 MOColorMediumOrchid;
+extern const GLKVector4 FUColorMediumOrchid;
 /** A system-defined color with the value R:147 G:112 B:219 A:255. */
-extern const GLKVector4 MOColorMediumPurple;
+extern const GLKVector4 FUColorMediumPurple;
 /** A system-defined color with the value R:60 G:179 B:113 A:255. */
-extern const GLKVector4 MOColorMediumSeaGreen;
+extern const GLKVector4 FUColorMediumSeaGreen;
 /** A system-defined color with the value R:123 G:104 B:238 A:255. */
-extern const GLKVector4 MOColorMediumSlateBlue;
+extern const GLKVector4 FUColorMediumSlateBlue;
 /** A system-defined color with the value R:0 G:250 B:154 A:255. */
-extern const GLKVector4 MOColorMediumSpringGreen;
+extern const GLKVector4 FUColorMediumSpringGreen;
 /** A system-defined color with the value R:72 G:209 B:204 A:255. */
-extern const GLKVector4 MOColorMediumTurquoise;
+extern const GLKVector4 FUColorMediumTurquoise;
 /** A system-defined color with the value R:199 G:21 B:133 A:255. */
-extern const GLKVector4 MOColorMediumVioletRed;
+extern const GLKVector4 FUColorMediumVioletRed;
 /** A system-defined color with the value R:25 G:25 B:112 A:255. */
-extern const GLKVector4 MOColorMidnightBlue;
+extern const GLKVector4 FUColorMidnightBlue;
 /** A system-defined color with the value R:245 G:255 B:250 A:255. */
-extern const GLKVector4 MOColorMintCream;
+extern const GLKVector4 FUColorMintCream;
 /** A system-defined color with the value R:255 G:228 B:225 A:255. */
-extern const GLKVector4 MOColorMistyRose;
+extern const GLKVector4 FUColorMistyRose;
 /** A system-defined color with the value R:255 G:228 B:181 A:255. */
-extern const GLKVector4 MOColorMoccasin;
+extern const GLKVector4 FUColorMoccasin;
 /** A system-defined color with the value R:255 G:222 B:173 A:255. */
-extern const GLKVector4 MOColorNavajoWhite;
+extern const GLKVector4 FUColorNavajoWhite;
 /** A system-defined color with the value R:0 G:0 B:128 A:255. */
-extern const GLKVector4 MOColorNavy;
+extern const GLKVector4 FUColorNavy;
 /** A system-defined color with the value R:253 G:245 B:230 A:255. */
-extern const GLKVector4 MOColorOldLace;
+extern const GLKVector4 FUColorOldLace;
 /** A system-defined color with the value R:128 G:128 B:0 A:255. */
-extern const GLKVector4 MOColorOlive;
+extern const GLKVector4 FUColorOlive;
 /** A system-defined color with the value R:107 G:142 B:35 A:255. */
-extern const GLKVector4 MOColorOliveDrab;
+extern const GLKVector4 FUColorOliveDrab;
 /** A system-defined color with the value R:255 G:165 B:0 A:255. */
-extern const GLKVector4 MOColorOrange;
+extern const GLKVector4 FUColorOrange;
 /** A system-defined color with the value R:255 G:69 B:0 A:255. */
-extern const GLKVector4 MOColorOrangeRed;
+extern const GLKVector4 FUColorOrangeRed;
 /** A system-defined color with the value R:218 G:112 B:214 A:255. */
-extern const GLKVector4 MOColorOrchid;
+extern const GLKVector4 FUColorOrchid;
 /** A system-defined color with the value R:238 G:232 B:170 A:255. */
-extern const GLKVector4 MOColorPaleGoldenrod;
+extern const GLKVector4 FUColorPaleGoldenrod;
 /** A system-defined color with the value R:152 G:251 B:152 A:255. */
-extern const GLKVector4 MOColorPaleGreen;
+extern const GLKVector4 FUColorPaleGreen;
 /** A system-defined color with the value R:175 G:238 B:238 A:255. */
-extern const GLKVector4 MOColorPaleTurquoise;
+extern const GLKVector4 FUColorPaleTurquoise;
 /** A system-defined color with the value R:219 G:112 B:147 A:255. */
-extern const GLKVector4 MOColorPaleVioletRed;
+extern const GLKVector4 FUColorPaleVioletRed;
 /** A system-defined color with the value R:255 G:239 B:213 A:255. */
-extern const GLKVector4 MOColorPapayaWhip;
+extern const GLKVector4 FUColorPapayaWhip;
 /** A system-defined color with the value R:255 G:218 B:185 A:255. */
-extern const GLKVector4 MOColorPeachPuff;
+extern const GLKVector4 FUColorPeachPuff;
 /** A system-defined color with the value R:205 G:133 B:63 A:255. */
-extern const GLKVector4 MOColorPeru;
+extern const GLKVector4 FUColorPeru;
 /** A system-defined color with the value R:255 G:192 B:203 A:255. */
-extern const GLKVector4 MOColorPink;
+extern const GLKVector4 FUColorPink;
 /** A system-defined color with the value R:221 G:160 B:221 A:255. */
-extern const GLKVector4 MOColorPlum;
+extern const GLKVector4 FUColorPlum;
 /** A system-defined color with the value R:176 G:224 B:230 A:255. */
-extern const GLKVector4 MOColorPowderBlue;
+extern const GLKVector4 FUColorPowderBlue;
 /** A system-defined color with the value R:128 G:0 B:128 A:255. */
-extern const GLKVector4 MOColorPurple;
+extern const GLKVector4 FUColorPurple;
 /** A system-defined color with the value R:255 G:0 B:0 A:255. */
-extern const GLKVector4 MOColorRed;
+extern const GLKVector4 FUColorRed;
 /** A system-defined color with the value R:188 G:143 B:143 A:255. */
-extern const GLKVector4 MOColorRosyBrown;
+extern const GLKVector4 FUColorRosyBrown;
 /** A system-defined color with the value R:65 G:105 B:225 A:255. */
-extern const GLKVector4 MOColorRoyalBlue;
+extern const GLKVector4 FUColorRoyalBlue;
 /** A system-defined color with the value R:139 G:69 B:19 A:255. */
-extern const GLKVector4 MOColorSaddleBrown;
+extern const GLKVector4 FUColorSaddleBrown;
 /** A system-defined color with the value R:250 G:128 B:114 A:255. */
-extern const GLKVector4 MOColorSalmon;
+extern const GLKVector4 FUColorSalmon;
 /** A system-defined color with the value R:244 G:164 B:96 A:255. */
-extern const GLKVector4 MOColorSandyBrown;
+extern const GLKVector4 FUColorSandyBrown;
 /** A system-defined color with the value R:46 G:139 B:87 A:255. */
-extern const GLKVector4 MOColorSeaGreen;
+extern const GLKVector4 FUColorSeaGreen;
 /** A system-defined color with the value R:255 G:245 B:238 A:255. */
-extern const GLKVector4 MOColorSeaShell;
+extern const GLKVector4 FUColorSeaShell;
 /** A system-defined color with the value R:160 G:82 B:45 A:255. */
-extern const GLKVector4 MOColorSienna;
+extern const GLKVector4 FUColorSienna;
 /** A system-defined color with the value R:192 G:192 B:192 A:255. */
-extern const GLKVector4 MOColorSilver;
+extern const GLKVector4 FUColorSilver;
 /** A system-defined color with the value R:135 G:206 B:235 A:255. */
-extern const GLKVector4 MOColorSkyBlue;
+extern const GLKVector4 FUColorSkyBlue;
 /** A system-defined color with the value R:106 G:90 B:205 A:255. */
-extern const GLKVector4 MOColorSlateBlue;
+extern const GLKVector4 FUColorSlateBlue;
 /** A system-defined color with the value R:112 G:128 B:144 A:255. */
-extern const GLKVector4 MOColorSlateGray;
+extern const GLKVector4 FUColorSlateGray;
 /** A system-defined color with the value R:255 G:250 B:250 A:255. */
-extern const GLKVector4 MOColorSnow;
+extern const GLKVector4 FUColorSnow;
 /** A system-defined color with the value R:0 G:255 B:127 A:255. */
-extern const GLKVector4 MOColorSpringGreen;
+extern const GLKVector4 FUColorSpringGreen;
 /** A system-defined color with the value R:70 G:130 B:180 A:255. */
-extern const GLKVector4 MOColorSteelBlue;
+extern const GLKVector4 FUColorSteelBlue;
 /** A system-defined color with the value R:210 G:180 B:140 A:255. */
-extern const GLKVector4 MOColorTan;
+extern const GLKVector4 FUColorTan;
 /** A system-defined color with the value R:0 G:128 B:128 A:255. */
-extern const GLKVector4 MOColorTeal;
+extern const GLKVector4 FUColorTeal;
 /** A system-defined color with the value R:216 G:191 B:216 A:255. */
-extern const GLKVector4 MOColorThistle;
+extern const GLKVector4 FUColorThistle;
 /** A system-defined color with the value R:255 G:99 B:71 A:255. */
-extern const GLKVector4 MOColorTomato;
+extern const GLKVector4 FUColorTomato;
 /** A system-defined color with the value R:0 G:0 B:0 A:0. */
-extern const GLKVector4 MOColorTransparentBlack;
+extern const GLKVector4 FUColorTransparentBlack;
 /** A system-defined color with the value R:255 G:255 B:255 A:0. */
-extern const GLKVector4 MOColorTransparentWhite;
+extern const GLKVector4 FUColorTransparentWhite;
 /** A system-defined color with the value R:64 G:224 B:208 A:255. */
-extern const GLKVector4 MOColorTurquoise;
+extern const GLKVector4 FUColorTurquoise;
 /** A system-defined color with the value R:238 G:130 B:238 A:255. */
-extern const GLKVector4 MOColorViolet;
+extern const GLKVector4 FUColorViolet;
 /** A system-defined color with the value R:245 G:222 B:179 A:255. */
-extern const GLKVector4 MOColorWheat;
+extern const GLKVector4 FUColorWheat;
 /** A system-defined color with the value R:255 G:255 B:255 A:255. */
-extern const GLKVector4 MOColorWhite;
+extern const GLKVector4 FUColorWhite;
 /** A system-defined color with the value R:245 G:245 B:245 A:255. */
-extern const GLKVector4 MOColorWhiteSmoke;
+extern const GLKVector4 FUColorWhiteSmoke;
 /** A system-defined color with the value R:255 G:255 B:0 A:255. */
-extern const GLKVector4 MOColorYellow;
+extern const GLKVector4 FUColorYellow;
 /** A system-defined color with the value R:154 G:205 B:50 A:255. */
-extern const GLKVector4 MOColorYellowGreen;
+extern const GLKVector4 FUColorYellowGreen;
 
 
-#define MOColorWithBytes(red, green, blue, alpha) (GLKVector4){(red)/255.0f, (green)/255.0f, (blue)/255.0f, (alpha)/255.0f}
+#define FUColorWithBytes(red, green, blue, alpha) (GLKVector4){(red)/255.0f, (green)/255.0f, (blue)/255.0f, (alpha)/255.0f}

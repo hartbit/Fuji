@@ -1,19 +1,19 @@
 //
-//  NSBundle+MOAdditions.m
-//  Mocha2D
+//  NSBundle+FUAdditions.m
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "MOViewController.h"
-#import "UIDevice+MOAdditions.h"
-#import "UIScreen+MOAdditions.h"
-#import "MOMacros.h"
+#import "FUViewController.h"
+#import "UIDevice+FUAdditions.h"
+#import "UIScreen+FUAdditions.h"
+#import "FUMacros.h"
 
 
-@implementation NSBundle (MOAdditions)
+@implementation NSBundle (FUAdditions)
 
 + (NSBundle*)currentBundle
 {
@@ -21,7 +21,7 @@
 	
 	if (sCurrentBundle == nil)
 	{
-		sCurrentBundle = [NSBundle bundleForClass:[MOViewController class]];
+		sCurrentBundle = [NSBundle bundleForClass:[FUViewController class]];
 	}
 	
 	return sCurrentBundle;
@@ -29,14 +29,14 @@
 
 - (NSString*)platformPathForResource:(NSString*)name ofType:(NSString*)extension
 {
-	MOAssertError(MOStringIsValid(name), @"name=%@", name);
-	MOAssertError(MOStringIsValid(extension), @"extension=%@", extension);
+	FUAssertError(FUStringIsValid(name), @"name=%@", name);
+	FUAssertError(FUStringIsValid(extension), @"extension=%@", extension);
 	
 	NSAssert(name != nil, @"");
 	
 	NSString* platformSuffix = [[UIDevice currentDevice] platformSuffix];
 	NSString* scaleSuffix = [[UIScreen mainScreen] scaleSuffix];
-	BOOL hasScaleSuffix = MOStringIsValid(scaleSuffix);
+	BOOL hasScaleSuffix = FUStringIsValid(scaleSuffix);
 	
 	NSString* nameWithSuffix = nil;
 	NSString* path = nil;

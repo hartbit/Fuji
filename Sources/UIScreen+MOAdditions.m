@@ -1,6 +1,6 @@
 //
-//  UIScreen+MOAdditions.m
-//  MOAdditions
+//  UIScreen+FUAdditions.m
+//  FUAdditions
 //
 //  Created by Hart David on 20.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@implementation UIScreen (MOAdditions)
+@implementation UIScreen (FUAdditions)
 
 - (NSString*)scaleSuffix
 {

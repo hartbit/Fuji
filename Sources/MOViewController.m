@@ -1,16 +1,16 @@
 //
-//  MOViewController.m
-//  Mocha2D
+//  FUViewController.m
+//  Fuji
 //
 //  Created by Hart David on 22.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "MOViewController.h"
-#import "MOScene.h"
+#import "FUViewController.h"
+#import "FUScene.h"
 
 
-@interface MOViewController ()
+@interface FUViewController ()
 
 @property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) GLKBaseEffect* effect;
@@ -19,7 +19,7 @@
 @end
 
 
-@implementation MOViewController
+@implementation FUViewController
 
 @synthesize scene = _scene;
 @synthesize context = _context;

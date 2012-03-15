@@ -1,16 +1,16 @@
 //
-//  MOTransform.h
-//  Mocha2D
+//  FUTransform.h
+//  Fuji
 //
 //  Created by David Hart on 01.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
 #import <GLKit/GLKit.h>
-#import "MOComponent.h"
+#import "FUComponent.h"
 
 
-@interface MOTransform : MOComponent
+@interface FUTransform2D : FUComponent
 
 @property (nonatomic) GLKVector2 position;
 @property (nonatomic) float positionX;

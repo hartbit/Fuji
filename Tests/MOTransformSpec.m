@@ -1,6 +1,6 @@
 //
-//  MOTransformSpec.m
-//  Mocha2D
+//  FUTransformSpec.m
+//  Fuji
 //
 //  Created by David Hart on 01.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -11,23 +11,23 @@
 #import "Specta.h"
 #define EXP_SHORTHAND
 #import "Expecta.h"
-#import "Mocha2D.h"
-#import "MOTestFunctions.h"
-#import "MOGameObject.h"
-#import "MOComponent.h"
-#import "MOComponent-Internal.h"
-#import "MOTransform.h"
+#import "Fuji.h"
+#import "FUTestFunctions.h"
+#import "FUGameObject.h"
+#import "FUComponent.h"
+#import "FUComponent-Internal.h"
+#import "FUTransform.h"
 
 
-SPEC_BEGIN(MOTransformSpec)
+SPEC_BEGIN(FUTransformSpec)
 
 describe(@"A transform component", ^{
-	__block MOGameObject* gameObject = nil;
-	__block MOTransform* transform = nil;
+	__block FUGameObject* gameObject = nil;
+	__block FUTransform* transform = nil;
 	
 	beforeEach(^{
-		gameObject = mock([MOGameObject class]);
-		transform = [[MOTransform alloc] initWithGameObject:gameObject];
+		gameObject = mock([FUGameObject class]);
+		transform = [[FUTransform alloc] initWithGameObject:gameObject];
 		[transform awake];
 	});
 	

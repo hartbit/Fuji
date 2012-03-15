@@ -1,6 +1,6 @@
 //
-//  MOViewController.h
-//  Mocha2D
+//  FUViewController.h
+//  Fuji
 //
 //  Created by Hart David on 22.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -9,13 +9,13 @@
 #import <GLKit/GLKit.h>
 
 
-@class MOScene;
+@class FUScene;
 
-/** MOViewController
+/** FUViewController
  * This is the view controller class.
  */
-@interface MOViewController : GLKViewController <GLKViewDelegate>
+@interface FUViewController : GLKViewController <GLKViewDelegate>
 
-@property (nonatomic, strong) MOScene* scene;
+@property (nonatomic, strong) FUScene* scene;
 
 @end

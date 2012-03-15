@@ -1,16 +1,16 @@
 //
-//  MOTransform.m
-//  Mocha2D
+//  FUTransform2D.m
+//  Fuji
 //
 //  Created by David Hart on 01.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "MOTransform.h"
-#import "MOMath.h"
+#import "FUTransform2D.h"
+#import "FUMath.h"
 
 
-@interface MOTransform ()
+@interface FUTransform2D ()
 
 @property (nonatomic) GLKMatrix4 matrix;
 @property (nonatomic) BOOL needsUpdate;
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation MOTransform
+@implementation FUTransform2D
 
 @synthesize position = _position;
 @synthesize rotation = _rotation;
@@ -121,7 +121,7 @@
 	return _matrix;
 }
 
-#pragma mark - MOComponent Methods
+#pragma mark - FUComponent Methods
 
 - (void)awake
 {

@@ -1,33 +1,33 @@
 //
-//  MOResourceManager.m
-//  Mocha2D
+//  FUResourceManager.m
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "MOResourceManager.h"
-#import "MOTexture-Internal.h"
-#import "MOMacros.h"
+#import "FUResourceManager.h"
+#import "FUTexture-Internal.h"
+#import "FUMacros.h"
 
 
-@interface MOResourceManager ()
+@interface FUResourceManager ()
 
 @property (nonatomic, strong) NSMutableDictionary* resources;
 
 @end
 
 
-@implementation MOResourceManager
+@implementation FUResourceManager
 
 @synthesize resources = _resources;
 
 #pragma mark - Initialization
 
-+ (MOResourceManager*)sharedManager
++ (FUResourceManager*)sharedManager
 {
-	MO_SINGLETON_WITH_BLOCK(^{
-		return [MOResourceManager new];
+	FU_SINGLETON_WITH_BLOCK(^{
+		return [FUResourceManager new];
 	});
 }
 
@@ -47,7 +47,7 @@
 
 - (BOOL)resourceIsLoadedWithName:(NSString*)name
 {
-	MOAssertError(MOStringIsValid(name), @"name=%@", name);
+	FUAssertError(FUStringIsValid(name), @"name=%@", name);
 	
 	return [[self resources] objectForKey:name] != nil;
 }
@@ -67,30 +67,30 @@
 
 #pragma mark - Texture Loading
 
-- (MOTexture*)textureWithName:(NSString*)name
+- (FUTexture*)textureWithName:(NSString*)name
 {
-	MOAssertError(MOStringIsValid(name), @"name=%@", name);
+	FUAssertError(FUStringIsValid(name), @"name=%@", name);
 	
-	MOTexture* texture = [self resourceWithName:name type:[MOTexture class]];
+	FUTexture* texture = [self resourceWithName:name type:[FUTexture class]];
 	
 	if (texture == nil)
 	{
-		texture = [[MOTexture alloc] initWithName:name];
+		texture = [[FUTexture alloc] initWithName:name];
 		[self setResource:texture withName:name];
 	}
 	
 	return texture;
 }
 
-- (void)textureWithName:(NSString*)name completion:(void (^)(MOTexture* texture))completion;
+- (void)textureWithName:(NSString*)name completion:(void (^)(FUTexture* texture))completion;
 {
-	MOAssertError(MOStringIsValid(name), @"name=%@", name);
+	FUAssertError(FUStringIsValid(name), @"name=%@", name);
 	
-	MOTexture* texture = [self resourceWithName:name type:[MOTexture class]];
+	FUTexture* texture = [self resourceWithName:name type:[FUTexture class]];
 	
 	if (texture == nil)
 	{
-		[MOTexture textureWithName:name completion:^(MOTexture* texture) {
+		[FUTexture textureWithName:name completion:^(FUTexture* texture) {
 			[self setResource:texture withName:name];
 			
 			if (completion != NULL)
@@ -109,8 +109,8 @@
 
 - (id)resourceWithName:(NSString*)name type:(Class)class
 {
-	MOAssertError(MOStringIsValid(name), @"name=%@", name);
-	MOAssertError(class != NULL, nil);
+	FUAssertError(FUStringIsValid(name), @"name=%@", name);
+	FUAssertError(class != NULL, nil);
 	
 	id resource = [[self resources] objectForKey:name];
 	
@@ -125,8 +125,8 @@
 
 - (void)setResource:(id)resource withName:(NSString*)name
 {
-	MOAssertError(resource != nil, nil);
-	MOAssertError(MOStringIsValid(name), @"name=%@", name);
+	FUAssertError(resource != nil, nil);
+	FUAssertError(FUStringIsValid(name), @"name=%@", name);
 	
 	[[self resources] setObject:resource forKey:name];
 }

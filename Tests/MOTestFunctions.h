@@ -1,6 +1,6 @@
 //
-//  MOTestFunctions.h
-//  Mocha2D
+//  FUTestFunctions.h
+//  Fuji
 //
 //  Created by Hart David on 09.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.

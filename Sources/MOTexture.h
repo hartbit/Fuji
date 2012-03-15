@@ -1,6 +1,6 @@
 //
-//  MOTexture.h
-//  Mocha2D
+//  FUTexture.h
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -10,8 +10,8 @@
 #import <OpenGLES/ES2/gl.h>
 
 
-/** When your game loads textures using the `MOResourceManager` class, the manager returns information about the textures using `MOTexture` objects. Your game never creates `MOTexture` objects directly. */
-@interface MOTexture : NSObject
+/** When your game loads textures using the `FUResourceManager` class, the manager returns information about the textures using `FUTexture` objects. Your game never creates `FUTexture` objects directly. */
+@interface FUTexture : NSObject
 
 /** The OpenGL texture id. */
 @property (nonatomic, readonly) GLuint identifier;

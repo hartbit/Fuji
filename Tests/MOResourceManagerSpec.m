@@ -1,6 +1,6 @@
 //
-//  MOResourceManagerSpec.m
-//  Mocha2D
+//  FUResourceManagerSpec.m
+//  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
@@ -11,7 +11,7 @@
 #import "Specta.h"
 #define EXP_SHORTHAND
 #import "Expecta.h"
-#import "Mocha2D.h"
+#import "Fuji.h"
 
 
 #define NONEXISTANT @"Nonexistent.png"
@@ -19,10 +19,10 @@
 #define VALID @"Valid.png"
 
 
-SPEC_BEGIN(MOResourceManagerSpec)
+SPEC_BEGIN(FUResourceManagerSpec)
 
-describe(@"MOResourceManager", ^{
-	__block MOResourceManager* resourceManager = [MOResourceManager sharedManager];
+describe(@"FUResourceManager", ^{
+	__block FUResourceManager* resourceManager = [FUResourceManager sharedManager];
 	
 	beforeEach(^{
 		EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -30,7 +30,7 @@ describe(@"MOResourceManager", ^{
 	});
 	
 	afterEach(^{
-		[[MOResourceManager sharedManager] purgeResources];
+		[[FUResourceManager sharedManager] purgeResources];
 		[EAGLContext setCurrentContext:nil];
 	});	
 	
@@ -58,7 +58,7 @@ describe(@"MOResourceManager", ^{
 		});
 		
 		it(@"should load a valid texture", ^{
-			MOTexture* texture = [resourceManager textureWithName:VALID];
+			FUTexture* texture = [resourceManager textureWithName:VALID];
 			expect(texture).toNot.beNil();
 			expect([resourceManager resourceIsLoadedWithName:VALID]).to.beTruthy();
 		});
@@ -69,9 +69,9 @@ describe(@"MOResourceManager", ^{
 		pending(@"should raise when loading an invalid texture");
 
 		it(@"should load a texture asynchronously", ^{
-			__block MOTexture* asyncTexture = nil;
+			__block FUTexture* asyncTexture = nil;
 			
-			[resourceManager textureWithName:VALID completion:^(MOTexture* texture) {
+			[resourceManager textureWithName:VALID completion:^(FUTexture* texture) {
 				asyncTexture = texture;
 			}];
 			
