@@ -16,6 +16,6 @@
 
 @property (nonatomic, assign) GLKVector4 backgroundColor;
 
-- (MOGameObject*)addGameObject;
+- (MOGameObject*)createGameObject;
 
 @end

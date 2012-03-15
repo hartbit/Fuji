@@ -14,7 +14,7 @@
 #import "OCMockito.h"
 #import "Mocha2D.h"
 #import "MOGameObject-Internal.h"
-#import "MOComponent-Internal.h
+#import "MOComponent-Internal.h"
 
 
 SPEC_BEGIN(MOGameObjectSpec)

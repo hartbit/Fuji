@@ -16,33 +16,42 @@
 
 SPEC_BEGIN(MOSceneSpec)
 
-describe(@"MOScene", ^{
+describe(@"A scene", ^{
 	__block MOScene* scene = nil;
 	
 	beforeEach(^{
 		scene = [MOScene new];
 	});
 	
-	it(@"should return a valid scene", ^{
+	it(@"is not nil", ^{
 		expect(scene).toNot.beNil();
 	});
 	
-	context(@"backgroundColor", ^{
-		it(@"should have an initial value of black", ^{
-			expect(GLKVector4AllEqualToVector4([scene backgroundColor], MOColorCornflowerBlue)).to.beTruthy();
+	it(@"has an initial background color of Cornflower Blue", ^{
+		expect(GLKVector4AllEqualToVector4([scene backgroundColor], MOColorCornflowerBlue)).to.beTruthy();
+	});
+	
+	context(@"set the background color to gray", ^{
+		beforeEach(^{
+			[scene setBackgroundColor:MOColorGray];
 		});
 		
-		it(@"should be editable", ^{
-			[scene setBackgroundColor:MOColorGray];
+		it(@"has a background color of gray", ^{
 			expect(GLKVector4AllEqualToVector4([scene backgroundColor], MOColorGray)).to.beTruthy();
 		});
 	});
 	
-	context(@"addGameObject", ^{
-		it(@"should return a valid game object", ^{
-			MOGameObject* gameObject = [scene addGameObject];
+	context(@"created a game object", ^{
+		__block MOGameObject* gameObject = nil;
+		
+		beforeEach(^{
+			gameObject = [scene createGameObject];
+		});
+		
+		it(@"returns a valid game object with the scene property set", ^{
 			expect(gameObject).toNot.beNil();
 			expect(gameObject).to.beAnInstanceOf([MOGameObject class]);
+			expect([gameObject scene]).to.beIdenticalTo((__bridge void*)scene);
 		});
 	});
 });

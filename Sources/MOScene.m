@@ -32,7 +32,7 @@
 
 #pragma mark - Public Methods
 
-- (MOGameObject*)addGameObject
+- (MOGameObject*)createGameObject
 {
 	return [[MOGameObject alloc] initWithScene:self];
 }
