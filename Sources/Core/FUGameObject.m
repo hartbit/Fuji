@@ -104,4 +104,25 @@
 	return nil;
 }
 
+- (NSSet*)allComponentsWithClass:(Class)componentClass
+{
+	if (![componentClass isSubclassOfClass:[FUComponent class]] || (componentClass == [FUComponent class]))
+	{
+		FULogError(@"Expected 'componentClass' to be a subclass of FUComponent, got '%@'", NSStringFromClass(componentClass));
+		return nil;
+	}
+	
+	NSMutableSet* components = [NSMutableSet set];
+	
+	for (FUComponent* component in [self components])
+	{
+		if ([component class] == componentClass)
+		{
+			[components addObject:component];
+		}
+	}
+	
+	return [NSSet setWithSet:components];
+}
+
 @end
