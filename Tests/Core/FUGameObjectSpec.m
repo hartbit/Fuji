@@ -128,152 +128,41 @@ describe(@"A game object", ^{
 				expect([gameObject allComponentsWithClass:[FUComponent class]]).to.beEmpty();
 			});
 		});
-		/*
-		context(@"added a component that is not unique", ^{
-			__block FUTestComponent* component = nil;
-			__block FUTestComponent* returnedComponent = nil;
-			
-			beforeEach(^{
-				component = [FUTestComponent testComponent];
-				[FUTestComponent setAllocReturnValue:component];
-				returnedComponent = (FUTestComponent*)[gameObject addComponentWithClass:[FUTestComponent class]];
-			});
-			
-			it(@"initializes a new component", ^{
-				expect([component wasInitCalled]).to.beTruthy();
-				expect([component wasAwakeCalled]).to.beTruthy();
-			});
-			
-			it(@"returns the created component", ^{
-				expect(returnedComponent).to.beIdenticalTo(component);
-			});
-			
-			context(@"getting a component with the same class", ^{
-				it(@"returns the component", ^{
-					expect([gameObject componentWithClass:[FUTestComponent class]]).to.beIdenticalTo(component);
-				});
-			});
-			
-			context(@"getting all the components with the same class", ^{
-				it(@"returns the only component", ^{
-					NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
-					expect(components).to.haveCountOf(1);
-					expect(components).to.contain(component);
-				});
-			});
-			
-			context(@"getting all the components with a different class", ^{
-				it(@"returns an empty set", ^{
-					expect([gameObject allComponentsWithClass:[FUUniqueTestComponent class]]).to.beEmpty();
-				});
-			});
-			
-			context(@"added a second component with the same non-unique class", ^{
-				__block FUTestComponent* component2 = nil;
-				__block FUTestComponent* returnedComponent2 = nil;
-				
-				beforeEach(^{
-					component2 = [FUTestComponent testComponent];
-					[FUTestComponent setAllocReturnValue:component2];
-					returnedComponent2 = (FUTestComponent*)[gameObject addComponentWithClass:[FUTestComponent class]];
-				});
-				
-				it(@"initializes a new component", ^{
-					expect([component2 wasInitCalled]).to.beTruthy();
-					expect([component2 wasAwakeCalled]).to.beTruthy();
-				});
-				
-				it(@"returns the created component", ^{
-					expect(returnedComponent2).to.beIdenticalTo(component2);
-				});
-				
-				context(@"getting all the components with the same class", ^{
-					it(@"returns the both components", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
-						expect(components).to.haveCountOf(2);
-						expect(components).to.contain(component);
-						expect(components).to.contain(component2);
-					});
-				});
-				
-				context(@"getting all the components with a different class", ^{
-					it(@"returns an empty set", ^{
-						expect([gameObject allComponentsWithClass:[FUUniqueTestComponent class]]).to.beEmpty();
-					});
-				});
-			});
-			
-			context(@"added a second component with a different unique class", ^{
-				__block FUUniqueTestComponent* component2 = nil;
-				__block FUUniqueTestComponent* returnedComponent2 = nil;
-				
-				beforeEach(^{
-					component2 = [FUUniqueTestComponent testComponent];
-					[FUUniqueTestComponent setAllocReturnValue:component2];
-					returnedComponent2 = (FUUniqueTestComponent*)[gameObject addComponentWithClass:[FUUniqueTestComponent class]];
-				});
-				
-				it(@"does not initialize a new component", ^{
-					expect([component2 wasInitCalled]).to.beTruthy();
-					expect([component2 wasAwakeCalled]).to.beTruthy();
-				});
-				
-				it(@"returns nil", ^{
-					expect(returnedComponent2).to.beIdenticalTo(component2);
-				});
-				
-				context(@"getting all the components with the first class", ^{
-					it(@"returns the only component", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
-						expect(components).to.haveCountOf(1);
-						expect(components).to.contain(component);
-					});
-				});
-				
-				context(@"getting all the components with the second class", ^{
-					it(@"returns an empty set", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUUniqueTestComponent class]];
-						expect(components).to.haveCountOf(1);
-						expect(components).to.contain(component2);
-					});
-				});
-			});
-		});
-		*/
+
 		context(@"added a component that is unique", ^{
-			__block FUUniqueTestComponent* component = nil;
-			__block FUUniqueTestComponent* returnedComponent = nil;
+			__block FUUniqueTestComponent* component1 = nil;
+			__block FUUniqueTestComponent* returnedComponent1 = nil;
 			
 			beforeEach(^{
-				component = [FUUniqueTestComponent testComponent];
-				[FUUniqueTestComponent setAllocReturnValue:component];
-				returnedComponent = (FUUniqueTestComponent*)[gameObject addComponentWithClass:[FUUniqueTestComponent class]];
+				component1 = [FUUniqueTestComponent testComponent];
+				[FUUniqueTestComponent setAllocReturnValue:component1];
+				returnedComponent1 = (FUUniqueTestComponent*)[gameObject addComponentWithClass:[FUUniqueTestComponent class]];
 			});
 			
 			it(@"initializes a new component", ^{
-				expect([component wasInitCalled]).to.beTruthy();
-				expect([component wasAwakeCalled]).to.beTruthy();
+				expect([component1 wasInitCalled]).to.beTruthy();
+				expect([component1 wasAwakeCalled]).to.beTruthy();
 			});
 			
 			it(@"returns the created component", ^{
-				expect(returnedComponent).to.beIdenticalTo(component);
+				expect(returnedComponent1).to.beIdenticalTo(component1);
 			});
 			
 			context(@"getting a component with the FUComponent class", ^{
 				it(@"returns the component", ^{
-					expect([gameObject componentWithClass:[FUComponent class]]).to.beIdenticalTo(component);
+					expect([gameObject componentWithClass:[FUComponent class]]).to.beIdenticalTo(component1);
 				});
 			});
 			
 			context(@"getting a component with a subclass of that class", ^{
 				it(@"returns the component", ^{
-					expect([gameObject componentWithClass:[FUTestComponent class]]).to.beIdenticalTo(component);
+					expect([gameObject componentWithClass:[FUTestComponent class]]).to.beIdenticalTo(component1);
 				});
 			});
 			
 			context(@"getting a component with the same class", ^{
 				it(@"returns the component", ^{
-					expect([gameObject componentWithClass:[FUUniqueTestComponent class]]).to.beIdenticalTo(component);
+					expect([gameObject componentWithClass:[FUUniqueTestComponent class]]).to.beIdenticalTo(component1);
 				});
 			});
 			
@@ -287,7 +176,7 @@ describe(@"A game object", ^{
 				it(@"returns a set with the component", ^{
 					NSSet* components = [gameObject allComponentsWithClass:[FUComponent class]];
 					expect(components).to.haveCountOf(1);
-					expect(components).to.contain(component);
+					expect(components).to.contain(component1);
 				});
 			});
 			
@@ -295,7 +184,7 @@ describe(@"A game object", ^{
 				it(@"returns a set with the component", ^{
 					NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
 					expect(components).to.haveCountOf(1);
-					expect(components).to.contain(component);
+					expect(components).to.contain(component1);
 				});
 			});
 			
@@ -303,7 +192,7 @@ describe(@"A game object", ^{
 				it(@"returns a set with the component", ^{
 					NSSet* components = [gameObject allComponentsWithClass:[FUUniqueTestComponent class]];
 					expect(components).to.haveCountOf(1);
-					expect(components).to.contain(component);
+					expect(components).to.contain(component1);
 				});
 			});
 			
@@ -326,7 +215,7 @@ describe(@"A game object", ^{
 #endif
 			});
 			
-			context(@"added a second component with a different non-unique class", ^{
+			context(@"added a second component with a the non-unique subclass", ^{
 				__block FUTestComponent* component2 = nil;
 				__block FUTestComponent* returnedComponent2 = nil;
 				
@@ -343,6 +232,84 @@ describe(@"A game object", ^{
 				
 				it(@"returns the created component", ^{
 					expect(returnedComponent2).to.beIdenticalTo(component2);
+				});
+				
+				context(@"getting a component with the FUComponent class", ^{
+					it(@"returns any of the components", ^{
+						FUComponent* searchedComponent = [gameObject componentWithClass:[FUComponent class]];
+						expect((searchedComponent == component1) || (searchedComponent == component2)).to.beTruthy();
+					});
+				});
+				
+				context(@"getting a component with the second class", ^{
+					it(@"returns any of the components", ^{
+						FUComponent* searchedComponent = [gameObject componentWithClass:[FUTestComponent class]];
+						expect((searchedComponent == component1) || (searchedComponent == component2)).to.beTruthy();
+					});
+				});
+				
+				context(@"getting a component with the first class", ^{
+					it(@"returns the first component", ^{
+						expect([gameObject componentWithClass:[FUUniqueTestComponent class]]).to.beIdenticalTo(component1);
+					});
+				});
+				
+				context(@"getting a component with a different class", ^{
+					it(@"returns nil", ^{
+						expect([gameObject componentWithClass:[FURequireComponent class]]).to.beNil();
+					});
+				});
+				
+				context(@"getting all the components with FUComponent class", ^{
+					it(@"returns a set with both components", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUComponent class]];
+						expect(components).to.haveCountOf(2);
+						expect(components).to.contain(component1);
+						expect(components).to.contain(component2);
+					});
+				});
+				
+				context(@"getting all the components with the second class", ^{
+					it(@"returns a set with both components", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
+						expect(components).to.haveCountOf(2);
+						expect(components).to.contain(component1);
+						expect(components).to.contain(component2);
+					});
+				});
+				
+				context(@"getting all the components with the first class", ^{
+					it(@"returns a set with the first component", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUUniqueTestComponent class]];
+						expect(components).to.haveCountOf(1);
+						expect(components).to.contain(component1);
+					});
+				});
+				
+				context(@"getting all the components with a different class", ^{
+					it(@"returns an empty set", ^{
+						expect([gameObject allComponentsWithClass:[FURequireComponent class]]).to.beEmpty();
+					});
+				});
+				
+				context(@"added a third component with the second non-unique class", ^{
+					__block FUTestComponent* component3 = nil;
+					__block FUTestComponent* returnedComponent3 = nil;
+					
+					beforeEach(^{
+						component3 = [FUTestComponent testComponent];
+						[FUTestComponent setAllocReturnValue:component3];
+						returnedComponent3 = (FUTestComponent*)[gameObject addComponentWithClass:[FUTestComponent class]];
+					});
+					
+					it(@"initializes a new component", ^{
+						expect([component3 wasInitCalled]).to.beTruthy();
+						expect([component3 wasAwakeCalled]).to.beTruthy();
+					});
+					
+					it(@"returns the created component", ^{
+						expect(returnedComponent3).to.beIdenticalTo(component3);
+					});
 				});
 			});
 		});
