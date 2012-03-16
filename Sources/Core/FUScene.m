@@ -8,12 +8,19 @@
 
 #include "Prefix.pch"
 #import "FUScene.h"
-#import "FUGameObject.h"
 #import "FUGameObject-Internal.h"
 #import "FUMacros.h"
 
 
 @implementation FUScene
+
+#pragma mark - Class Methods
+
++ (FUScene*)scene
+{
+	FUScene* scene = [self alloc];
+	return [scene initWithScene:scene];
+}
 
 #pragma mark - Public Methods
 

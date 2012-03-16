@@ -30,6 +30,11 @@
 	return NO;
 }
 
++ (NSSet*)requiredComponents
+{
+	return [NSSet set];
+}
+
 #pragma mark - Initialization
 
 - (id)init

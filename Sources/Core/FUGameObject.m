@@ -44,7 +44,7 @@
 
 - (id)init
 {
-	FULogError(@"Can not create a game object outside of a scene.");
+	FULogError(@"Can not create a game object outside of a scene");
 	return nil;
 }
 
@@ -70,12 +70,13 @@
 {
 	if (![componentClass isSubclassOfClass:[FUComponent class]] || (componentClass == [FUComponent class]))
 	{
-		FULogError(@"Expected 'componentClass' to be a subclass of FUComponent, got '%@'", NSStringFromClass(componentClass));
+		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent", NSStringFromClass(componentClass));
 		return nil;
 	}
 	
 	if ([componentClass isUnique] && ([self componentWithClass:componentClass] != nil))
 	{
+		FULogError(@"'componentClass=%@' is unique and another component of that class already exists", NSStringFromClass(componentClass));
 		return nil;
 	}
 	
@@ -87,15 +88,15 @@
 
 - (FUComponent*)componentWithClass:(Class)componentClass
 {
-	if (![componentClass isSubclassOfClass:[FUComponent class]] || (componentClass == [FUComponent class]))
+	if (![componentClass isSubclassOfClass:[FUComponent class]])
 	{
-		FULogError(@"Expected 'componentClass' to be a subclass of FUComponent, got '%@'", NSStringFromClass(componentClass));
+		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent", NSStringFromClass(componentClass));
 		return nil;
 	}
 	
 	for (FUComponent* component in [self components])
 	{
-		if ([component class] == componentClass)
+		if ([[component class] isSubclassOfClass:componentClass])
 		{
 			return component;
 		}
@@ -106,17 +107,22 @@
 
 - (NSSet*)allComponentsWithClass:(Class)componentClass
 {
-	if (![componentClass isSubclassOfClass:[FUComponent class]] || (componentClass == [FUComponent class]))
+	if (![componentClass isSubclassOfClass:[FUComponent class]])
 	{
-		FULogError(@"Expected 'componentClass' to be a subclass of FUComponent, got '%@'", NSStringFromClass(componentClass));
+		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent", NSStringFromClass(componentClass));
 		return nil;
+	}
+	
+	if (componentClass == [FUComponent class])
+	{
+		return [NSSet setWithSet:[self components]];
 	}
 	
 	NSMutableSet* components = [NSMutableSet set];
 	
 	for (FUComponent* component in [self components])
 	{
-		if ([component class] == componentClass)
+		if ([[component class] isSubclassOfClass:componentClass])
 		{
 			[components addObject:component];
 		}

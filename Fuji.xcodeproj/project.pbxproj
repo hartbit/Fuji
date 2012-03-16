@@ -57,7 +57,7 @@
 		63B5738814F4D38000451E2E /* libFujiCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFujiCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63B5739014F4D38000451E2E /* FujiCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FujiCore.h; sourceTree = "<group>"; };
-		63B5739814F4D38000451E2E /* Mocha2DTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Mocha2DTests.octest; path = MochaCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B5739814F4D38000451E2E /* Mocha2DTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Mocha2DTests.octest; path = FujiCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		63E6303D14F77B5F00923CB9 /* FUMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUMacros.h; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -109,12 +109,12 @@
 			children = (
 				633EE87414FED8C400281AC1 /* Internal */,
 				6392523D15120CE7005B3FEC /* Support */,
-				63A159A314FD1DB500364D24 /* FUScene.h */,
-				63A159A414FD1DB500364D24 /* FUScene.m */,
 				63117F2214FFAD3700A04563 /* FUGameObject.h */,
 				63117F2314FFAD3700A04563 /* FUGameObject.m */,
 				63117F2714FFB87A00A04563 /* FUComponent.h */,
 				63117F2814FFB87A00A04563 /* FUComponent.m */,
+				63A159A314FD1DB500364D24 /* FUScene.h */,
+				63A159A414FD1DB500364D24 /* FUScene.m */,
 				63B5739014F4D38000451E2E /* FujiCore.h */,
 			);
 			path = Core;

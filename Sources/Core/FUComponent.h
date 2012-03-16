@@ -17,6 +17,7 @@
 @property (nonatomic, WEAK, readonly) FUGameObject* gameObject;
 
 + (BOOL)isUnique;
++ (NSSet*)requiredComponents;
 
 - (void)awake;
 

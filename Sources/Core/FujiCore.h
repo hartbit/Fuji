@@ -8,6 +8,6 @@
 
 #import "FUMacros.h"
 #import "FULog.h"
-#import "FUScene.h"
 #import "FUGameObject.h"
 #import "FUComponent.h"
+#import "FUScene.h"

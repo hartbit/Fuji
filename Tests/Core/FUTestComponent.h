@@ -23,3 +23,7 @@
 @interface FUUniqueTestComponent : FUTestComponent
 
 @end
+
+@interface FURequireComponent : FUComponent
+
+@end

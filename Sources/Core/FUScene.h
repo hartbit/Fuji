@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUGameObject.h"
 
 
-@class FUGameObject;
+@interface FUScene : FUGameObject
 
-@interface FUScene : NSObject
++ (FUScene*)scene;
 
 - (FUGameObject*)createGameObject;
 

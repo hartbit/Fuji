@@ -84,3 +84,9 @@ static FUTestComponent* sReturnedComponent = nil;
 }
 
 @end
+
+
+@implementation FURequireComponent
+
+@end
+

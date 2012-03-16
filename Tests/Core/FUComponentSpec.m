@@ -14,8 +14,12 @@
 SPEC_BEGIN(FUComponentSpec)
 
 describe(@"A component object", ^{
-	it(@"is not unique", ^{
+	it(@"is not unique by default", ^{
 		expect([FUComponent isUnique]).to.beFalsy();
+	});
+	
+	it(@"does not require any components by default", ^{
+		expect([FUComponent requiredComponents]).to.beEmpty();
 	});
 	
 	context(@"initialized with init", ^{
@@ -56,7 +60,7 @@ describe(@"A component object", ^{
 		});
 		
 		it(@"has the gameObject property set", ^{
-			expect([component gameObject]).to.beIdenticalTo((__bridge void*)gameObject);
+			expect([component gameObject]).to.beIdenticalTo(gameObject);
 		});
 	});
 });
