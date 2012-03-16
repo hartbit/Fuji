@@ -1,5 +1,5 @@
 //
-//  FUTestComponent.h
+//  FUTestComponents.h
 //  Fuji
 //
 //  Created by Hart David on 15.03.12.
@@ -20,10 +20,7 @@
 @end
 
 
-@interface FUUniqueTestComponent : FUTestComponent
-
-@end
-
-@interface FURequireComponent : FUComponent
-
-@end
+@interface FUCommonComponent : FUTestComponent @end
+@interface FURequireObjectComponent : FUComponent @end
+@interface FURequireNSStringComponent : FUComponent @end
+@interface FURequireBaseComponent : FUComponent @end

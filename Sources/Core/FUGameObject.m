@@ -15,6 +15,12 @@
 #import "FULog.h"
 
 
+static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
+{
+	return [componentClass isSubclassOfClass:[FUComponent class]] && (componentClass != [FUComponent class]);
+}
+
+
 @interface FUGameObject ()
 
 @property (nonatomic, WEAK) FUScene* scene;
@@ -68,9 +74,9 @@
 
 - (FUComponent*)addComponentWithClass:(Class)componentClass
 {
-	if (![componentClass isSubclassOfClass:[FUComponent class]] || (componentClass == [FUComponent class]))
+	if (!FUIsValidComponentClass(componentClass))
 	{
-		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent", NSStringFromClass(componentClass));
+		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
 		return nil;
 	}
 	
@@ -78,6 +84,17 @@
 	{
 		FULogError(@"'componentClass=%@' is unique and another component of that class already exists", NSStringFromClass(componentClass));
 		return nil;
+	}
+	
+	NSSet* requiredComponents = [componentClass requiredComponents];
+	
+	for (id requiredClass in requiredComponents)
+	{
+		if (![requiredClass respondsToSelector:@selector(isSubclassOfClass:)] || !FUIsValidComponentClass(requiredClass))
+		{
+			FULogError(@"Expected 'requiredComponent=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
+			return nil;
+		}
 	}
 	
 	FUComponent* component = [[componentClass alloc] initWithGameObject:self];
@@ -88,9 +105,9 @@
 
 - (FUComponent*)componentWithClass:(Class)componentClass
 {
-	if (![componentClass isSubclassOfClass:[FUComponent class]])
+	if (!FUIsValidComponentClass(componentClass))
 	{
-		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent", NSStringFromClass(componentClass));
+		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
 		return nil;
 	}
 	
@@ -107,15 +124,10 @@
 
 - (NSSet*)allComponentsWithClass:(Class)componentClass
 {
-	if (![componentClass isSubclassOfClass:[FUComponent class]])
+	if (!FUIsValidComponentClass(componentClass))
 	{
-		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent", NSStringFromClass(componentClass));
+		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
 		return nil;
-	}
-	
-	if (componentClass == [FUComponent class])
-	{
-		return [NSSet setWithSet:[self components]];
 	}
 	
 	NSMutableSet* components = [NSMutableSet set];

@@ -14,8 +14,8 @@
 SPEC_BEGIN(FUComponentSpec)
 
 describe(@"A component object", ^{
-	it(@"is not unique by default", ^{
-		expect([FUComponent isUnique]).to.beFalsy();
+	it(@"is unique by default", ^{
+		expect([FUComponent isUnique]).to.beTruthy();
 	});
 	
 	it(@"does not require any components by default", ^{

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUTestComponent.h"
+#import "FUTestComponents.h"
 #import "FUComponent-Internal.h"
 #import "FUGameObject.h"
 
@@ -76,17 +76,42 @@ static FUTestComponent* sReturnedComponent = nil;
 @end
 
 
-@implementation FUUniqueTestComponent
+@implementation FUCommonComponent
 
 + (BOOL)isUnique
 {
-	return YES;
+	return NO;
 }
 
 @end
 
 
-@implementation FURequireComponent
+@implementation FURequireObjectComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[NSObject new]];
+}
+
+@end
+
+
+@implementation FURequireNSStringComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[NSString class]];
+}
+
+@end
+
+
+@implementation FURequireBaseComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[FUComponent class]];
+}
 
 @end
 

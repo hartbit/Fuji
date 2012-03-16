@@ -27,7 +27,7 @@
 
 + (BOOL)isUnique
 {
-	return NO;
+	return YES;
 }
 
 + (NSSet*)requiredComponents
