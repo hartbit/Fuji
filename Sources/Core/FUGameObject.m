@@ -19,6 +19,8 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a game object
 static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 static NSString* const FUComponentClassInvalidMessage = @"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)";
 static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@' is unique and another component of that class already exists";
+static NSString* const FUComponentNilMessage = @"Expected 'component' to not be nil";
+static NSString* const FUComponentNonexistentMessage = @"Can not remove a 'component=%@' that does not exist";
 static NSString* const FURequiredComponentTypeMessage = @"Expected 'requiredComponent=%@' to be of type Class";
 static NSString* const FURequiredComponentSubclassMessage = @"Expected 'requiredComponent=%@' to be a subclass of FUComponent (excluded)";
 
@@ -102,6 +104,14 @@ static __inline__ BOOL FUIsClass(id object)
 	[[self components] addObject:component];
 	[component awake];
 	return component;
+}
+
+- (void)removeComponent:(FUComponent*)component
+{
+	NSAssert(component != nil, FUComponentNilMessage);
+	NSAssert([[self components] containsObject:component], FUComponentNonexistentMessage, component);
+	
+	[[self components] removeObject:component];
 }
 
 - (FUComponent*)componentWithClass:(Class)componentClass

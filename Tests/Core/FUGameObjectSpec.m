@@ -85,6 +85,12 @@ describe(@"A game object", ^{
 			});
 		});
 		
+		context(@"removing a nil component", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject removeComponent:nil], nil);
+			});
+		});
+		
 		context(@"getting a component with a NULL class", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject componentWithClass:NULL], nil);
@@ -146,47 +152,22 @@ describe(@"A game object", ^{
 				expect(components).to.contain(component1);
 			});
 			
-			context(@"getting a component with the same class", ^{
-				it(@"returns the component", ^{
-					expect([gameObject componentWithClass:[FUTestComponent class]]).to.beIdenticalTo(component1);
-				});
-			});
-			
-			context(@"getting a component with a subclass of that class", ^{
-				it(@"returns nil", ^{
-					expect([gameObject componentWithClass:[FUCommonComponent class]]).to.beNil();
-				});
-			});
-			
-			context(@"getting a component with a different class", ^{
-				it(@"returns nil", ^{
-					expect([gameObject componentWithClass:[FURequireBaseComponent class]]).to.beNil();
-				});
-			});
-			
-			context(@"getting all the components with the same class", ^{
-				it(@"returns a set with the component", ^{
-					NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
-					expect(components).to.haveCountOf(1);
-					expect(components).to.contain(component1);
-				});
-			});
-			
-			context(@"getting all the components with a subclass of that class", ^{
-				it(@"returns an empty set", ^{
-					expect([gameObject allComponentsWithClass:[FUCommonComponent class]]).to.beEmpty();
-				});
-			});
-			
-			context(@"getting all the components with a different class", ^{
-				it(@"returns an empty set", ^{
-					expect([gameObject allComponentsWithClass:[FURequireBaseComponent class]]).to.beEmpty();
-				});
-			});
-			
-			context(@"adding a second component with the same unique class", ^{
-				it(@"throws on exception", ^{
+			context(@"adding a component with the same class", ^{
+				it(@"throws an exception", ^{
 					STAssertThrows([gameObject addComponentWithClass:[FUTestComponent class]], nil);
+				});
+			});
+			
+			context(@"removing a different component", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([gameObject removeComponent:[FUTestComponent testComponent]], nil);
+				});
+			});
+			
+			context(@"removing that component", ^{
+				it(@"removes it from the game object", ^{
+					[gameObject removeComponent:component1];
+					expect([gameObject allComponents]).to.beEmpty();
 				});
 			});
 			
@@ -257,48 +238,6 @@ describe(@"A game object", ^{
 					expect(components).to.haveCountOf(2);
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
-				});
-				
-				context(@"getting a component with the first class", ^{
-					it(@"returns any of the components", ^{
-						FUComponent* searchedComponent = [gameObject componentWithClass:[FUTestComponent class]];
-						expect((searchedComponent == component1) || (searchedComponent == component2)).to.beTruthy();
-					});
-				});
-				
-				context(@"getting a component with the second class", ^{
-					it(@"returns the second component", ^{
-						expect([gameObject componentWithClass:[FUCommonComponent class]]).to.beIdenticalTo(component2);
-					});
-				});
-				
-				context(@"getting a component with a different class", ^{
-					it(@"returns nil", ^{
-						expect([gameObject componentWithClass:[FURequireBaseComponent class]]).to.beNil();
-					});
-				});
-				
-				context(@"getting all the components with the first class", ^{
-					it(@"returns a set with both components", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
-						expect(components).to.haveCountOf(2);
-						expect(components).to.contain(component1);
-						expect(components).to.contain(component2);
-					});
-				});
-				
-				context(@"getting all the components with the second class", ^{
-					it(@"returns a set with the second component", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUCommonComponent class]];
-						expect(components).to.haveCountOf(1);
-						expect(components).to.contain(component2);
-					});
-				});
-				
-				context(@"getting all the components with a different class", ^{
-					it(@"returns an empty set", ^{
-						expect([gameObject allComponentsWithClass:[FURequireBaseComponent class]]).to.beEmpty();
-					});
 				});
 				
 				context(@"added a third component with the second non-unique class", ^{
