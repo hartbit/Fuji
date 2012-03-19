@@ -50,6 +50,13 @@ describe(@"A component object", ^{
 		it(@"has the gameObject property set", ^{
 			expect([component gameObject]).to.beIdenticalTo(gameObject);
 		});
+		
+		context(@"removing the component", ^{
+			it(@"asks the gameObject to remove itself", ^{
+				[component removeFromGameObject];
+				[verify(gameObject) removeComponent:component];
+			});
+		});
 	});
 });
 

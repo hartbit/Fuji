@@ -20,5 +20,6 @@
 + (NSSet*)requiredComponents;
 
 - (void)awake;
+- (void)removeFromGameObject;
 
 @end

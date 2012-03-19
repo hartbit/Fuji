@@ -9,6 +9,7 @@
 #include "Prefix.pch"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
+#import "FUGameObject.h"
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
@@ -55,6 +56,11 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 
 - (void)awake
 {
+}
+
+- (void)removeFromGameObject
+{
+	[[self gameObject] removeComponent:self];
 }
 
 @end
