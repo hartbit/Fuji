@@ -19,6 +19,7 @@
 
 - (FUComponent*)addComponentWithClass:(Class)componentClass;
 - (FUComponent*)componentWithClass:(Class)componentClass;
+- (NSSet*)allComponents;
 - (NSSet*)allComponentsWithClass:(Class)componentClass;
 
 @end

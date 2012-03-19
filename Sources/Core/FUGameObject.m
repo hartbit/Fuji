@@ -91,7 +91,11 @@ static __inline__ BOOL FUIsClass(id object)
 	for (id requiredClass in requiredComponents)
 	{
 		NSAssert(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
-		NSAssert(FUIsValidComponentClass(requiredClass), FURequiredComponentSubclassMessage, NSStringFromClass(componentClass));
+		
+		if ([self componentWithClass:requiredClass] == nil)
+		{
+			[self addComponentWithClass:requiredClass];
+		}
 	}
 	
 	FUComponent* component = [[componentClass alloc] initWithGameObject:self];
@@ -130,6 +134,11 @@ static __inline__ BOOL FUIsClass(id object)
 	}
 	
 	return [NSSet setWithSet:components];
+}
+
+- (NSSet*)allComponents
+{
+	return [NSSet setWithSet:[self components]];
 }
 
 @end

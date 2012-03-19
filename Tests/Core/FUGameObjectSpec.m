@@ -45,6 +45,10 @@ describe(@"A game object", ^{
 			expect([gameObject scene]).to.beIdenticalTo(scene);
 		});
 		
+		it(@"has no components", ^{
+			expect([gameObject allComponents]).to.beEmpty();
+		});
+		
 		context(@"adding a component with a NULL class", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:NULL], nil);
@@ -136,6 +140,12 @@ describe(@"A game object", ^{
 				expect(returnedComponent1).to.beIdenticalTo(component1);
 			});
 			
+			it(@"has that component", ^{
+				NSSet* components = [gameObject allComponents];
+				expect(components).to.haveCountOf(1);
+				expect(components).to.contain(component1);
+			});
+			
 			context(@"getting a component with the same class", ^{
 				it(@"returns the component", ^{
 					expect([gameObject componentWithClass:[FUTestComponent class]]).to.beIdenticalTo(component1);
@@ -180,6 +190,49 @@ describe(@"A game object", ^{
 				});
 			});
 			
+			context(@"added a second component that requires the current component and another", ^{
+				__block FURequireTwoComponent* component2 = nil;
+				
+				beforeEach(^{
+					[FUTestComponent setAllocReturnValue:[FUCommonComponent testComponent]]; 
+					component2 = (FURequireTwoComponent*)[gameObject addComponentWithClass:[FURequireTwoComponent class]];
+				});
+				
+				it(@"creates a new component", ^{
+					expect(component2).to.beKindOf([FURequireTwoComponent class]);
+				});
+				
+				it(@"has 3 components, containing the first and new component", ^{
+					NSSet* components = [gameObject allComponents];
+					expect(components).to.haveCountOf(3);
+					expect(components).to.contain(component1);
+					expect(components).to.contain(component2);
+				});
+				
+				context(@"getting all components with the first class", ^{
+					it(@"returns a set with two components including the first one", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
+						expect(components).to.haveCountOf(2);
+						expect(components).to.contain(component1);
+					});
+				});
+				
+				context(@"getting all components with the created component", ^{
+					it(@"returns a set with the newly created component", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FURequireTwoComponent class]];
+						expect(components).to.haveCountOf(1);
+						expect(components).to.contain(component2);
+					});
+				});
+				
+				context(@"getting all components with the required component", ^{
+					it(@"returns a set with the component created because it was required", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUCommonComponent class]];
+						expect(components).to.haveCountOf(1);
+					});
+				});
+			});
+			
 			context(@"added a second component with a non-unique subclass", ^{
 				__block FUCommonComponent* component2 = nil;
 				__block FUCommonComponent* returnedComponent2 = nil;
@@ -197,6 +250,13 @@ describe(@"A game object", ^{
 				
 				it(@"returns the created component", ^{
 					expect(returnedComponent2).to.beIdenticalTo(component2);
+				});
+				
+				it(@"has the 2 components", ^{
+					NSSet* components = [gameObject allComponents];
+					expect(components).to.haveCountOf(2);
+					expect(components).to.contain(component1);
+					expect(components).to.contain(component2);
 				});
 				
 				context(@"getting a component with the first class", ^{
@@ -258,6 +318,14 @@ describe(@"A game object", ^{
 					
 					it(@"returns the created component", ^{
 						expect(returnedComponent3).to.beIdenticalTo(component3);
+					});
+					
+					it(@"has the 3 components", ^{
+						NSSet* components = [gameObject allComponents];
+						expect(components).to.haveCountOf(3);
+						expect(components).to.contain(component1);
+						expect(components).to.contain(component2);
+						expect(components).to.contain(component3);
 					});
 					
 					context(@"getting a component with the first class", ^{

@@ -24,3 +24,4 @@
 @interface FURequireObjectComponent : FUComponent @end
 @interface FURequireNSStringComponent : FUComponent @end
 @interface FURequireBaseComponent : FUComponent @end
+@interface FURequireTwoComponent : FUComponent @end

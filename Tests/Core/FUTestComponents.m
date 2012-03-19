@@ -115,3 +115,12 @@ static FUTestComponent* sReturnedComponent = nil;
 
 @end
 
+
+@implementation FURequireTwoComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObjects:[FUTestComponent class], [FUCommonComponent class], nil];
+}
+
+@end
