@@ -85,9 +85,33 @@ describe(@"A game object", ^{
 			});
 		});
 		
+		context(@"adding a component that requires itself", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[FURequireItselfComponent class]], nil);
+			});
+		});
+
+		context(@"adding a component that requires a subclass of itself", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[FURequireSubclassComponent class]], nil);
+			});
+		});
+		
+		context(@"adding a component that requires relatives", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[FURequireRelativesComponent class]], nil);
+			});
+		});
+		
 		context(@"removing a nil component", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject removeComponent:nil], nil);
+			});
+		});
+		
+		context(@"removing a component that does not exist", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject removeComponent:[FUTestComponent testComponent]], nil);
 			});
 		});
 		
@@ -158,58 +182,51 @@ describe(@"A game object", ^{
 				});
 			});
 			
-			context(@"removing a different component", ^{
-				it(@"throws an exception", ^{
-					STAssertThrows([gameObject removeComponent:[FUTestComponent testComponent]], nil);
-				});
-			});
-			
-			context(@"removing that component", ^{
-				it(@"removes it from the game object", ^{
-					[gameObject removeComponent:component1];
-					expect([gameObject allComponents]).to.beEmpty();
-				});
-			});
-			
 			context(@"added a second component that requires the current component and another", ^{
 				__block FURequireTwoComponent* component2 = nil;
+				__block FUComponent* requiredComponent = nil;
 				
 				beforeEach(^{
 					[FUTestComponent setAllocReturnValue:[FUCommonComponent testComponent]]; 
 					component2 = (FURequireTwoComponent*)[gameObject addComponentWithClass:[FURequireTwoComponent class]];
+					requiredComponent = [gameObject componentWithClass:[FUChildComponent class]];
 				});
 				
 				it(@"creates a new component", ^{
 					expect(component2).to.beKindOf([FURequireTwoComponent class]);
 				});
 				
-				it(@"has 3 components, containing the first and new component", ^{
+				it(@"created the required component", ^{
+					expect(requiredComponent).toNot.beNil();
+				});
+				
+				it(@"has all three components", ^{
 					NSSet* components = [gameObject allComponents];
 					expect(components).to.haveCountOf(3);
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
+					expect(components).to.contain(requiredComponent);
 				});
 				
-				context(@"getting all components with the first class", ^{
-					it(@"returns a set with two components including the first one", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
+				context(@"removing the new component", ^{
+					it(@"removes it from the game object", ^{
+						[gameObject removeComponent:component2];
+						NSSet* components = [gameObject allComponents];
 						expect(components).to.haveCountOf(2);
 						expect(components).to.contain(component1);
+						expect(components).to.contain(requiredComponent);
 					});
 				});
 				
-				context(@"getting all components with the created component", ^{
-					it(@"returns a set with the newly created component", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FURequireTwoComponent class]];
-						expect(components).to.haveCountOf(1);
-						expect(components).to.contain(component2);
+				context(@"removing the first component", ^{
+					it(@"throws an exception", ^{
+						STAssertThrows([gameObject removeComponent:component1], nil);
 					});
 				});
 				
-				context(@"getting all components with the required component", ^{
-					it(@"returns a set with the component created because it was required", ^{
-						NSSet* components = [gameObject allComponentsWithClass:[FUCommonComponent class]];
-						expect(components).to.haveCountOf(1);
+				context(@"removing the second required component", ^{
+					it(@"throws an exception", ^{
+						STAssertThrows([gameObject removeComponent:requiredComponent], nil);
 					});
 				});
 			});

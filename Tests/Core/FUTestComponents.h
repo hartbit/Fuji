@@ -20,8 +20,15 @@
 @end
 
 
+@interface FUParentComponent : FUComponent @end
+@interface FUChildComponent : FUParentComponent @end
+
+
 @interface FUCommonComponent : FUTestComponent @end
 @interface FURequireObjectComponent : FUComponent @end
 @interface FURequireNSStringComponent : FUComponent @end
 @interface FURequireBaseComponent : FUComponent @end
+@interface FURequireItselfComponent : FUComponent @end
+@interface FURequireSubclassComponent : FUTestComponent @end
+@interface FURequireRelativesComponent : FUComponent @end
 @interface FURequireTwoComponent : FUComponent @end

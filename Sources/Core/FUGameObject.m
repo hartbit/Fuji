@@ -22,7 +22,8 @@ static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@'
 static NSString* const FUComponentNilMessage = @"Expected 'component' to not be nil";
 static NSString* const FUComponentNonexistentMessage = @"Can not remove a 'component=%@' that does not exist";
 static NSString* const FURequiredComponentTypeMessage = @"Expected 'requiredComponent=%@' to be of type Class";
-static NSString* const FURequiredComponentSubclassMessage = @"Expected 'requiredComponent=%@' to be a subclass of FUComponent (excluded)";
+static NSString* const FURequiredComponentSuperclassMessage = @"The 'requiredComponent=%@' can not be the same class or a superclass of added 'componentClass=%@'";
+static NSString* const FURequiredComponentSubclassMessage = @"The 'requiredComponent=%@' can not be the same class or a subclass of other 'requiredComponent=%@'";
 
 
 static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
@@ -40,6 +41,8 @@ static __inline__ BOOL FUIsClass(id object)
 
 @property (nonatomic, WEAK) FUScene* scene;
 @property (nonatomic, strong) NSMutableSet* components;
+
+- (BOOL)isComponentRequired:(FUComponent*)component;
 
 @end
 
@@ -93,6 +96,15 @@ static __inline__ BOOL FUIsClass(id object)
 	for (id requiredClass in requiredComponents)
 	{
 		NSAssert(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
+		NSAssert(![componentClass isSubclassOfClass:requiredClass], FURequiredComponentSuperclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+		
+		for (id otherRequiredClass in requiredComponents)
+		{
+			if (otherRequiredClass != requiredClass)
+			{
+				NSAssert(![requiredClass isSubclassOfClass:otherRequiredClass], FURequiredComponentSubclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+			}
+		}
 		
 		if ([self componentWithClass:requiredClass] == nil)
 		{
@@ -110,6 +122,7 @@ static __inline__ BOOL FUIsClass(id object)
 {
 	NSAssert(component != nil, FUComponentNilMessage);
 	NSAssert([[self components] containsObject:component], FUComponentNonexistentMessage, component);
+	NSAssert(![self isComponentRequired:component], @"");
 	
 	[[self components] removeObject:component];
 }
@@ -149,6 +162,27 @@ static __inline__ BOOL FUIsClass(id object)
 - (NSSet*)allComponents
 {
 	return [NSSet setWithSet:[self components]];
+}
+
+#pragma mark - Private Methods
+
+- (BOOL)isComponentRequired:(FUComponent*)component
+{
+	NSMutableSet* similarComponents = [[self allComponentsWithClass:[component class]] mutableCopy];
+	[similarComponents removeObject:component];
+	
+	if ([similarComponents count] == 0)
+	{
+		for (FUComponent* otherComponent in [self components])
+		{
+			if ((otherComponent != component) && [[[otherComponent class] requiredComponents] containsObject:[component class]])
+			{
+				return YES;
+			}
+		}
+	}
+	
+	return NO;
 }
 
 @end

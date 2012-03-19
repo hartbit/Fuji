@@ -86,6 +86,10 @@ static FUTestComponent* sReturnedComponent = nil;
 @end
 
 
+@implementation FUParentComponent @end
+@implementation FUChildComponent @end
+
+
 @implementation FURequireObjectComponent
 
 + (NSSet*)requiredComponents
@@ -116,11 +120,41 @@ static FUTestComponent* sReturnedComponent = nil;
 @end
 
 
+@implementation FURequireItselfComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:self];
+}
+
+@end
+
+
+@implementation FURequireSubclassComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[FUTestComponent class]];
+}
+
+@end
+
+
+@implementation FURequireRelativesComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObjects:[FUParentComponent class], [FUChildComponent class], nil];
+}
+
+@end
+
+
 @implementation FURequireTwoComponent
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObjects:[FUTestComponent class], [FUCommonComponent class], nil];
+	return [NSSet setWithObjects:[FUTestComponent class], [FUChildComponent class], nil];
 }
 
 @end
