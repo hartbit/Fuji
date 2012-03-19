@@ -23,27 +23,15 @@ describe(@"A component object", ^{
 	});
 	
 	context(@"initialized with init", ^{
-#ifdef DEBUG
 		it(@"throws an exception", ^{
 			STAssertThrows([FUComponent new], nil);
 		});
-#else
-		it(@"returns nil", ^{
-			expect([FUComponent new]).to.beNil();
-		});
-#endif
 	});
 	
 	context(@"initialized with a nil game object", ^{
-#ifdef DEBUG
 		it(@"throws an exception", ^{
 			STAssertThrows([[FUComponent alloc] initWithGameObject:nil], nil);
 		});
-#else
-		it(@"returns nil", ^{
-			expect([[FUComponent alloc] initWithGameObject:nil]).to.beNil();
-		});
-#endif
 	});
 		
 	context(@"initialized with a valid game object", ^{

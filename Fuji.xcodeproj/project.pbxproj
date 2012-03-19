@@ -46,7 +46,6 @@
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		639252531512138E005B3FEC /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		639252541512141B005B3FEC /* FULog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FULog.h; sourceTree = "<group>"; };
 		63925256151214EA005B3FEC /* FUComponentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponentSpec.m; sourceTree = "<group>"; };
 		63925257151214EA005B3FEC /* FUGameObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGameObjectSpec.m; sourceTree = "<group>"; };
 		63925258151214EA005B3FEC /* FUSceneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneSpec.m; sourceTree = "<group>"; };
@@ -57,7 +56,7 @@
 		63B5738814F4D38000451E2E /* libFujiCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFujiCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63B5739014F4D38000451E2E /* FujiCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FujiCore.h; sourceTree = "<group>"; };
-		63B5739814F4D38000451E2E /* Mocha2DTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Mocha2DTests.octest; path = FujiCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B5739814F4D38000451E2E /* FujiCoreTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FujiCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		63E6303D14F77B5F00923CB9 /* FUMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUMacros.h; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -124,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				63E6303D14F77B5F00923CB9 /* FUMacros.h */,
-				639252541512141B005B3FEC /* FULog.h */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -157,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				63B5738814F4D38000451E2E /* libFujiCore.a */,
-				63B5739814F4D38000451E2E /* Mocha2DTests.octest */,
+				63B5739814F4D38000451E2E /* FujiCoreTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,7 +243,7 @@
 			);
 			name = FujiCoreTests;
 			productName = Mocha2DTests;
-			productReference = 63B5739814F4D38000451E2E /* Mocha2DTests.octest */;
+			productReference = 63B5739814F4D38000451E2E /* FujiCoreTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -374,7 +372,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = NS_BLOCK_ASSERTIONS;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -424,7 +421,6 @@
 				GCC_PREFIX_HEADER = Tests/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TEST,
-					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -449,7 +445,7 @@
 				GCC_PREFIX_HEADER = Tests/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TEST,
-					NS_BLOCK_ASSERTIONS,
+					"$(inherited)",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNUSED_VALUE = NO;

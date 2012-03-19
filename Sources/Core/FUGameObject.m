@@ -12,12 +12,25 @@
 #import "FUScene.h"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
-#import "FULog.h"
+#import <objc/objc-class.h>
+
+
+static NSString* const FUCreationInvalidMessage = @"Can not create a game object outside of a scene";
+static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
+static NSString* const FUComponentClassInvalidMessage = @"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)";
+static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@' is unique and another component of that class already exists";
+static NSString* const FURequiredComponentTypeMessage = @"Expected 'requiredComponent=%@' to be of type Class";
+static NSString* const FURequiredComponentSubclassMessage = @"Expected 'requiredComponent=%@' to be a subclass of FUComponent (excluded)";
 
 
 static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
 {
 	return [componentClass isSubclassOfClass:[FUComponent class]] && (componentClass != [FUComponent class]);
+}
+
+static __inline__ BOOL FUIsClass(id object)
+{
+	return !class_isMetaClass(object) && class_isMetaClass(object_getClass(object));
 }
 
 
@@ -50,17 +63,13 @@ static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
 
 - (id)init
 {
-	FULogError(@"Can not create a game object outside of a scene");
+	NSAssert(NO, FUCreationInvalidMessage);
 	return nil;
 }
 
 - (id)initWithScene:(FUScene*)scene
 {
-	if (scene == nil)
-	{
-		FULogError(@"Expected 'scene' to not be nil");
-		return nil;
-	}
+	NSAssert(scene != nil, FUSceneNilMessage);
 	
 	if ((self = [super init]))
 	{
@@ -74,27 +83,15 @@ static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
 
 - (FUComponent*)addComponentWithClass:(Class)componentClass
 {
-	if (!FUIsValidComponentClass(componentClass))
-	{
-		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
-		return nil;
-	}
-	
-	if ([componentClass isUnique] && ([self componentWithClass:componentClass] != nil))
-	{
-		FULogError(@"'componentClass=%@' is unique and another component of that class already exists", NSStringFromClass(componentClass));
-		return nil;
-	}
+	NSAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	NSAssert(![componentClass isUnique] || ([self componentWithClass:componentClass] == nil), FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
 	
 	NSSet* requiredComponents = [componentClass requiredComponents];
 	
 	for (id requiredClass in requiredComponents)
 	{
-		if (![requiredClass respondsToSelector:@selector(isSubclassOfClass:)] || !FUIsValidComponentClass(requiredClass))
-		{
-			FULogError(@"Expected 'requiredComponent=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
-			return nil;
-		}
+		NSAssert(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
+		NSAssert(FUIsValidComponentClass(requiredClass), FURequiredComponentSubclassMessage, NSStringFromClass(componentClass));
 	}
 	
 	FUComponent* component = [[componentClass alloc] initWithGameObject:self];
@@ -105,11 +102,7 @@ static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
 
 - (FUComponent*)componentWithClass:(Class)componentClass
 {
-	if (!FUIsValidComponentClass(componentClass))
-	{
-		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
-		return nil;
-	}
+	NSAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	for (FUComponent* component in [self components])
 	{
@@ -124,11 +117,7 @@ static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
 
 - (NSSet*)allComponentsWithClass:(Class)componentClass
 {
-	if (!FUIsValidComponentClass(componentClass))
-	{
-		FULogError(@"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)", NSStringFromClass(componentClass));
-		return nil;
-	}
+	NSAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	NSMutableSet* components = [NSMutableSet set];
 	

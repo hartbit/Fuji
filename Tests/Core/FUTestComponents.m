@@ -90,7 +90,7 @@ static FUTestComponent* sReturnedComponent = nil;
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObject:[NSObject new]];
+	return [NSSet setWithObject:[NSString string]];
 }
 
 @end

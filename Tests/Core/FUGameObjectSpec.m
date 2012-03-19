@@ -17,27 +17,15 @@ SPEC_BEGIN(FUGameObjectSpec)
 
 describe(@"A game object", ^{
 	context(@"initialized with init", ^{
-#ifdef DEBUG
 		it(@"throws an exception", ^{
 			STAssertThrows([FUGameObject new], nil);
 		});
-#else
-		it(@"returns nil", ^{
-			expect([FUGameObject new]).to.beNil();
-		});
-#endif
 	});
 	
 	context(@"initialized with a nil scene", ^{
-#ifdef DEBUG
 		it(@"throws an exception", ^{
-			STAssertThrows(((void)[[FUGameObject alloc] initWithScene:nil]), nil);
+			STAssertThrows((void)[[FUGameObject alloc] initWithScene:nil], nil);
 		});
-#else
-		it(@"returns nil", ^{
-			expect([[FUGameObject alloc] initWithScene:nil]).to.beNil();
-		});
-#endif
 	});
 	
 	context(@"initialized with a valid scene", ^{
@@ -58,99 +46,51 @@ describe(@"A game object", ^{
 		});
 		
 		context(@"adding a component with a NULL class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:NULL], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject addComponentWithClass:NULL]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"adding a component with a class that does not subclass FUComponent", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:[NSString class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject addComponentWithClass:[NSString class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"adding a component with the FUComponent class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:[FUComponent class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject addComponentWithClass:[FUComponent class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"adding a component that requires an object that is not a class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:[FURequireObjectComponent class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject addComponentWithClass:[FURequireObjectComponent class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"adding a component that requires a class that does not subclass FUComponent", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:[FURequireNSStringComponent class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject addComponentWithClass:[FURequireNSStringComponent class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"adding a component that requires a FUComponent", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:[FURequireBaseComponent class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject addComponentWithClass:[FURequireBaseComponent class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"getting a component with a NULL class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject componentWithClass:NULL], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject componentWithClass:NULL]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"getting a component with the FUComponent class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject componentWithClass:[FUComponent class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject componentWithClass:[FUComponent class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"getting a component with a subclass of FUComponent", ^{
@@ -160,27 +100,15 @@ describe(@"A game object", ^{
 		});
 		
 		context(@"getting all components with a NULL class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject allComponentsWithClass:NULL], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject allComponentsWithClass:NULL]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"getting all components with the FUComponent class", ^{
-#ifdef DEBUG
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject allComponentsWithClass:[FUComponent class]], nil);
 			});
-#else
-			it(@"returns nil", ^{
-				expect([gameObject allComponentsWithClass:[FUComponent class]]).to.beNil();
-			});
-#endif
 		});
 		
 		context(@"getting all components with a subclass of FUComponent", ^{
@@ -247,16 +175,9 @@ describe(@"A game object", ^{
 			});
 			
 			context(@"adding a second component with the same unique class", ^{
-#ifdef DEBUG
 				it(@"throws on exception", ^{
 					STAssertThrows([gameObject addComponentWithClass:[FUTestComponent class]], nil);
 				});
-#else
-				it(@"returns nil", ^{
-					FUComponent* component = [gameObject addComponentWithClass:[FUTestComponent class]];
-					expect(component).to.beNil();
-				});
-#endif
 			});
 			
 			context(@"added a second component with a non-unique subclass", ^{

@@ -9,7 +9,10 @@
 #include "Prefix.pch"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
-#import "FULog.h"
+
+
+static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
+static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not be nil";
 
 
 @interface FUComponent ()
@@ -39,17 +42,13 @@
 
 - (id)init
 {
-	FULogError(@"Can not create a component outside of a game object.");
+	NSAssert(NO, FUCreationInvalidMessage);
 	return nil;
 }
 
 - (id)initWithGameObject:(FUGameObject*)gameObject
 {
-	if (gameObject == nil)
-	{
-		FULogError(@"Expected 'gameObject' to not be nil");
-		return nil;
-	}
+	NSAssert(gameObject != nil, FUGameObjectNilMessage);
 	
 	if ((self = [super init]))
 	{
