@@ -125,6 +125,7 @@ static __inline__ BOOL FUIsClass(id object)
 	NSAssert(![self isComponentRequired:component], @"");
 	
 	[[self components] removeObject:component];
+	[component setGameObject:nil];
 }
 
 - (FUComponent*)componentWithClass:(Class)componentClass
@@ -168,10 +169,9 @@ static __inline__ BOOL FUIsClass(id object)
 
 - (BOOL)isComponentRequired:(FUComponent*)component
 {
-	NSMutableSet* similarComponents = [[self allComponentsWithClass:[component class]] mutableCopy];
-	[similarComponents removeObject:component];
+	NSSet* similarComponents = [[self allComponentsWithClass:[component class]] mutableCopy];
 	
-	if ([similarComponents count] == 0)
+	if ([similarComponents count] == 1)
 	{
 		for (FUComponent* otherComponent in [self components])
 		{

@@ -209,12 +209,19 @@ describe(@"A game object", ^{
 				});
 				
 				context(@"removing the new component", ^{
-					it(@"removes it from the game object", ^{
+					beforeEach(^{
 						[gameObject removeComponent:component2];
+					});
+					
+					it(@"removes it from the game object", ^{
 						NSSet* components = [gameObject allComponents];
 						expect(components).to.haveCountOf(2);
 						expect(components).to.contain(component1);
 						expect(components).to.contain(requiredComponent);
+					});
+					
+					it(@"sets the gameObject property of the component to nil", ^{
+						expect([component2 gameObject]).to.beNil();
 					});
 				});
 				

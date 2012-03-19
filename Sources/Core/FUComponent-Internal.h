@@ -9,6 +9,8 @@
 
 @interface FUComponent ()
 
+@property (nonatomic, WEAK) FUGameObject* gameObject;
+
 - (id)initWithGameObject:(FUGameObject*)gameObject;
 
 @end
