@@ -31,11 +31,9 @@
 		63F339C415066B7100BF36A9 /* FUGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUGameObject.m */; };
 		63F339C515066B7500BF36A9 /* FUScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* FUScene.m */; };
 		63F339C615066B7500BF36A9 /* FUComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* FUComponent.m */; };
-		AC27C6AEAE7E4FF7AEEDA7BA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C58DA6BA0EC42DA91C25F25 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C58DA6BA0EC42DA91C25F25 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		63117F2214FFAD3700A04563 /* FUGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUGameObject.h; sourceTree = "<group>"; };
 		63117F2314FFAD3700A04563 /* FUGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGameObject.m; sourceTree = "<group>"; };
 		63117F2614FFAD9500A04563 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -62,7 +60,6 @@
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63F339B11506633200BF36A9 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F339B41506665700BF36A9 /* Pods-test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
-		63F339BB150667FD00BF36A9 /* Pods.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +71,6 @@
 				636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */,
 				636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */,
 				63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */,
-				AC27C6AEAE7E4FF7AEEDA7BA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +142,6 @@
 				63B573A114F4D38000451E2E /* Tests */,
 				63B5738A14F4D38000451E2E /* Frameworks */,
 				63B5738914F4D38000451E2E /* Products */,
-				63F339BB150667FD00BF36A9 /* Pods.xcconfig */,
 				63F339B41506665700BF36A9 /* Pods-test.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -168,7 +163,6 @@
 				636A987614F4ED0700FF2D12 /* UIKit.framework */,
 				63B5738B14F4D38000451E2E /* Foundation.framework */,
 				63B5739914F4D38000451E2E /* SenTestingKit.framework */,
-				4C58DA6BA0EC42DA91C25F25 /* libPods.a */,
 				63F339B11506633200BF36A9 /* libPods-test.a */,
 			);
 			name = Frameworks;
@@ -216,7 +210,6 @@
 				63B5738414F4D38000451E2E /* Sources */,
 				63B5738514F4D38000451E2E /* Frameworks */,
 				63B5738614F4D38000451E2E /* Headers */,
-				02587F2CC40C4CE399F0508F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,8 +227,8 @@
 				63B5739314F4D38000451E2E /* Sources */,
 				63B5739414F4D38000451E2E /* Frameworks */,
 				63B5739514F4D38000451E2E /* Resources */,
-				02587F2CC40C4CE399F0508F /* Copy Pods Resources */,
 				63B5739614F4D38000451E2E /* Run Script */,
+				38D25DC4CBA3464E9888DCCB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,7 +277,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02587F2CC40C4CE399F0508F /* Copy Pods Resources */ = {
+		38D25DC4CBA3464E9888DCCB /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,7 +289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-test-resources.sh\"\n";
 		};
 		63B5739614F4D38000451E2E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -384,7 +377,6 @@
 		};
 		63B573AD14F4D38000451E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63F339BB150667FD00BF36A9 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Fuji.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -397,7 +389,6 @@
 		};
 		63B573AE14F4D38000451E2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63F339BB150667FD00BF36A9 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/Fuji.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
