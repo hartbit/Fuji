@@ -36,13 +36,12 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 
 - (id)init
 {
-	NSAssert(NO, FUCreationInvalidMessage);
-	return nil;
+	FUThrow(FUCreationInvalidMessage);
 }
 
 - (id)initWithGameObject:(FUGameObject*)gameObject
 {
-	NSAssert(gameObject != nil, FUGameObjectNilMessage);
+	FUAssert(gameObject != nil, FUGameObjectNilMessage);
 	
 	if ((self = [super init]))
 	{

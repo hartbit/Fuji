@@ -7,6 +7,7 @@
 //
 
 #import "FUMacros.h"
+#import	"FUException.h"
 #import "FUGameObject.h"
 #import "FUComponent.h"
 #import "FUScene.h"

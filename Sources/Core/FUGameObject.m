@@ -25,14 +25,15 @@ static NSString* const FUComponentNonexistentMessage = @"Can not remove a 'compo
 static NSString* const FURequiredComponentTypeMessage = @"Expected 'requiredComponent=%@' to be of type Class";
 static NSString* const FURequiredComponentSuperclassMessage = @"The 'requiredComponent=%@' can not be the same class or a superclass of added 'componentClass=%@'";
 static NSString* const FURequiredComponentSubclassMessage = @"The 'requiredComponent=%@' can not be the same class or a subclass of other 'requiredComponent=%@'";
+static NSString* const FUComponentRequiredMessage = @"Can not remove 'component=%@' because it is required by another 'component=%@'.";
 
 
-static __inline__ BOOL FUIsValidComponentClass(Class componentClass)
+static OBJC_INLINE BOOL FUIsValidComponentClass(Class componentClass)
 {
 	return [componentClass isSubclassOfClass:[FUComponent class]] && (componentClass != [FUComponent class]);
 }
 
-static __inline__ BOOL FUIsClass(id object)
+static OBJC_INLINE BOOL FUIsClass(id object)
 {
 	return !class_isMetaClass(object) && class_isMetaClass(object_getClass(object));
 }
@@ -45,9 +46,12 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	do
 	{
 		Class parentClass = [currentAncestor superclass];
-		NSCAssert([currentAncestor isUnique] || ![parentClass isUnique], FUComponentAncestoryInvalidMessage, NSStringFromClass(currentAncestor), NSStringFromClass(parentClass));
 		
-		if ([currentAncestor isUnique] && ![parentClass isUnique])
+		if (![currentAncestor isUnique] && [parentClass isUnique])
+		{
+			FUThrow(FUComponentAncestoryInvalidMessage, NSStringFromClass(currentAncestor), NSStringFromClass(parentClass));
+		}
+		else if ([currentAncestor isUnique] && ![parentClass isUnique])
 		{
 			oldestUniqueAncestor = currentAncestor;
 		}
@@ -65,7 +69,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @property (nonatomic, strong) NSMutableSet* components;
 
 - (void)addRequiredComponentsForClass:(Class)componentClass;
-- (BOOL)isComponentRequired:(FUComponent*)component;
+- (void)validateRemovalOfComponent:(FUComponent*)component;
 
 @end
 
@@ -91,13 +95,12 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (id)init
 {
-	NSAssert(NO, FUCreationInvalidMessage);
-	return nil;
+	FUThrow(FUCreationInvalidMessage);
 }
 
 - (id)initWithScene:(FUScene*)scene
 {
-	NSAssert(scene != nil, FUSceneNilMessage);
+	FUAssert(scene != nil, FUSceneNilMessage);
 	
 	if ((self = [super init]))
 	{
@@ -109,12 +112,16 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 #pragma mark - Public Methods
 
-- (FUComponent*)addComponentWithClass:(Class)componentClass
+- (id)addComponentWithClass:(Class)componentClass
 {
-	NSAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	Class oldestUniqueAncestor = FUGetOldestUniqueAncestorClass(componentClass);
-	NSAssert(![componentClass isUnique] || ([self componentWithClass:oldestUniqueAncestor] == nil), FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
+	
+	if ([componentClass isUnique] && ([self componentWithClass:oldestUniqueAncestor] != nil))
+	{
+		FUThrow(FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
+	}
 
 	[self addRequiredComponentsForClass:componentClass];
 	
@@ -126,17 +133,21 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)removeComponent:(FUComponent*)component
 {
-	NSAssert(component != nil, FUComponentNilMessage);
-	NSAssert([[self components] containsObject:component], FUComponentNonexistentMessage, component);
-	NSAssert(![self isComponentRequired:component], @"");
+	FUAssert(component != nil, FUComponentNilMessage);
 	
+	if (![[self components] containsObject:component])
+	{
+		FUThrow(FUComponentNonexistentMessage, component);
+	}
+	
+	[self validateRemovalOfComponent:component];	
 	[[self components] removeObject:component];
 	[component setGameObject:nil];
 }
 
-- (FUComponent*)componentWithClass:(Class)componentClass
+- (id)componentWithClass:(Class)componentClass
 {
-	NSAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	for (FUComponent* component in [self components])
 	{
@@ -151,7 +162,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (NSSet*)allComponentsWithClass:(Class)componentClass
 {
-	NSAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	NSMutableSet* components = [NSMutableSet set];
 	
@@ -179,14 +190,18 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	for (id requiredClass in requiredComponents)
 	{
-		NSAssert(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
-		NSAssert(![componentClass isSubclassOfClass:requiredClass], FURequiredComponentSuperclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+		FUAssert(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
+		
+		if ([componentClass isSubclassOfClass:requiredClass])
+		{
+			FUThrow(FURequiredComponentSuperclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+		}
 		
 		for (id otherRequiredClass in requiredComponents)
 		{
-			if (otherRequiredClass != requiredClass)
+			if ((otherRequiredClass != requiredClass) && [requiredClass isSubclassOfClass:otherRequiredClass])
 			{
-				NSAssert(![requiredClass isSubclassOfClass:otherRequiredClass], FURequiredComponentSubclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+				FUThrow(FURequiredComponentSubclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
 			}
 		}
 		
@@ -197,22 +212,22 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	}
 }
 
-- (BOOL)isComponentRequired:(FUComponent*)component
+- (void)validateRemovalOfComponent:(FUComponent*)component
 {
-	NSSet* similarComponents = [[self allComponentsWithClass:[component class]] mutableCopy];
+	Class currentAncestor = [component class];
 	
-	if ([similarComponents count] == 1)
+	while (FUIsValidComponentClass(currentAncestor) && ([[self allComponentsWithClass:currentAncestor] count] == 1))
 	{
 		for (FUComponent* otherComponent in [self components])
 		{
-			if ((otherComponent != component) && [[[otherComponent class] requiredComponents] containsObject:[component class]])
+			if ((otherComponent != component) && [[[otherComponent class] requiredComponents] containsObject:currentAncestor])
 			{
-				return YES;
+				FUThrow(FUComponentRequiredMessage, component, otherComponent);
 			}
 		}
+		
+		currentAncestor = [currentAncestor superclass];
 	}
-	
-	return NO;
 }
 
 @end

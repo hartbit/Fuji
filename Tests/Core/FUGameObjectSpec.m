@@ -111,7 +111,7 @@ describe(@"A game object", ^{
 		
 		context(@"removing a component that does not exist", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([gameObject removeComponent:[FUTestComponent testComponent]], nil);
+				STAssertThrows([gameObject removeComponent:mock([FUComponent class])], nil);
 			});
 		});
 		
@@ -163,24 +163,17 @@ describe(@"A game object", ^{
 			});
 		});
 		
-		/*w
-		context(@"added a component that is not unique", ^{
-			__block FUCommonComponent* component1 = nil;
-			__block FUCommonComponent* returnedComponent1 = nil;
+		context(@"added a unique component", ^{
+			__block FUUniqueChild1Component* component1 = nil;
 			
 			beforeEach(^{
-				component1 = [FUCommonComponent testComponent];
-				[FUCommonComponent setAllocReturnValue:component1];
-				returnedComponent1 = (FUCommonComponent*)[gameObject addComponentWithClass:[FUCommonComponent class]];
+				component1 = [gameObject addComponentWithClass:[FUUniqueChild1Component class]];
 			});
 			
 			it(@"initializes a new component", ^{
+				expect(component1).toNot.beNil();
 				expect([component1 wasInitCalled]).to.beTruthy();
 				expect([component1 wasAwakeCalled]).to.beTruthy();
-			});
-			
-			it(@"returns the created component", ^{
-				expect(returnedComponent1).to.beIdenticalTo(component1);
 			});
 			
 			it(@"has that component", ^{
@@ -189,14 +182,29 @@ describe(@"A game object", ^{
 				expect(components).to.contain(component1);
 			});
 			
-			context(@"added the superclass component that is unique", ^{
+			context(@"adding the same component", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([gameObject addComponentWithClass:[FUUniqueChild1Component class]], nil);
+				});
+			});
+			
+			context(@"adding a unique ancestor component", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([gameObject addComponentWithClass:[FUUniqueParentComponent class]], nil);
+				});
+			});
+			
+			context(@"adding a sibling that has the same unique ancestor component", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([gameObject addComponentWithClass:[FUUniqueChild2Component class]], nil);
+				});
+			});
+			
+			context(@"added a non-unique component", ^{
 				__block FUTestComponent* component2 = nil;
-				__block FUTestComponent* returnedComponent2 = nil;
 				
 				beforeEach(^{
-					component2 = [FUTestComponent testComponent];
-					[FUTestComponent setAllocReturnValue:component2];
-					returnedComponent2 = (FUTestComponent*)[gameObject addComponentWithClass:[FUTestComponent class]];
+					component2 = [gameObject addComponentWithClass:[FUTestComponent class]];
 				});
 				
 				it(@"initializes a new component", ^{
@@ -204,78 +212,45 @@ describe(@"A game object", ^{
 					expect([component2 wasAwakeCalled]).to.beTruthy();
 				});
 				
-				it(@"returns the created component", ^{
-					expect(returnedComponent2).to.beIdenticalTo(component2);
-				});
-				
-				it(@"has that component", ^{
+				it(@"has both components", ^{
 					NSSet* components = [gameObject allComponents];
 					expect(components).to.haveCountOf(2);
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
 				});
 			});
-		});
-
-		context(@"added a component that is unique", ^{
-			__block FUTestComponent* component1 = nil;
-			__block FUTestComponent* returnedComponent1 = nil;
 			
-			beforeEach(^{
-				component1 = [FUTestComponent testComponent];
-				[FUTestComponent setAllocReturnValue:component1];
-				returnedComponent1 = (FUTestComponent*)[gameObject addComponentWithClass:[FUTestComponent class]];
-			});
-			
-			it(@"initializes a new component", ^{
-				expect([component1 wasInitCalled]).to.beTruthy();
-				expect([component1 wasAwakeCalled]).to.beTruthy();
-			});
-			
-			it(@"returns the created component", ^{
-				expect(returnedComponent1).to.beIdenticalTo(component1);
-			});
-			
-			it(@"has that component", ^{
-				NSSet* components = [gameObject allComponents];
-				expect(components).to.haveCountOf(1);
-				expect(components).to.contain(component1);
-			});
-			
-			context(@"adding a component with the same class", ^{
-				it(@"throws an exception", ^{
-					STAssertThrows([gameObject addComponentWithClass:[FUTestComponent class]], nil);
-				});
-			});
-			
-			context(@"added a second component that requires the current component and another", ^{
+			context(@"added a component that requires the unique parent component and another one", ^{
 				__block FURequireTwoComponent* component2 = nil;
-				__block FUComponent* requiredComponent = nil;
+				__block FUOtherComponent* requiredComponent = nil;
 				
 				beforeEach(^{
-					[FUTestComponent setAllocReturnValue:[FUCommonComponent testComponent]]; 
-					component2 = (FURequireTwoComponent*)[gameObject addComponentWithClass:[FURequireTwoComponent class]];
-					requiredComponent = [gameObject componentWithClass:[FUChildComponent class]];
+					component2 = [gameObject addComponentWithClass:[FURequireTwoComponent class]];
+					requiredComponent = [gameObject componentWithClass:[FUOtherComponent class]];
 				});
 				
-				it(@"creates a new component", ^{
-					expect(component2).to.beKindOf([FURequireTwoComponent class]);
+				it(@"initializes a new component", ^{
+					expect([component2 wasInitCalled]).to.beTruthy();
+					expect([component2 wasAwakeCalled]).to.beTruthy();
 				});
 				
-				it(@"created the required component", ^{
-					expect(requiredComponent).toNot.beNil();
-				});
-				
-				it(@"has all three components", ^{
+				it(@"has three components, including both explicitely created", ^{
 					NSSet* components = [gameObject allComponents];
 					expect(components).to.haveCountOf(3);
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
-					expect(components).to.contain(requiredComponent);
+				});
+				
+				it(@"had implicitely created the second required component", ^{
+					expect([requiredComponent class]).to.beIdenticalTo([FUOtherComponent class]);
+					expect([requiredComponent wasInitCalled]).to.beTruthy();
+					expect([requiredComponent wasAwakeCalled]).to.beTruthy();
+					expect([gameObject allComponents]).to.contain(requiredComponent);
 				});
 				
 				context(@"removing the new component", ^{
 					beforeEach(^{
+						requiredComponent = [gameObject componentWithClass:[FUOtherComponent class]];
 						[gameObject removeComponent:component2];
 					});
 					
@@ -303,6 +278,9 @@ describe(@"A game object", ^{
 					});
 				});
 			});
+		});
+		
+		/*
 			
 			context(@"added a second component with a non-unique subclass", ^{
 				__block FUCommonComponent* component2 = nil;

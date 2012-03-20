@@ -11,9 +11,6 @@
 #import "FUGameObject.h"
 
 
-static FUTestComponent* sReturnedComponent = nil;
-
-
 @interface FUTestComponent ()
 
 @property (nonatomic) NSUInteger initCallCount;
@@ -26,23 +23,6 @@ static FUTestComponent* sReturnedComponent = nil;
 
 @synthesize initCallCount = _initCallCount;
 @synthesize awakeCallCount = _awakeCallCount;
-
-#pragma mark - Class Methods
-
-+ (id)testComponent
-{
-	return [super alloc];
-}
-
-+ (void)setAllocReturnValue:(FUTestComponent*)component
-{
-	sReturnedComponent = component;
-}
-
-+ (id)alloc
-{
-	return sReturnedComponent;
-}
 
 #pragma mark - Properties
 
@@ -86,7 +66,12 @@ static FUTestComponent* sReturnedComponent = nil;
 @end
 
 
-@implementation FUUniqueChildComponent
+@implementation FUUniqueChild1Component
+
+@end
+
+
+@implementation FUUniqueChild2Component
 
 @end
 
@@ -107,6 +92,11 @@ static FUTestComponent* sReturnedComponent = nil;
 {
 	return YES;
 }
+
+@end
+
+
+@implementation FUOtherComponent
 
 @end
 
@@ -165,7 +155,7 @@ static FUTestComponent* sReturnedComponent = nil;
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObjects:[FUUniqueParentComponent class], [FUUniqueChildComponent class], nil];
+	return [NSSet setWithObjects:[FUUniqueParentComponent class], [FUUniqueChild1Component class], nil];
 }
 
 @end
@@ -175,7 +165,7 @@ static FUTestComponent* sReturnedComponent = nil;
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObjects:[FUTestComponent class], [FUUniqueChildComponent class], nil];
+	return [NSSet setWithObjects:[FUUniqueParentComponent class], [FUOtherComponent class], nil];
 }
 
 @end

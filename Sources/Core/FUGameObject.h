@@ -17,9 +17,9 @@
 
 @property (nonatomic, WEAK, readonly) FUScene* scene;
 
-- (FUComponent*)addComponentWithClass:(Class)componentClass;
+- (id)addComponentWithClass:(Class)componentClass;
 - (void)removeComponent:(FUComponent*)component;
-- (FUComponent*)componentWithClass:(Class)componentClass;
+- (id)componentWithClass:(Class)componentClass;
 - (NSSet*)allComponentsWithClass:(Class)componentClass;
 - (NSSet*)allComponents;
 
