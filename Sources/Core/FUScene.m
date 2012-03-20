@@ -74,29 +74,4 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 	return [NSSet setWithSet:[self gameObjects]];
 }
 
-/*
-- (void)update
-{
-	
-}
-
-- (void)render
-{
-	GLKVector4 backgroundColor = [self backgroundColor];
-	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-	glClear(GL_COLOR_BUFFER_BIT);
-	
-	float vertices[] = {
-		-220, -200,
-		0,  500,
-		500, -200
-	};
-
-	glEnableVertexAttribArray(GLKVertexAttribPosition);
-	glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDisableVertexAttribArray(GLKVertexAttribPosition);
-}
-*/
-
 @end
