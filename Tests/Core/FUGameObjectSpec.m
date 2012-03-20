@@ -222,11 +222,11 @@ describe(@"A game object", ^{
 			
 			context(@"added a component that requires the unique parent component and another one", ^{
 				__block FURequireTwoComponent* component2 = nil;
-				__block FUOtherComponent* requiredComponent = nil;
+				__block FURequiredComponent* component3 = nil;
 				
 				beforeEach(^{
 					component2 = [gameObject addComponentWithClass:[FURequireTwoComponent class]];
-					requiredComponent = [gameObject componentWithClass:[FUOtherComponent class]];
+					component3 = [gameObject componentWithClass:[FURequiredComponent class]];
 				});
 				
 				it(@"initializes a new component", ^{
@@ -242,15 +242,61 @@ describe(@"A game object", ^{
 				});
 				
 				it(@"had implicitely created the second required component", ^{
-					expect([requiredComponent class]).to.beIdenticalTo([FUOtherComponent class]);
-					expect([requiredComponent wasInitCalled]).to.beTruthy();
-					expect([requiredComponent wasAwakeCalled]).to.beTruthy();
-					expect([gameObject allComponents]).to.contain(requiredComponent);
+					expect([component3 class]).to.beIdenticalTo([FURequiredComponent class]);
+					expect([component3 wasInitCalled]).to.beTruthy();
+					expect([component3 wasAwakeCalled]).to.beTruthy();
+					expect([gameObject allComponents]).to.contain(component3);
+				});
+				
+				context(@"getting a component with a common ancestor of all components", ^{
+					it(@"returns any of the components", ^{
+						FUComponent* searchedComponent = [gameObject componentWithClass:[FUTestComponent class]];
+						expect((searchedComponent == component1) || (searchedComponent == component2) || (searchedComponent == component3)).to.beTruthy();
+					});
+				});
+				
+				context(@"getting a component with a common ancestor of the last two components", ^{
+					it(@"returns any of the last two components", ^{
+						FUComponent* searchedComponent = [gameObject componentWithClass:[FUCommonParentComponent class]];
+						expect((searchedComponent == component2) || (searchedComponent == component3)).to.beTruthy();
+					});
+				});
+				
+				context(@"getting a component with the first class", ^{
+					it(@"returns the first component", ^{
+						FUComponent* component = [gameObject componentWithClass:[FUUniqueChild1Component class]];
+						expect(component).to.beIdenticalTo(component1);
+					});
+				});
+				
+				context(@"getting all the components with a common ancestor of all components", ^{
+					it(@"returns a set with all components", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUTestComponent class]];
+						expect(components).to.haveCountOf(3);
+						expect(components).to.contain(component1);
+						expect(components).to.contain(component2);
+						expect(components).to.contain(component3);
+					});
+				});
+				
+				context(@"getting all the components with a common ancestor of the last two components", ^{
+					it(@"returns a set with the last two components", ^{
+						NSSet* components = [gameObject allComponentsWithClass:[FUCommonParentComponent class]];
+						expect(components).to.haveCountOf(2);
+						expect(components).to.contain(component2);
+						expect(components).to.contain(component3);
+					});
+				});
+				
+				context(@"getting all the components with the second class", ^{
+					it(@"returns the second class", ^{
+						FUComponent* component = [gameObject componentWithClass:[FURequireTwoComponent class]];
+						expect(component).to.beIdenticalTo(component2);
+					});
 				});
 				
 				context(@"removing the new component", ^{
 					beforeEach(^{
-						requiredComponent = [gameObject componentWithClass:[FUOtherComponent class]];
 						[gameObject removeComponent:component2];
 					});
 					
@@ -258,7 +304,7 @@ describe(@"A game object", ^{
 						NSSet* components = [gameObject allComponents];
 						expect(components).to.haveCountOf(2);
 						expect(components).to.contain(component1);
-						expect(components).to.contain(requiredComponent);
+						expect(components).to.contain(component3);
 					});
 					
 					it(@"sets the gameObject property of the component to nil", ^{
@@ -274,7 +320,7 @@ describe(@"A game object", ^{
 				
 				context(@"removing the second required component", ^{
 					it(@"throws an exception", ^{
-						STAssertThrows([gameObject removeComponent:requiredComponent], nil);
+						STAssertThrows([gameObject removeComponent:component3], nil);
 					});
 				});
 			});

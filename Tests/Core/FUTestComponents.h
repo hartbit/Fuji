@@ -22,7 +22,6 @@
 @interface FUUniqueChild2Component : FUUniqueParentComponent @end
 @interface FUCommonChildComponent : FUUniqueParentComponent @end
 @interface FUUniqueGrandChildComponent : FUCommonChildComponent @end
-@interface FUOtherComponent : FUTestComponent @end
 
 
 @interface FURequireObjectComponent : FUTestComponent @end
@@ -31,4 +30,7 @@
 @interface FURequireItselfComponent : FUTestComponent @end
 @interface FURequireSubclassComponent : FUTestComponent @end
 @interface FURequireRelativesComponent : FUTestComponent @end
-@interface FURequireTwoComponent : FUTestComponent @end
+
+@interface FUCommonParentComponent : FUTestComponent @end
+@interface FURequireTwoComponent : FUCommonParentComponent @end
+@interface FURequiredComponent : FUCommonParentComponent @end
