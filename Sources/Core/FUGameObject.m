@@ -65,7 +65,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 @interface FUGameObject ()
 
-@property (nonatomic, WEAK) FUScene* scene;
 @property (nonatomic, strong) NSMutableSet* components;
 
 - (void)addRequiredComponentsForClass:(Class)componentClass;

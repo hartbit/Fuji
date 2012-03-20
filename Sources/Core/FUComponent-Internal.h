@@ -7,6 +7,8 @@
 //
 
 
+@class FUGameObject;
+
 @interface FUComponent ()
 
 @property (nonatomic, WEAK) FUGameObject* gameObject;

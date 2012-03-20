@@ -126,9 +126,9 @@
 		63925255151214AC005B3FEC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				63925258151214EA005B3FEC /* FUSceneSpec.m */,
 				63925257151214EA005B3FEC /* FUGameObjectSpec.m */,
 				63925256151214EA005B3FEC /* FUComponentSpec.m */,
+				63925258151214EA005B3FEC /* FUSceneSpec.m */,
 				6392525C15123D84005B3FEC /* FUTestComponents.h */,
 				6392525D15123D84005B3FEC /* FUTestComponents.m */,
 			);

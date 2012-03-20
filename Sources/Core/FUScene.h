@@ -14,6 +14,8 @@
 
 + (FUScene*)scene;
 
-- (FUGameObject*)createGameObject;
+- (id)createGameObject;
+- (void)removeGameObject:(FUGameObject*)gameObject;
+- (NSSet*)allGameObjects;
 
 @end

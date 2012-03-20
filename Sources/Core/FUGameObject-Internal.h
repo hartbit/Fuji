@@ -11,6 +11,8 @@
 
 @interface FUGameObject ()
 
+@property (nonatomic, WEAK) FUScene* scene;
+
 - (id)initWithScene:(FUScene*)scene;
 
 @end
