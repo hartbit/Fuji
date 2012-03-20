@@ -24,7 +24,7 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 
 + (BOOL)isUnique
 {
-	return YES;
+	return NO;
 }
 
 + (NSSet*)requiredComponents

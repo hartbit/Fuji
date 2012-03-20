@@ -76,7 +76,22 @@ static FUTestComponent* sReturnedComponent = nil;
 @end
 
 
-@implementation FUCommonComponent
+@implementation FUUniqueParentComponent
+
++ (BOOL)isUnique
+{
+	return YES;
+}
+
+@end
+
+
+@implementation FUUniqueChildComponent
+
+@end
+
+
+@implementation FUCommonChildComponent
 
 + (BOOL)isUnique
 {
@@ -86,8 +101,14 @@ static FUTestComponent* sReturnedComponent = nil;
 @end
 
 
-@implementation FUParentComponent @end
-@implementation FUChildComponent @end
+@implementation FUUniqueGrandChildComponent
+
++ (BOOL)isUnique
+{
+	return YES;
+}
+
+@end
 
 
 @implementation FURequireObjectComponent
@@ -144,7 +165,7 @@ static FUTestComponent* sReturnedComponent = nil;
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObjects:[FUParentComponent class], [FUChildComponent class], nil];
+	return [NSSet setWithObjects:[FUUniqueParentComponent class], [FUUniqueChildComponent class], nil];
 }
 
 @end
@@ -154,7 +175,7 @@ static FUTestComponent* sReturnedComponent = nil;
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObjects:[FUTestComponent class], [FUChildComponent class], nil];
+	return [NSSet setWithObjects:[FUTestComponent class], [FUUniqueChildComponent class], nil];
 }
 
 @end

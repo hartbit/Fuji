@@ -150,6 +150,72 @@ describe(@"A game object", ^{
 				expect([gameObject allComponentsWithClass:[FUTestComponent class]]).to.beEmpty();
 			});
 		});
+		
+		context(@"adding a non-unique component that has a unique ancestor", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[FUCommonChildComponent class]], nil);
+			});
+		});
+		
+		context(@"adding a unique component that has a non-unique ancestor that itself has a unique ancestor", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[FUUniqueGrandChildComponent class]], nil);
+			});
+		});
+		
+		/*w
+		context(@"added a component that is not unique", ^{
+			__block FUCommonComponent* component1 = nil;
+			__block FUCommonComponent* returnedComponent1 = nil;
+			
+			beforeEach(^{
+				component1 = [FUCommonComponent testComponent];
+				[FUCommonComponent setAllocReturnValue:component1];
+				returnedComponent1 = (FUCommonComponent*)[gameObject addComponentWithClass:[FUCommonComponent class]];
+			});
+			
+			it(@"initializes a new component", ^{
+				expect([component1 wasInitCalled]).to.beTruthy();
+				expect([component1 wasAwakeCalled]).to.beTruthy();
+			});
+			
+			it(@"returns the created component", ^{
+				expect(returnedComponent1).to.beIdenticalTo(component1);
+			});
+			
+			it(@"has that component", ^{
+				NSSet* components = [gameObject allComponents];
+				expect(components).to.haveCountOf(1);
+				expect(components).to.contain(component1);
+			});
+			
+			context(@"added the superclass component that is unique", ^{
+				__block FUTestComponent* component2 = nil;
+				__block FUTestComponent* returnedComponent2 = nil;
+				
+				beforeEach(^{
+					component2 = [FUTestComponent testComponent];
+					[FUTestComponent setAllocReturnValue:component2];
+					returnedComponent2 = (FUTestComponent*)[gameObject addComponentWithClass:[FUTestComponent class]];
+				});
+				
+				it(@"initializes a new component", ^{
+					expect([component2 wasInitCalled]).to.beTruthy();
+					expect([component2 wasAwakeCalled]).to.beTruthy();
+				});
+				
+				it(@"returns the created component", ^{
+					expect(returnedComponent2).to.beIdenticalTo(component2);
+				});
+				
+				it(@"has that component", ^{
+					NSSet* components = [gameObject allComponents];
+					expect(components).to.haveCountOf(2);
+					expect(components).to.contain(component1);
+					expect(components).to.contain(component2);
+				});
+			});
+		});
 
 		context(@"added a component that is unique", ^{
 			__block FUTestComponent* component1 = nil;
@@ -338,6 +404,7 @@ describe(@"A game object", ^{
 				});
 			});
 		});
+		 */
 	});
 });
 
