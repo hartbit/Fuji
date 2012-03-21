@@ -64,7 +64,6 @@
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		638227321519D88A0009D036 /* libFujiGraphcis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFujiGraphcis.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6382274A1519D9400009D036 /* FujiGraphicsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FujiGraphicsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6382274B1519D9400009D036 /* FujiCoreTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FujiCoreTests copy-Info.plist"; path = "/Users/david/Dropbox/Projects/Fuji/FujiCoreTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		6382274D1519DA500009D036 /* FUColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUColor.h; sourceTree = "<group>"; };
 		6382274E1519DA500009D036 /* FUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUColor.m; sourceTree = "<group>"; };
 		638227521519DA990009D036 /* FujiGraphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FujiGraphics.h; sourceTree = "<group>"; };
@@ -212,7 +211,6 @@
 				63B5738A14F4D38000451E2E /* Frameworks */,
 				63B5738914F4D38000451E2E /* Products */,
 				63F339B41506665700BF36A9 /* Pods-test.xcconfig */,
-				6382274B1519D9400009D036 /* FujiCoreTests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
