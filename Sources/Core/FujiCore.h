@@ -10,4 +10,5 @@
 #import	"FUException.h"
 #import "FUGameObject.h"
 #import "FUComponent.h"
+#import "FUBehavior.h"
 #import "FUScene.h"

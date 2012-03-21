@@ -1,5 +1,5 @@
 //
-//  FUSceneSpec.m
+//  FUColorSpec.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
