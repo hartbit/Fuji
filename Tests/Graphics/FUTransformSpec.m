@@ -16,7 +16,7 @@ SPEC_BEGIN(FUTransformSpec)
 
 describe(@"A transform component", ^{
 	it(@"is a subclass of FUComponent", ^{
-		expect([FUGraphicsEngine class]).to.beASubclassOf([FUComponent class]);
+		expect([FUTransform class]).to.beASubclassOf([FUComponent class]);
 	});
 	
 	context(@"created and initialized", ^{
