@@ -48,7 +48,7 @@ describe(@"A transform component", ^{
 		});
 		
 		it(@"has an initial matrix of identity", ^{
-			expect(GLKMatrix4EqualToMatrix4([transform matrix], GLKMatrix4Identity)).to.beTruthy();
+			expect(FUMatrix4EqualToMatrix4([transform matrix], GLKMatrix4Identity)).to.beTruthy();
 		});
 		
 		context(@"set the position to (4, 7)", ^{
@@ -65,7 +65,7 @@ describe(@"A transform component", ^{
 			
 			it(@"has a matrix with a translation of (4, 7)", ^{
 				GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(4, 7, 0);
-				expect(GLKMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
+				expect(FUMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
 			});
 		});
 		
@@ -84,7 +84,7 @@ describe(@"A transform component", ^{
 			
 			it(@"has a matrix with a translation of (5, 9)", ^{
 				GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(5, 9, 0);
-				expect(GLKMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
+				expect(FUMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
 			});
 		});
 		
@@ -99,7 +99,7 @@ describe(@"A transform component", ^{
 			
 			it(@"has a matrix with a rotation of Pi around Z", ^{
 				GLKMatrix4 rotationMatrix = GLKMatrix4MakeZRotation(M_PI);
-				expect(GLKMatrix4CloseToMatrix4([transform matrix], rotationMatrix)).to.beTruthy();
+				expect(FUMatrix4CloseToMatrix4([transform matrix], rotationMatrix)).to.beTruthy();
 			});
 		});
 		
@@ -117,7 +117,7 @@ describe(@"A transform component", ^{
 			
 			it(@"has a matrix with a scale of (0.5, 2)", ^{
 				GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(0.5, 2, 1);
-				expect(GLKMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
+				expect(FUMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
 			});
 		});
 		
@@ -136,7 +136,7 @@ describe(@"A transform component", ^{
 			
 			it(@"has a matrix with a scale of (1.4, 0.8)", ^{
 				GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(1.4, 0.8, 1);
-				expect(GLKMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
+				expect(FUMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
 			});
 		});
 	});
