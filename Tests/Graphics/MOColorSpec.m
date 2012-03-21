@@ -6,19 +6,15 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-#define SPT_CEDAR_SYNTAX
-#import "Specta.h"
-#define EXP_SHORTHAND
-#import "Expecta.h"
-#import "Fuji.h"
+#include "Prefix.pch"
+#import "FujiGraphics.h"
 
 
 SPEC_BEGIN(FUColorSpec)
 
-describe(@"FUColor", ^{
-	context(@"FUColorWithBytes", ^{
-		it(@"should create a GLKVector4 with components divided by 255", ^{
+describe(@"The color data type", ^{
+	context(@"creating with byte components", ^{
+		it(@"returns a GLKVector4 with components divided by 255", ^{
 			GLKVector4 color = FUColorWithBytes(255, 128, 0, 255);
 			GLKVector4 expectedColor = GLKVector4Make(1.0f, 0.501960784f, 0.0f, 1.0f);
 			expect(color.r).to.beCloseTo(expectedColor.r);
@@ -27,8 +23,9 @@ describe(@"FUColor", ^{
 			expect(color.a).to.beCloseTo(expectedColor.a);
 		});
 	});
-	context(@"Constants", ^{
-		it(@"should have the correct color components", ^{
+
+	context(@"creating with constants", ^{
+		it(@"have the correct color components", ^{
 			expect(GLKVector4AllEqualToVector4(FUColorAliceBlue, FUColorWithBytes(240, 248, 255, 255))).to.beTruthy();
 			expect(GLKVector4AllEqualToVector4(FUColorAntiqueWhite, FUColorWithBytes(250, 235, 215, 255))).to.beTruthy();
 			expect(GLKVector4AllEqualToVector4(FUColorAqua, FUColorWithBytes(0, 255, 255, 255))).to.beTruthy();
