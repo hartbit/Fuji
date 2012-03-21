@@ -38,6 +38,8 @@
 		6392525A151214EA005B3FEC /* FUGameObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925257151214EA005B3FEC /* FUGameObjectSpec.m */; };
 		6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925258151214EA005B3FEC /* FUSceneSpec.m */; };
 		6392525E15123D84005B3FEC /* FUTestComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 6392525D15123D84005B3FEC /* FUTestComponents.m */; };
+		6397C530151A33B500457829 /* FUViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6397C52E151A33B500457829 /* FUViewController.h */; };
+		6397C531151A33B500457829 /* FUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397C52F151A33B500457829 /* FUViewController.m */; };
 		63A159A514FD1DB500364D24 /* FUScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 63A159A314FD1DB500364D24 /* FUScene.h */; };
 		63A159A614FD1DB500364D24 /* FUScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* FUScene.m */; };
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
@@ -82,6 +84,8 @@
 		63925258151214EA005B3FEC /* FUSceneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneSpec.m; sourceTree = "<group>"; };
 		6392525C15123D84005B3FEC /* FUTestComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestComponents.h; sourceTree = "<group>"; };
 		6392525D15123D84005B3FEC /* FUTestComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestComponents.m; sourceTree = "<group>"; };
+		6397C52E151A33B500457829 /* FUViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUViewController.h; sourceTree = "<group>"; };
+		6397C52F151A33B500457829 /* FUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUViewController.m; sourceTree = "<group>"; };
 		63A159A314FD1DB500364D24 /* FUScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUScene.h; sourceTree = "<group>"; };
 		63A159A414FD1DB500364D24 /* FUScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUScene.m; sourceTree = "<group>"; };
 		63B5738814F4D38000451E2E /* libFuji.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFuji.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +208,23 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		6397C52B151A338E00457829 /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				6397C52D151A339D00457829 /* iOS */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		6397C52D151A339D00457829 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6397C52E151A33B500457829 /* FUViewController.h */,
+				6397C52F151A33B500457829 /* FUViewController.m */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		63B5737D14F4D38000451E2E = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +264,7 @@
 				6392523D15120CE7005B3FEC /* Support */,
 				6392523C15120C27005B3FEC /* Core */,
 				6382271E1519D8470009D036 /* Graphics */,
+				6397C52B151A338E00457829 /* Platforms */,
 				63822772151A293E0009D036 /* Fuji.h */,
 			);
 			path = Sources;
@@ -272,6 +294,7 @@
 				6382275B1519E1380009D036 /* FUBehavior.h in Headers */,
 				6382277C151A2A030009D036 /* FUColor.h in Headers */,
 				6382277E151A2A030009D036 /* FUMath.h in Headers */,
+				6397C530151A33B500457829 /* FUViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +418,7 @@
 				6382277F151A2A030009D036 /* FUMath.m in Sources */,
 				63822780151A2A520009D036 /* FUGraphicsEngine.m in Sources */,
 				63822781151A2A520009D036 /* FUTransform.m in Sources */,
+				6397C531151A33B500457829 /* FUViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
