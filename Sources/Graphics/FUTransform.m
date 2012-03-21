@@ -1,16 +1,17 @@
 //
-//  FUTransform2D.m
+//  FUTransform.m
 //  Fuji
 //
 //  Created by David Hart on 01.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUTransform2D.h"
+#include "Prefix.pch"
+#import "FUTransform.h"
 #import "FUMath.h"
 
 
-@interface FUTransform2D ()
+@interface FUTransform ()
 
 @property (nonatomic) GLKMatrix4 matrix;
 @property (nonatomic) BOOL needsUpdate;
@@ -18,7 +19,7 @@
 @end
 
 
-@implementation FUTransform2D
+@implementation FUTransform
 
 @synthesize position = _position;
 @synthesize rotation = _rotation;

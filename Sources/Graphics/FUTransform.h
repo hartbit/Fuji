@@ -10,7 +10,7 @@
 #import "FUComponent.h"
 
 
-@interface FUTransform2D : FUComponent
+@interface FUTransform : FUComponent
 
 @property (nonatomic) GLKVector2 position;
 @property (nonatomic) float positionX;
