@@ -7,8 +7,24 @@
 //
 
 #import "FUGraphicsEngine.h"
+#import "FUComponent-Internal.h"
+#import "FUColor.h"
 
 
 @implementation FUGraphicsEngine
+
+@synthesize backgroundColor = _backgroundColor;
+
+#pragma mark - Initialization
+
+- (id)initWithGameObject:(FUGameObject*)gameObject
+{
+	if ((self = [super initWithGameObject:gameObject]))
+	{
+		[self setBackgroundColor:FUColorCornflowerBlue];
+	}
+	
+	return self;
+}
 
 @end

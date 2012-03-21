@@ -11,4 +11,6 @@
 
 @interface FUGraphicsEngine : FUBehavior
 
+@property (nonatomic) GLKVector4 backgroundColor;
+
 @end
