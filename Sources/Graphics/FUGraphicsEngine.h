@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#import <GLKit/GLKit.h>
 #import "FUBehavior.h"
 
 

@@ -7,7 +7,6 @@
 //
 
 #include "Prefix.pch"
-#import "FujiCore.h"
 #import "FUComponent-Internal.h"
 
 

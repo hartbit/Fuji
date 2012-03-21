@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#pragma mark - NSProxy/weak Fix
 
 #ifdef TEST
 #define WEAK unsafe_unretained

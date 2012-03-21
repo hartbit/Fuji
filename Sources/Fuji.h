@@ -7,8 +7,13 @@
 //
 
 #import "FUMacros.h"
-#import	"FUException.h"
+#import	"FUMacros.h"
+#import	"FUColor.h"
+
 #import "FUGameObject.h"
 #import "FUComponent.h"
 #import "FUBehavior.h"
 #import "FUScene.h"
+
+#import "FUGraphicsEngine.h"
+#import "FUTransform.h"

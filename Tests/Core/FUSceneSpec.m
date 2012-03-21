@@ -7,7 +7,6 @@
 //
 
 #include "Prefix.pch"
-#import "FujiCore.h"
 
 
 SPEC_BEGIN(FUSceneSpec)
