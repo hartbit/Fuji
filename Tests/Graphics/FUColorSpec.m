@@ -7,6 +7,7 @@
 //
 
 #include "Prefix.pch"
+#import "Fuji.h"
 
 
 SPEC_BEGIN(FUColorSpec)

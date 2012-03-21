@@ -7,6 +7,7 @@
 //
 
 #import "FUComponent.h"
+#import "Fuji.h"
 
 
 @interface FUTestComponent : FUComponent

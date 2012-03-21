@@ -7,6 +7,7 @@
 //
 
 #include "Prefix.pch"
+#import "Fuji.h"
 #import	"FUComponent-Internal.h"
 #import "FUTestFunctions.h"
 
