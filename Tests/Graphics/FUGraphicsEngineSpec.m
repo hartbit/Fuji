@@ -7,21 +7,28 @@
 //
 
 #include "Prefix.pch"
+#import	"FujiCore.h"
 #import "FujiGraphics.h"
+#import	"FUComponent-Internal.h"
 
 
 SPEC_BEGIN(FUGraphicsEngineSpec)
 
 describe(@"The graphics engine", ^{
-//	__block FUScene* scene = [FUScene new];
-	__block FUGraphicsEngine* graphics = nil;
-	
-	beforeEach(^{
-		graphics = [FUGraphicsEngine new];
+	it(@"is a subclass of FUBehavior", ^{
+		expect([FUGraphicsEngine class]).to.beASubclassOf([FUBehavior class]);
 	});
 	
-	it(@"is not nil", ^{
-		expect(graphics).toNot.beNil();
+	context(@"created and initialized", ^{
+		__block FUGraphicsEngine* graphics = nil;
+		
+		beforeEach(^{
+			graphics = [[FUGraphicsEngine alloc] initWithGameObject:mock([FUGameObject class])];
+		});
+		
+		it(@"is not nil", ^{
+			expect(graphics).toNot.beNil();
+		});
 	});
 });
 

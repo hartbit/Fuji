@@ -15,7 +15,7 @@ SPEC_BEGIN(FUBehaviorSpec)
 
 describe(@"A behavior object", ^{
 	it(@"is a subclass of FUComponent", ^{
-		expect([FUBehavior class]).to.beSubclassOf([FUComponent class]);
+		expect([FUBehavior class]).to.beASubclassOf([FUComponent class]);
 	});
 	
 	context(@"created and initialized", ^{

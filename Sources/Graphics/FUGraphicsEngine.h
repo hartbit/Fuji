@@ -1,10 +1,14 @@
 //
-//  FujiGraphics.h
+//  FUGraphicsEngine.h
 //  Fuji
 //
 //  Created by Hart David on 21.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUColor.h"
-#import "FUGraphicsEngine.h"
+#import "FUBehavior.h"
+
+
+@interface FUGraphicsEngine : FUBehavior
+
+@end
