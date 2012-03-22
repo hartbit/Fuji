@@ -268,7 +268,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	{
 		for (FUComponent* otherComponent in [self components])
 		{
-			if ((otherComponent != component) && [[[otherComponent class] requiredComponents] containsObject:currentAncestor])
+			if ((otherComponent != component) && [[[otherComponent class] allRequiredComponents] containsObject:currentAncestor])
 			{
 				FUThrow(FUComponentRequiredMessage, component, otherComponent);
 			}

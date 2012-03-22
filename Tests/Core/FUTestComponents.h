@@ -34,5 +34,6 @@
 @interface FURequireRelativesComponent : FUTestComponent @end
 
 @interface FUCommonParentComponent : FUTestComponent @end
-@interface FURequireTwoComponent : FUCommonParentComponent @end
+@interface FURequireUniqueParentComponent : FUCommonParentComponent @end
+@interface FURequireRequiredComponent : FURequireUniqueParentComponent @end
 @interface FURequiredComponent : FUCommonParentComponent @end

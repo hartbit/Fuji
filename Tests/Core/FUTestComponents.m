@@ -172,11 +172,21 @@
 @end
 
 
-@implementation FURequireTwoComponent
+@implementation FURequireUniqueParentComponent
 
 + (NSSet*)requiredComponents
 {
-	return [NSSet setWithObjects:[FUUniqueParentComponent class], [FURequiredComponent class], nil];
+	return [NSSet setWithObject:[FUUniqueParentComponent class]];
+}
+
+@end
+
+
+@implementation FURequireRequiredComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[FURequiredComponent class]];
 }
 
 @end

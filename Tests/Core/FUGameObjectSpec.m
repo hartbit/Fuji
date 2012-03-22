@@ -245,11 +245,11 @@ describe(@"A game object", ^{
 			});
 			
 			context(@"added a component that requires the unique parent component and another one", ^{
-				__block FURequireTwoComponent* component2 = nil;
+				__block FURequireRequiredComponent* component2 = nil;
 				__block FURequiredComponent* component3 = nil;
 				
 				beforeEach(^{
-					component2 = [gameObject addComponentWithClass:[FURequireTwoComponent class]];
+					component2 = [gameObject addComponentWithClass:[FURequireRequiredComponent class]];
 					component3 = [gameObject componentWithClass:[FURequiredComponent class]];
 				});
 				
@@ -314,7 +314,7 @@ describe(@"A game object", ^{
 				
 				context(@"getting all the components with the second class", ^{
 					it(@"returns the second class", ^{
-						FUComponent* component = [gameObject componentWithClass:[FURequireTwoComponent class]];
+						FUComponent* component = [gameObject componentWithClass:[FURequireRequiredComponent class]];
 						expect(component).to.beIdenticalTo(component2);
 					});
 				});
