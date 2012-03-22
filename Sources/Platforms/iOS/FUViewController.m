@@ -24,6 +24,16 @@
 
 #pragma mark - Properties
 
+- (void)setScene:(FUScene*)scene
+{
+	if (scene != _scene)
+	{
+		_scene = scene;
+		[self setDelegate:scene];
+//		[(GLKView*)[self view] setDelegate:scene];
+	}
+}
+
 - (EAGLContext*)context
 {
 	if (_context == nil)

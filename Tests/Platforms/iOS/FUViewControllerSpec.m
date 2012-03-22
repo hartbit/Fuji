@@ -40,6 +40,31 @@ describe(@"A Fuji view controller", ^{
 			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
 			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
 		});
+		
+		it(@"has a nil scene", ^{
+			expect([viewController scene]).to.beNil();
+		});
+		
+		context(@"a scene is set", ^{
+			__block FUScene* scene = nil;
+			
+			beforeEach(^{
+				scene = mock([FUScene class]);
+				[viewController setScene:scene];
+			});
+			
+			it(@"has the scene property set", ^{
+				expect([viewController scene]).to.beIdenticalTo(scene);
+			});
+			
+			it(@"calls the scene's glkViewControllerUpdate: method", ^{
+				[verify(scene) glkViewControllerUpdate:viewController];
+			});
+			
+			it(@"calls the scene's glkView:drawInRect: method", ^{
+				[verify(scene) glkView:(GLKView*)[viewController view] drawInRect:[[viewController view] bounds]];
+			});
+		});
 	});
 });
 
