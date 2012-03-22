@@ -27,6 +27,12 @@ describe(@"A Fuji view controller", ^{
 		it(@"has a valid opengl view", ^{
 			expect([viewController view]).to.beKindOf([GLKView class]);
 		});
+		
+		it(@"it's view is the size of the screen", ^{
+			CGSize viewSize = [[viewController view] bounds].size;
+			CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
+		});
 	});
 });
 
