@@ -28,7 +28,7 @@ describe(@"A Fuji view controller", ^{
 			expect([viewController view]).to.beKindOf([GLKView class]);
 		});
 		
-		it(@"it's view is the size of the screen", ^{
+		it(@"has it's view at the same size as the screen", ^{
 			CGSize viewSize = [[viewController view] bounds].size;
 			CGSize screenSize = [[UIScreen mainScreen] bounds].size;
 			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
