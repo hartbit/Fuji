@@ -37,11 +37,21 @@ describe(@"A scene", ^{
 		});
 		
 		it(@"has a graphics engine component", ^{
-			expect([scene componentWithClass:[FUGraphicsEngine class]]).toNot.beNil();
+			FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
+			expect(graphicsEngine).toNot.beNil();
 		});
 		
 		it(@"the graphics property returns the graphics engine component", ^{
-			expect([scene graphics]).to.beIdenticalTo([scene componentWithClass:[FUGraphicsEngine class]]);
+			FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
+			expect([scene graphics]).to.beIdenticalTo(graphicsEngine);
+		});
+		
+		context(@"removing the graphics engine component", ^{
+			it(@"has the grapics property to nil", ^{
+				FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
+				[scene removeComponent:graphicsEngine];
+				expect([scene graphics]).to.beNil();
+			});
 		});
 		
 		context(@"removing a nil game object", ^{
