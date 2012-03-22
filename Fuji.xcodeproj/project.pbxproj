@@ -50,6 +50,8 @@
 		63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
 		63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		63F339B21506633200BF36A9 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F339B11506633200BF36A9 /* libPods-test.a */; };
+		63F841CE151B4F9400F27F98 /* FUViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F841CD151B4F9400F27F98 /* FUViewControllerSpec.m */; };
+		63F841CF151B504600F27F98 /* FUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397C52F151A33B500457829 /* FUViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,7 @@
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63F339B11506633200BF36A9 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F339B41506665700BF36A9 /* Pods-test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
+		63F841CD151B4F9400F27F98 /* FUViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUViewControllerSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,8 +279,25 @@
 				63822770151A1C4B0009D036 /* Support */,
 				63925255151214AC005B3FEC /* Core */,
 				638227331519D8E10009D036 /* Graphics */,
+				63F841CA151B4F6500F27F98 /* Platforms */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		63F841CA151B4F6500F27F98 /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				63F841CC151B4F7C00F27F98 /* iOS */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		63F841CC151B4F7C00F27F98 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				63F841CD151B4F9400F27F98 /* FUViewControllerSpec.m */,
+			);
+			path = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +462,8 @@
 				6382278C151A2BA40009D036 /* FUScene.m in Sources */,
 				6382278D151A2BA40009D036 /* FUGraphicsEngine.m in Sources */,
 				6382278E151A2BA40009D036 /* FUTransform.m in Sources */,
+				63F841CE151B4F9400F27F98 /* FUViewControllerSpec.m in Sources */,
+				63F841CF151B504600F27F98 /* FUViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
