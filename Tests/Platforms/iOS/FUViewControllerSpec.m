@@ -33,6 +33,13 @@ describe(@"A Fuji view controller", ^{
 			CGSize screenSize = [[UIScreen mainScreen] bounds].size;
 			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
 		});
+		
+		it(@"automatically rotates in all orientations", ^{
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beTruthy();
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
+		});
 	});
 });
 
