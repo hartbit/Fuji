@@ -19,7 +19,7 @@ describe(@"A scene", ^{
 		expect([FUScene class]).to.beSubclassOf([FUGameObject class]);
 	});
 	
-	context(@"created a scene", ^{
+	context(@"created and initialized", ^{
 		beforeEach(^{
 			scene = [FUScene new];
 		});

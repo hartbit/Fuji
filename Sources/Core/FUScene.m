@@ -31,6 +31,13 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 @synthesize graphics = _graphics;
 @synthesize gameObjects = _gameObjects;
 
+#pragma mark - Class Methods
+
++ (NSDictionary*)componentProperties
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:[FUGraphicsEngine class], @"graphics", nil];
+}
+
 #pragma mark - Initialization
 
 - (id)init
@@ -81,31 +88,6 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 - (NSSet*)allGameObjects
 {
 	return [NSSet setWithSet:[self gameObjects]];
-}
-
-#pragma mark - FUComponent Methods
-
-- (id)addComponentWithClass:(Class)componentClass
-{
-	id component = [super addComponentWithClass:componentClass];
-	
-	if (([self graphics] == nil) && (componentClass == [FUGraphicsEngine class]))
-	{
-		[self setGraphics:component];
-	}
-	
-	return component;
-}
-
-- (void)removeComponent:(FUComponent*)component
-{
-	[super removeComponent:component];
-	
-	if (component == [self graphics])
-	{
-		FUGraphicsEngine* graphics = [self componentWithClass:[FUGraphicsEngine class]];
-		[self setGraphics:graphics];
-	}
 }
 
 @end

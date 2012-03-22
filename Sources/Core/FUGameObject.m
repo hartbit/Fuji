@@ -69,8 +69,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @property (nonatomic, WEAK) FUTransform* transform;
 @property (nonatomic, strong) NSMutableSet* components;
 
+- (void)validateUniquenessOfClass:(Class)componentClass;
 - (void)addRequiredComponentsForClass:(Class)componentClass;
 - (void)validateRemovalOfComponent:(FUComponent*)component;
+- (void)updatePropertiesAfterAdditionOfComponent:(FUComponent*)component;
+- (void)updatePropertiesAfterRemovalOfComponent:(FUComponent*)component;
 
 @end
 
@@ -80,6 +83,48 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @synthesize scene = _scene;
 @synthesize transform = _transform;
 @synthesize components = _components;
+
+#pragma mark - Class Methods
+
++ (NSDictionary*)componentProperties
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:[FUTransform class], @"transform", nil];
+}
+
++ (NSDictionary*)allComponentProperties
+{
+	static NSMutableDictionary* sProperties = nil;
+	
+	if (sProperties == nil)
+	{
+		sProperties = [NSMutableDictionary dictionary];
+	}
+	
+	NSMutableDictionary* classProperties = [sProperties objectForKey:self];
+	
+	if (classProperties == nil)
+	{
+		classProperties = [NSMutableDictionary dictionaryWithDictionary:[self componentProperties]];
+		[sProperties setObject:classProperties forKey:self];
+		
+		Class currentAncestor = self;
+		
+		while (true)
+		{
+			currentAncestor = [currentAncestor superclass];
+			
+			if (![currentAncestor isSubclassOfClass:[FUGameObject class]])
+			{
+				break;
+			}
+			
+			NSDictionary* ancestorProperties = [currentAncestor allComponentProperties];
+			[classProperties addEntriesFromDictionary:ancestorProperties];
+		}
+	}
+	
+	return classProperties;
+}
 
 #pragma mark - Properties
 
@@ -119,23 +164,14 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
-	Class oldestUniqueAncestor = FUGetOldestUniqueAncestorClass(componentClass);
-	
-	if ([componentClass isUnique] && ([self componentWithClass:oldestUniqueAncestor] != nil))
-	{
-		FUThrow(FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
-	}
-
+	[self validateUniquenessOfClass:componentClass];
 	[self addRequiredComponentsForClass:componentClass];
 	
 	id component = [[componentClass alloc] initWithGameObject:self];
 	[[self components] addObject:component];
 	[component awake];
 	
-	if (([self transform] == nil) && (componentClass == [FUTransform class]))
-	{
-		[self setTransform:component];
-	}
+	[self updatePropertiesAfterAdditionOfComponent:component];
 	
 	return component;
 }
@@ -149,14 +185,12 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 		FUThrow(FUComponentNonexistentMessage, component);
 	}
 	
-	[self validateRemovalOfComponent:component];	
+	[self validateRemovalOfComponent:component];
+	
 	[[self components] removeObject:component];
 	[component setGameObject:nil];
 	
-	if (component == [self transform])
-	{
-		[self setTransform:[self componentWithClass:[FUTransform class]]];
-	}
+	[self updatePropertiesAfterRemovalOfComponent:component];
 }
 
 - (id)componentWithClass:(Class)componentClass
@@ -197,6 +231,16 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 }
 
 #pragma mark - Private Methods
+
+- (void)validateUniquenessOfClass:(Class)componentClass
+{
+	Class oldestUniqueAncestor = FUGetOldestUniqueAncestorClass(componentClass);
+	
+	if ([componentClass isUnique] && ([self componentWithClass:oldestUniqueAncestor] != nil))
+	{
+		FUThrow(FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
+	}
+}
 
 - (void)addRequiredComponentsForClass:(Class)componentClass
 {
@@ -242,6 +286,27 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 		
 		currentAncestor = [currentAncestor superclass];
 	}
+}
+
+- (void)updatePropertiesAfterAdditionOfComponent:(FUComponent*)component
+{
+	[[[self class] allComponentProperties] enumerateKeysAndObjectsUsingBlock:^(NSString* key, Class componentClass, BOOL* stop) {
+		if ([component isKindOfClass:componentClass] && ([self valueForKey:key] == nil))
+		{
+			[self setValue:component forKey:key];
+		}
+	}];
+}
+
+- (void)updatePropertiesAfterRemovalOfComponent:(FUComponent*)component
+{
+	[[[self class] allComponentProperties] enumerateKeysAndObjectsUsingBlock:^(NSString* key, Class componentClass, BOOL* stop) {
+		if (component == [self valueForKey:key])
+		{
+			id nextComponent = [self componentWithClass:componentClass];
+			[self setValue:nextComponent forKey:key];
+		}
+	}];
 }
 
 @end

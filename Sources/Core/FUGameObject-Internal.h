@@ -13,6 +13,9 @@
 
 @property (nonatomic, WEAK) FUScene* scene;
 
++ (NSDictionary*)componentProperties;
++ (NSDictionary*)allComponentProperties;
+
 - (id)initWithScene:(FUScene*)scene;
 
 @end
