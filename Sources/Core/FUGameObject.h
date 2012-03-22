@@ -12,10 +12,12 @@
 
 @class FUScene;
 @class FUComponent;
+@class FUTransform;
 
 @interface FUGameObject : NSObject
 
 @property (nonatomic, WEAK, readonly) FUScene* scene;
+@property (nonatomic, WEAK, readonly) FUTransform* transform;
 
 - (id)addComponentWithClass:(Class)componentClass;
 - (void)removeComponent:(FUComponent*)component;

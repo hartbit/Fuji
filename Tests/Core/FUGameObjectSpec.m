@@ -45,8 +45,26 @@ describe(@"A game object", ^{
 			expect([gameObject scene]).to.beIdenticalTo(scene);
 		});
 		
-		it(@"has no components", ^{
-			expect([gameObject allComponents]).to.beEmpty();
+		it(@"has a transform component", ^{
+			FUTransform* transform = [gameObject componentWithClass:[FUTransform class]];
+			expect(transform).toNot.beNil();
+			
+			NSSet* components = [gameObject allComponents];
+			expect(components).to.haveCountOf(1);
+			expect(components).to.contain(transform);
+		});
+		
+		it(@"the transform property returns the transform component", ^{
+			FUTransform* transform = [gameObject componentWithClass:[FUTransform class]];
+			expect([gameObject transform]).to.beIdenticalTo(transform);
+		});
+		
+		context(@"removing the transform component", ^{
+			it(@"has the transform property to nil", ^{
+				FUTransform* transform = [gameObject componentWithClass:[FUTransform class]];
+				[gameObject removeComponent:transform];
+				expect([gameObject transform]).to.beNil();
+			});
 		});
 		
 		context(@"adding a component with a NULL class", ^{
@@ -178,7 +196,7 @@ describe(@"A game object", ^{
 			
 			it(@"has that component", ^{
 				NSSet* components = [gameObject allComponents];
-				expect(components).to.haveCountOf(1);
+				expect(components).to.haveCountOf(2);
 				expect(components).to.contain(component1);
 			});
 			
@@ -214,7 +232,7 @@ describe(@"A game object", ^{
 				
 				it(@"has both components", ^{
 					NSSet* components = [gameObject allComponents];
-					expect(components).to.haveCountOf(2);
+					expect(components).to.haveCountOf(3);
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
 				});
@@ -236,7 +254,7 @@ describe(@"A game object", ^{
 				
 				it(@"has three components, including both explicitely created", ^{
 					NSSet* components = [gameObject allComponents];
-					expect(components).to.haveCountOf(3);
+					expect(components).to.haveCountOf(4);
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
 				});
@@ -302,7 +320,7 @@ describe(@"A game object", ^{
 					
 					it(@"removes it from the game object", ^{
 						NSSet* components = [gameObject allComponents];
-						expect(components).to.haveCountOf(2);
+						expect(components).to.haveCountOf(3);
 						expect(components).to.contain(component1);
 						expect(components).to.contain(component3);
 					});

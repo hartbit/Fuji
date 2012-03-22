@@ -12,6 +12,7 @@
 #import "FUScene.h"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
+#import "FUTransform.h"
 #import <objc/objc-class.h>
 
 
@@ -65,6 +66,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 @interface FUGameObject ()
 
+@property (nonatomic, WEAK) FUTransform* transform;
 @property (nonatomic, strong) NSMutableSet* components;
 
 - (void)addRequiredComponentsForClass:(Class)componentClass;
@@ -76,6 +78,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @implementation FUGameObject
 
 @synthesize scene = _scene;
+@synthesize transform = _transform;
 @synthesize components = _components;
 
 #pragma mark - Properties
@@ -104,6 +107,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	if ((self = [super init]))
 	{
 		[self setScene:scene];
+		[self addComponentWithClass:[FUTransform class]];
 	}
 	
 	return self;
@@ -124,9 +128,15 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 	[self addRequiredComponentsForClass:componentClass];
 	
-	FUComponent* component = [[componentClass alloc] initWithGameObject:self];
+	id component = [[componentClass alloc] initWithGameObject:self];
 	[[self components] addObject:component];
 	[component awake];
+	
+	if (([self transform] == nil) && (componentClass == [FUTransform class]))
+	{
+		[self setTransform:component];
+	}
+	
 	return component;
 }
 
@@ -142,6 +152,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	[self validateRemovalOfComponent:component];	
 	[[self components] removeObject:component];
 	[component setGameObject:nil];
+	
+	if (component == [self transform])
+	{
+		[self setTransform:[self componentWithClass:[FUTransform class]]];
+	}
 }
 
 - (id)componentWithClass:(Class)componentClass

@@ -11,6 +11,7 @@
 
 
 @class FUGameObject;
+@class FUTransform;
 
 @interface FUComponent : NSObject
 

@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "FUScene.h"
+#import "FUTransform.h"
 #import "FUGraphicsEngine.h"
 #import "FUGameObject-Internal.h"
 #import "FUMacros.h"
@@ -36,6 +37,7 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 {
 	if ((self = [super initWithScene:self]))
 	{
+		[self removeComponent:[self transform]];
 		[self addComponentWithClass:[FUGraphicsEngine class]];
 	}
 	

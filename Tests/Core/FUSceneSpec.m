@@ -39,6 +39,10 @@ describe(@"A scene", ^{
 		it(@"has a graphics engine component", ^{
 			FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
 			expect(graphicsEngine).toNot.beNil();
+			
+			NSSet* components = [scene allComponents];
+			expect(components).to.haveCountOf(1);
+			expect(components).to.contain(graphicsEngine);
 		});
 		
 		it(@"the graphics property returns the graphics engine component", ^{
