@@ -12,7 +12,7 @@
 
 @class FUGraphicsEngine;
 
-@interface FUScene : FUGameObject
+@interface FUScene : FUGameObject <GLKViewControllerDelegate, GLKViewDelegate>
 
 @property (nonatomic, WEAK, readonly) FUGraphicsEngine* graphics;
 

@@ -13,8 +13,6 @@
 @interface FUViewController ()
 
 @property (nonatomic, strong) EAGLContext* context;
-@property (nonatomic, strong) GLKBaseEffect* effect;
-@property (nonatomic, assign) GLKMatrix4 projectionMatrix;
 
 @end
 
@@ -23,8 +21,6 @@
 
 @synthesize scene = _scene;
 @synthesize context = _context;
-@synthesize effect = _effect;
-@synthesize projectionMatrix = _projectionMatrix;
 
 #pragma mark - Properties
 
@@ -57,21 +53,6 @@
 	}
 }
 
-- (GLKBaseEffect*)effect
-{
-	if (_effect == nil)
-	{
-		GLKBaseEffect* effect = [GLKBaseEffect new];
-		[self setEffect:effect];
-		
-		CGSize viewSize = [[self view] bounds].size;
-		GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
-		[[effect transform] setProjectionMatrix:projectionMatrix];
-	}
-	
-	return _effect;
-}
-
 #pragma mark - UIViewController Methods
 
 - (void)viewDidLoad
@@ -86,7 +67,6 @@
 
 - (void)viewDidUnload
 {
-	[self setEffect:nil];
 	[self setContext:nil];
 	
 	[super viewDidUnload];
@@ -106,7 +86,7 @@
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
-	[[self effect] prepareToDraw];
+//	[[self effect] prepareToDraw];
 //	[[self scene] render];
 }
 

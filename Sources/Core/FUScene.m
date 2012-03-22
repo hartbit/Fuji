@@ -90,4 +90,14 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 	return [NSSet setWithSet:[self gameObjects]];
 }
 
+#pragma mark - GLKViewControllerDelegate Methods
+
+- (void)glkViewControllerUpdate:(GLKViewController*)controller
+{
+}
+
+- (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
+{
+}
+
 @end

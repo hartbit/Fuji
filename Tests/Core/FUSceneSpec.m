@@ -19,6 +19,14 @@ describe(@"A scene", ^{
 		expect([FUScene class]).to.beSubclassOf([FUGameObject class]);
 	});
 	
+	it(@"conforms to the GLKViewControllerDelegate protocol", ^{
+		expect([FUScene conformsToProtocol:@protocol(GLKViewControllerDelegate)]).to.beTruthy();
+	});
+	
+	it(@"conforms to the GLKViewDelegate protocol", ^{
+		expect([FUScene conformsToProtocol:@protocol(GLKViewDelegate)]).to.beTruthy();
+	});
+	
 	context(@"created and initialized", ^{
 		beforeEach(^{
 			scene = [FUScene new];
