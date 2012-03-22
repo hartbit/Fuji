@@ -12,8 +12,6 @@
 
 @interface FUScene : FUGameObject
 
-+ (FUScene*)scene;
-
 - (id)createGameObject;
 - (void)removeGameObject:(FUGameObject*)gameObject;
 - (NSSet*)allGameObjects;

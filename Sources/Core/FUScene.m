@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "FUScene.h"
+#import "FUGraphicsEngine.h"
 #import "FUGameObject-Internal.h"
 #import "FUMacros.h"
 
@@ -27,12 +28,16 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 
 @synthesize gameObjects = _gameObjects;
 
-#pragma mark - Class Methods
+#pragma mark - Initialization
 
-+ (FUScene*)scene
+- (id)init
 {
-	FUScene* scene = [self alloc];
-	return [scene initWithScene:scene];
+	if ((self = [super initWithScene:self]))
+	{
+		[self addComponentWithClass:[FUGraphicsEngine class]];
+	}
+	
+	return self;
 }
 
 #pragma mark - Properties

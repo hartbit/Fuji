@@ -21,7 +21,7 @@ describe(@"A scene", ^{
 	
 	context(@"created a scene", ^{
 		beforeEach(^{
-			scene = [FUScene scene];
+			scene = [FUScene new];
 		});
 		
 		it(@"is not nil", ^{
@@ -34,6 +34,10 @@ describe(@"A scene", ^{
 		
 		it(@"contains no game objects", ^{
 			expect([scene allGameObjects]).to.beEmpty();
+		});
+		
+		it(@"has a graphics engine component", ^{
+			expect([scene componentWithClass:[FUGraphicsEngine class]]).toNot.beNil();
 		});
 		
 		context(@"removing a nil game object", ^{
