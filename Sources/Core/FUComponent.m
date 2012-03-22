@@ -32,6 +32,31 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 	return [NSSet set];
 }
 
++ (NSSet*)allRequiredComponents
+{
+	static NSMutableDictionary* sComponents = nil;
+	
+	if (sComponents == nil)
+	{
+		sComponents = [NSMutableDictionary dictionary];
+	}
+	
+	NSMutableSet* classComponents = [sComponents objectForKey:self];
+	
+	if (classComponents == nil)
+	{
+		classComponents = [NSMutableSet setWithSet:[self requiredComponents]];
+		
+		if (self != [FUComponent class])
+		{
+			NSSet* allSuperclassComponents = [[self superclass] allRequiredComponents];
+			[classComponents unionSet:allSuperclassComponents];		
+		}
+	}
+	
+	return classComponents;
+}
+
 #pragma mark - Initialization
 
 - (id)init

@@ -91,6 +91,12 @@ describe(@"A game object", ^{
 			});
 		});
 		
+		context(@"adding a component who's subclass requires an invalid component class", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([gameObject addComponentWithClass:[FURequireInvalidSuperclassComponent class]], nil);
+			});
+		});
+		
 		context(@"adding a component that requires a class that does not subclass FUComponent", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([gameObject addComponentWithClass:[FURequireNSStringComponent class]], nil);

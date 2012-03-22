@@ -13,6 +13,8 @@
 
 @property (nonatomic, WEAK) FUGameObject* gameObject;
 
++ (NSSet*)allRequiredComponents;
+
 - (id)initWithGameObject:(FUGameObject*)gameObject;
 
 @end

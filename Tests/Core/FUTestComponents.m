@@ -107,6 +107,16 @@
 @end
 
 
+@implementation FURequireInvalidSuperclassComponent
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[FURequiredComponent class]];
+}
+
+@end
+
+
 @implementation FURequireNSStringComponent
 
 + (NSSet*)requiredComponents

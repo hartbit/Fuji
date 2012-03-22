@@ -105,21 +105,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	if (classProperties == nil)
 	{
 		classProperties = [NSMutableDictionary dictionaryWithDictionary:[self componentProperties]];
-		[sProperties setObject:classProperties forKey:self];
 		
-		Class currentAncestor = self;
-		
-		while (true)
+		if (self != [FUGameObject class])
 		{
-			currentAncestor = [currentAncestor superclass];
-			
-			if (![currentAncestor isSubclassOfClass:[FUGameObject class]])
-			{
-				break;
-			}
-			
-			NSDictionary* ancestorProperties = [currentAncestor allComponentProperties];
-			[classProperties addEntriesFromDictionary:ancestorProperties];
+			NSDictionary* allSuperclassProperties = [[self superclass] allComponentProperties];
+			[classProperties addEntriesFromDictionary:allSuperclassProperties];			
 		}
 	}
 	
@@ -244,7 +234,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)addRequiredComponentsForClass:(Class)componentClass
 {
-	NSSet* requiredComponents = [componentClass requiredComponents];
+	NSSet* requiredComponents = [componentClass allRequiredComponents];
 	
 	for (id requiredClass in requiredComponents)
 	{

@@ -26,6 +26,7 @@
 
 
 @interface FURequireObjectComponent : FUTestComponent @end
+@interface FURequireInvalidSuperclassComponent : FURequireObjectComponent @end
 @interface FURequireNSStringComponent : FUTestComponent @end
 @interface FURequireBaseComponent : FUTestComponent @end
 @interface FURequireItselfComponent : FUTestComponent @end
