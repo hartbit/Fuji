@@ -19,6 +19,7 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 
 @interface FUScene ()
 
+@property (nonatomic, WEAK) FUGraphicsEngine* graphics;
 @property (nonatomic, strong) NSMutableSet* gameObjects;
 
 @end
@@ -26,6 +27,7 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 
 @implementation FUScene
 
+@synthesize graphics = _graphics;
 @synthesize gameObjects = _gameObjects;
 
 #pragma mark - Initialization
@@ -34,13 +36,25 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 {
 	if ((self = [super initWithScene:self]))
 	{
-		[self addComponentWithClass:[FUGraphicsEngine class]];
+		FUGraphicsEngine* graphics = [self addComponentWithClass:[FUGraphicsEngine class]];
+		[self setGraphics:graphics];
 	}
 	
 	return self;
 }
 
 #pragma mark - Properties
+
+- (FUGraphicsEngine*)graphics
+{
+	if (_graphics == nil)
+	{
+		FUGraphicsEngine* graphics = [self componentWithClass:[FUGraphicsEngine class]];
+		[self setGraphics:graphics];
+	}
+	
+	return _graphics;
+}
 
 - (NSMutableSet*)gameObjects
 {

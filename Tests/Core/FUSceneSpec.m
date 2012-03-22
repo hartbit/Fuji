@@ -40,6 +40,10 @@ describe(@"A scene", ^{
 			expect([scene componentWithClass:[FUGraphicsEngine class]]).toNot.beNil();
 		});
 		
+		it(@"the graphics property returns the graphics engine component", ^{
+			expect([scene graphics]).to.beIdenticalTo([scene componentWithClass:[FUGraphicsEngine class]]);
+		});
+		
 		context(@"removing a nil game object", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([scene removeGameObject:nil], nil);

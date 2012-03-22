@@ -10,7 +10,11 @@
 #import "FUGameObject.h"
 
 
+@class FUGraphicsEngine;
+
 @interface FUScene : FUGameObject
+
+@property (nonatomic, WEAK, readonly) FUGraphicsEngine* graphics;
 
 - (id)createGameObject;
 - (void)removeGameObject:(FUGameObject*)gameObject;
