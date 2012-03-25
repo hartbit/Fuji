@@ -58,11 +58,11 @@ describe(@"A Fuji view controller", ^{
 			});
 			
 			it(@"calls the scene's glkViewControllerUpdate: method", ^{
-				[verify(scene) glkViewControllerUpdate:viewController];
+				expect([viewController delegate]).to.beIdenticalTo(scene);
 			});
-			
+				
 			it(@"calls the scene's glkView:drawInRect: method", ^{
-				[verify(scene) glkView:(GLKView*)[viewController view] drawInRect:[[viewController view] bounds]];
+				expect([(GLKView*)[viewController view] delegate]).to.beIdenticalTo(scene);
 			});
 		});
 	});

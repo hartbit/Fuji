@@ -30,7 +30,7 @@
 	{
 		_scene = scene;
 		[self setDelegate:scene];
-//		[(GLKView*)[self view] setDelegate:scene];
+		[(GLKView*)[self view] setDelegate:scene];
 	}
 }
 
@@ -85,19 +85,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
 	return YES;
-}
-
-#pragma mark - GLKView and GLKViewController Delegate Methods
-
-- (void)update
-{
-//	[[self scene] update];
-}
-
-- (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
-{
-//	[[self effect] prepareToDraw];
-//	[[self scene] render];
 }
 
 @end
