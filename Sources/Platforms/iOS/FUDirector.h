@@ -14,7 +14,7 @@
 /** FUViewController
  * This is the view controller class.
  */
-@interface FUViewController : GLKViewController <GLKViewDelegate>
+@interface FUDirector : GLKViewController <GLKViewDelegate>
 
 @property (nonatomic, strong) FUScene* scene;
 

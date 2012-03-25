@@ -6,18 +6,18 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUViewController.h"
+#import "FUDirector.h"
 #import "FUScene.h"
 
 
-@interface FUViewController ()
+@interface FUDirector ()
 
 @property (nonatomic, strong) EAGLContext* context;
 
 @end
 
 
-@implementation FUViewController
+@implementation FUDirector
 
 @synthesize scene = _scene;
 @synthesize context = _context;

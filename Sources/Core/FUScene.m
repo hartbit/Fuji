@@ -94,10 +94,18 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 
 - (void)glkViewControllerUpdate:(GLKViewController*)controller
 {
+	for (FUGameObject* gameObject in [self gameObjects])
+	{
+//		[gameObject update];
+	}
 }
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
+	for (FUGameObject* gameObject in [self gameObjects])
+	{
+//		[gameObject draw];
+	}
 }
 
 @end
