@@ -57,10 +57,6 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 	return classComponents;
 }
 
-- (void)update
-{
-}
-
 #pragma mark - Initialization
 
 - (id)init
@@ -82,13 +78,17 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 
 #pragma mark - Public Methods
 
+- (void)removeFromGameObject
+{
+	[[self gameObject] removeComponent:self];
+}
+
 - (void)awake
 {
 }
 
-- (void)removeFromGameObject
+- (void)update
 {
-	[[self gameObject] removeComponent:self];
 }
 
 @end
