@@ -57,6 +57,10 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 	return classComponents;
 }
 
+- (void)update
+{
+}
+
 #pragma mark - Initialization
 
 - (id)init

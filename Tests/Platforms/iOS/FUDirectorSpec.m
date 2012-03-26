@@ -57,11 +57,11 @@ describe(@"A director", ^{
 				expect([director scene]).to.beIdenticalTo(scene);
 			});
 			
-			it(@"calls the scene's glkViewControllerUpdate: method", ^{
+			it(@"sets the scene as the GLKViewController delegate", ^{
 				expect([director delegate]).to.beIdenticalTo(scene);
 			});
 				
-			it(@"calls the scene's glkView:drawInRect: method", ^{
+			it(@"sets the scene as the GLKView delegate", ^{
 				expect([(GLKView*)[director view] delegate]).to.beIdenticalTo(scene);
 			});
 		});

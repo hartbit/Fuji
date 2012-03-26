@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUUpdateable.h"
 #import "FUMacros.h"
 
 
@@ -14,7 +15,7 @@
 @class FUComponent;
 @class FUTransform;
 
-@interface FUGameObject : NSObject
+@interface FUGameObject : NSObject <FUUpdateable>
 
 @property (nonatomic, WEAK, readonly) FUScene* scene;
 @property (nonatomic, WEAK, readonly) FUTransform* transform;
@@ -24,5 +25,7 @@
 - (id)componentWithClass:(Class)componentClass;
 - (NSSet*)allComponentsWithClass:(Class)componentClass;
 - (NSSet*)allComponents;
+
+- (void)update;
 
 @end

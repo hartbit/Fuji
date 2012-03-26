@@ -16,6 +16,10 @@
 SPEC_BEGIN(FUGameObjectSpec)
 
 describe(@"A game object", ^{
+	it(@"conforms to the FUUpdateable protocol", ^{
+		expect([[FUGameObject class] conformsToProtocol:@protocol(FUUpdateable)]).to.beTruthy();
+	});
+	
 	context(@"initialized with init", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([FUGameObject new], nil);

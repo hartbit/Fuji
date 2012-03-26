@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6304FEB31520A8CD00BAFFF6 /* FUUpdateable.h in Headers */ = {isa = PBXBuildFile; fileRef = 6304FEB21520A8CD00BAFFF6 /* FUUpdateable.h */; };
 		63117F2414FFAD3700A04563 /* FUGameObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2214FFAD3700A04563 /* FUGameObject.h */; };
 		63117F2514FFAD3700A04563 /* FUGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUGameObject.m */; };
 		63117F2914FFB87A00A04563 /* FUComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2714FFB87A00A04563 /* FUComponent.h */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6304FEB21520A8CD00BAFFF6 /* FUUpdateable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUUpdateable.h; sourceTree = "<group>"; };
 		63117F2214FFAD3700A04563 /* FUGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUGameObject.h; sourceTree = "<group>"; };
 		63117F2314FFAD3700A04563 /* FUGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGameObject.m; sourceTree = "<group>"; };
 		63117F2714FFB87A00A04563 /* FUComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUComponent.h; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				633EE87414FED8C400281AC1 /* Internal */,
+				6304FEB21520A8CD00BAFFF6 /* FUUpdateable.h */,
 				63117F2214FFAD3700A04563 /* FUGameObject.h */,
 				63117F2314FFAD3700A04563 /* FUGameObject.m */,
 				63117F2714FFB87A00A04563 /* FUComponent.h */,
@@ -315,6 +318,7 @@
 				6382277C151A2A030009D036 /* FUColor.h in Headers */,
 				6382277E151A2A030009D036 /* FUMath.h in Headers */,
 				6397C530151A33B500457829 /* FUDirector.h in Headers */,
+				6304FEB31520A8CD00BAFFF6 /* FUUpdateable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

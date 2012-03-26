@@ -7,20 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUUpdateable.h"
 #import "FUMacros.h"
 
 
 @class FUGameObject;
 @class FUTransform;
 
-@interface FUComponent : NSObject
+@interface FUComponent : NSObject <FUUpdateable>
 
 @property (nonatomic, WEAK, readonly) FUGameObject* gameObject;
 
 + (BOOL)isUnique;
 + (NSSet*)requiredComponents;
 
-- (void)awake;
 - (void)removeFromGameObject;
+
+- (void)awake;
+- (void)update;
 
 @end

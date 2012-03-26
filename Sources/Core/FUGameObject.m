@@ -220,6 +220,10 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	return [NSSet setWithSet:[self components]];
 }
 
+- (void)update
+{
+}
+
 #pragma mark - Private Methods
 
 - (void)validateUniquenessOfClass:(Class)componentClass
