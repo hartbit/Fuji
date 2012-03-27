@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSUInteger initCallCount;
 @property (nonatomic) NSUInteger awakeCallCount;
+@property (nonatomic) NSUInteger updateCallCount;
 
 @end
 
@@ -24,6 +25,7 @@
 
 @synthesize initCallCount = _initCallCount;
 @synthesize awakeCallCount = _awakeCallCount;
+@synthesize updateCallCount = _updateCallCount;
 
 #pragma mark - Properties
 
@@ -35,6 +37,11 @@
 - (BOOL)wasAwakeCalled
 {
 	return [self awakeCallCount] == 1;
+}
+
+- (BOOL)wasUpdateCalled
+{
+	return [self updateCallCount] == 1;
 }
 
 #pragma mark - Initialization
@@ -52,6 +59,11 @@
 - (void)awake
 {
 	[self setAwakeCallCount:[self awakeCallCount] + 1];
+}
+
+- (void)update 
+{
+	[self setUpdateCallCount:[self updateCallCount] + 1];
 }
 
 @end

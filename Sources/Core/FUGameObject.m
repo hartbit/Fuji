@@ -222,6 +222,10 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)update
 {
+	for (FUComponent* component in [self components])
+	{
+		[component update];
+	}
 }
 
 #pragma mark - Private Methods

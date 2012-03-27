@@ -14,6 +14,7 @@
 
 @property (nonatomic, readonly) BOOL wasInitCalled;
 @property (nonatomic, readonly) BOOL wasAwakeCalled;
+@property (nonatomic, readonly) BOOL wasUpdateCalled;
 
 @end
 

@@ -202,6 +202,7 @@ describe(@"A game object", ^{
 				expect(component1).toNot.beNil();
 				expect([component1 wasInitCalled]).to.beTruthy();
 				expect([component1 wasAwakeCalled]).to.beTruthy();
+                expect([component1 wasUpdateCalled]).to.beFalsy();
 			});
 			
 			it(@"has that component", ^{
@@ -238,6 +239,7 @@ describe(@"A game object", ^{
 				it(@"initializes a new component", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
 					expect([component2 wasAwakeCalled]).to.beTruthy();
+					expect([component2 wasUpdateCalled]).to.beFalsy();
 				});
 				
 				it(@"has both components", ^{
@@ -260,6 +262,7 @@ describe(@"A game object", ^{
 				it(@"initializes a new component", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
 					expect([component2 wasAwakeCalled]).to.beTruthy();
+					expect([component2 wasUpdateCalled]).to.beFalsy();
 				});
 				
 				it(@"has three components, including both explicitely created", ^{
@@ -273,6 +276,7 @@ describe(@"A game object", ^{
 					expect([component3 class]).to.beIdenticalTo([FURequiredComponent class]);
 					expect([component3 wasInitCalled]).to.beTruthy();
 					expect([component3 wasAwakeCalled]).to.beTruthy();
+					expect([component3 wasUpdateCalled]).to.beFalsy();
 					expect([gameObject allComponents]).to.contain(component3);
 				});
 				
@@ -349,6 +353,15 @@ describe(@"A game object", ^{
 				context(@"removing the second required component", ^{
 					it(@"throws an exception", ^{
 						STAssertThrows([gameObject removeComponent:component3], nil);
+					});
+				});
+				
+				context(@"calling the update method", ^{
+					it(@"calls each component update method once", ^{
+						[gameObject update];
+						expect([component1 wasUpdateCalled]).to.beTruthy();
+						expect([component2 wasUpdateCalled]).to.beTruthy();
+						expect([component3 wasUpdateCalled]).to.beTruthy();
 					});
 				});
 			});
