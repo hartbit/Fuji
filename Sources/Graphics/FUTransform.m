@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "FUTransform.h"
+#import "FUComponent-Internal.h"
 #import "FUMath.h"
 
 
@@ -26,6 +27,18 @@
 @synthesize scale = _scale;
 @synthesize matrix = _matrix;
 @synthesize needsUpdate = _needsUpdate;
+
+#pragma mark - Initialization
+
+- (id)initWithGameObject:(FUGameObject*)gameObject
+{
+	if ((self = [super initWithGameObject:gameObject]))
+	{
+		[self setScale:GLKVector2One];
+	}
+	
+	return self;
+}
 
 #pragma mark - Properties
 
@@ -120,14 +133,6 @@
 	}
 	
 	return _matrix;
-}
-
-#pragma mark - FUComponent Methods
-
-- (void)awake
-{
-	[super awake];
-	[self setScale:GLKVector2One];
 }
 
 @end

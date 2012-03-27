@@ -25,7 +25,6 @@ describe(@"A transform component", ^{
 		beforeEach(^{
 			id gameObject = mock([FUGameObject class]);
 			transform = [[FUTransform alloc] initWithGameObject:gameObject];
-			[transform awake];
 		});
 		
 		it(@"has an initial position of (0, 0)", ^{
