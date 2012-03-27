@@ -25,6 +25,4 @@
 - (NSSet*)allComponentsWithClass:(Class)componentClass;
 - (NSSet*)allComponents;
 
-- (void)update;
-
 @end

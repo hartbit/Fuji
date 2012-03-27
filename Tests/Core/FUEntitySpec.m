@@ -347,15 +347,6 @@ describe(@"A game object", ^{
 						STAssertThrows([entity removeComponent:component3], nil);
 					});
 				});
-				
-				context(@"calling the update method", ^{
-					it(@"calls each component update method once", ^{
-						[entity update];
-						expect([component1 wasUpdateCalled]).to.beTruthy();
-						expect([component2 wasUpdateCalled]).to.beTruthy();
-						expect([component3 wasUpdateCalled]).to.beTruthy();
-					});
-				});
 			});
 		});
 	});

@@ -96,8 +96,4 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 	[[self entity] removeComponent:self];
 }
 
-- (void)update
-{
-}
-
 @end

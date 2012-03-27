@@ -22,6 +22,4 @@
 
 - (void)removeFromEntity;
 
-- (void)update;
-
 @end

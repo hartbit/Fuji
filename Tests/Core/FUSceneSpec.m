@@ -116,12 +116,6 @@ describe(@"A scene", ^{
 					expect(entitys).to.contain(entity1);
 					expect(entitys).to.contain(entity2);
 				});
-				
-				context(@"calling update", ^{
-					it(@"calls update on the game objects", ^{
-						[scene update];
-					});
-				});
 			});
 			
 			context(@"removed the game object", ^{
