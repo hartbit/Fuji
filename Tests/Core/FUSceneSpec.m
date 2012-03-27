@@ -44,24 +44,24 @@ describe(@"A scene", ^{
 			expect([scene allEntitys]).to.beEmpty();
 		});
 		
-		it(@"has a graphics engine component", ^{
-			FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
-			expect(graphicsEngine).toNot.beNil();
+		it(@"has a graphics settings component", ^{
+			FUGraphicsSettings* graphicsSettings = [scene componentWithClass:[FUGraphicsSettings class]];
+			expect(graphicsSettings).toNot.beNil();
 			
 			NSSet* components = [scene allComponents];
 			expect(components).to.haveCountOf(1);
-			expect(components).to.contain(graphicsEngine);
+			expect(components).to.contain(graphicsSettings);
 		});
 		
 		it(@"the graphics property returns the graphics engine component", ^{
-			FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
-			expect([scene graphics]).to.beIdenticalTo(graphicsEngine);
+			FUGraphicsSettings* graphicsSettings = [scene componentWithClass:[FUGraphicsSettings class]];
+			expect([scene graphics]).to.beIdenticalTo(graphicsSettings);
 		});
 		
 		context(@"removing the graphics engine component", ^{
 			it(@"has the grapics property to nil", ^{
-				FUGraphicsEngine* graphicsEngine = [scene componentWithClass:[FUGraphicsEngine class]];
-				[scene removeComponent:graphicsEngine];
+				FUGraphicsSettings* graphicsSettings = [scene componentWithClass:[FUGraphicsSettings class]];
+				[scene removeComponent:graphicsSettings];
 				expect([scene graphics]).to.beNil();
 			});
 		});

@@ -1,5 +1,5 @@
 //
-//  FUGraphicsEngine.h
+//  FUGraphicsSettings.h
 //  Fuji
 //
 //  Created by Hart David on 21.03.12.
@@ -10,7 +10,7 @@
 #import "FUComponent.h"
 
 
-@interface FUGraphicsEngine : FUComponent
+@interface FUGraphicsSettings : FUComponent
 
 @property (nonatomic) GLKVector4 backgroundColor;
 

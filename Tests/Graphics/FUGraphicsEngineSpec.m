@@ -15,28 +15,28 @@ SPEC_BEGIN(FUGraphicsEngineSpec)
 
 describe(@"The graphics engine", ^{
 	it(@"is a subclass of FUBehavior", ^{
-		expect([FUGraphicsEngine class]).to.beASubclassOf([FUComponent class]);
+		expect([FUGraphicsSettings class]).to.beASubclassOf([FUComponent class]);
 	});
 	
 	context(@"created and initialized", ^{
-		__block FUGraphicsEngine* graphics = nil;
+		__block FUGraphicsSettings* graphicsSettings = nil;
 		
 		beforeEach(^{
-			graphics = [[FUGraphicsEngine alloc] initWithEntity:mock([FUEntity class])];
+			graphicsSettings = [[FUGraphicsSettings alloc] initWithEntity:mock([FUEntity class])];
 		});
 		
 		it(@"is not nil", ^{
-			expect(graphics).toNot.beNil();
+			expect(graphicsSettings).toNot.beNil();
 		});
 		
 		it(@"has a default background color of Cornflower Blue", ^{
-			expect(GLKVector4AllEqualToVector4([graphics backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
+			expect(GLKVector4AllEqualToVector4([graphicsSettings backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
 		});
 		
 		it(@"setting the background color to Gray", ^{
 			it(@"has a background color of Gray", ^{
-				[graphics setBackgroundColor:FUColorGray];
-				expect(GLKVector4AllEqualToVector4([graphics backgroundColor], FUColorGray)).to.beTruthy();
+				[graphicsSettings setBackgroundColor:FUColorGray];
+				expect(GLKVector4AllEqualToVector4([graphicsSettings backgroundColor], FUColorGray)).to.beTruthy();
 			});
 		});
 	});

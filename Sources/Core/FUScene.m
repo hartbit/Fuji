@@ -9,7 +9,7 @@
 #include "Prefix.pch"
 #import "FUScene.h"
 #import "FUTransform.h"
-#import "FUGraphicsEngine.h"
+#import "FUGraphicsSettings.h"
 #import "FUEntity-Internal.h"
 #import "FUMacros.h"
 
@@ -35,7 +35,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 + (NSDictionary*)componentProperties
 {
-	return [NSDictionary dictionaryWithObjectsAndKeys:[FUGraphicsEngine class], @"graphics", nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:[FUGraphicsSettings class], @"graphics", nil];
 }
 
 #pragma mark - Initialization
@@ -46,7 +46,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 	if (self == nil) return nil;
 	
 	[self removeComponent:[self transform]];
-	[self addComponentWithClass:[FUGraphicsEngine class]];
+	[self addComponentWithClass:[FUGraphicsSettings class]];
 	return self;
 }
 

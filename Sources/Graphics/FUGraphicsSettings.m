@@ -1,27 +1,26 @@
 //
-//  FUGraphicsEngine.m
+//  FUGraphicsSettings.m
 //  Fuji
 //
 //  Created by Hart David on 21.03.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUGraphicsEngine.h"
+#import "FUGraphicsSettings.h"
 #import "FUComponent-Internal.h"
 #import "FUColor.h"
 
 
-@interface FUGraphicsEngine ()
+@interface FUGraphicsSettings ()
 
-@property (nonatomic, strong) GLKBaseEffect* effect;
+//@property (nonatomic, strong) GLKBaseEffect* effect;
 
 @end
 
 
-@implementation FUGraphicsEngine
+@implementation FUGraphicsSettings
 
 @synthesize backgroundColor = _backgroundColor;
-@synthesize effect = _effect;
 
 #pragma mark - Initialization
 
@@ -34,7 +33,7 @@
 	
 	return self;
 }
-
+/*
 #pragma mark - Properties
 
 - (GLKBaseEffect*)effect
@@ -51,5 +50,5 @@
 	
 	return _effect;
 }
-
+*/
 @end
