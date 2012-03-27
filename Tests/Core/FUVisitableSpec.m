@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUVisitable)
@@ -17,6 +18,21 @@ describe(@"A visitable object", ^{
 	
 	beforeEach(^{
 		visitable = [FUVisitable new];
+	});
+	
+	context(@"visiting with a visitor that does not handle that visitable", ^{
+		it(@"does nothing", ^{
+			NSString* visitor = mock([NSString class]);
+			[visitable acceptVisitor:visitor];
+		});
+	});
+	
+	context(@"visiting with a visitor that handles that visitable", ^{
+		it(@"calls the visit method", ^{
+			FUTestVisitor* visitor = mock([FUTestVisitor class]);
+			[visitable acceptVisitor:visitor];
+			[verify(visitor) visitFUVisitable:visitable];
+		});
 	});
 });
 

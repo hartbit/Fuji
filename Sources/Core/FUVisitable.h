@@ -11,4 +11,6 @@
 
 @interface FUVisitable : NSObject
 
+- (void)acceptVisitor:(id)visitor;
+
 @end
