@@ -9,11 +9,11 @@
 // Support
 
 #import "FUMacros.h"
-#import	"FUMacros.h"
 #import	"FUColor.h"
 
 // Core
 
+#import "FUVisitable.h"
 #import "FUEntity.h"
 #import "FUComponent.h"
 #import "FUScene.h"
