@@ -13,6 +13,7 @@
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
+static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not be nil";
 
 
 @implementation FUComponent
@@ -69,6 +70,8 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a component o
 
 - (id)initWithGameObject:(FUGameObject*)gameObject
 {
+	FUAssert(gameObject != nil, FUGameObjectNilMessage);
+	
 	[self setInitializing:YES];
 
 	self = [self init];

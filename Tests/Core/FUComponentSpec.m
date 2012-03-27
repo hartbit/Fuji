@@ -22,9 +22,15 @@ describe(@"A component object", ^{
 		expect([FUComponent requiredComponents]).to.beEmpty();
 	});
 	
-	context(@"creating with init", ^{
+	context(@"initializing with init", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([FUComponent new], nil);
+		});
+	});
+	
+	context(@"initializing with a nil game object", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([[FUComponent alloc] initWithGameObject:nil], nil);
 		});
 	});
 	
