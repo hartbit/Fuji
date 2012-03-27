@@ -15,6 +15,4 @@
 
 + (NSSet*)allRequiredComponents;
 
-- (id)initWithGameObject:(FUGameObject*)gameObject;
-
 @end

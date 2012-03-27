@@ -23,8 +23,7 @@ describe(@"A transform component", ^{
 		__block FUTransform* transform = nil;
 		
 		beforeEach(^{
-			id gameObject = mock([FUGameObject class]);
-			transform = [[FUTransform alloc] initWithGameObject:gameObject];
+			transform = [FUTransform new];
 		});
 		
 		it(@"has an initial position of (0, 0)", ^{

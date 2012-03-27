@@ -22,7 +22,7 @@ describe(@"A behavior object", ^{
 		__block FUBehavior* behavior = nil;
 		
 		beforeEach(^{
-			behavior = [[FUBehavior alloc] initWithGameObject:mock([FUGameObject class])];
+			behavior = [FUBehavior new];
 		});
 		
 		it(@"is not nil", ^{

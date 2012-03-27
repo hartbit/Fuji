@@ -157,8 +157,9 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	[self validateUniquenessOfClass:componentClass];
 	[self addRequiredComponentsForClass:componentClass];
 	
-	id component = [[componentClass alloc] initWithGameObject:self];
+	id component = [[componentClass alloc] init];
 	[[self components] addObject:component];
+	[component setGameObject:self];
 	[component awake];
 	
 	[self updatePropertiesAfterAdditionOfComponent:component];

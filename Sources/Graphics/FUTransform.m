@@ -30,9 +30,9 @@
 
 #pragma mark - Initialization
 
-- (id)initWithGameObject:(FUGameObject*)gameObject
+- (id)init
 {
-	if ((self = [super initWithGameObject:gameObject]))
+	if ((self = [super init]))
 	{
 		[self setScale:GLKVector2One];
 	}
