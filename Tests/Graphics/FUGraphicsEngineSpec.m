@@ -19,24 +19,24 @@ describe(@"The graphics engine", ^{
 	});
 	
 	context(@"created and initialized", ^{
-		__block FUGraphicsSettings* graphicsSettings = nil;
+		__block FUGraphicsSettings* graphics = nil;
 		
 		beforeEach(^{
-			graphicsSettings = [[FUGraphicsSettings alloc] initWithEntity:mock([FUEntity class])];
+			graphics = [[FUGraphicsSettings alloc] initWithEntity:mock([FUEntity class])];
 		});
 		
 		it(@"is not nil", ^{
-			expect(graphicsSettings).toNot.beNil();
+			expect(graphics).toNot.beNil();
 		});
 		
 		it(@"has a default background color of Cornflower Blue", ^{
-			expect(GLKVector4AllEqualToVector4([graphicsSettings backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
+			expect(GLKVector4AllEqualToVector4([graphics backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
 		});
 		
 		it(@"setting the background color to Gray", ^{
 			it(@"has a background color of Gray", ^{
-				[graphicsSettings setBackgroundColor:FUColorGray];
-				expect(GLKVector4AllEqualToVector4([graphicsSettings backgroundColor], FUColorGray)).to.beTruthy();
+				[graphics setBackgroundColor:FUColorGray];
+				expect(GLKVector4AllEqualToVector4([graphics backgroundColor], FUColorGray)).to.beTruthy();
 			});
 		});
 	});
