@@ -1,5 +1,5 @@
 //
-//  FUGraphicsEngineSpec.m
+//  FUGraphicsSettingsSpec.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
@@ -8,10 +8,10 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
-#import	"FUComponent-Internal.h"
+#import "FUComponent-Internal.h"
 
 
-SPEC_BEGIN(FUGraphicsEngineSpec)
+SPEC_BEGIN(FUGraphicsSettingsSpec)
 
 describe(@"The graphics engine", ^{
 	it(@"is a subclass of FUBehavior", ^{
