@@ -16,7 +16,6 @@
 
 #import "FUEntity.h"
 #import "FUComponent.h"
-#import "FUBehavior.h"
 #import "FUScene.h"
 
 // Graphics
