@@ -15,7 +15,6 @@
 @interface FUTestComponent ()
 
 @property (nonatomic) NSUInteger initCallCount;
-@property (nonatomic) NSUInteger awakeCallCount;
 @property (nonatomic) NSUInteger updateCallCount;
 
 @end
@@ -24,7 +23,6 @@
 @implementation FUTestComponent
 
 @synthesize initCallCount = _initCallCount;
-@synthesize awakeCallCount = _awakeCallCount;
 @synthesize updateCallCount = _updateCallCount;
 
 #pragma mark - Properties
@@ -32,11 +30,6 @@
 - (BOOL)wasInitCalled
 {
 	return [self initCallCount] == 1;
-}
-
-- (BOOL)wasAwakeCalled
-{
-	return [self awakeCallCount] == 1;
 }
 
 - (BOOL)wasUpdateCalled
@@ -54,11 +47,6 @@
 	}
 	
 	return self;
-}
-
-- (void)awake
-{
-	[self setAwakeCallCount:[self awakeCallCount] + 1];
 }
 
 - (void)update 

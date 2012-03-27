@@ -23,7 +23,6 @@
 
 - (void)removeFromGameObject;
 
-- (void)awake;
 - (void)update;
 
 @end
