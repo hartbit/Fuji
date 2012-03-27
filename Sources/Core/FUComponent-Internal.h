@@ -12,7 +12,6 @@
 @interface FUComponent ()
 
 @property (nonatomic, WEAK) FUGameObject* gameObject;
-@property (nonatomic, getter=isInitializing) BOOL initializing;
 
 + (NSSet*)allRequiredComponents;
 

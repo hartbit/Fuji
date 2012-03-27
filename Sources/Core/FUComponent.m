@@ -16,6 +16,13 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a component o
 static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not be nil";
 
 
+@interface FUComponent ()
+
+@property (nonatomic, getter=isInitializing) BOOL initializing;
+
+@end
+
+
 @implementation FUComponent
 
 @synthesize gameObject = _gameObject;
