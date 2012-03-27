@@ -1,5 +1,5 @@
 //
-//  FUGameObject.h
+//  FUEntity.h
 //  Fuji
 //
 //  Created by David Hart on 01.03.12.
@@ -14,7 +14,7 @@
 @class FUComponent;
 @class FUTransform;
 
-@interface FUGameObject : NSObject
+@interface FUEntity : NSObject
 
 @property (nonatomic, WEAK, readonly) FUScene* scene;
 @property (nonatomic, WEAK, readonly) FUTransform* transform;

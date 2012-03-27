@@ -1,5 +1,5 @@
 //
-//  FUGameObject.m
+//  FUEntity.m
 //  Fuji
 //
 //  Created by David Hart on 01.03.12.
@@ -7,8 +7,8 @@
 //
 
 #include "Prefix.pch"
-#import "FUGameObject.h"
-#import "FUGameObject-Internal.h"
+#import "FUEntity.h"
+#import "FUEntity-Internal.h"
 #import "FUScene.h"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
@@ -64,7 +64,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 }
 
 
-@interface FUGameObject ()
+@interface FUEntity ()
 
 @property (nonatomic, WEAK) FUTransform* transform;
 @property (nonatomic, strong) NSMutableSet* components;
@@ -78,7 +78,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @end
 
 
-@implementation FUGameObject
+@implementation FUEntity
 
 @synthesize scene = _scene;
 @synthesize transform = _transform;
@@ -106,7 +106,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	{
 		classProperties = [NSMutableDictionary dictionaryWithDictionary:[self componentProperties]];
 		
-		if (self != [FUGameObject class])
+		if (self != [FUEntity class])
 		{
 			NSDictionary* allSuperclassProperties = [[self superclass] allComponentProperties];
 			[classProperties addEntriesFromDictionary:allSuperclassProperties];			
@@ -156,7 +156,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	[self validateUniquenessOfClass:componentClass];
 	[self addRequiredComponentsForClass:componentClass];
 	
-	id component = [[componentClass alloc] initWithGameObject:self];
+	id component = [[componentClass alloc] initWithEntity:self];
 	[[self components] addObject:component];
 	
 	[self updatePropertiesAfterAdditionOfComponent:component];
@@ -176,7 +176,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	[self validateRemovalOfComponent:component];
 	
 	[[self components] removeObject:component];
-	[component setGameObject:nil];
+	[component setEntity:nil];
 	
 	[self updatePropertiesAfterRemovalOfComponent:component];
 }

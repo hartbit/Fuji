@@ -10,17 +10,17 @@
 #import "FUMacros.h"
 
 
-@class FUGameObject;
+@class FUEntity;
 @class FUTransform;
 
 @interface FUComponent : NSObject
 
-@property (nonatomic, WEAK, readonly) FUGameObject* gameObject;
+@property (nonatomic, WEAK, readonly) FUEntity* entity;
 
 + (BOOL)isUnique;
 + (NSSet*)requiredComponents;
 
-- (void)removeFromGameObject;
+- (void)removeFromEntity;
 
 - (void)update;
 

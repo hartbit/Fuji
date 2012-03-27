@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63117F2414FFAD3700A04563 /* FUGameObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2214FFAD3700A04563 /* FUGameObject.h */; };
-		63117F2514FFAD3700A04563 /* FUGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUGameObject.m */; };
+		63117F2414FFAD3700A04563 /* FUEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2214FFAD3700A04563 /* FUEntity.h */; };
+		63117F2514FFAD3700A04563 /* FUEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUEntity.m */; };
 		63117F2914FFB87A00A04563 /* FUComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2714FFB87A00A04563 /* FUComponent.h */; };
 		63117F2A14FFB87A00A04563 /* FUComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* FUComponent.m */; };
 		63117F2F14FFBBCB00A04563 /* FUComponent-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */; };
@@ -28,14 +28,14 @@
 		63822781151A2A520009D036 /* FUTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 63822768151A1B300009D036 /* FUTransform.m */; };
 		63822787151A2BA40009D036 /* FUMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 6382277B151A2A030009D036 /* FUMath.m */; };
 		63822788151A2BA40009D036 /* FUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63822779151A2A030009D036 /* FUColor.m */; };
-		63822789151A2BA40009D036 /* FUGameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUGameObject.m */; };
+		63822789151A2BA40009D036 /* FUEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUEntity.m */; };
 		6382278A151A2BA40009D036 /* FUComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* FUComponent.m */; };
 		6382278B151A2BA40009D036 /* FUBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 6382275A1519E1380009D036 /* FUBehavior.m */; };
 		6382278C151A2BA40009D036 /* FUScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* FUScene.m */; };
 		6382278D151A2BA40009D036 /* FUGraphicsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6382275F1519E38B0009D036 /* FUGraphicsEngine.m */; };
 		6382278E151A2BA40009D036 /* FUTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 63822768151A1B300009D036 /* FUTransform.m */; };
 		63925259151214EA005B3FEC /* FUComponentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925256151214EA005B3FEC /* FUComponentSpec.m */; };
-		6392525A151214EA005B3FEC /* FUGameObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925257151214EA005B3FEC /* FUGameObjectSpec.m */; };
+		6392525A151214EA005B3FEC /* FUEntitySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925257151214EA005B3FEC /* FUEntitySpec.m */; };
 		6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925258151214EA005B3FEC /* FUSceneSpec.m */; };
 		6392525E15123D84005B3FEC /* FUTestComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 6392525D15123D84005B3FEC /* FUTestComponents.m */; };
 		6397C530151A33B500457829 /* FUDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6397C52E151A33B500457829 /* FUDirector.h */; };
@@ -55,12 +55,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		63117F2214FFAD3700A04563 /* FUGameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUGameObject.h; sourceTree = "<group>"; };
-		63117F2314FFAD3700A04563 /* FUGameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGameObject.m; sourceTree = "<group>"; };
+		63117F2214FFAD3700A04563 /* FUEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUEntity.h; sourceTree = "<group>"; };
+		63117F2314FFAD3700A04563 /* FUEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUEntity.m; sourceTree = "<group>"; };
 		63117F2714FFB87A00A04563 /* FUComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUComponent.h; sourceTree = "<group>"; };
 		63117F2814FFB87A00A04563 /* FUComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponent.m; sourceTree = "<group>"; };
 		63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUComponent-Internal.h"; sourceTree = "<group>"; };
-		633D3C30150DFF9C0061FB36 /* FUGameObject-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUGameObject-Internal.h"; sourceTree = "<group>"; };
+		633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */ = {isa = PBXFileReference; path = "FUEntity-Internal.h"; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		638227531519DAE40009D036 /* FUColorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUColorSpec.m; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		6382277B151A2A030009D036 /* FUMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUMath.m; sourceTree = "<group>"; };
 		639252531512138E005B3FEC /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		63925256151214EA005B3FEC /* FUComponentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponentSpec.m; sourceTree = "<group>"; };
-		63925257151214EA005B3FEC /* FUGameObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGameObjectSpec.m; sourceTree = "<group>"; };
+		63925257151214EA005B3FEC /* FUEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUEntitySpec.m; sourceTree = "<group>"; };
 		63925258151214EA005B3FEC /* FUSceneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneSpec.m; sourceTree = "<group>"; };
 		6392525C15123D84005B3FEC /* FUTestComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestComponents.h; sourceTree = "<group>"; };
 		6392525D15123D84005B3FEC /* FUTestComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestComponents.m; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		633EE87414FED8C400281AC1 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				633D3C30150DFF9C0061FB36 /* FUGameObject-Internal.h */,
+				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,
 				63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */,
 			);
 			name = Internal;
@@ -173,8 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				633EE87414FED8C400281AC1 /* Internal */,
-				63117F2214FFAD3700A04563 /* FUGameObject.h */,
-				63117F2314FFAD3700A04563 /* FUGameObject.m */,
+				63117F2214FFAD3700A04563 /* FUEntity.h */,
+				63117F2314FFAD3700A04563 /* FUEntity.m */,
 				63117F2714FFB87A00A04563 /* FUComponent.h */,
 				63117F2814FFB87A00A04563 /* FUComponent.m */,
 				638227591519E1380009D036 /* FUBehavior.h */,
@@ -201,7 +201,7 @@
 		63925255151214AC005B3FEC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				63925257151214EA005B3FEC /* FUGameObjectSpec.m */,
+				63925257151214EA005B3FEC /* FUEntitySpec.m */,
 				63925256151214EA005B3FEC /* FUComponentSpec.m */,
 				638227571519E0F40009D036 /* FUBehaviorSpec.m */,
 				63925258151214EA005B3FEC /* FUSceneSpec.m */,
@@ -308,7 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63A159A514FD1DB500364D24 /* FUScene.h in Headers */,
-				63117F2414FFAD3700A04563 /* FUGameObject.h in Headers */,
+				63117F2414FFAD3700A04563 /* FUEntity.h in Headers */,
 				63117F2914FFB87A00A04563 /* FUComponent.h in Headers */,
 				63117F2F14FFBBCB00A04563 /* FUComponent-Internal.h in Headers */,
 				6382275B1519E1380009D036 /* FUBehavior.h in Headers */,
@@ -431,7 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63A159A614FD1DB500364D24 /* FUScene.m in Sources */,
-				63117F2514FFAD3700A04563 /* FUGameObject.m in Sources */,
+				63117F2514FFAD3700A04563 /* FUEntity.m in Sources */,
 				63117F2A14FFB87A00A04563 /* FUComponent.m in Sources */,
 				6382275C1519E1380009D036 /* FUBehavior.m in Sources */,
 				6382277D151A2A030009D036 /* FUColor.m in Sources */,
@@ -447,7 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63925259151214EA005B3FEC /* FUComponentSpec.m in Sources */,
-				6392525A151214EA005B3FEC /* FUGameObjectSpec.m in Sources */,
+				6392525A151214EA005B3FEC /* FUEntitySpec.m in Sources */,
 				6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */,
 				6392525E15123D84005B3FEC /* FUTestComponents.m in Sources */,
 				638227581519E0F40009D036 /* FUBehaviorSpec.m in Sources */,
@@ -456,7 +456,7 @@
 				63822775151A29960009D036 /* FUTransformSpec.m in Sources */,
 				63822787151A2BA40009D036 /* FUMath.m in Sources */,
 				63822788151A2BA40009D036 /* FUColor.m in Sources */,
-				63822789151A2BA40009D036 /* FUGameObject.m in Sources */,
+				63822789151A2BA40009D036 /* FUEntity.m in Sources */,
 				6382278A151A2BA40009D036 /* FUComponent.m in Sources */,
 				6382278B151A2BA40009D036 /* FUBehavior.m in Sources */,
 				6382278C151A2BA40009D036 /* FUScene.m in Sources */,

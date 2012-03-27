@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUGameObject.h"
+#import "FUEntity.h"
 
 
 @class FUGraphicsEngine;
 
-@interface FUScene : FUGameObject <GLKViewControllerDelegate, GLKViewDelegate>
+@interface FUScene : FUEntity <GLKViewControllerDelegate, GLKViewDelegate>
 
 @property (nonatomic, WEAK, readonly) FUGraphicsEngine* graphics;
 
-- (id)createGameObject;
-- (void)removeGameObject:(FUGameObject*)gameObject;
-- (NSSet*)allGameObjects;
+- (id)createEntity;
+- (void)removeEntity:(FUEntity*)entity;
+- (NSSet*)allEntitys;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  FUGameObject-Internal.h
+//  FUEntity-Internal.h
 //  Fuji
 //
 //  Created by Hart David on 12.03.12.
@@ -9,7 +9,7 @@
 
 @class FUScene;
 
-@interface FUGameObject ()
+@interface FUEntity ()
 
 @property (nonatomic, WEAK) FUScene* scene;
 

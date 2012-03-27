@@ -30,31 +30,31 @@ describe(@"A component object", ^{
 	
 	context(@"initializing with a nil game object", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUComponent alloc] initWithGameObject:nil], nil);
+			STAssertThrows([[FUComponent alloc] initWithEntity:nil], nil);
 		});
 	});
 	
 	context(@"created and initialized", ^{
-		__block FUGameObject* gameObject = nil;
+		__block FUEntity* entity = nil;
 		__block FUComponent* component = nil;
 		
 		beforeEach(^{
-			gameObject = mock([FUGameObject class]);
-			component = [[FUComponent alloc] initWithGameObject:gameObject];
+			entity = mock([FUEntity class]);
+			component = [[FUComponent alloc] initWithEntity:entity];
 		});
 		
 		it(@"is not nil", ^{
 			expect(component).toNot.beNil();
 		});
 		
-		it(@"has the gameObject property set", ^{
-			expect([component gameObject]).to.beIdenticalTo(gameObject);
+		it(@"has the entity property set", ^{
+			expect([component entity]).to.beIdenticalTo(entity);
 		});
 
 		context(@"removing the component", ^{
-			it(@"asks the gameObject to remove itself", ^{
-				[component removeFromGameObject];
-				[verify(gameObject) removeComponent:component];
+			it(@"asks the entity to remove itself", ^{
+				[component removeFromEntity];
+				[verify(entity) removeComponent:component];
 			});
 		});
 	});

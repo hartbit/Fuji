@@ -10,18 +10,18 @@
 #import "FUScene.h"
 #import "FUTransform.h"
 #import "FUGraphicsEngine.h"
-#import "FUGameObject-Internal.h"
+#import "FUEntity-Internal.h"
 #import "FUMacros.h"
 
 
-static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not be nil";
-static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'gameObject=%@' that does not exist";
+static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
+static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%@' that does not exist";
 
 
 @interface FUScene ()
 
 @property (nonatomic, WEAK) FUGraphicsEngine* graphics;
-@property (nonatomic, strong) NSMutableSet* gameObjects;
+@property (nonatomic, strong) NSMutableSet* entitys;
 
 @end
 
@@ -29,7 +29,7 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 @implementation FUScene
 
 @synthesize graphics = _graphics;
-@synthesize gameObjects = _gameObjects;
+@synthesize entitys = _entitys;
 
 #pragma mark - Class Methods
 
@@ -52,58 +52,58 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 
 #pragma mark - Properties
 
-- (NSMutableSet*)gameObjects
+- (NSMutableSet*)entitys
 {
-	if (_gameObjects == nil)
+	if (_entitys == nil)
 	{
-		[self setGameObjects:[NSMutableSet set]];
+		[self setEntitys:[NSMutableSet set]];
 	}
 	
-	return _gameObjects;
+	return _entitys;
 }
 
 #pragma mark - Public Methods
 
-- (id)createGameObject
+- (id)createEntity
 {
-	FUGameObject* gameObject = [[FUGameObject alloc] initWithScene:self];
-	[[self gameObjects] addObject:gameObject];
-	return gameObject;
+	FUEntity* entity = [[FUEntity alloc] initWithScene:self];
+	[[self entitys] addObject:entity];
+	return entity;
 }
 
-- (void)removeGameObject:(FUGameObject*)gameObject
+- (void)removeEntity:(FUEntity*)entity
 {
-	FUAssert(gameObject != nil, FUGameObjectNilMessage);
+	FUAssert(entity != nil, FUEntityNilMessage);
 	
-	if (![[self gameObjects] containsObject:gameObject])
+	if (![[self entitys] containsObject:entity])
 	{
-		FUThrow(FUGameObjectNonexistentMessage, gameObject);
+		FUThrow(FUEntityNonexistentMessage, entity);
 	}
 	
-	[[self gameObjects] removeObject:gameObject];
-	[gameObject setScene:nil];
+	[[self entitys] removeObject:entity];
+	[entity setScene:nil];
 }
 
-- (NSSet*)allGameObjects
+- (NSSet*)allEntitys
 {
-	return [NSSet setWithSet:[self gameObjects]];
+	return [NSSet setWithSet:[self entitys]];
 }
 
 #pragma mark - GLKViewControllerDelegate Methods
 
 - (void)glkViewControllerUpdate:(GLKViewController*)controller
 {
-	for (FUGameObject* gameObject in [self gameObjects])
+	for (FUEntity* entity in [self entitys])
 	{
-//		[gameObject update];
+//		[entity update];
 	}
 }
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
-	for (FUGameObject* gameObject in [self gameObjects])
+	for (FUEntity* entity in [self entitys])
 	{
-//		[gameObject draw];
+//		[entity draw];
 	}
 }
 

@@ -14,7 +14,7 @@
 
 // Core
 
-#import "FUGameObject.h"
+#import "FUEntity.h"
 #import "FUComponent.h"
 #import "FUBehavior.h"
 #import "FUScene.h"

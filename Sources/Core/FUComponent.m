@@ -9,11 +9,11 @@
 #include "Prefix.pch"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
-#import "FUGameObject.h"
+#import "FUEntity.h"
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
-static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not be nil";
+static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 
 @interface FUComponent ()
@@ -25,7 +25,7 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 
 @implementation FUComponent
 
-@synthesize gameObject = _gameObject;
+@synthesize entity = _entity;
 @synthesize initializing = _initializing;
 
 #pragma mark - Class Methods
@@ -75,25 +75,25 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 	return self;
 }
 
-- (id)initWithGameObject:(FUGameObject*)gameObject
+- (id)initWithEntity:(FUEntity*)entity
 {
-	FUAssert(gameObject != nil, FUGameObjectNilMessage);
+	FUAssert(entity != nil, FUEntityNilMessage);
 	
 	[self setInitializing:YES];
 
 	self = [self init];
 	if (self == nil) return nil;
 	
-	[self setGameObject:gameObject];
+	[self setEntity:entity];
 	[self setInitializing:NO];
 	return self;
 }
 
 #pragma mark - Public Methods
 
-- (void)removeFromGameObject
+- (void)removeFromEntity
 {
-	[[self gameObject] removeComponent:self];
+	[[self entity] removeComponent:self];
 }
 
 - (void)update

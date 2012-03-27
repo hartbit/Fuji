@@ -9,7 +9,7 @@
 #import "FUTestComponents.h"
 #import "Fuji.h"
 #import "FUComponent-Internal.h"
-#import "FUGameObject.h"
+#import "FUEntity.h"
 
 
 @interface FUTestComponent ()

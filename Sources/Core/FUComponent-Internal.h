@@ -7,14 +7,14 @@
 //
 
 
-@class FUGameObject;
+@class FUEntity;
 
 @interface FUComponent ()
 
-@property (nonatomic, WEAK) FUGameObject* gameObject;
+@property (nonatomic, WEAK) FUEntity* entity;
 
 + (NSSet*)allRequiredComponents;
 
-- (id)initWithGameObject:(FUGameObject*)gameObject;
+- (id)initWithEntity:(FUEntity*)entity;
 
 @end
