@@ -15,7 +15,7 @@
 @interface FUTransform ()
 
 @property (nonatomic) GLKMatrix4 matrix;
-@property (nonatomic) BOOL needsUpdate;
+@property (nonatomic) BOOL matrixNeedsUpdate;
 
 @end
 
@@ -26,7 +26,7 @@
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
 @synthesize matrix = _matrix;
-@synthesize needsUpdate = _needsUpdate;
+@synthesize matrixNeedsUpdate = _matrixNeedsUpdate;
 
 #pragma mark - Initialization
 
@@ -45,7 +45,7 @@
 - (void)setPosition:(GLKVector2)position
 {
 	_position = position;
-	[self setNeedsUpdate:YES];
+	[self setMatrixNeedsUpdate:YES];
 }
 
 - (float)positionX
@@ -75,13 +75,13 @@
 - (void)setRotation:(float)rotation
 {
 	_rotation = rotation;
-	[self setNeedsUpdate:YES];
+	[self setMatrixNeedsUpdate:YES];
 }
 
 - (void)setScale:(GLKVector2)scale
 {
 	_scale = scale;
-	[self setNeedsUpdate:YES];
+	[self setMatrixNeedsUpdate:YES];
 }
 
 - (float)scaleX
@@ -110,7 +110,7 @@
 
 - (GLKMatrix4)matrix
 {
-	if ([self needsUpdate])
+	if ([self matrixNeedsUpdate])
 	{
 		GLKVector2 position = [self position];
 		_matrix = GLKMatrix4MakeTranslation(position.x, position.y, 0);
@@ -129,7 +129,7 @@
 			_matrix = GLKMatrix4Scale(_matrix, scale.x, scale.y, 1);
 		}
 		
-		[self setNeedsUpdate:NO];
+		[self setMatrixNeedsUpdate:NO];
 	}
 	
 	return _matrix;
