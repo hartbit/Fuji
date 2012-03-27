@@ -42,12 +42,11 @@ static NSString* const FUGameObjectNonexistentMessage = @"Can not remove a 'game
 
 - (id)init
 {
-	if ((self = [super initWithScene:self]))
-	{
-		[self removeComponent:[self transform]];
-		[self addComponentWithClass:[FUGraphicsEngine class]];
-	}
+	self = [super initWithScene:self];
+	if (self == nil) return nil;
 	
+	[self removeComponent:[self transform]];
+	[self addComponentWithClass:[FUGraphicsEngine class]];
 	return self;
 }
 

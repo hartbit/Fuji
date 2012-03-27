@@ -22,7 +22,7 @@ describe(@"The graphics engine", ^{
 		__block FUGraphicsEngine* graphics = nil;
 		
 		beforeEach(^{
-			graphics = [FUGraphicsEngine new];
+			graphics = [[FUGraphicsEngine alloc] initWithGameObject:mock([FUGameObject class])];
 		});
 		
 		it(@"is not nil", ^{

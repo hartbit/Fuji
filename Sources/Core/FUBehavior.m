@@ -18,11 +18,10 @@
 
 - (id)init
 {
-	if ((self = [super init]))
-	{
-		[self setEnabled:YES];
-	}
-	
+	self = [super init];
+	if (self == nil) return nil;
+
+	[self setEnabled:YES];
 	return self;
 }
 

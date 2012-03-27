@@ -12,7 +12,10 @@
 @interface FUComponent ()
 
 @property (nonatomic, WEAK) FUGameObject* gameObject;
+@property (nonatomic, getter=isInitializing) BOOL initializing;
 
 + (NSSet*)allRequiredComponents;
+
+- (id)initWithGameObject:(FUGameObject*)gameObject;
 
 @end

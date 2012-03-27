@@ -139,12 +139,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	FUAssert(scene != nil, FUSceneNilMessage);
 	
-	if ((self = [super init]))
-	{
-		[self setScene:scene];
-		[self addComponentWithClass:[FUTransform class]];
-	}
+	self = [super init];
+	if (self == nil) return nil;
 	
+	[self setScene:scene];
+	[self addComponentWithClass:[FUTransform class]];
 	return self;
 }
 
@@ -157,9 +156,8 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	[self validateUniquenessOfClass:componentClass];
 	[self addRequiredComponentsForClass:componentClass];
 	
-	id component = [[componentClass alloc] init];
+	id component = [[componentClass alloc] initWithGameObject:self];
 	[[self components] addObject:component];
-	[component setGameObject:self];
 	
 	[self updatePropertiesAfterAdditionOfComponent:component];
 	

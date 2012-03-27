@@ -22,7 +22,10 @@ describe(@"A behavior object", ^{
 		__block FUBehavior* behavior = nil;
 		
 		beforeEach(^{
-			behavior = [FUBehavior new];
+			behavior = [FUBehavior alloc];
+			[behavior setInitializing:YES];
+			behavior = [behavior init];
+			[behavior setInitializing:NO];
 		});
 		
 		it(@"is not nil", ^{

@@ -12,12 +12,13 @@
 #import "FUGameObject.h"
 
 
-static NSString* const FURemovalGameObjectNilMessage = @"Can not remove a component that is not attached to a game object";
+static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
 
 
 @implementation FUComponent
 
 @synthesize gameObject = _gameObject;
+@synthesize initializing = _initializing;
 
 #pragma mark - Class Methods
 
@@ -58,11 +59,30 @@ static NSString* const FURemovalGameObjectNilMessage = @"Can not remove a compon
 
 #pragma mark - Initialization
 
+- (id)init
+{
+	FUAssert([self isInitializing], FUCreationInvalidMessage);
+	
+	self = [super init];
+	return self;
+}
+
+- (id)initWithGameObject:(FUGameObject*)gameObject
+{
+	[self setInitializing:YES];
+
+	self = [self init];
+	if (self == nil) return nil;
+	
+	[self setGameObject:gameObject];
+	[self setInitializing:NO];
+	return self;
+}
+
 #pragma mark - Public Methods
 
 - (void)removeFromGameObject
 {
-	FUAssert([self gameObject] != nil, FURemovalGameObjectNilMessage);
 	[[self gameObject] removeComponent:self];
 }
 

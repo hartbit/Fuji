@@ -26,44 +26,33 @@ describe(@"A component object", ^{
 		expect([FUComponent requiredComponents]).to.beEmpty();
 	});
 	
+	context(@"creating with init", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([FUComponent new], nil);
+		});
+	});
+	
 	context(@"created and initialized", ^{
+		__block FUGameObject* gameObject = nil;
 		__block FUComponent* component = nil;
 		
 		beforeEach(^{
-			component = [FUComponent new];
+			gameObject = mock([FUGameObject class]);
+			component = [[FUComponent alloc] initWithGameObject:gameObject];
 		});
 		
 		it(@"is not nil", ^{
 			expect(component).toNot.beNil();
 		});
 		
-		it(@"has the gameObject property set to nil", ^{
-			expect([component gameObject]).to.beNil();
+		it(@"has the gameObject property set", ^{
+			expect([component gameObject]).to.beIdenticalTo(gameObject);
 		});
 
 		context(@"removing the component", ^{
-			it(@"throws an exception", ^{
-				STAssertThrows([component removeFromGameObject], nil);
-			});
-		});
-		
-		context(@"set the game object property", ^{
-			__block FUGameObject* gameObject = nil;
-			
-			beforeEach(^{
-				gameObject = mock([FUGameObject class]);
-				[component setGameObject:gameObject];
-			});
-			
-			it(@"has the game object property set", ^{
-				expect([component gameObject]).to.beIdenticalTo(gameObject);
-			});
-			
-			context(@"removing the component", ^{
-				it(@"asks the gameObject to remove itself", ^{
-					[component removeFromGameObject];
-					[verify(gameObject) removeComponent:component];
-				});
+			it(@"asks the gameObject to remove itself", ^{
+				[component removeFromGameObject];
+				[verify(gameObject) removeComponent:component];
 			});
 		});
 	});
