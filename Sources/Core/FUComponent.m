@@ -89,10 +89,6 @@ static NSString* const FUGameObjectNilMessage = @"Expected 'gameObject' to not b
 	[[self gameObject] removeComponent:self];
 }
 
-- (void)awake
-{
-}
-
 - (void)update
 {
 }
