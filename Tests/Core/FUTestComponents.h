@@ -13,7 +13,6 @@
 @interface FUTestComponent : FUComponent
 
 @property (nonatomic, readonly) BOOL wasInitCalled;
-@property (nonatomic, readonly) BOOL wasUpdateCalled;
 
 @end
 

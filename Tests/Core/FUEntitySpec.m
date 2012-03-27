@@ -197,7 +197,6 @@ describe(@"A game object", ^{
 			it(@"initializes a new component", ^{
 				expect(component1).toNot.beNil();
 				expect([component1 wasInitCalled]).to.beTruthy();
-                expect([component1 wasUpdateCalled]).to.beFalsy();
 			});
 			
 			it(@"has that component", ^{
@@ -233,7 +232,6 @@ describe(@"A game object", ^{
 				
 				it(@"initializes a new component", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
-					expect([component2 wasUpdateCalled]).to.beFalsy();
 				});
 				
 				it(@"has both components", ^{
@@ -255,7 +253,6 @@ describe(@"A game object", ^{
 				
 				it(@"initializes a new component", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
-					expect([component2 wasUpdateCalled]).to.beFalsy();
 				});
 				
 				it(@"has three components, including both explicitely created", ^{
@@ -268,7 +265,6 @@ describe(@"A game object", ^{
 				it(@"had implicitely created the second required component", ^{
 					expect([component3 class]).to.beIdenticalTo([FURequiredComponent class]);
 					expect([component3 wasInitCalled]).to.beTruthy();
-					expect([component3 wasUpdateCalled]).to.beFalsy();
 					expect([entity allComponents]).to.contain(component3);
 				});
 				

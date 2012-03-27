@@ -7,10 +7,10 @@
 //
 
 #import <GLKit/GLKit.h>
-#import "FUBehavior.h"
+#import "FUComponent.h"
 
 
-@interface FUGraphicsEngine : FUBehavior
+@interface FUGraphicsEngine : FUComponent
 
 @property (nonatomic) GLKVector4 backgroundColor;
 

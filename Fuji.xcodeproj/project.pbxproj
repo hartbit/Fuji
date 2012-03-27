@@ -166,12 +166,12 @@
 			isa = PBXGroup;
 			children = (
 				633EE87414FED8C400281AC1 /* Internal */,
+				63A159A314FD1DB500364D24 /* FUScene.h */,
+				63A159A414FD1DB500364D24 /* FUScene.m */,
 				63117F2214FFAD3700A04563 /* FUEntity.h */,
 				63117F2314FFAD3700A04563 /* FUEntity.m */,
 				63117F2714FFB87A00A04563 /* FUComponent.h */,
 				63117F2814FFB87A00A04563 /* FUComponent.m */,
-				63A159A314FD1DB500364D24 /* FUScene.h */,
-				63A159A414FD1DB500364D24 /* FUScene.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -192,9 +192,9 @@
 		63925255151214AC005B3FEC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				63925258151214EA005B3FEC /* FUSceneSpec.m */,
 				63925257151214EA005B3FEC /* FUEntitySpec.m */,
 				63925256151214EA005B3FEC /* FUComponentSpec.m */,
-				63925258151214EA005B3FEC /* FUSceneSpec.m */,
 				6392525C15123D84005B3FEC /* FUTestComponents.h */,
 				6392525D15123D84005B3FEC /* FUTestComponents.m */,
 			);

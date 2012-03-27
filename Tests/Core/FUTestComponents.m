@@ -15,7 +15,6 @@
 @interface FUTestComponent ()
 
 @property (nonatomic) NSUInteger initCallCount;
-@property (nonatomic) NSUInteger updateCallCount;
 
 @end
 
@@ -23,18 +22,12 @@
 @implementation FUTestComponent
 
 @synthesize initCallCount = _initCallCount;
-@synthesize updateCallCount = _updateCallCount;
 
 #pragma mark - Properties
 
 - (BOOL)wasInitCalled
 {
 	return [self initCallCount] == 1;
-}
-
-- (BOOL)wasUpdateCalled
-{
-	return [self updateCallCount] == 1;
 }
 
 #pragma mark - Initialization
@@ -47,11 +40,6 @@
 	}
 	
 	return self;
-}
-
-- (void)update 
-{
-	[self setUpdateCallCount:[self updateCallCount] + 1];
 }
 
 @end

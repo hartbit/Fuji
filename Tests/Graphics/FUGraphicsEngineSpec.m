@@ -15,7 +15,7 @@ SPEC_BEGIN(FUGraphicsEngineSpec)
 
 describe(@"The graphics engine", ^{
 	it(@"is a subclass of FUBehavior", ^{
-		expect([FUGraphicsEngine class]).to.beASubclassOf([FUBehavior class]);
+		expect([FUGraphicsEngine class]).to.beASubclassOf([FUComponent class]);
 	});
 	
 	context(@"created and initialized", ^{
