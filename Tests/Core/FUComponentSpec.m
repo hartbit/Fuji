@@ -14,10 +14,6 @@
 SPEC_BEGIN(FUComponentSpec)
 
 describe(@"A component object", ^{
-	it(@"conforms to the FUUpdateable protocol", ^{
-		expect([[FUComponent class] conformsToProtocol:@protocol(FUUpdateable)]).to.beTruthy();
-	});
-	
 	it(@"is not unique by default", ^{
 		expect([FUComponent isUnique]).to.beFalsy();
 	});

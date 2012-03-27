@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUUpdateable.h"
 #import "FUMacros.h"
 
 
 @class FUGameObject;
 @class FUTransform;
 
-@interface FUComponent : NSObject <FUUpdateable>
+@interface FUComponent : NSObject
 
 @property (nonatomic, WEAK, readonly) FUGameObject* gameObject;
 

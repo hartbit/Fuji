@@ -97,7 +97,7 @@ describe(@"A scene", ^{
 				expect(gameObjects).to.contain(gameObject1);
 			});
 			
-			context(@"adding another game object", ^{
+			context(@"added another game object", ^{
 				__block FUGameObject* gameObject2 = nil;
 				
 				beforeEach(^{
@@ -116,9 +116,15 @@ describe(@"A scene", ^{
 					expect(gameObjects).to.contain(gameObject1);
 					expect(gameObjects).to.contain(gameObject2);
 				});
+				
+				context(@"calling update", ^{
+					it(@"calls update on the game objects", ^{
+						[scene update];
+					});
+				});
 			});
 			
-			context(@"removing the game object", ^{
+			context(@"removed the game object", ^{
 				beforeEach(^{
 					[scene removeGameObject:gameObject1];
 				});
