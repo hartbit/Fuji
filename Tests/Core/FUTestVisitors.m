@@ -9,15 +9,28 @@
 #import "FUTestVisitors.h"
 
 
-@implementation FUTestSceneObject
+@implementation FUParentSceneObject @end
+@implementation FUChildSceneObject @end
+
+
+@implementation FUVisitChildVisitor
+
+- (void)visitFUChildSceneObject:(FUChildSceneObject*)sceneObject
+{
+}
 
 @end
 
 
-@implementation FUTestVisitor
+@implementation FUVisitParentVisitor
 
-- (void)visitFUSceneObject:(FUSceneObject*)sceneObject
+- (void)visitFUParentSceneObject:(FUParentSceneObject*)sceneObject
 {
 }
+
+@end
+
+
+@implementation FUVisitNothingVisitor
 
 @end

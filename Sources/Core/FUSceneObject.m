@@ -15,15 +15,8 @@
 
 + (SEL)visitSelector
 {
-	static SEL sVisitSelector = NULL;
-	
-	if (sVisitSelector == NULL)
-	{
-		NSString* selector = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(self)];
-		sVisitSelector = NSSelectorFromString(selector);
-	}
-	
-	return sVisitSelector;
+	NSString* selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(self)];
+	return NSSelectorFromString(selectorString);
 }
 
 #pragma mark - Public Methods

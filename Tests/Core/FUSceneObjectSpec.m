@@ -14,24 +14,32 @@
 SPEC_BEGIN(FUSceneObject)
 
 describe(@"A scene object", ^{
-	__block FUSceneObject* sceneObject = nil;
+	__block FUChildSceneObject* sceneObject = nil;
 	
 	beforeEach(^{
-		sceneObject = [FUSceneObject new];
+		sceneObject = [FUChildSceneObject new];
 	});
 	
-	context(@"visiting with a visitor that does not handle that scene object", ^{
-		it(@"does nothing", ^{
-			NSString* visitor = mock([NSString class]);
+	context(@"visiting with a visitor that handles the child scene object", ^{
+		it(@"calls the child's visit method", ^{
+			FUVisitChildVisitor* visitor = mock([FUVisitChildVisitor class]);
 			[sceneObject acceptVisitor:visitor];
+			[verify(visitor) visitFUChildSceneObject:sceneObject];
 		});
 	});
 	
-	context(@"visiting with a visitor that handles that scene object", ^{
-		it(@"calls the visit method", ^{
-			FUTestVisitor* visitor = mock([FUTestVisitor class]);
+	context(@"visiting with a visitor that handles the parent scene object", ^{
+		it(@"calls the parent's visit method", ^{
+			FUVisitParentVisitor* visitor = mock([FUVisitParentVisitor class]);
 			[sceneObject acceptVisitor:visitor];
-			[verify(visitor) visitFUSceneObject:sceneObject];
+			[verify(visitor) visitFUParentSceneObject:sceneObject];
+		});
+	});
+	
+	context(@"visiting with a visitor that does not handle any ancestor of the scene object", ^{
+		it(@"does nothing", ^{
+			FUVisitNothingVisitor* visitor = mock([FUVisitNothingVisitor class]);
+			[sceneObject acceptVisitor:visitor];
 		});
 	});
 });
