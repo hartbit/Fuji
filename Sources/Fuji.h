@@ -13,7 +13,7 @@
 
 // Core
 
-#import "FUVisitable.h"
+#import "FUSceneObject.h"
 #import "FUEntity.h"
 #import "FUComponent.h"
 #import "FUScene.h"

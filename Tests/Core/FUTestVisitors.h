@@ -9,8 +9,13 @@
 #import "Fuji.h"
 
 
+@interface FUTestSceneObject : FUSceneObject
+
+@end
+
+
 @interface FUTestVisitor : NSObject
 
-- (void)visitFUVisitable:(FUVisitable*)visitable;
+- (void)visitFUSceneObject:(FUSceneObject*)sceneObject;
 
 @end

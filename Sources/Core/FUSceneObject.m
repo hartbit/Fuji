@@ -1,15 +1,15 @@
 //
-//  FUVisitable.m
+//  FUSceneObject.m
 //  Fuji
 //
 //  Created by David Hart on 3/27/12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUVisitable.h"
+#import "FUSceneObject.h"
 
 
-@implementation FUVisitable
+@implementation FUSceneObject
 
 #pragma mark - Class Methods
 
@@ -32,7 +32,7 @@
 {
 	Class currentAncestor = [self class];
 	
-	while ([currentAncestor isSubclassOfClass:[FUVisitable class]])
+	while ([currentAncestor isSubclassOfClass:[FUSceneObject class]])
 	{
 		SEL visitSelector = [currentAncestor visitSelector];
 		

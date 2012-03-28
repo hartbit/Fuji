@@ -9,9 +9,14 @@
 #import "FUTestVisitors.h"
 
 
+@implementation FUTestSceneObject
+
+@end
+
+
 @implementation FUTestVisitor
 
-- (void)visitFUVisitable:(FUVisitable*)visitable
+- (void)visitFUSceneObject:(FUSceneObject*)sceneObject
 {
 }
 

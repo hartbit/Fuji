@@ -1,5 +1,5 @@
 //
-//  FUVisitable.h
+//  FUSceneObject.h
 //  Fuji
 //
 //  Created by David Hart on 3/27/12.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FUVisitable : NSObject
+@interface FUSceneObject : NSObject
 
 - (void)acceptVisitor:(id)visitor;
 
