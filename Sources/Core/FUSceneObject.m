@@ -11,14 +11,6 @@
 
 @implementation FUSceneObject
 
-#pragma mark - Class Methods
-
-+ (SEL)visitSelector
-{
-	NSString* selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(self)];
-	return NSSelectorFromString(selectorString);
-}
-
 #pragma mark - Public Methods
 
 - (void)acceptVisitor:(id)visitor
@@ -27,7 +19,8 @@
 	
 	while ([currentAncestor isSubclassOfClass:[FUSceneObject class]])
 	{
-		SEL visitSelector = [currentAncestor visitSelector];
+		NSString* selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(currentAncestor)];
+		SEL visitSelector = NSSelectorFromString(selectorString);
 		
 		if ([visitor respondsToSelector:visitSelector])
 		{
