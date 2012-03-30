@@ -10,11 +10,11 @@
 #import "FUEntity.h"
 
 
-@class FUGraphicsEngine;
+@class FUGraphicsSettings;
 
-@interface FUScene : FUEntity <GLKViewControllerDelegate, GLKViewDelegate>
+@interface FUScene : FUEntity
 
-@property (nonatomic, WEAK, readonly) FUGraphicsEngine* graphics;
+@property (nonatomic, WEAK, readonly) FUGraphicsSettings* graphics;
 
 - (id)createEntity;
 - (void)removeEntity:(FUEntity*)entity;

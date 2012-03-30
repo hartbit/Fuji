@@ -20,7 +20,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 @interface FUScene ()
 
-@property (nonatomic, WEAK) FUGraphicsEngine* graphics;
+@property (nonatomic, WEAK) FUGraphicsSettings* graphics;
 @property (nonatomic, strong) NSMutableSet* entitys;
 
 @end
@@ -87,24 +87,6 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 - (NSSet*)allEntitys
 {
 	return [NSSet setWithSet:[self entitys]];
-}
-
-#pragma mark - GLKViewControllerDelegate Methods
-
-- (void)glkViewControllerUpdate:(GLKViewController*)controller
-{
-	for (FUEntity* entity in [self entitys])
-	{
-//		[entity update];
-	}
-}
-
-- (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
-{
-	for (FUEntity* entity in [self entitys])
-	{
-//		[entity draw];
-	}
 }
 
 @end

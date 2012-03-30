@@ -56,14 +56,6 @@ describe(@"A director", ^{
 			it(@"has the scene property set", ^{
 				expect([director scene]).to.beIdenticalTo(scene);
 			});
-			
-			it(@"sets the scene as the GLKViewController delegate", ^{
-				expect([director delegate]).to.beIdenticalTo(scene);
-			});
-				
-			it(@"sets the scene as the GLKView delegate", ^{
-				expect([(GLKView*)[director view] delegate]).to.beIdenticalTo(scene);
-			});
 		});
 	});
 });
