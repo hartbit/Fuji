@@ -11,6 +11,7 @@
 
 @interface FUSceneObject : NSObject
 
-- (void)acceptVisitor:(id)visitor;
+- (void)updateVisitor:(id)visitor;
+- (void)drawVisitor:(id)visitor;
 
 @end

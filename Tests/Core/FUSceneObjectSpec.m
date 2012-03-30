@@ -20,26 +20,55 @@ describe(@"A scene object", ^{
 		sceneObject = [FUChildSceneObject new];
 	});
 	
-	context(@"visiting with a visitor that handles the child scene object", ^{
-		it(@"calls the child's visit method", ^{
-			FUVisitChildVisitor* visitor = mock([FUVisitChildVisitor class]);
-			[sceneObject acceptVisitor:visitor];
-			[verify(visitor) visitFUChildSceneObject:sceneObject];
+	context(@"created a visitor that updates and draws the child scene object", ^{
+		__block FUVisitChildVisitor* visitor;
+		
+		beforeEach(^{
+			visitor = mock([FUVisitChildVisitor class]);
+		});
+		
+		it(@"calls the visitor update method", ^{
+			[sceneObject updateVisitor:visitor];
+			[verify(visitor) updateFUChildSceneObject:sceneObject];
+		});
+		
+		it(@"calls the visitor draw method", ^{
+			[sceneObject drawVisitor:visitor];
+			[verify(visitor) drawFUChildSceneObject:sceneObject];
 		});
 	});
 	
-	context(@"visiting with a visitor that handles the parent scene object", ^{
-		it(@"calls the parent's visit method", ^{
-			FUVisitParentVisitor* visitor = mock([FUVisitParentVisitor class]);
-			[sceneObject acceptVisitor:visitor];
-			[verify(visitor) visitFUParentSceneObject:sceneObject];
+	context(@"created a visitor that updates and draws the parent scene object", ^{
+		__block FUVisitParentVisitor* visitor;
+		
+		beforeEach(^{
+			visitor = mock([FUVisitParentVisitor class]);
+		});
+		
+		it(@"calls the visitor update method", ^{
+			[sceneObject updateVisitor:visitor];
+			[verify(visitor) updateFUParentSceneObject:sceneObject];
+		});
+		
+		it(@"calls the visitor draw method", ^{
+			[sceneObject drawVisitor:visitor];
+			[verify(visitor) drawFUParentSceneObject:sceneObject];
 		});
 	});
 	
-	context(@"visiting with a visitor that does not handle any ancestor of the scene object", ^{
-		it(@"does nothing", ^{
-			FUVisitNothingVisitor* visitor = mock([FUVisitNothingVisitor class]);
-			[sceneObject acceptVisitor:visitor];
+	context(@"created a visitor that does not updates nor draws anything", ^{
+		__block FUVisitNothingVisitor* visitor;
+		
+		beforeEach(^{
+			visitor = mock([FUVisitNothingVisitor class]);
+		});
+		
+		it(@"does not try to call any update method", ^{
+			[sceneObject updateVisitor:visitor];
+		});
+		
+		it(@"does not try to call any draw method", ^{
+			[sceneObject drawVisitor:visitor];
 		});
 	});
 });

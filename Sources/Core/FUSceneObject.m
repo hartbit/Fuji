@@ -9,17 +9,36 @@
 #import "FUSceneObject.h"
 
 
+@interface FUSceneObject ()
+
+- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix;
+
+@end
+
+
 @implementation FUSceneObject
 
 #pragma mark - Public Methods
 
-- (void)acceptVisitor:(id)visitor
+- (void)updateVisitor:(id)visitor
+{
+	[self acceptVisitor:visitor withSelectorPrefix:@"update"];
+}
+
+- (void)drawVisitor:(id)visitor
+{
+	[self acceptVisitor:visitor withSelectorPrefix:@"draw"];
+}
+
+#pragma mark - Private Methods
+
+- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
 {
 	Class currentAncestor = [self class];
 	
 	while ([currentAncestor isSubclassOfClass:[FUSceneObject class]])
 	{
-		NSString* selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(currentAncestor)];
+		NSString* selectorString = [NSString stringWithFormat:@"%@%@:", prefix, NSStringFromClass(currentAncestor)];
 		SEL visitSelector = NSSelectorFromString(selectorString);
 		
 		if ([visitor respondsToSelector:visitSelector])

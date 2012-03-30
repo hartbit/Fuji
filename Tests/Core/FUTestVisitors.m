@@ -15,18 +15,16 @@
 
 @implementation FUVisitChildVisitor
 
-- (void)visitFUChildSceneObject:(FUChildSceneObject*)sceneObject
-{
-}
+- (void)updateFUChildSceneObject:(FUChildSceneObject*)sceneObject { }
+- (void)drawFUChildSceneObject:(FUChildSceneObject*)sceneObject { }
 
 @end
 
 
 @implementation FUVisitParentVisitor
 
-- (void)visitFUParentSceneObject:(FUParentSceneObject*)sceneObject
-{
-}
+- (void)updateFUParentSceneObject:(FUParentSceneObject*)sceneObject { }
+- (void)drawFUParentSceneObject:(FUParentSceneObject*)sceneObject { }
 
 @end
 
