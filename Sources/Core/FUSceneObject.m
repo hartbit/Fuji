@@ -7,13 +7,7 @@
 //
 
 #import "FUSceneObject.h"
-
-
-@interface FUSceneObject ()
-
-- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix;
-
-@end
+#import "FUSceneObject-Internal.h"
 
 
 @implementation FUSceneObject

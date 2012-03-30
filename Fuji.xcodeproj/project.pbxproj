@@ -105,6 +105,7 @@
 		63F339B41506665700BF36A9 /* Pods-test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
 		63F7B8681525F4C300F3064D /* FUDirectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDirectorSpec.m; sourceTree = "<group>"; };
 		63F7B86E1525FA9100F3064D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		63F7B8711525FBAB00F3064D /* FUSceneObject-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUSceneObject-Internal.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +141,7 @@
 		633EE87414FED8C400281AC1 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				63F7B8711525FBAB00F3064D /* FUSceneObject-Internal.h */,
 				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,
 				63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */,
 			);

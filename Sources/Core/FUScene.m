@@ -10,6 +10,7 @@
 #import "FUScene.h"
 #import "FUTransform.h"
 #import "FUGraphicsSettings.h"
+#import "FUSceneObject-Internal.h"
 #import "FUEntity-Internal.h"
 #import "FUMacros.h"
 
@@ -21,7 +22,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 @interface FUScene ()
 
 @property (nonatomic, WEAK) FUGraphicsSettings* graphics;
-@property (nonatomic, strong) NSMutableSet* entitys;
+@property (nonatomic, strong) NSMutableSet* entities;
 
 @end
 
@@ -29,7 +30,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 @implementation FUScene
 
 @synthesize graphics = _graphics;
-@synthesize entitys = _entitys;
+@synthesize entities = _entities;
 
 #pragma mark - Class Methods
 
@@ -52,14 +53,14 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - Properties
 
-- (NSMutableSet*)entitys
+- (NSMutableSet*)entities
 {
-	if (_entitys == nil)
+	if (_entities == nil)
 	{
-		[self setEntitys:[NSMutableSet set]];
+		[self setEntities:[NSMutableSet set]];
 	}
 	
-	return _entitys;
+	return _entities;
 }
 
 #pragma mark - Public Methods
@@ -67,7 +68,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 - (id)createEntity
 {
 	FUEntity* entity = [[FUEntity alloc] initWithScene:self];
-	[[self entitys] addObject:entity];
+	[[self entities] addObject:entity];
 	return entity;
 }
 
@@ -75,18 +76,30 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 {
 	FUAssert(entity != nil, FUEntityNilMessage);
 	
-	if (![[self entitys] containsObject:entity])
+	if (![[self entities] containsObject:entity])
 	{
 		FUThrow(FUEntityNonexistentMessage, entity);
 	}
 	
-	[[self entitys] removeObject:entity];
+	[[self entities] removeObject:entity];
 	[entity setScene:nil];
 }
 
 - (NSSet*)allEntities
 {
-	return [NSSet setWithSet:[self entitys]];
+	return [NSSet setWithSet:[self entities]];
+}
+
+#pragma mark - FUSceneObject Methods
+
+- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
+{
+	[super acceptVisitor:visitor withSelectorPrefix:prefix];
+	
+	for (FUEntity* entity in [self entities])
+	{
+		[entity acceptVisitor:visitor withSelectorPrefix:prefix];
+	}
 }
 
 @end

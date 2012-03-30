@@ -93,6 +93,30 @@ describe(@"A director", ^{
 						[verify(visitor) drawFUSceneObject:scene];
 					});
 				});
+				
+				context(@"added an entity to the scene", ^{
+					__block FUEntity* entity = nil;
+					
+					beforeEach(^{
+						entity = [scene createEntity];
+					});
+					
+					context(@"calling the update method on the director", ^{
+						it(@"makes the visitor update the entity", ^{
+							[director performSelector:@selector(update)];
+							[verify(visitor) updateFUSceneObject:scene];
+							[verify(visitor) updateFUSceneObject:entity];
+						});
+					});
+					
+					context(@"calling the draw method on the director", ^{
+						it(@"makes the visitor draw the entity", ^{
+							[director glkView:nil drawInRect:CGRectZero];
+							[verify(visitor) drawFUSceneObject:scene];
+							[verify(visitor) drawFUSceneObject:entity];
+						});
+					});
+				});
 			});
 		});
 	});
