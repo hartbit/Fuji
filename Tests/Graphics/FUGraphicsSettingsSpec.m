@@ -13,8 +13,8 @@
 
 SPEC_BEGIN(FUGraphicsSettingsSpec)
 
-describe(@"The graphics engine", ^{
-	it(@"is a subclass of FUBehavior", ^{
+describe(@"The graphics settings", ^{
+	it(@"is a subclass of FUComponent", ^{
 		expect([FUGraphicsSettings class]).to.beASubclassOf([FUComponent class]);
 	});
 	

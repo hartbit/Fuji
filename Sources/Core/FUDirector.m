@@ -85,8 +85,6 @@
 	
 	GLKView* view = (GLKView*)[self view];
 	[view setContext:[self context]];
-	
-	glEnable(GL_CULL_FACE);
 }
 
 - (void)viewDidUnload
