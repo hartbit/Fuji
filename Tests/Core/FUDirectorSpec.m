@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUDirectorSpec)
@@ -53,12 +54,34 @@ describe(@"A director", ^{
 			__block FUScene* scene = nil;
 			
 			beforeEach(^{
-				scene = mock([FUScene class]);
+				scene = [FUScene new];
 				[director setScene:scene];
 			});
 			
 			it(@"has the scene property set", ^{
 				expect([director scene]).to.beIdenticalTo(scene);
+			});
+			
+			context(@"added a generic visitor", ^{
+				__block FUGenericVisitor* visitor = nil;
+				
+				beforeEach(^{
+					visitor = mock([FUGenericVisitor class]);
+					[director addEngine:visitor];
+				});
+				
+				it(@"contains the engine", ^{
+					NSSet* engines = [director allEngines];
+					expect(engines).to.haveCountOf(1);
+					expect(engines).to.contain(visitor);
+				});
+				
+				context(@"calling the update method on the director", ^{
+					it(@"makes the visitor visit the scene", ^{
+						[director performSelector:@selector(update)];
+						[verify(visitor) updateFUSceneObject:scene];
+					});
+				});
 			});
 		});
 	});

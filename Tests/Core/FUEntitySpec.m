@@ -15,7 +15,11 @@
 
 SPEC_BEGIN(FUEntitySpec)
 
-describe(@"A game object", ^{
+describe(@"An entity", ^{
+	it(@"is a scene object", ^{
+		expect([FUEntity class]).to.beSubclassOf([FUSceneObject class]);
+	});
+	
 	context(@"initialized with init", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([FUEntity new], nil);
