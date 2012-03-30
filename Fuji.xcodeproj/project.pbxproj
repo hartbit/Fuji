@@ -54,8 +54,9 @@
 		63F7B86F1525FA9100F3064D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7B86E1525FA9100F3064D /* CoreGraphics.framework */; };
 		63F7B8701525FAA200F3064D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7B86E1525FA9100F3064D /* CoreGraphics.framework */; };
 		63F7B8731526012900F3064D /* FUGraphicsEngineSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8721526012900F3064D /* FUGraphicsEngineSpec.m */; };
-		63F7B8761526019600F3064D /* FUGraphicsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8751526019600F3064D /* FUGraphicsEngine.m */; };
 		63F7B8781526022600F3064D /* FUColorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8771526022600F3064D /* FUColorSpec.m */; };
+		63F7B879152604EF00F3064D /* FUGraphicsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8751526019600F3064D /* FUGraphicsEngine.m */; };
+		63F7B87A1526056E00F3064D /* FUGraphicsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8751526019600F3064D /* FUGraphicsEngine.m */; };
 		63F841CF151B504600F27F98 /* FUDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397C52F151A33B500457829 /* FUDirector.m */; };
 /* End PBXBuildFile section */
 
@@ -428,6 +429,7 @@
 				63822781151A2A520009D036 /* FUTransform.m in Sources */,
 				6397C531151A33B500457829 /* FUDirector.m in Sources */,
 				63A829EF1522147D001429E1 /* FUSceneObject.m in Sources */,
+				63F7B879152604EF00F3064D /* FUGraphicsEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,8 +456,8 @@
 				63A829F415221EC8001429E1 /* FUTestVisitors.m in Sources */,
 				63F7B86A1525F4C500F3064D /* FUDirectorSpec.m in Sources */,
 				63F7B8731526012900F3064D /* FUGraphicsEngineSpec.m in Sources */,
-				63F7B8761526019600F3064D /* FUGraphicsEngine.m in Sources */,
 				63F7B8781526022600F3064D /* FUColorSpec.m in Sources */,
+				63F7B87A1526056E00F3064D /* FUGraphicsEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

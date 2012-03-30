@@ -11,13 +11,6 @@
 #import "FUColor.h"
 
 
-@interface FUGraphicsSettings ()
-
-//@property (nonatomic, strong) GLKBaseEffect* effect;
-
-@end
-
-
 @implementation FUGraphicsSettings
 
 @synthesize backgroundColor = _backgroundColor;
@@ -33,22 +26,5 @@
 	
 	return self;
 }
-/*
-#pragma mark - Properties
 
-- (GLKBaseEffect*)effect
-{
-	if (_effect == nil)
-	{
-		GLKBaseEffect* effect = [GLKBaseEffect new];
-		[self setEffect:effect];
-		
-//		CGSize viewSize = [[self view] bounds].size;
-//		GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
-//		[[effect transform] setProjectionMatrix:projectionMatrix];
-	}
-	
-	return _effect;
-}
-*/
 @end
