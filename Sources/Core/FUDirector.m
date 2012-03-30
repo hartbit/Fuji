@@ -53,6 +53,13 @@
 	}
 }
 
+#pragma mark - Public Methods
+
+- (NSSet*)allEngines
+{
+	return [NSSet set];
+}
+
 #pragma mark - UIViewController Methods
 
 - (void)viewDidLoad

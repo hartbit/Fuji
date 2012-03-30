@@ -18,6 +18,6 @@
 
 - (id)createEntity;
 - (void)removeEntity:(FUEntity*)entity;
-- (NSSet*)allEntitys;
+- (NSSet*)allEntities;
 
 @end

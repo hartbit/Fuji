@@ -18,4 +18,6 @@
 
 @property (nonatomic, strong) FUScene* scene;
 
+- (NSSet*)allEngines;
+
 @end

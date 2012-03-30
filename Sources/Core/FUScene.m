@@ -84,7 +84,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 	[entity setScene:nil];
 }
 
-- (NSSet*)allEntitys
+- (NSSet*)allEntities
 {
 	return [NSSet setWithSet:[self entitys]];
 }

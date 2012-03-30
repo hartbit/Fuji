@@ -34,15 +34,19 @@ describe(@"A director", ^{
 			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
 		});
 		
+		it(@"has a nil scene", ^{
+			expect([director scene]).to.beNil();
+		});
+		
+		it(@"has no engines", ^{
+			expect([director allEngines]).to.beEmpty();
+		});
+		
 		it(@"automatically rotates in all orientations", ^{
 			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beTruthy();
 			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
 			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
 			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
-		});
-		
-		it(@"has a nil scene", ^{
-			expect([director scene]).to.beNil();
 		});
 		
 		context(@"a scene is set", ^{

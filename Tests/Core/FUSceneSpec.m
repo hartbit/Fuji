@@ -33,7 +33,7 @@ describe(@"A scene", ^{
 		});
 		
 		it(@"contains no game objects", ^{
-			expect([scene allEntitys]).to.beEmpty();
+			expect([scene allEntities]).to.beEmpty();
 		});
 		
 		it(@"has a graphics settings component", ^{
@@ -84,7 +84,7 @@ describe(@"A scene", ^{
 			});
 			
 			it(@"contains the game object", ^{
-				NSSet* entitys = [scene allEntitys];
+				NSSet* entitys = [scene allEntities];
 				expect(entitys).to.haveCountOf(1);
 				expect(entitys).to.contain(entity1);
 			});
@@ -103,7 +103,7 @@ describe(@"A scene", ^{
 				});
 				
 				it(@"contains both game object", ^{
-					NSSet* entitys = [scene allEntitys];
+					NSSet* entitys = [scene allEntities];
 					expect(entitys).to.haveCountOf(2);
 					expect(entitys).to.contain(entity1);
 					expect(entitys).to.contain(entity2);
@@ -120,7 +120,7 @@ describe(@"A scene", ^{
 				});
 				
 				it(@"contains no game objects", ^{
-					expect([scene allEntitys]).to.beEmpty();
+					expect([scene allEntities]).to.beEmpty();
 				});
 			});
 		});
