@@ -13,6 +13,8 @@
 
 // Core
 
+#import "FUDirector.h"
+#import "FUEngine.h"
 #import "FUSceneObject.h"
 #import "FUEntity.h"
 #import "FUComponent.h"
@@ -23,7 +25,3 @@
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
 #import "FUTransform.h"
-
-// Platforms
-
-#import "FUDirector.h"
