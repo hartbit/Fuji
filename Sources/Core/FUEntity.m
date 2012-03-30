@@ -10,6 +10,7 @@
 #import "FUEntity.h"
 #import "FUEntity-Internal.h"
 #import "FUScene.h"
+#import "FUSceneObject-Internal.h"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
 #import "FUTransform.h"
@@ -216,6 +217,18 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 - (NSSet*)allComponents
 {
 	return [NSSet setWithSet:[self components]];
+}
+
+#pragma mark - FUSceneObject Methods
+
+- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
+{
+	[super acceptVisitor:visitor withSelectorPrefix:prefix];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component acceptVisitor:visitor withSelectorPrefix:prefix];
+	}
 }
 
 #pragma mark - Private Methods

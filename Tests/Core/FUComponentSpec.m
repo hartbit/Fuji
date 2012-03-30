@@ -14,6 +14,10 @@
 SPEC_BEGIN(FUComponentSpec)
 
 describe(@"A component object", ^{
+	it(@"is a scene object", ^{
+		expect([FUComponent class]).to.beSubclassOf([FUSceneObject class]);
+	});
+	
 	it(@"is not unique by default", ^{
 		expect([FUComponent isUnique]).to.beFalsy();
 	});

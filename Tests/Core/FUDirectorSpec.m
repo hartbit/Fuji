@@ -81,16 +81,18 @@ describe(@"A director", ^{
 				});
 				
 				context(@"calling the update method on the director", ^{
-					it(@"makes the visitor update the scene", ^{
+					it(@"makes the visitor update the scene and it's components", ^{
 						[director performSelector:@selector(update)];
 						[verify(visitor) updateFUSceneObject:scene];
+						[verify(visitor) updateFUSceneObject:[scene graphics]];
 					});
 				});
 				
 				context(@"calling the draw method on the director", ^{
-					it(@"makes the visitor draw the scene", ^{
+					it(@"makes the visitor draw the scene and it's components", ^{
 						[director glkView:nil drawInRect:CGRectZero];
 						[verify(visitor) drawFUSceneObject:scene];
+						[verify(visitor) drawFUSceneObject:[scene graphics]];
 					});
 				});
 				
@@ -102,18 +104,18 @@ describe(@"A director", ^{
 					});
 					
 					context(@"calling the update method on the director", ^{
-						it(@"makes the visitor update the entity", ^{
+						it(@"makes the visitor update the entity and it's component", ^{
 							[director performSelector:@selector(update)];
-							[verify(visitor) updateFUSceneObject:scene];
 							[verify(visitor) updateFUSceneObject:entity];
+							[verify(visitor) updateFUSceneObject:[entity transform]];
 						});
 					});
 					
 					context(@"calling the draw method on the director", ^{
-						it(@"makes the visitor draw the entity", ^{
+						it(@"makes the visitor draw the entity and it's component", ^{
 							[director glkView:nil drawInRect:CGRectZero];
-							[verify(visitor) drawFUSceneObject:scene];
 							[verify(visitor) drawFUSceneObject:entity];
+							[verify(visitor) drawFUSceneObject:[entity transform]];
 						});
 					});
 				});
