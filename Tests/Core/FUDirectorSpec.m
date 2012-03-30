@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUEngine-Internal.h"
 #import "FUTestVisitors.h"
 
 
@@ -54,6 +55,20 @@ describe(@"A director", ^{
 			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
 		});
 		
+		context(@"adding a nil engine", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([director addEngine:nil], nil);
+			});
+		});
+		
+		context(@"adding an engine that already has a director", ^{
+			it(@"throws an exception", ^{
+				FUEngine* engine = mock([FUEngine class]);
+				[given([engine director]) willReturn:mock([FUDirector class])];
+				STAssertThrows([director addEngine:engine], nil);
+			});
+		});
+		
 		context(@"a scene is set", ^{
 			__block FUScene* scene = nil;
 			
@@ -66,33 +81,37 @@ describe(@"A director", ^{
 				expect([director scene]).to.beIdenticalTo(scene);
 			});
 			
-			context(@"added a generic visitor", ^{
-				__block FUGenericVisitor* visitor = nil;
+			context(@"added a generic engine", ^{
+				__block FUGenericEngine* engine = nil;
 				
 				beforeEach(^{
-					visitor = mock([FUGenericVisitor class]);
-					[director addEngine:visitor];
+					engine = mock([FUGenericEngine class]);
+					[director addEngine:engine];
+				});
+				
+				it(@"set the engine's director property", ^{
+					[verify(engine) setDirector:director];
 				});
 				
 				it(@"contains the engine", ^{
 					NSSet* engines = [director allEngines];
 					expect(engines).to.haveCountOf(1);
-					expect(engines).to.contain(visitor);
+					expect(engines).to.contain(engine);
 				});
 				
 				context(@"calling the update method on the director", ^{
 					it(@"makes the visitor update the scene and it's components", ^{
 						[director performSelector:@selector(update)];
-						[verify(visitor) updateFUSceneObject:scene];
-						[verify(visitor) updateFUSceneObject:[scene graphics]];
+						[verify(engine) updateFUSceneObject:scene];
+						[verify(engine) updateFUSceneObject:[scene graphics]];
 					});
 				});
 				
 				context(@"calling the draw method on the director", ^{
 					it(@"makes the visitor draw the scene and it's components", ^{
 						[director glkView:nil drawInRect:CGRectZero];
-						[verify(visitor) drawFUSceneObject:scene];
-						[verify(visitor) drawFUSceneObject:[scene graphics]];
+						[verify(engine) drawFUSceneObject:scene];
+						[verify(engine) drawFUSceneObject:[scene graphics]];
 					});
 				});
 				
@@ -106,16 +125,16 @@ describe(@"A director", ^{
 					context(@"calling the update method on the director", ^{
 						it(@"makes the visitor update the entity and it's component", ^{
 							[director performSelector:@selector(update)];
-							[verify(visitor) updateFUSceneObject:entity];
-							[verify(visitor) updateFUSceneObject:[entity transform]];
+							[verify(engine) updateFUSceneObject:entity];
+							[verify(engine) updateFUSceneObject:[entity transform]];
 						});
 					});
 					
 					context(@"calling the draw method on the director", ^{
 						it(@"makes the visitor draw the entity and it's component", ^{
 							[director glkView:nil drawInRect:CGRectZero];
-							[verify(visitor) drawFUSceneObject:entity];
-							[verify(visitor) drawFUSceneObject:[entity transform]];
+							[verify(engine) drawFUSceneObject:entity];
+							[verify(engine) drawFUSceneObject:[entity transform]];
 						});
 					});
 				});

@@ -14,21 +14,27 @@
 SPEC_BEGIN(FUGraphicsEngineSpec)
 
 describe(@"The graphics engine", ^{
-	__block FUGraphicsEngine* graphicsEngine = nil;
+	it(@"is a subclass of FUEngine", ^{
+		expect([FUGraphicsEngine class]).to.beSubclassOf([FUEngine class]);
+	});
 	
-	beforeEach(^{
-		EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-		[EAGLContext setCurrentContext:context];
+	context(@"created and initialized a graphics engine", ^{
+		__block FUGraphicsEngine* graphicsEngine = nil;
 		
-		graphicsEngine = [FUGraphicsEngine new];
-	});
-	
-	it(@"is not nil", ^{
-		expect(graphicsEngine).toNot.beNil();
-	});
-	
-	it(@"enabled GL_CULL_FACE", ^{
-		expect(glIsEnabled(GL_CULL_FACE)).to.beTruthy();
+		beforeEach(^{
+			EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+			[EAGLContext setCurrentContext:context];
+			
+			graphicsEngine = [FUGraphicsEngine new];
+		});
+		
+		it(@"is not nil", ^{
+			expect(graphicsEngine).toNot.beNil();
+		});
+		
+		it(@"enabled GL_CULL_FACE", ^{
+			expect(glIsEnabled(GL_CULL_FACE)).to.beTruthy();
+		});
 	});
 });
 

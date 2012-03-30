@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUEngine.h"
 
 
-@interface FUGraphicsEngine : NSObject
+@interface FUGraphicsEngine : FUEngine
 
 @end

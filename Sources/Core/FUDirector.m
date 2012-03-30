@@ -8,6 +8,12 @@
 
 #import "FUDirector.h"
 #import "FUScene.h"
+#import "FUEngine.h"
+#import "FUEngine-Internal.h"
+
+
+static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
+static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already used in another 'director=%@'";
 
 
 @interface FUDirector ()
@@ -67,9 +73,13 @@
 
 #pragma mark - Public Methods
 
-- (void)addEngine:(id)engine
+- (void)addEngine:(FUEngine*)engine
 {
+	FUAssert(engine != nil, FUEngineNilMessage);
+	FUAssert([engine director] == nil, FUEngineAlreadyUsedMessage, [engine director]);
+	
 	[[self engines] addObject:engine];
+	[engine setDirector:self];
 }
 
 - (NSSet*)allEngines

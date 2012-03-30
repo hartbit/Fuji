@@ -13,7 +13,7 @@
 @interface FUChildSceneObject : FUParentSceneObject @end
 
 
-@interface FUGenericVisitor : NSObject
+@interface FUGenericEngine : FUEngine
 
 - (void)updateFUSceneObject:(FUSceneObject*)sceneObject;
 - (void)drawFUSceneObject:(FUSceneObject*)sceneObject;

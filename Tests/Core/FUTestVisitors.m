@@ -13,7 +13,7 @@
 @implementation FUChildSceneObject @end
 
 
-@implementation FUGenericVisitor
+@implementation FUGenericEngine
 
 - (void)updateFUSceneObject:(FUSceneObject*)sceneObject { }
 - (void)drawFUSceneObject:(FUSceneObject*)sceneObject { }

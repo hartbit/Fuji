@@ -10,6 +10,7 @@
 
 
 @class FUScene;
+@class FUEngine;
 
 /** FUViewController
  * This is the view controller class.
@@ -18,7 +19,7 @@
 
 @property (nonatomic, strong) FUScene* scene;
 
-- (void)addEngine:(id)engine;
+- (void)addEngine:(FUEngine*)engine;
 - (NSSet*)allEngines;
 
 @end
