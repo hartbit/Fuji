@@ -52,6 +52,8 @@
 		63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		63F339B21506633200BF36A9 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F339B11506633200BF36A9 /* libPods-test.a */; };
 		63F7B86A1525F4C500F3064D /* FUDirectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8681525F4C300F3064D /* FUDirectorSpec.m */; };
+		63F7B86F1525FA9100F3064D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7B86E1525FA9100F3064D /* CoreGraphics.framework */; };
+		63F7B8701525FAA200F3064D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7B86E1525FA9100F3064D /* CoreGraphics.framework */; };
 		63F841CF151B504600F27F98 /* FUDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397C52F151A33B500457829 /* FUDirector.m */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +104,7 @@
 		63F339B11506633200BF36A9 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F339B41506665700BF36A9 /* Pods-test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
 		63F7B8681525F4C300F3064D /* FUDirectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDirectorSpec.m; sourceTree = "<group>"; };
+		63F7B86E1525FA9100F3064D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F7B8701525FAA200F3064D /* CoreGraphics.framework in Frameworks */,
 				63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */,
 				636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */,
 				636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */,
@@ -120,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F7B86F1525FA9100F3064D /* CoreGraphics.framework in Frameworks */,
 				63F339B21506633200BF36A9 /* libPods-test.a in Frameworks */,
 				63E6305414F78F1B00923CB9 /* UIKit.framework in Frameworks */,
 				63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */,
@@ -242,6 +247,7 @@
 		63B5738A14F4D38000451E2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63F7B86E1525FA9100F3064D /* CoreGraphics.framework */,
 				63E6304614F781EB00923CB9 /* OpenGLES.framework */,
 				636A987814F4ED0B00FF2D12 /* GLKit.framework */,
 				636A987614F4ED0700FF2D12 /* UIKit.framework */,

@@ -29,6 +29,10 @@ describe(@"A director", ^{
 			expect([director view]).to.beKindOf([GLKView class]);
 		});
 		
+		it(@"is the delegate of the opengl view", ^{
+			expect([(GLKView*)[director view] delegate]).to.beIdenticalTo(director);
+		});
+		
 		it(@"has it's view at the same size as the screen", ^{
 			CGSize viewSize = [[director view] bounds].size;
 			CGSize screenSize = [[UIScreen mainScreen] bounds].size;
@@ -77,9 +81,16 @@ describe(@"A director", ^{
 				});
 				
 				context(@"calling the update method on the director", ^{
-					it(@"makes the visitor visit the scene", ^{
+					it(@"makes the visitor update the scene", ^{
 						[director performSelector:@selector(update)];
 						[verify(visitor) updateFUSceneObject:scene];
+					});
+				});
+				
+				context(@"calling the draw method on the director", ^{
+					it(@"makes the visitor draw the scene", ^{
+						[director glkView:nil drawInRect:CGRectZero];
+						[verify(visitor) drawFUSceneObject:scene];
 					});
 				});
 			});

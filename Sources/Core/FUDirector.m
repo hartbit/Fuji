@@ -111,4 +111,12 @@
 	}
 }
 
+- (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
+{
+	for (id engine in [self engines])
+	{
+		[[self scene] drawVisitor:engine];
+	}
+}
+
 @end
