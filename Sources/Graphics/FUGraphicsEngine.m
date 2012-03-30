@@ -7,6 +7,7 @@
 //
 
 #include "Prefix.pch"
+#import "FUDirector.h"
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
 
@@ -43,9 +44,9 @@
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
  
- //		CGSize viewSize = [[self view] bounds].size;
- //		GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
- //		[[effect transform] setProjectionMatrix:projectionMatrix];
+		CGSize viewSize = [[[self director] view] bounds].size;
+		GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
+		[[effect transform] setProjectionMatrix:projectionMatrix];
 	}
  
 	return _effect;
