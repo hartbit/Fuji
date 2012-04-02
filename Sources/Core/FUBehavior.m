@@ -7,6 +7,7 @@
 //
 
 #import "FUBehavior.h"
+#import "FUSceneObject-Internal.h"
 
 
 @implementation FUBehavior
@@ -19,6 +20,16 @@
 	
 	[self setEnabled:YES];
 	return self;
+}
+
+#pragma mark - FUSceneObject Methods
+
+- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
+{
+	if ([self isEnabled])
+	{
+		[super acceptVisitor:visitor withSelectorPrefix:prefix];
+	}
 }
 
 @end

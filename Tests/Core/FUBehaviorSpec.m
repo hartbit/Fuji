@@ -9,6 +9,7 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUComponent-Internal.h"
+#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUBehaviorSpec)
@@ -33,10 +34,49 @@ describe(@"A behavior object", ^{
 			expect([behavior isEnabled]).to.beTruthy();
 		});
 		
-		context(@"disabling it", ^{
-			it(@"sets it's enabled property to NO", ^{
-				[behavior setEnabled:NO];
-				expect([behavior isEnabled]).to.beFalsy();
+		context(@"created a valid visitor", ^{
+			__block FUBehaviorVisitor* visitor = nil;
+			
+			beforeEach(^{
+				visitor = mock([FUBehaviorVisitor class]);
+			});
+			
+			context(@"updating it with the visitor", ^{
+				it(@"calls the visitor update method", ^{
+					[behavior updateVisitor:visitor];
+					[verify(visitor) updateFUBehavior:behavior];
+				});
+			});
+			
+			context(@"drawing it with the visitor", ^{
+				it(@"calls the visitor draw method", ^{
+					[behavior drawVisitor:visitor];
+					[verify(visitor) drawFUBehavior:behavior];
+				});
+			});
+			
+			context(@"set it to disabled", ^{
+				beforeEach(^{
+					[behavior setEnabled:NO];
+				});
+				
+				it(@"sets it's enabled property to NO", ^{
+					expect([behavior isEnabled]).to.beFalsy();
+				});
+				
+				context(@"updating it with the visitor", ^{
+					it(@"does not call the visitor update method", ^{
+						[behavior updateVisitor:visitor];
+						[verifyCount(visitor, times(0)) updateFUBehavior:behavior];
+					});
+				});
+				
+				context(@"drawing it with the visitor", ^{
+					it(@"does not call the visitor draw method", ^{
+						[behavior drawVisitor:visitor];
+						[verifyCount(visitor, times(0)) drawFUBehavior:behavior];
+					});
+				});
 			});
 		});
 	});

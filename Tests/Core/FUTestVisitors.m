@@ -40,3 +40,11 @@
 @implementation FUVisitNothingVisitor
 
 @end
+
+
+@implementation FUBehaviorVisitor
+
+- (void)updateFUBehavior:(FUBehavior*)behavior { }
+- (void)drawFUBehavior:(FUBehavior*)behavior { }
+
+@end

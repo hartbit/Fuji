@@ -40,3 +40,11 @@
 @interface FUVisitNothingVisitor : NSObject
 
 @end
+
+
+@interface FUBehaviorVisitor : NSObject
+
+- (void)updateFUBehavior:(FUBehavior*)behavior;
+- (void)drawFUBehavior:(FUBehavior*)behavior;
+
+@end
