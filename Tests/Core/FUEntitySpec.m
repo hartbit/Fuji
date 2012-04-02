@@ -209,6 +209,25 @@ describe(@"An entity", ^{
 				expect(components).to.contain(component1);
 			});
 			
+			it(@"has not called the rotation method on it's component", ^{
+				expect([component1 wasWillRotateCalled]).to.beFalsy();
+				expect([component1 wasWillAnimateRotationCalled]).to.beFalsy();
+				expect([component1 wasDidRotateCalled]).to.beFalsy();
+			});
+			
+			context(@"calling the rotation methods on the entity calls it on it's components", ^{
+				it(@"called the rotation method on it's component", ^{
+					[entity willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					expect([component1 wasWillRotateCalled]).to.beTruthy();
+					
+					[entity willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					expect([component1 wasWillAnimateRotationCalled]).to.beTruthy();
+					
+					[entity didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					expect([component1 wasDidRotateCalled]).to.beTruthy();
+				});
+			});
+			
 			context(@"adding the same component", ^{
 				it(@"throws an exception", ^{
 					STAssertThrows([entity addComponentWithClass:[FUUniqueChild1Component class]], nil);

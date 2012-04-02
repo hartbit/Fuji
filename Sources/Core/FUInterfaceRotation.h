@@ -14,8 +14,8 @@
 
 @protocol FUInterfaceRotation <NSObject>
 
-- (void)director:(FUDirector*)director willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
-- (void)director:(FUDirector*)director willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration;
-- (void)director:(FUDirector*)director didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration;
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
 
 @end

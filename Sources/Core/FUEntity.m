@@ -304,4 +304,30 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	}];
 }
 
+#pragma mark - FUIntefaceOrientation Methods
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	for (FUComponent* component in [self components])
+	{
+		[component willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	}
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+	for (FUComponent* component in [self components])
+	{
+		[component willAnimateRotationToInterfaceOrientation:interfaceOrientation duration:duration];
+	}
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	for (FUComponent* component in [self components])
+	{
+		[component didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+	}
+}
+
 @end

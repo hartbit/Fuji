@@ -15,6 +15,9 @@
 @interface FUTestComponent ()
 
 @property (nonatomic) NSUInteger initCallCount;
+@property (nonatomic) NSUInteger willRotateCallCount;
+@property (nonatomic) NSUInteger willAnimateRotationCallCount;
+@property (nonatomic) NSUInteger didRotateCallCount;
 
 @end
 
@@ -22,12 +25,30 @@
 @implementation FUTestComponent
 
 @synthesize initCallCount = _initCallCount;
+@synthesize willRotateCallCount = _willRotateCallCount;
+@synthesize willAnimateRotationCallCount = _willAnimateRotationCallCount;
+@synthesize didRotateCallCount = _didRotateCallCount;
 
 #pragma mark - Properties
 
 - (BOOL)wasInitCalled
 {
 	return [self initCallCount] == 1;
+}
+
+- (BOOL)wasWillRotateCalled
+{
+	return [self willRotateCallCount] == 1;
+}
+
+- (BOOL)wasWillAnimateRotationCalled
+{
+	return [self willAnimateRotationCallCount] == 1;
+}
+
+- (BOOL)wasDidRotateCalled
+{
+	return [self didRotateCallCount] == 1;
 }
 
 #pragma mark - Initialization
@@ -40,6 +61,23 @@
 	}
 	
 	return self;
+}
+
+#pragma mark - FUInterfaceRotation Methods
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self setWillRotateCallCount:[self willRotateCallCount] + 1];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self setWillAnimateRotationCallCount:[self willAnimateRotationCallCount] + 1];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self setDidRotateCallCount:[self didRotateCallCount] + 1];
 }
 
 @end
