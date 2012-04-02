@@ -8,13 +8,16 @@
 
 #import "FUDirector.h"
 #import "FUScene.h"
+#import "FUScene-Internal.h"
 #import "FUEngine.h"
 #import "FUEngine-Internal.h"
 #import "FUGraphicsEngine.h"
 
 
+static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
-static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already used in another 'director=%@'";
+static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
+static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
 
 
 @interface FUDirector ()
@@ -32,6 +35,18 @@ static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already us
 @synthesize engines = _engines;
 
 #pragma mark - Properties
+
+- (void)setScene:(FUScene*)scene
+{
+	if (scene != _scene)
+	{
+		FUAssert([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
+		
+		[_scene setDirector:nil];
+		_scene = scene;
+		[scene setDirector:self];
+	}
+}
 
 - (EAGLContext*)context
 {
@@ -79,7 +94,6 @@ static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already us
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self == nil) return nil;
 	
-	[self setScene:[FUScene new]];
 	[self addEngine:[FUGraphicsEngine new]];
 	return self;
 }
@@ -89,7 +103,8 @@ static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already us
 - (void)addEngine:(FUEngine*)engine
 {
 	FUAssert(engine != nil, FUEngineNilMessage);
-	FUAssert([engine director] == nil, FUEngineAlreadyUsedMessage, [engine director]);
+	FUAssert([engine director] == nil, FUEngineAlreadyUsedMessage, engine, [engine director]);
+	FUAssert([engine director] != self, FUEngineAlreadyInDirector, engine);
 	
 	[[self engines] addObject:engine];
 	[engine setDirector:self];

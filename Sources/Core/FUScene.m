@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "FUScene.h"
+#import "FUScene-Internal.h"
 #import "FUTransform.h"
 #import "FUGraphicsSettings.h"
 #import "FUSceneObject-Internal.h"
@@ -29,6 +30,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 @implementation FUScene
 
+@synthesize director = _director;
 @synthesize graphics = _graphics;
 @synthesize entities = _entities;
 

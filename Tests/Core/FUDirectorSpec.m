@@ -40,10 +40,8 @@ describe(@"A director", ^{
 			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
 		});
 		
-		it(@"has an empty scene", ^{
-			FUScene* scene = [director scene];
-			expect(scene).toNot.beNil();
-			expect([scene allEntities]).to.beEmpty();
+		it(@"has an nil scene", ^{
+			expect([director scene]).to.beNil();
 		});
 		
 		it(@"has a graphics engine", ^{
@@ -73,6 +71,14 @@ describe(@"A director", ^{
 			});
 		});
 		
+		context(@"adding a scene that already has a director", ^{
+			it(@"throws an exception", ^{
+				FUScene* scene = mock([FUScene class]);
+				[given([scene director]) willReturn:mock([FUDirector class])];
+				STAssertThrows([director setScene:scene], nil);
+			});
+		});
+		
 		context(@"a scene is set", ^{
 			__block FUScene* scene = nil;
 			
@@ -83,6 +89,31 @@ describe(@"A director", ^{
 			
 			it(@"has the scene property set", ^{
 				expect([director scene]).to.beIdenticalTo(scene);
+			});
+			
+			it(@"set it's scene director property point to itself", ^{
+				expect([scene director]).to.beIdenticalTo(director);
+			});
+			
+			context(@"setting the same scene again", ^{
+				it(@"does nothing", ^{
+					[director setScene:scene];
+					expect([director scene]).to.beIdenticalTo(scene);
+				});
+			});
+			
+			context(@"set the scene to nil", ^{
+				beforeEach(^{
+					[director setScene:nil];
+				});
+				
+				it(@"set the scene property to nil", ^{
+					expect([director scene]).to.beNil();
+				});
+				
+				it(@"set the director property of the previous scene to nil", ^{
+					expect([scene director]).to.beNil();
+				});
 			});
 			
 			context(@"added a generic engine", ^{
@@ -101,6 +132,13 @@ describe(@"A director", ^{
 					NSSet* engines = [director allEngines];
 					expect(engines).to.haveCountOf(2);
 					expect(engines).to.contain(engine);
+				});
+				
+				context(@"adding the same engine again", ^{
+					it(@"throws an exception", ^{
+						[given([engine director]) willReturn:director];
+						STAssertThrows([director addEngine:engine], nil);
+					});
 				});
 				
 				context(@"calling the update method on the director", ^{

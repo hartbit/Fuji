@@ -27,6 +27,9 @@
 		
 		FUDirector* director = [FUDirector new];
 		[window setRootViewController:director];
+		
+		FUScene* scene = [FUScene new];
+		[director setScene:scene];
 	}
 	
 	return _window;

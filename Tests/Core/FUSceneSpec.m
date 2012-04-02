@@ -28,6 +28,10 @@ describe(@"A scene", ^{
 			expect(scene).toNot.beNil();
 		});
 		
+		it(@"has it's director property be nil", ^{
+			expect([scene director]).to.beNil();
+		});
+		
 		it(@"has it's scene property point to itself", ^{
 			expect([scene scene]).to.beIdenticalTo(scene);
 		});

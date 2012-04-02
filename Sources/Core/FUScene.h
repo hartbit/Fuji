@@ -10,10 +10,12 @@
 #import "FUEntity.h"
 
 
+@class FUDirector;
 @class FUGraphicsSettings;
 
 @interface FUScene : FUEntity
 
+@property (nonatomic, WEAK, readonly) FUDirector* director;
 @property (nonatomic, WEAK, readonly) FUGraphicsSettings* graphics;
 
 - (id)createEntity;
