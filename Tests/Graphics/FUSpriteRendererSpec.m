@@ -14,6 +14,8 @@ SPEC_BEGIN(FUSpriteRendererSpec)
 
 describe(@"A sprite renderer component", ^{
 	it(@"is a behavior", ^{
-		
+		expect([FUSpriteRenderer class]).to.beSubclassOf([FUBehavior class]);
 	});
 });
+
+SPEC_END

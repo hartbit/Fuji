@@ -26,3 +26,4 @@
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
 #import "FUTransform.h"
+#import "FUSpriteRenderer.h"
