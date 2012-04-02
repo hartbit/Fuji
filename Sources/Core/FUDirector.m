@@ -10,6 +10,7 @@
 #import "FUScene.h"
 #import "FUEngine.h"
 #import "FUEngine-Internal.h"
+#import "FUGraphicsEngine.h"
 
 
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
@@ -73,36 +74,14 @@ static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already us
 
 #pragma mark - Initialization
 
-- (id)init
-{
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self initialize];
-	return self;
-}
-
-- (id)initWithCoder:(NSCoder*)decoder
-{
-	self = [super initWithCoder:decoder];
-	if (self == nil) return nil;
-	
-	[self initialize];
-	return self;
-}
-
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
 {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self == nil) return nil;
 	
-	[self initialize];
-	return self;
-}
-
-- (void)initialize
-{
 	[self setScene:[FUScene new]];
+	[self addEngine:[FUGraphicsEngine new]];
+	return self;
 }
 
 #pragma mark - Public Methods

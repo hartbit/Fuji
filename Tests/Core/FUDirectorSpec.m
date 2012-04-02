@@ -46,8 +46,10 @@ describe(@"A director", ^{
 			expect([scene allEntities]).to.beEmpty();
 		});
 		
-		it(@"has no engines", ^{
-			expect([director allEngines]).to.beEmpty();
+		it(@"has a graphics engine", ^{
+			NSSet* engines = [director allEngines];
+			expect(engines).to.haveCountOf(1);
+			expect([engines anyObject]).to.beKindOf([FUGraphicsEngine class]);
 		});
 		
 		it(@"automatically rotates in all orientations", ^{
@@ -97,7 +99,7 @@ describe(@"A director", ^{
 				
 				it(@"contains the engine", ^{
 					NSSet* engines = [director allEngines];
-					expect(engines).to.haveCountOf(1);
+					expect(engines).to.haveCountOf(2);
 					expect(engines).to.contain(engine);
 				});
 				
