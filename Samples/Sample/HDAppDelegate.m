@@ -29,7 +29,6 @@
 		[window setRootViewController:director];
 		
 		FUScene* scene = [FUScene new];
-		[[scene graphics] setBackgroundColor:FUColorBlue];
 		[director setScene:scene];
 	}
 	
