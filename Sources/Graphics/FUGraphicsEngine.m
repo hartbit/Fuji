@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "FUDirector.h"
+#import "FUScene.h"
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
 
@@ -15,6 +16,7 @@
 @interface FUGraphicsEngine ()
 
 @property (nonatomic, strong) GLKBaseEffect* effect;
+@property (nonatomic, WEAK) FUGraphicsSettings* settings;
 
 @end
 
@@ -22,6 +24,7 @@
 @implementation FUGraphicsEngine
 
 @synthesize effect = _effect;
+@synthesize settings = _settings;
 
 #pragma mark - Initialization
 
@@ -54,9 +57,12 @@
 
 #pragma mark - Drawing
 
-- (void)drawFUGraphicsSettings:(FUGraphicsSettings*)graphicsSettings
+- (void)drawFUScene:(FUScene*)scene
 {
-	GLKVector4 backgroundColor = [graphicsSettings backgroundColor];
+	FUGraphicsSettings* settings = [scene graphics];
+	[self setSettings:settings];
+	
+	GLKVector4 backgroundColor = [settings backgroundColor];
 	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
