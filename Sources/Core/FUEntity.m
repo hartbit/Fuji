@@ -70,12 +70,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @property (nonatomic, WEAK) FUTransform* transform;
 @property (nonatomic, strong) NSMutableSet* components;
 
-- (void)validateUniquenessOfClass:(Class)componentClass;
-- (void)addRequiredComponentsForClass:(Class)componentClass;
-- (void)validateRemovalOfComponent:(FUComponent*)component;
-- (void)updatePropertiesAfterAdditionOfComponent:(FUComponent*)component;
-- (void)updatePropertiesAfterRemovalOfComponent:(FUComponent*)component;
-
 @end
 
 
