@@ -11,6 +11,7 @@
 #import "FUScene.h"
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
+#import "FUSpriteRenderer.h"
 
 
 @interface FUGraphicsEngine ()
@@ -46,10 +47,7 @@
 	{
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
- 
-		CGSize viewSize = [[[self director] view] bounds].size;
-		GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
-		[[effect transform] setProjectionMatrix:projectionMatrix];
+		[self udpateProjection];
 	}
  
 	return _effect;
@@ -65,6 +63,30 @@
 	GLKVector4 backgroundColor = [settings backgroundColor];
 	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 	glClear(GL_COLOR_BUFFER_BIT);
+	
+	[[self effect] prepareToDraw];
+}
+
+- (void)drawFUSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
+{
+	float vertices[] = {
+		0, 0,
+		100, 0,
+		0,  100};
+	
+	glEnableVertexAttribArray(GLKVertexAttribPosition);
+	glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDisableVertexAttribArray(GLKVertexAttribPosition);
+}
+
+#pragma maek - Private Methods
+
+- (void)udpateProjection
+{
+	CGSize viewSize = [[[self director] view] bounds].size;
+	GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
+	[[[self effect] transform] setProjectionMatrix:projectionMatrix];
 }
 
 @end

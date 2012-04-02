@@ -14,6 +14,7 @@
 // Core
 
 #import "FUDirector.h"
+#import "FUInterfaceRotation.h"
 #import "FUEngine.h"
 #import "FUSceneObject.h"
 #import "FUEntity.h"

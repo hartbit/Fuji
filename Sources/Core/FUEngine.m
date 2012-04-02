@@ -14,4 +14,16 @@
 
 @synthesize director = _director;
 
+- (void)director:(FUDirector*)director willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+}
+
+- (void)director:(FUDirector*)director willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+}
+
+- (void)director:(FUDirector*)director didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+}
+
 @end

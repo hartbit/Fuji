@@ -137,6 +137,21 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 	return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	
+}
+
 #pragma mark - GLKViewController Methods
 
 - (void)update

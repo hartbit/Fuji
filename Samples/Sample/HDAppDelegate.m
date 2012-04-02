@@ -30,6 +30,9 @@
 		
 		FUScene* scene = [FUScene new];
 		[director setScene:scene];
+		
+		FUEntity* entity = [scene createEntity];
+		[entity addComponentWithClass:[FUSpriteRenderer class]];
 	}
 	
 	return _window;

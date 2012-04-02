@@ -78,6 +78,7 @@
 		63117F2714FFB87A00A04563 /* FUComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUComponent.h; sourceTree = "<group>"; };
 		63117F2814FFB87A00A04563 /* FUComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponent.m; sourceTree = "<group>"; };
 		63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUComponent-Internal.h"; sourceTree = "<group>"; };
+		631241231529F1ED00E30DC6 /* FUInterfaceRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUInterfaceRotation.h; sourceTree = "<group>"; };
 		633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUEntity-Internal.h"; sourceTree = "<group>"; };
 		634E08B91529D66F00D5C3F8 /* FUScene-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUScene-Internal.h"; sourceTree = "<group>"; };
 		634E08BB1529DB1C00D5C3F8 /* FUSpriteRendererSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteRendererSpec.m; sourceTree = "<group>"; };
@@ -222,6 +223,7 @@
 				633EE87414FED8C400281AC1 /* Internal */,
 				6397C52E151A33B500457829 /* FUDirector.h */,
 				6397C52F151A33B500457829 /* FUDirector.m */,
+				631241231529F1ED00E30DC6 /* FUInterfaceRotation.h */,
 				63F7B87D1526088200F3064D /* FUEngine.h */,
 				63F7B87E1526088200F3064D /* FUEngine.m */,
 				63A829EC1522147D001429E1 /* FUSceneObject.h */,

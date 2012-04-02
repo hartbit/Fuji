@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "FUInterfaceRotation.h"
 
 
-@interface FUSceneObject : NSObject
+@interface FUSceneObject : NSObject <FUInterfaceRotation>
 
 - (void)updateVisitor:(id)visitor;
 - (void)drawVisitor:(id)visitor;

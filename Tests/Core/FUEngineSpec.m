@@ -12,15 +12,21 @@
 
 SPEC_BEGIN(FUEngineSpec)
 
-describe(@"An engine object", ^{
-	__block FUEngine* engine = nil;
-	
-	beforeEach(^{
-		engine = [FUEngine new];
+describe(@"An engine", ^{
+	it(@"conforms to FUInterfaceOrientation", ^{
+		expect([[FUEngine class] conformsToProtocol:@protocol(FUInterfaceRotation)]).to.beTruthy();
 	});
 	
-	it(@"has no director", ^{
-		expect([engine director]).to.beNil();
+	context(@"created and initialized", ^{
+		__block FUEngine* engine = nil;
+		
+		beforeEach(^{
+			engine = [FUEngine new];
+		});
+		
+		it(@"has no director", ^{
+			expect([engine director]).to.beNil();
+		});
 	});
 });
 
