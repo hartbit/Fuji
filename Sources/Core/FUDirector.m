@@ -71,6 +71,40 @@ static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine' is already us
 	return _engines;
 }
 
+#pragma mark - Initialization
+
+- (id)init
+{
+	self = [super init];
+	if (self == nil) return nil;
+	
+	[self initialize];
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder*)decoder
+{
+	self = [super initWithCoder:decoder];
+	if (self == nil) return nil;
+	
+	[self initialize];
+	return self;
+}
+
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
+{
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self == nil) return nil;
+	
+	[self initialize];
+	return self;
+}
+
+- (void)initialize
+{
+	[self setScene:[FUScene new]];
+}
+
 #pragma mark - Public Methods
 
 - (void)addEngine:(FUEngine*)engine

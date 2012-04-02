@@ -40,8 +40,10 @@ describe(@"A director", ^{
 			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
 		});
 		
-		it(@"has a nil scene", ^{
-			expect([director scene]).to.beNil();
+		it(@"has an empty scene", ^{
+			FUScene* scene = [director scene];
+			expect(scene).toNot.beNil();
+			expect([scene allEntities]).to.beEmpty();
 		});
 		
 		it(@"has no engines", ^{
