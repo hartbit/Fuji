@@ -181,6 +181,50 @@ describe(@"A director", ^{
 					});
 				});
 			});
+			
+			context(@"created and added a mock engine", ^{
+				__block FUEngine* engine = nil;
+				
+				beforeEach(^{
+					engine = mock([FUEngine class]);
+					[director addEngine:engine];
+				});
+				
+				context(@"calling the rotation methods", ^{
+					it(@"called the rotation methods on it's engine", ^{
+						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[verify(engine) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						
+						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[verify(engine) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						
+						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+						[verify(engine) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					});
+				});
+			});
+			
+			context(@"created and set a mock scene", ^{
+				__block FUScene* scene = nil;
+				
+				beforeEach(^{
+					scene = mock([FUScene class]);
+					[director setScene:scene];
+				});
+				
+				context(@"calling the rotation methods", ^{
+					it(@"called the rotation methods on it's engine", ^{
+						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						
+						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						
+						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+						[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					});
+				});
+			});
 		});
 	});
 });

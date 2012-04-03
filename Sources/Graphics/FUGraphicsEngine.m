@@ -47,7 +47,7 @@
 	{
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
-		[self udpateProjection];
+		[self updateProjection];
 	}
  
 	return _effect;
@@ -80,9 +80,16 @@
 	glDisableVertexAttribArray(GLKVertexAttribPosition);
 }
 
+#pragma mark - FUInterfaceRotation Methods
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self updateProjection];
+}
+
 #pragma maek - Private Methods
 
-- (void)udpateProjection
+- (void)updateProjection
 {
 	CGSize viewSize = [[[self director] view] bounds].size;
 	GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);

@@ -139,17 +139,32 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+	for (FUEngine* engine in [self engines])
+	{
+		[engine willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	}
 	
+	[[self scene] willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+	for (FUEngine* engine in [self engines])
+	{
+		[engine willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	}
 	
+	[[self scene] willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+	for (FUEngine* engine in [self engines])
+	{
+		[engine didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+	}
 	
+	[[self scene] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - GLKViewController Methods
