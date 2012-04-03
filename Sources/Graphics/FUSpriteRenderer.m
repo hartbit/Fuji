@@ -7,8 +7,23 @@
 //
 
 #import "FUSpriteRenderer.h"
+#import "FUColor.h"
 
 
 @implementation FUSpriteRenderer
+
+@synthesize color = _color;
+
+#pragma mark - Initialization
+
+- (id)init
+{
+	self = [super init];
+	if (self == nil) return nil;
+	
+	[self setColor:FUColorWhite];
+	
+	return self;
+}
 
 @end

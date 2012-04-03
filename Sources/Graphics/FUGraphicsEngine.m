@@ -55,6 +55,8 @@
 	{
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
+		
+		[effect setUseConstantColor:YES];
 		[self updateProjection];
 	}
  
@@ -125,6 +127,7 @@
 		halfWidth,  halfHeight
 	};
 	
+	[[self effect] setConstantColor:[spriteRenderer color]];
 	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
 	GLKMatrixStackPop([self matrixStack]);
 	

@@ -32,10 +32,12 @@
 		[director setScene:scene];
 		
 		FUEntity* entity = [scene createEntity];
-		[entity addComponentWithClass:[FUSpriteRenderer class]];
-		[[entity transform] setPosition:GLKVector2Make(100, 100)];
-		[[entity transform] setRotation:M_PI_4];
-		[[entity transform] setScale:GLKVector2Make(0.8, 1.2)];
+		FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
+		[renderer setColor:FUColorBrown];
+		FUTransform* transform = [entity transform];
+		[transform setPosition:GLKVector2Make(100, 100)];
+		[transform setRotation:M_PI_4];
+		[transform setScale:GLKVector2Make(0.8, 1.2)];
 	}
 	
 	return _window;
@@ -43,7 +45,7 @@
 
 #pragma mark - UIApplicationDelegate Methods
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	[[self window] makeKeyAndVisible];
 	return YES;
