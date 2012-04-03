@@ -12,12 +12,14 @@
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
 #import "FUSpriteRenderer.h"
+#import "FUTransform.h"
 
 
 @interface FUGraphicsEngine ()
 
 @property (nonatomic, strong) GLKBaseEffect* effect;
 @property (nonatomic, WEAK) FUGraphicsSettings* settings;
+@property (nonatomic, assign) GLKMatrixStackRef matrixStack;
 
 @end
 
@@ -26,6 +28,7 @@
 
 @synthesize effect = _effect;
 @synthesize settings = _settings;
+@synthesize matrixStack = _matrixStack;
 
 #pragma mark - Initialization
 
@@ -37,6 +40,11 @@
 	glEnable(GL_CULL_FACE);
 	
 	return self;
+}
+
+- (void)dealloc
+{
+	[self setMatrixStack:NULL];
 }
 
 #pragma mark - Properties
@@ -53,6 +61,35 @@
 	return _effect;
 }
 
+- (GLKMatrixStackRef)matrixStack
+{
+	if (_matrixStack == NULL)
+	{
+		GLKMatrixStackRef matrixStack = GLKMatrixStackCreate(NULL);
+		[self setMatrixStack:matrixStack];
+	}
+	
+	return _matrixStack;
+}
+
+- (void)setMatrixStack:(GLKMatrixStackRef)matrixStack
+{
+	if (matrixStack != _matrixStack)
+	{
+		if (_matrixStack != NULL)
+		{
+			CFRelease(_matrixStack);
+		}
+		
+		_matrixStack = matrixStack;
+		
+		if (_matrixStack != NULL)
+		{
+			CFRetain(_matrixStack);
+		}
+	}
+}
+
 #pragma mark - Drawing
 
 - (void)drawFUScene:(FUScene*)scene
@@ -67,16 +104,33 @@
 	[[self effect] prepareToDraw];
 }
 
+- (void)drawFUTransform:(FUTransform*)transform
+{
+	GLKMatrixStackPush([self matrixStack]);
+	GLKMatrixStackMultiplyMatrix4([self matrixStack], [transform matrix]);
+}
+
 - (void)drawFUSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
 {
+	const CGFloat width = 100;
+	const CGFloat height = 100;
+	
+	CGFloat halfWidth = width / 2;
+	CGFloat halfHeight = height / 2;
+	
 	float vertices[] = {
-		0, 0,
-		100, 0,
-		0,  100};
+		-halfWidth, -halfHeight,
+		-halfWidth, halfHeight,
+		halfWidth,  -halfHeight,
+		halfWidth,  halfHeight
+	};
+	
+	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
+	GLKMatrixStackPop([self matrixStack]);
 	
 	glEnableVertexAttribArray(GLKVertexAttribPosition);
 	glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glDisableVertexAttribArray(GLKVertexAttribPosition);
 }
 

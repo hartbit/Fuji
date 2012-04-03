@@ -33,6 +33,9 @@
 		
 		FUEntity* entity = [scene createEntity];
 		[entity addComponentWithClass:[FUSpriteRenderer class]];
+		[[entity transform] setPosition:GLKVector2Make(100, 100)];
+		[[entity transform] setRotation:M_PI_4];
+		[[entity transform] setScale:GLKVector2Make(0.8, 1.2)];
 	}
 	
 	return _window;
