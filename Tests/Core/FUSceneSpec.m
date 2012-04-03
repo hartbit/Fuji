@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestScene.h"
 
 
 SPEC_BEGIN(FUSceneSpec)
@@ -126,6 +127,34 @@ describe(@"A scene", ^{
 				it(@"contains no game objects", ^{
 					expect([scene allEntities]).to.beEmpty();
 				});
+			});
+		});
+	});
+	
+	context(@"created and initialized a test scene with a mock entity", ^{
+		__block FUTestScene* scene = nil;
+		__block FUEntity* entity = nil;
+		
+		beforeEach(^{
+			scene = [FUTestScene new];
+			entity = [scene createEntity];
+		});
+		
+		it(@"are not nil", ^{
+			expect(scene).toNot.beNil();
+			expect(entity).toNot.beNil();
+		});
+		
+		context(@"calling the rotation methods", ^{
+			it(@"called the rotation methods on it's entity", ^{
+				[scene willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				[verify(entity) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				
+				[scene willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				[verify(entity) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				
+				[scene didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+				[verify(entity) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 			});
 		});
 	});

@@ -11,6 +11,7 @@
 #import "FUEntity-Internal.h"
 #import "FUComponent-Internal.h"
 #import "FUTestComponents.h"
+#import "FUTestEntity.h"
 
 
 SPEC_BEGIN(FUEntitySpec)
@@ -209,25 +210,6 @@ describe(@"An entity", ^{
 				expect(components).to.contain(component1);
 			});
 			
-			it(@"has not called the rotation method on it's component", ^{
-				expect([component1 wasWillRotateCalled]).to.beFalsy();
-				expect([component1 wasWillAnimateRotationCalled]).to.beFalsy();
-				expect([component1 wasDidRotateCalled]).to.beFalsy();
-			});
-			
-			context(@"calling the rotation methods on the entity calls it on it's components", ^{
-				it(@"called the rotation method on it's component", ^{
-					[entity willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-					expect([component1 wasWillRotateCalled]).to.beTruthy();
-					
-					[entity willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-					expect([component1 wasWillAnimateRotationCalled]).to.beTruthy();
-					
-					[entity didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-					expect([component1 wasDidRotateCalled]).to.beTruthy();
-				});
-			});
-			
 			context(@"adding the same component", ^{
 				it(@"throws an exception", ^{
 					STAssertThrows([entity addComponentWithClass:[FUUniqueChild1Component class]], nil);
@@ -366,6 +348,34 @@ describe(@"An entity", ^{
 						STAssertThrows([entity removeComponent:component3], nil);
 					});
 				});
+			});
+		});
+	});
+	
+	context(@"created and initialized a test entity with a mock component", ^{
+		__block FUTestEntity* entity = nil;
+		__block FUComponent* component = nil;
+		
+		beforeEach(^{
+			entity = [[FUTestEntity alloc] initWithScene:mock([FUScene class])];
+			component = [entity addComponentWithClass:[FUComponent class]];
+		});
+		
+		it(@"are not nil", ^{
+			expect(entity).toNot.beNil();
+			expect(component).toNot.beNil();
+		});
+		
+		context(@"calling the rotation methods", ^{
+			it(@"called the rotation methods on it's entity", ^{
+				[entity willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				[verify(component) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				
+				[entity willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				[verify(component) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				
+				[entity didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+				[verify(component) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 			});
 		});
 	});

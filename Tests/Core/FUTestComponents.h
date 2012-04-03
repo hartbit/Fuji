@@ -13,9 +13,6 @@
 @interface FUTestComponent : FUComponent
 
 @property (nonatomic, readonly) BOOL wasInitCalled;
-@property (nonatomic, readonly) BOOL wasWillRotateCalled;
-@property (nonatomic, readonly) BOOL wasWillAnimateRotationCalled;
-@property (nonatomic, readonly) BOOL wasDidRotateCalled;
 
 @end
 

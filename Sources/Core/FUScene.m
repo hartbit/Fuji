@@ -104,4 +104,30 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 	}
 }
 
+#pragma mark - FUIntefaceOrientation Methods
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	for (FUEntity* entity in [self entities])
+	{
+		[entity willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	}
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+	for (FUEntity* entity in [self entities])
+	{
+		[entity willAnimateRotationToInterfaceOrientation:interfaceOrientation duration:duration];
+	}
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	for (FUEntity* entity in [self entities])
+	{
+		[entity didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+	}
+}
+
 @end

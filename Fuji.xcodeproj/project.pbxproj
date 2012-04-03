@@ -20,6 +20,8 @@
 		634E08C71529E85800D5C3F8 /* FUSpriteRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 634E08C51529E85800D5C3F8 /* FUSpriteRenderer.h */; };
 		634E08C81529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */; };
 		634E08C91529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */; };
+		635A06B8152B2BB100934D78 /* FUTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 635A06B7152B2BB100934D78 /* FUTestScene.m */; };
+		635A06BC152B2DAA00934D78 /* FUTestEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 635A06BB152B2DAA00934D78 /* FUTestEntity.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		6378FE8F152213AF000953AF /* FUSceneObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6378FE8E152213AF000953AF /* FUSceneObjectSpec.m */; };
@@ -87,6 +89,10 @@
 		634E08C01529DC0A00D5C3F8 /* FUBehavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBehavior.m; sourceTree = "<group>"; };
 		634E08C51529E85800D5C3F8 /* FUSpriteRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSpriteRenderer.h; sourceTree = "<group>"; };
 		634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteRenderer.m; sourceTree = "<group>"; };
+		635A06B6152B2BB100934D78 /* FUTestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestScene.h; sourceTree = "<group>"; };
+		635A06B7152B2BB100934D78 /* FUTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestScene.m; sourceTree = "<group>"; };
+		635A06BA152B2DAA00934D78 /* FUTestEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestEntity.h; sourceTree = "<group>"; };
+		635A06BB152B2DAA00934D78 /* FUTestEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestEntity.m; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		6378FE8E152213AF000953AF /* FUSceneObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneObjectSpec.m; sourceTree = "<group>"; };
@@ -265,6 +271,10 @@
 				634E08BD1529DB8400D5C3F8 /* FUBehaviorSpec.m */,
 				63A829F215221EC8001429E1 /* FUTestVisitors.h */,
 				63A829F315221EC8001429E1 /* FUTestVisitors.m */,
+				635A06BA152B2DAA00934D78 /* FUTestEntity.h */,
+				635A06BB152B2DAA00934D78 /* FUTestEntity.m */,
+				635A06B6152B2BB100934D78 /* FUTestScene.h */,
+				635A06B7152B2BB100934D78 /* FUTestScene.m */,
 				6392525C15123D84005B3FEC /* FUTestComponents.h */,
 				6392525D15123D84005B3FEC /* FUTestComponents.m */,
 			);
@@ -506,6 +516,8 @@
 				634E08C31529DC0A00D5C3F8 /* FUBehavior.m in Sources */,
 				634E08C41529E83A00D5C3F8 /* FUSpriteRendererSpec.m in Sources */,
 				634E08C91529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */,
+				635A06B8152B2BB100934D78 /* FUTestScene.m in Sources */,
+				635A06BC152B2DAA00934D78 /* FUTestEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
