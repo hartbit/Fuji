@@ -67,7 +67,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - Public Methods
 
-- (id)createEntity
+- (FUEntity*)createEntity
 {
 	FUEntity* entity = [[FUEntity alloc] initWithScene:self];
 	[[self entities] addObject:entity];

@@ -18,7 +18,7 @@
 @property (nonatomic, WEAK, readonly) FUDirector* director;
 @property (nonatomic, WEAK, readonly) FUGraphicsSettings* graphics;
 
-- (id)createEntity;
+- (FUEntity*)createEntity;
 - (void)removeEntity:(FUEntity*)entity;
 - (NSSet*)allEntities;
 
