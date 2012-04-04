@@ -7,6 +7,7 @@
 //
 
 #import "FUBehavior.h"
+#import "FUEngine.h"
 
 
 @implementation FUBehavior
@@ -27,7 +28,7 @@
 {
 	if ([self isEnabled])
 	{
-		[super updateWithEngine:engine];
+		[engine updateBehavior:self];
 	}
 }
 
@@ -35,7 +36,7 @@
 {
 	if ([self isEnabled])
 	{
-		[super drawWithEngine:engine];
+		[engine drawBehavior:self];
 	}
 }
 

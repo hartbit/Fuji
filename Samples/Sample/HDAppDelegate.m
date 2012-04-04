@@ -26,18 +26,19 @@
 		[self setWindow:window];
 		
 		FUDirector* director = [FUDirector new];
+		[director setPreferredFramesPerSecond:60];
 		[window setRootViewController:director];
 		
 		FUScene* scene = [FUScene new];
 		[director setScene:scene];
 		
-		for (NSUInteger index = 0; index < 400; index++)
+		for (NSUInteger index = 0; index < 250; index++)
 		{
 			FUEntity* entity = [scene createEntity];
 			FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
 			[renderer setColor:GLKVector4Make(FURandomUnit(), FURandomUnit(), FURandomUnit(), 1)];
 			FUTransform* transform = [entity transform];
-			[transform setScale:GLKVector2Make(32, 32)];
+			[transform setScale:GLKVector2Make(52, 139)];
 		}
 	}
 	

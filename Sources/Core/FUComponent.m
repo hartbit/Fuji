@@ -10,6 +10,7 @@
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
 #import "FUEntity.h"
+#import "FUEngine.h"
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
@@ -100,10 +101,12 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 - (void)updateWithEngine:(FUEngine*)engine
 {
+	[engine updateComponent:self];
 }
 
 - (void)drawWithEngine:(FUEngine*)engine
 {
+	[engine drawComponent:self];
 }
 
 #pragma mark - FUInterfaceRotating Methods

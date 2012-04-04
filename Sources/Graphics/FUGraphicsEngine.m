@@ -43,19 +43,12 @@
 	glEnable(GL_CULL_FACE);
 	glEnableVertexAttribArray(GLKVertexAttribPosition);
 	
-	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logFPS) userInfo:nil repeats:YES];
-	
 	return self;
 }
 
 - (void)dealloc
 {
 	[self setMatrixStack:NULL];
-}
-
-- (void)logFPS
-{
-	NSLog(@"FPS: %i", [[self director] framesPerSecond]);
 }
 
 #pragma mark - Properties
@@ -124,7 +117,7 @@
 
 #pragma mark - Drawing
 
-- (void)drawEnterFUScene:(FUScene*)scene
+- (void)drawSceneEnter:(FUScene*)scene
 {
 	FUGraphicsSettings* settings = [scene graphics];
 	[self setSettings:settings];
@@ -134,11 +127,9 @@
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	[[self effect] prepareToDraw];
-	
-//	NSLog(@"===================================");
 }
 
-- (void)updateFUTransform:(FUTransform*)transform
+- (void)updateTransform:(FUTransform*)transform
 {
 	[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 }
@@ -165,7 +156,7 @@
 	}
 }
 */
-- (void)drawFUSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
+- (void)drawSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
 {
 //	NSLog(@"Draw: %p", [spriteRenderer entity]);
 	
@@ -175,7 +166,7 @@
 	[[self effect] setConstantColor:[spriteRenderer color]];
 //	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
 	[[[self effect] transform] setModelviewMatrix:[[[spriteRenderer entity] transform] matrix]];
-	[[self effect] prepareToDraw];
+//	[[self effect] prepareToDraw];
 	
 	CGFloat halfWidth = width / 2;
 	CGFloat halfHeight = height / 2;

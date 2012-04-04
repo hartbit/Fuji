@@ -7,12 +7,13 @@
 //
 
 #include "Prefix.pch"
+#import "FUMacros.h"
 #import "FUScene.h"
 #import "FUScene-Internal.h"
 #import "FUTransform.h"
 #import "FUGraphicsSettings.h"
 #import "FUEntity-Internal.h"
-#import "FUMacros.h"
+#import "FUEngine.h"
 #import <objc/runtime.h>
 
 
@@ -90,6 +91,42 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 - (NSSet*)allEntities
 {
 	return [NSSet setWithSet:[self entities]];
+}
+
+#pragma mark - FUEngineVisiting Methods
+
+- (void)updateWithEngine:(FUEngine*)engine
+{
+	[engine updateSceneEnter:self];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component updateWithEngine:engine];
+	}
+	
+	for (FUEntity* entity in [self entities])
+	{
+		[entity updateWithEngine:engine];
+	}
+	
+	[engine updateSceneLeave:self];
+}
+
+- (void)drawWithEngine:(FUEngine*)engine
+{
+	[engine drawSceneEnter:self];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component drawWithEngine:engine];
+	}
+	
+	for (FUEntity* entity in [self entities])
+	{
+		[entity drawWithEngine:engine];
+	}
+	
+	[engine drawSceneLeave:self];
 }
 
 #pragma mark - FUIntefaceOrientation Methods

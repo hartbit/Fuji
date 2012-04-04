@@ -9,7 +9,6 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUComponent-Internal.h"
-#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUBehaviorSpec)
@@ -33,25 +32,25 @@ describe(@"A behavior object", ^{
 		it(@"is enabled by default", ^{
 			expect([behavior isEnabled]).to.beTruthy();
 		});
-		/*
-		context(@"created a valid visitor", ^{
-			__block FUBehaviorVisitor* visitor = nil;
+		
+		context(@"created a mock engine", ^{
+			__block FUEngine* engine = nil;
 			
 			beforeEach(^{
-				visitor = mock([FUBehaviorVisitor class]);
+				engine = mock([FUEngine class]);
 			});
 			
-			context(@"updating it with the visitor", ^{
-				it(@"calls the visitor update method", ^{
-					[behavior updateWithEngine:visitor];
-					[verify(visitor) updateFUBehavior:behavior];
+			context(@"updating with the engine", ^{
+				it(@"calls the engine's behavior update method", ^{
+					[behavior updateWithEngine:engine];
+					[verify(engine) updateBehavior:behavior];
 				});
 			});
 			
-			context(@"drawing it with the visitor", ^{
-				it(@"calls the visitor draw method", ^{
-					[behavior drawWithEngine:visitor];
-					[verify(visitor) drawFUBehavior:behavior];
+			context(@"drawing with the engine", ^{
+				it(@"calls the engine's behavior draw method", ^{
+					[behavior drawWithEngine:engine];
+					[verify(engine) drawBehavior:behavior];
 				});
 			});
 			
@@ -64,21 +63,21 @@ describe(@"A behavior object", ^{
 					expect([behavior isEnabled]).to.beFalsy();
 				});
 				
-				context(@"updating it with the visitor", ^{
-					it(@"does not call the visitor update method", ^{
-						[behavior updateWithEngine:visitor];
-						[verifyCount(visitor, times(0)) updateFUBehavior:behavior];
+				context(@"updating with the engine", ^{
+					it(@"does not call the engine's behavior update method", ^{
+						[behavior updateWithEngine:engine];
+						[verifyCount(engine, never()) updateBehavior:behavior];
 					});
 				});
 				
-				context(@"drawing it with the visitor", ^{
-					it(@"does not call the visitor draw method", ^{
-						[behavior drawWithEngine:visitor];
-						[verifyCount(visitor, times(0)) drawFUBehavior:behavior];
+				context(@"drawing with the engine", ^{
+					it(@"does not call the engine's behavior draw method", ^{
+						[behavior drawWithEngine:engine];
+						[verifyCount(engine, never()) drawBehavior:behavior];
 					});
 				});
 			});
-		});*/
+		});
 	});
 });
 

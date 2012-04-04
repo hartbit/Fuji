@@ -8,8 +8,9 @@
 
 #include "Prefix.pch"
 #import "FUTransform.h"
-#import "FUComponent-Internal.h"
 #import "FUMath.h"
+#import "FUComponent-Internal.h"
+#import "FUEngine+Graphics.h"
 
 
 @interface FUTransform ()
@@ -133,6 +134,18 @@
 	}
 	
 	return _matrix;
+}
+
+#pragma mark - FUEngineVisiting Methods
+
+- (void)updateWithEngine:(FUEngine*)engine
+{
+	[engine updateTransform:self];
+}
+
+- (void)drawWithEngine:(FUEngine*)engine
+{
+	[engine drawTransform:self];
 }
 
 @end

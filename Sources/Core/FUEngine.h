@@ -12,9 +12,29 @@
 
 
 @class FUDirector;
+@class FUEntity;
+@class FUScene;
+@class FUComponent;
+@class FUBehavior;
 
 @interface FUEngine : NSObject <FUInterfaceRotating>
 
 @property (nonatomic, WEAK, readonly) FUDirector* director;
+
+- (void)updateEntityEnter:(FUEntity*)entity;
+- (void)updateEntityLeave:(FUEntity*)entity;
+- (void)drawEntityEnter:(FUEntity*)entity;
+- (void)drawEntityLeave:(FUEntity*)entity;
+
+- (void)updateSceneEnter:(FUScene*)scene;
+- (void)updateSceneLeave:(FUScene*)scene;
+- (void)drawSceneEnter:(FUScene*)scene;
+- (void)drawSceneLeave:(FUScene*)scene;
+
+- (void)updateComponent:(FUComponent*)component;
+- (void)drawComponent:(FUComponent*)component;
+
+- (void)updateBehavior:(FUBehavior*)behavior;
+- (void)drawBehavior:(FUBehavior*)behavior;
 
 @end

@@ -7,12 +7,70 @@
 //
 
 #import "FUEngine.h"
+#import "FUScene.h"
+#import "FUBehavior.h"
 #import "FUEngine-Internal.h"
 
 
 @implementation FUEngine
 
 @synthesize director = _director;
+
+#pragma mark - Public Methods
+
+- (void)updateEntityEnter:(FUEntity*)entity
+{
+}
+
+- (void)updateEntityLeave:(FUEntity*)entity
+{
+}
+
+- (void)drawEntityEnter:(FUEntity*)entity
+{
+}
+
+- (void)drawEntityLeave:(FUEntity*)entity
+{
+}
+
+- (void)updateSceneEnter:(FUScene*)scene
+{
+	[self updateEntityEnter:scene];
+}
+
+- (void)updateSceneLeave:(FUScene*)scene
+{
+	[self updateEntityLeave:scene];
+}
+
+- (void)drawSceneEnter:(FUScene*)scene
+{
+	[self drawEntityEnter:scene];
+}
+
+- (void)drawSceneLeave:(FUScene*)scene
+{
+	[self drawEntityLeave:scene];
+}
+
+- (void)updateComponent:(FUComponent*)component
+{
+}
+
+- (void)drawComponent:(FUComponent*)component
+{
+}
+
+- (void)updateBehavior:(FUBehavior*)behavior
+{
+	[self updateComponent:behavior];
+}
+
+- (void)drawBehavior:(FUBehavior*)behavior
+{
+	[self drawComponent:behavior];
+}
 
 #pragma mark - UIInterfaceRotation Methods
 

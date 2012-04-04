@@ -58,6 +58,28 @@ describe(@"A component object", ^{
 		it(@"has the entity property set", ^{
 			expect([component entity]).to.beIdenticalTo(entity);
 		});
+		
+		context(@"created a mock engine", ^{
+			__block FUEngine* engine = nil;
+			
+			beforeEach(^{
+				engine = mock([FUEngine class]);
+			});
+			
+			context(@"updating the component with the engine", ^{
+				it(@"calls the engine's component update method", ^{
+					[component updateWithEngine:engine];
+					[verify(engine) updateComponent:component];
+				});
+			});
+			
+			context(@"drawing the component with the engine", ^{
+				it(@"calls the engine's component draw method", ^{
+					[component drawWithEngine:engine];
+					[verify(engine) drawComponent:component];
+				});
+			});
+		});
 
 		context(@"removing the component", ^{
 			it(@"asks the entity to remove itself", ^{

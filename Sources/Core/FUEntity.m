@@ -13,6 +13,7 @@
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
 #import "FUTransform.h"
+#import "FUEngine.h"
 #import <objc/runtime.h>
 
 
@@ -294,10 +295,26 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)updateWithEngine:(FUEngine*)engine
 {
+	[engine updateEntityEnter:self];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component updateWithEngine:engine];
+	}
+	
+	[engine updateEntityLeave:self];
 }
 
 - (void)drawWithEngine:(FUEngine*)engine
 {
+	[engine drawEntityEnter:self];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component drawWithEngine:engine];
+	}
+	
+	[engine drawEntityLeave:self];
 }
 
 #pragma mark - FUInterfaceRotating Methods

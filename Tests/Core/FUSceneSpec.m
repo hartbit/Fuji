@@ -9,7 +9,6 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUTestScene.h"
-#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUSceneSpec)
@@ -94,7 +93,7 @@ describe(@"A scene", ^{
 				expect(entities).to.haveCountOf(1);
 				expect(entities).to.contain(entity1);
 			});
-			/*
+			
 			context(@"created a mock engine", ^{
 				__block FUEngine* engine = nil;
 				
@@ -104,27 +103,27 @@ describe(@"A scene", ^{
 				
 				context(@"updating the visitor", ^{
 					it(@"calls the scene, component and entity's update method", ^{
-						[scene updateWithEngine:visitor];
-						[verify(engine) updateEnterFUEntity:scene];
-						[verify(engine) updateFUComponent:[scene graphics]];
-						[verify(engine) updateEnterFUEntity:entity1];
-						[verify(engine) updateLeaveFUEntity:entity1];
-						[verify(engine) updateLeaveFUEntity:scene];
+						[scene updateWithEngine:engine];
+						[verify(engine) updateSceneEnter:scene];
+						[verify(engine) updateComponent:[scene graphics]];
+						[verify(engine) updateEntityEnter:entity1];
+						[verify(engine) updateEntityLeave:entity1];
+						[verify(engine) updateSceneLeave:scene];
 					});
 				});
 				
 				context(@"drawing the visitor", ^{
 					it(@"calls the scene, component and entity's draw methods", ^{
-						[scene drawWithEngine:visitor];
-						[verify(engine) drawEnterFUEntity:scene];
-						[verify(engine) drawFUComponent:[scene graphics]];
-						[verify(engine) drawEnterFUEntity:entity1];
-						[verify(engine) drawLeaveFUEntity:entity1];
-						[verify(engine) drawLeaveFUEntity:scene];				
+						[scene drawWithEngine:engine];
+						[verify(engine) drawSceneEnter:scene];
+						[verify(engine) drawComponent:[scene graphics]];
+						[verify(engine) drawEntityEnter:entity1];
+						[verify(engine) drawEntityLeave:entity1];
+						[verify(engine) drawSceneLeave:scene];
 					});
 				});
 			});
-			*/
+			
 			context(@"added another game object", ^{
 				__block FUEntity* entity2 = nil;
 				

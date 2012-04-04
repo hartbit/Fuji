@@ -9,7 +9,6 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUEngine-Internal.h"
-#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUDirectorSpec)
@@ -116,14 +115,14 @@ describe(@"A director", ^{
 				});
 			});
 			
-			context(@"added a generic engine", ^{
+			context(@"created and added a mock engine", ^{
 				__block FUEngine* engine = nil;
 				
 				beforeEach(^{
 					engine = mock([FUEngine class]);
 					[director addEngine:engine];
 				});
-				
+							
 				it(@"set the engine's director property", ^{
 					[verify(engine) setDirector:director];
 				});
@@ -139,15 +138,6 @@ describe(@"A director", ^{
 						[given([engine director]) willReturn:director];
 						STAssertThrows([director addEngine:engine], nil);
 					});
-				});
-			});
-			
-			context(@"created and added a mock engine", ^{
-				__block FUEngine* engine = nil;
-				
-				beforeEach(^{
-					engine = mock([FUEngine class]);
-					[director addEngine:engine];
 				});
 				
 				context(@"calling the rotation methods", ^{

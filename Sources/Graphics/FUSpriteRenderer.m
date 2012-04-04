@@ -8,6 +8,7 @@
 
 #import "FUSpriteRenderer.h"
 #import "FUColor.h"
+#import "FUEngine+Graphics.h"
 
 
 @implementation FUSpriteRenderer
@@ -24,6 +25,24 @@
 	[self setColor:FUColorWhite];
 	
 	return self;
+}
+
+#pragma mark - FUEngineVisiting Methods
+
+- (void)updateWithEngine:(FUEngine*)engine
+{
+	if ([self isEnabled])
+	{
+		[engine updateSpriteRenderer:self];
+	}
+}
+
+- (void)drawWithEngine:(FUEngine*)engine
+{
+	if ([self isEnabled])
+	{
+		[engine drawSpriteRenderer:self];
+	}
 }
 
 @end

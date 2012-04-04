@@ -136,6 +136,28 @@ describe(@"A transform component", ^{
 				expect(FUMatrix4EqualToMatrix4([transform matrix], scaleMatrix)).to.beTruthy();
 			});
 		});
+		
+		context(@"created a mock engine", ^{
+			__block FUEngine* engine = nil;
+			
+			beforeEach(^{
+				engine = mock([FUEngine class]);
+			});
+			
+			context(@"updating with the engine", ^{
+				it(@"calls the engine's transform update method", ^{
+					[transform updateWithEngine:engine];
+					[verify(engine) updateTransform:transform];
+				});
+			});
+			
+			context(@"drawing with the engine", ^{
+				it(@"calls the engine's transform draw method", ^{
+					[transform drawWithEngine:engine];
+					[verify(engine) drawTransform:transform];
+				});
+			});
+		});
 	});
 });
 

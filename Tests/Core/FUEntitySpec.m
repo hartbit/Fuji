@@ -12,7 +12,6 @@
 #import "FUComponent-Internal.h"
 #import "FUTestComponents.h"
 #import "FUTestEntity.h"
-#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUEntitySpec)
@@ -196,33 +195,33 @@ describe(@"An entity", ^{
 				STAssertThrows([entity addComponentWithClass:[FUUniqueGrandChildComponent class]], nil);
 			});
 		});
-		/*
-		context(@"created a mock visitor", ^{
-			__block FUEntityComponentVisitor* visitor = nil;
+
+		context(@"created a mock engine", ^{
+			__block FUEngine* engine = nil;
 			
 			beforeEach(^{
-				visitor = mock([FUEntityComponentVisitor class]);
+				engine = mock([FUEngine class]);
 			});
 			
-			context(@"updating the visitor", ^{
+			context(@"updating with the engine", ^{
 				it(@"calls the entity's and components' update methods", ^{
-					[entity updateWithEngine:visitor];
-					[verify(visitor) updateEnterFUEntity:entity];
-					[verify(visitor) updateFUComponent:[entity transform]];
-					[verify(visitor) updateLeaveFUEntity:entity];
+					[entity updateWithEngine:engine];
+					[verify(engine) updateEntityEnter:entity];
+					[verify(engine) updateTransform:[entity transform]];
+					[verify(engine) updateEntityLeave:entity];
 				});
 			});
 			
-			context(@"drawing the visitor", ^{
+			context(@"drawing with the engine", ^{
 				it(@"calls the entity's and components' draw methods", ^{
-					[entity drawWithEngine:visitor];
-					[verify(visitor) drawEnterFUEntity:entity];
-					[verify(visitor) drawFUComponent:[entity transform]];
-					[verify(visitor) drawLeaveFUEntity:entity];					
+					[entity drawWithEngine:engine];
+					[verify(engine) drawEntityEnter:entity];
+					[verify(engine) drawTransform:[entity transform]];
+					[verify(engine) drawEntityLeave:entity];					
 				});
 			});
 		});
-		*/
+
 		context(@"added a unique component", ^{
 			__block FUUniqueChild1Component* component1 = nil;
 			
