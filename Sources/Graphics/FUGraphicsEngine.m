@@ -19,7 +19,8 @@
 
 @property (nonatomic, strong) GLKBaseEffect* effect;
 @property (nonatomic, WEAK) FUGraphicsSettings* settings;
-@property (nonatomic, assign) GLKMatrixStackRef matrixStack;
+@property (nonatomic) GLKMatrixStackRef matrixStack;
+@property (nonatomic) GLuint spriteBuffer;
 
 @end
 
@@ -29,6 +30,7 @@
 @synthesize effect = _effect;
 @synthesize settings = _settings;
 @synthesize matrixStack = _matrixStack;
+@synthesize spriteBuffer = _spriteBuffer;
 
 #pragma mark - Initialization
 
@@ -38,6 +40,9 @@
 	if (self == nil) return nil;
 	
 	glEnable(GL_CULL_FACE);
+	glEnableVertexAttribArray(GLKVertexAttribPosition);
+	
+	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logFPS) userInfo:nil repeats:YES];
 	
 	return self;
 }
@@ -45,6 +50,11 @@
 - (void)dealloc
 {
 	[self setMatrixStack:NULL];
+}
+
+- (void)logFPS
+{
+	NSLog(@"FPS: %i", [[self director] framesPerSecond]);
 }
 
 #pragma mark - Properties
@@ -92,9 +102,28 @@
 	}
 }
 
+- (GLuint)spriteBuffer
+{
+	if (_spriteBuffer == 0)
+	{
+		float vertices[] = {
+			-0.5f, -0.5f,
+			-0.5f, 0.5f,
+			0.5f,  -0.5f,
+			0.5f,  0.5f
+		};
+		
+		glGenBuffers(1, &_spriteBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, _spriteBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	}
+	
+	return _spriteBuffer;
+}
+
 #pragma mark - Drawing
 
-- (void)drawFUScene:(FUScene*)scene
+- (void)predrawFUScene:(FUScene*)scene
 {
 	FUGraphicsSettings* settings = [scene graphics];
 	[self setSettings:settings];
@@ -104,18 +133,34 @@
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	[[self effect] prepareToDraw];
+	
+	NSLog(@"===================================");
 }
 
-- (void)drawFUTransform:(FUTransform*)transform
+- (void)predrawFUTransform:(FUTransform*)transform
 {
 	GLKMatrixStackPush([self matrixStack]);
 	GLKMatrixStackMultiplyMatrix4([self matrixStack], [transform matrix]);
+	
+	NSLog(@"PUSH Transform: %p", [transform entity]);
+}
+
+- (void)postdrawFUTransform:(FUTransform*)transform
+{
+	GLKMatrixStackPop([self matrixStack]);
+	
+	NSLog(@"POP Transform: %p", [transform entity]);
 }
 
 - (void)drawFUSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
 {
-	const CGFloat width = 100;
-	const CGFloat height = 100;
+	NSLog(@"Draw: %p", [spriteRenderer entity]);
+	
+	const CGFloat width = 1;
+	const CGFloat height = 1;
+	
+	[[self effect] setConstantColor:[spriteRenderer color]];
+	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
 	
 	CGFloat halfWidth = width / 2;
 	CGFloat halfHeight = height / 2;
@@ -127,14 +172,8 @@
 		halfWidth,  halfHeight
 	};
 	
-	[[self effect] setConstantColor:[spriteRenderer color]];
-	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
-	GLKMatrixStackPop([self matrixStack]);
-	
-	glEnableVertexAttribArray(GLKVertexAttribPosition);
 	glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glDisableVertexAttribArray(GLKVertexAttribPosition);
 }
 
 #pragma mark - FUInterfaceRotation Methods

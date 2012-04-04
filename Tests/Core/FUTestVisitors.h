@@ -42,6 +42,18 @@
 @end
 
 
+@interface FUEntityComponentVisitor : NSObject
+
+- (void)updateEnterFUEntity:(FUEntity*)entity;
+- (void)updateLeaveFUEntity:(FUEntity*)entity;
+- (void)updateFUComponent:(FUComponent*)component;
+- (void)drawEnterFUEntity:(FUEntity*)entity;
+- (void)drawLeaveFUEntity:(FUEntity*)entity;
+- (void)drawFUComponent:(FUComponent*)component;
+
+@end
+
+
 @interface FUBehaviorVisitor : NSObject
 
 - (void)updateFUBehavior:(FUBehavior*)behavior;

@@ -93,7 +93,8 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self == nil) return nil;
-	
+
+	[self context];
 	[self addEngine:[FUGraphicsEngine new]];
 	return self;
 }

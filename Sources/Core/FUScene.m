@@ -14,6 +14,7 @@
 #import "FUSceneObject-Internal.h"
 #import "FUEntity-Internal.h"
 #import "FUMacros.h"
+#import <objc/runtime.h>
 
 
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
@@ -96,12 +97,23 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 - (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
 {
-	[super acceptVisitor:visitor withSelectorPrefix:prefix];
+    IMP sceneObjectImp = class_getMethodImplementation([FUSceneObject class], _cmd);
+	
+	NSString* enterPrefix = [prefix stringByAppendingString:@"Enter"];
+	sceneObjectImp(self, _cmd, visitor, enterPrefix);
+	
+	for (FUComponent* component in [self components])
+	{
+		[component acceptVisitor:visitor withSelectorPrefix:prefix];
+	}
 	
 	for (FUEntity* entity in [self entities])
 	{
 		[entity acceptVisitor:visitor withSelectorPrefix:prefix];
 	}
+	
+	NSString* leavePrefix = [prefix stringByAppendingString:@"Leave"];
+	sceneObjectImp(self, _cmd, visitor, leavePrefix);
 }
 
 #pragma mark - FUIntefaceOrientation Methods

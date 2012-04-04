@@ -12,6 +12,7 @@
 @interface FUEntity ()
 
 @property (nonatomic, WEAK) FUScene* scene;
+@property (nonatomic, strong) NSMutableSet* components;
 
 + (NSDictionary*)componentProperties;
 + (NSDictionary*)allComponentProperties;

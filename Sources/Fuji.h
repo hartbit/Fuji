@@ -9,6 +9,7 @@
 // Support
 
 #import "FUMacros.h"
+#import "FUMath.h"
 #import	"FUColor.h"
 
 // Core

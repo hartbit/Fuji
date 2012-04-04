@@ -9,6 +9,7 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUTestScene.h"
+#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUSceneSpec)
@@ -89,9 +90,39 @@ describe(@"A scene", ^{
 			});
 			
 			it(@"contains the game object", ^{
-				NSSet* entitys = [scene allEntities];
-				expect(entitys).to.haveCountOf(1);
-				expect(entitys).to.contain(entity1);
+				NSSet* entities = [scene allEntities];
+				expect(entities).to.haveCountOf(1);
+				expect(entities).to.contain(entity1);
+			});
+			
+			context(@"created a mock visitor", ^{
+				__block FUEntityComponentVisitor* visitor = nil;
+				
+				beforeEach(^{
+					visitor = mock([FUEntityComponentVisitor class]);
+				});
+				
+				context(@"updating the visitor", ^{
+					it(@"calls the scene, component and entity's update method", ^{
+						[scene updateVisitor:visitor];
+						[verify(visitor) updateEnterFUEntity:scene];
+						[verify(visitor) updateFUComponent:[scene graphics]];
+						[verify(visitor) updateEnterFUEntity:entity1];
+						[verify(visitor) updateLeaveFUEntity:entity1];
+						[verify(visitor) updateLeaveFUEntity:scene];
+					});
+				});
+				
+				context(@"drawing the visitor", ^{
+					it(@"calls the scene, component and entity's draw methods", ^{
+						[scene drawVisitor:visitor];
+						[verify(visitor) drawEnterFUEntity:scene];
+						[verify(visitor) drawFUComponent:[scene graphics]];
+						[verify(visitor) drawEnterFUEntity:entity1];
+						[verify(visitor) drawLeaveFUEntity:entity1];
+						[verify(visitor) drawLeaveFUEntity:scene];				
+					});
+				});
 			});
 			
 			context(@"added another game object", ^{
@@ -108,10 +139,10 @@ describe(@"A scene", ^{
 				});
 				
 				it(@"contains both game object", ^{
-					NSSet* entitys = [scene allEntities];
-					expect(entitys).to.haveCountOf(2);
-					expect(entitys).to.contain(entity1);
-					expect(entitys).to.contain(entity2);
+					NSSet* entities = [scene allEntities];
+					expect(entities).to.haveCountOf(2);
+					expect(entities).to.contain(entity1);
+					expect(entities).to.contain(entity2);
 				});
 			});
 			

@@ -31,13 +31,16 @@
 		FUScene* scene = [FUScene new];
 		[director setScene:scene];
 		
-		FUEntity* entity = [scene createEntity];
-		FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
-		[renderer setColor:FUColorBrown];
-		FUTransform* transform = [entity transform];
-		[transform setPosition:GLKVector2Make(100, 100)];
-		[transform setRotation:M_PI_4];
-		[transform setScale:GLKVector2Make(0.8, 1.2)];
+		for (NSUInteger index = 0; index < 4; index++)
+		{
+			FUEntity* entity = [scene createEntity];
+			FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
+			[renderer setColor:GLKVector4Make(FURandomUnit(), FURandomUnit(), FURandomUnit(), 1)];
+			FUTransform* transform = [entity transform];
+			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
+			[transform setRotation:FURandomDouble(0, 2 * M_PI)];
+			[transform setScale:GLKVector2Make(32, 32)];
+		}
 	}
 	
 	return _window;

@@ -68,7 +68,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 @interface FUEntity ()
 
 @property (nonatomic, WEAK) FUTransform* transform;
-@property (nonatomic, strong) NSMutableSet* components;
 
 @end
 
@@ -217,12 +216,16 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
 {
-	[super acceptVisitor:visitor withSelectorPrefix:prefix];
+	NSString* enterPrefix = [prefix stringByAppendingString:@"Enter"];
+	[super acceptVisitor:visitor withSelectorPrefix:enterPrefix];
 	
 	for (FUComponent* component in [self components])
 	{
 		[component acceptVisitor:visitor withSelectorPrefix:prefix];
 	}
+	
+	NSString* leavePrefix = [prefix stringByAppendingString:@"Leave"];
+	[super acceptVisitor:visitor withSelectorPrefix:leavePrefix];
 }
 
 #pragma mark - Private Methods

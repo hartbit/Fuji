@@ -12,6 +12,7 @@
 #import "FUComponent-Internal.h"
 #import "FUTestComponents.h"
 #import "FUTestEntity.h"
+#import "FUTestVisitors.h"
 
 
 SPEC_BEGIN(FUEntitySpec)
@@ -192,6 +193,32 @@ describe(@"An entity", ^{
 			});
 		});
 		
+		context(@"created a mock visitor", ^{
+			__block FUEntityComponentVisitor* visitor = nil;
+			
+			beforeEach(^{
+				visitor = mock([FUEntityComponentVisitor class]);
+			});
+			
+			context(@"updating the visitor", ^{
+				it(@"calls the entity's and components' update methods", ^{
+					[entity updateVisitor:visitor];
+					[verify(visitor) updateEnterFUEntity:entity];
+					[verify(visitor) updateFUComponent:[entity transform]];
+					[verify(visitor) updateLeaveFUEntity:entity];
+				});
+			});
+			
+			context(@"drawing the visitor", ^{
+				it(@"calls the entity's and components' draw methods", ^{
+					[entity drawVisitor:visitor];
+					[verify(visitor) drawEnterFUEntity:entity];
+					[verify(visitor) drawFUComponent:[entity transform]];
+					[verify(visitor) drawLeaveFUEntity:entity];					
+				});
+			});
+		});
+		
 		context(@"added a unique component", ^{
 			__block FUUniqueChild1Component* component1 = nil;
 			
@@ -352,30 +379,35 @@ describe(@"An entity", ^{
 		});
 	});
 	
-	context(@"created and initialized a test entity with a mock component", ^{
+	context(@"created and initialized a test entity", ^{
 		__block FUTestEntity* entity = nil;
-		__block FUComponent* component = nil;
 		
 		beforeEach(^{
 			entity = [[FUTestEntity alloc] initWithScene:mock([FUScene class])];
-			component = [entity addComponentWithClass:[FUComponent class]];
 		});
 		
-		it(@"are not nil", ^{
+		it(@"is not nil", ^{
 			expect(entity).toNot.beNil();
-			expect(component).toNot.beNil();
 		});
-		
-		context(@"calling the rotation methods", ^{
-			it(@"called the rotation methods on it's entity", ^{
-				[entity willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-				[verify(component) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+			
+		context(@"adding a mock component", ^{
+			__block FUComponent* component = nil;
 				
-				[entity willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-				[verify(component) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+			beforeEach(^{
+				component = [entity addComponentWithClass:[FUComponent class]];
+			});
 				
-				[entity didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-				[verify(component) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+			context(@"calling the rotation methods", ^{
+				it(@"called the rotation methods on it's entity", ^{
+					[entity willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					[verify(component) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					
+					[entity willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					[verify(component) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						
+					[entity didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					[verify(component) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+				});
 			});
 		});
 	});

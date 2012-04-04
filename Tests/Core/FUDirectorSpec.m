@@ -140,46 +140,6 @@ describe(@"A director", ^{
 						STAssertThrows([director addEngine:engine], nil);
 					});
 				});
-				
-				context(@"calling the update method on the director", ^{
-					it(@"makes the visitor update the scene and it's components", ^{
-						[director performSelector:@selector(update)];
-						[verify(engine) updateFUSceneObject:scene];
-						[verify(engine) updateFUSceneObject:[scene graphics]];
-					});
-				});
-				
-				context(@"calling the draw method on the director", ^{
-					it(@"makes the visitor draw the scene and it's components", ^{
-						[director glkView:nil drawInRect:CGRectZero];
-						[verify(engine) drawFUSceneObject:scene];
-						[verify(engine) drawFUSceneObject:[scene graphics]];
-					});
-				});
-				
-				context(@"added an entity to the scene", ^{
-					__block FUEntity* entity = nil;
-					
-					beforeEach(^{
-						entity = [scene createEntity];
-					});
-					
-					context(@"calling the update method on the director", ^{
-						it(@"makes the visitor update the entity and it's component", ^{
-							[director performSelector:@selector(update)];
-							[verify(engine) updateFUSceneObject:entity];
-							[verify(engine) updateFUSceneObject:[entity transform]];
-						});
-					});
-					
-					context(@"calling the draw method on the director", ^{
-						it(@"makes the visitor draw the entity and it's component", ^{
-							[director glkView:nil drawInRect:CGRectZero];
-							[verify(engine) drawFUSceneObject:entity];
-							[verify(engine) drawFUSceneObject:[entity transform]];
-						});
-					});
-				});
 			});
 			
 			context(@"created and added a mock engine", ^{
@@ -202,26 +162,40 @@ describe(@"A director", ^{
 						[verify(engine) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 					});
 				});
-			});
-			
-			context(@"created and set a mock scene", ^{
-				__block FUScene* scene = nil;
 				
-				beforeEach(^{
-					scene = mock([FUScene class]);
-					[director setScene:scene];
-				});
-				
-				context(@"calling the rotation methods", ^{
-					it(@"called the rotation methods on it's engine", ^{
-						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						
-						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						
-						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-						[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+				context(@"created and set a mock scene", ^{
+					__block FUScene* scene = nil;
+					
+					beforeEach(^{
+						scene = mock([FUScene class]);
+						[director setScene:scene];
+					});
+					
+					context(@"calling the rotation methods", ^{
+						it(@"called the rotation methods on it's engine", ^{
+							[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+							[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+							
+							[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+							[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+							
+							[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+							[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+						});
+					});
+					
+					context(@"calling the GLKViewController update method", ^{
+						it(@"updates the scene with the engine", ^{
+							[(id)director update];
+							[verify(scene) updateVisitor:engine];
+						});
+					});
+					
+					context(@"calling the GLKViewDelegate draw method", ^{
+						it(@"draws the scene with the engine", ^{
+							[director glkView:nil drawInRect:CGRectZero];
+							[verify(scene) drawVisitor:engine];
+						});
 					});
 				});
 			});
