@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "FUMacros.h"
-#import "FUInterfaceRotation.h"
+#import "FUInterfaceRotating.h"
 
 
 @class FUDirector;
 
-@interface FUEngine : NSObject <FUInterfaceRotation>
+@interface FUEngine : NSObject <FUInterfaceRotating>
 
 @property (nonatomic, WEAK, readonly) FUDirector* director;
 

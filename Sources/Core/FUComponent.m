@@ -96,4 +96,28 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 	[[self entity] removeComponent:self];
 }
 
+#pragma mark - FUEngineVisiting Methods
+
+- (void)updateWithEngine:(FUEngine*)engine
+{
+}
+
+- (void)drawWithEngine:(FUEngine*)engine
+{
+}
+
+#pragma mark - FUInterfaceRotating Methods
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+}
+
 @end

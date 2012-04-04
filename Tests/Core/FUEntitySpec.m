@@ -18,8 +18,12 @@
 SPEC_BEGIN(FUEntitySpec)
 
 describe(@"An entity", ^{
-	it(@"is a scene object", ^{
-		expect([FUEntity class]).to.beSubclassOf([FUSceneObject class]);
+	it(@"can be visited by an engine", ^{
+		expect([[FUEntity class] conformsToProtocol:@protocol(FUEngineVisiting)]).to.beTruthy();
+	});
+	
+	it(@"can react to interface rotations", ^{
+		expect([[FUEntity class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
 	context(@"initialized with init", ^{
@@ -192,7 +196,7 @@ describe(@"An entity", ^{
 				STAssertThrows([entity addComponentWithClass:[FUUniqueGrandChildComponent class]], nil);
 			});
 		});
-		
+		/*
 		context(@"created a mock visitor", ^{
 			__block FUEntityComponentVisitor* visitor = nil;
 			
@@ -202,7 +206,7 @@ describe(@"An entity", ^{
 			
 			context(@"updating the visitor", ^{
 				it(@"calls the entity's and components' update methods", ^{
-					[entity updateVisitor:visitor];
+					[entity updateWithEngine:visitor];
 					[verify(visitor) updateEnterFUEntity:entity];
 					[verify(visitor) updateFUComponent:[entity transform]];
 					[verify(visitor) updateLeaveFUEntity:entity];
@@ -211,14 +215,14 @@ describe(@"An entity", ^{
 			
 			context(@"drawing the visitor", ^{
 				it(@"calls the entity's and components' draw methods", ^{
-					[entity drawVisitor:visitor];
+					[entity drawWithEngine:visitor];
 					[verify(visitor) drawEnterFUEntity:entity];
 					[verify(visitor) drawFUComponent:[entity transform]];
 					[verify(visitor) drawLeaveFUEntity:entity];					
 				});
 			});
 		});
-		
+		*/
 		context(@"added a unique component", ^{
 			__block FUUniqueChild1Component* component1 = nil;
 			

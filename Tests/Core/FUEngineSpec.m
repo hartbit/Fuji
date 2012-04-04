@@ -13,8 +13,8 @@
 SPEC_BEGIN(FUEngineSpec)
 
 describe(@"An engine", ^{
-	it(@"conforms to FUInterfaceOrientation", ^{
-		expect([[FUEngine class] conformsToProtocol:@protocol(FUInterfaceRotation)]).to.beTruthy();
+	it(@"can react to interface rotations", ^{
+		expect([[FUEngine class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
 	context(@"created and initialized", ^{

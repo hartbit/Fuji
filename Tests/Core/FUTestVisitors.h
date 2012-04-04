@@ -8,11 +8,11 @@
 
 #import "Fuji.h"
 
-
+/*
 @interface FUParentSceneObject : FUSceneObject @end
 @interface FUChildSceneObject : FUParentSceneObject @end
-
-
+*/
+/*
 @interface FUGenericEngine : FUEngine
 
 - (void)updateFUSceneObject:(FUSceneObject*)sceneObject;
@@ -35,7 +35,7 @@
 - (void)drawFUParentSceneObject:(FUParentSceneObject*)sceneObject;
 
 @end
-
+*/
 
 @interface FUVisitNothingVisitor : NSObject
 

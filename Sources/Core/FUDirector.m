@@ -174,7 +174,7 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 {
 	for (id engine in [self engines])
 	{
-		[[self scene] updateVisitor:engine];
+		[[self scene] updateWithEngine:engine];
 	}
 }
 
@@ -182,7 +182,7 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 {
 	for (id engine in [self engines])
 	{
-		[[self scene] drawVisitor:engine];
+		[[self scene] drawWithEngine:engine];
 	}
 }
 

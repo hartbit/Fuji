@@ -94,37 +94,37 @@ describe(@"A scene", ^{
 				expect(entities).to.haveCountOf(1);
 				expect(entities).to.contain(entity1);
 			});
-			
-			context(@"created a mock visitor", ^{
-				__block FUEntityComponentVisitor* visitor = nil;
+			/*
+			context(@"created a mock engine", ^{
+				__block FUEngine* engine = nil;
 				
 				beforeEach(^{
-					visitor = mock([FUEntityComponentVisitor class]);
+					engine = mock([FUEngine class]);
 				});
 				
 				context(@"updating the visitor", ^{
 					it(@"calls the scene, component and entity's update method", ^{
-						[scene updateVisitor:visitor];
-						[verify(visitor) updateEnterFUEntity:scene];
-						[verify(visitor) updateFUComponent:[scene graphics]];
-						[verify(visitor) updateEnterFUEntity:entity1];
-						[verify(visitor) updateLeaveFUEntity:entity1];
-						[verify(visitor) updateLeaveFUEntity:scene];
+						[scene updateWithEngine:visitor];
+						[verify(engine) updateEnterFUEntity:scene];
+						[verify(engine) updateFUComponent:[scene graphics]];
+						[verify(engine) updateEnterFUEntity:entity1];
+						[verify(engine) updateLeaveFUEntity:entity1];
+						[verify(engine) updateLeaveFUEntity:scene];
 					});
 				});
 				
 				context(@"drawing the visitor", ^{
 					it(@"calls the scene, component and entity's draw methods", ^{
-						[scene drawVisitor:visitor];
-						[verify(visitor) drawEnterFUEntity:scene];
-						[verify(visitor) drawFUComponent:[scene graphics]];
-						[verify(visitor) drawEnterFUEntity:entity1];
-						[verify(visitor) drawLeaveFUEntity:entity1];
-						[verify(visitor) drawLeaveFUEntity:scene];				
+						[scene drawWithEngine:visitor];
+						[verify(engine) drawEnterFUEntity:scene];
+						[verify(engine) drawFUComponent:[scene graphics]];
+						[verify(engine) drawEnterFUEntity:entity1];
+						[verify(engine) drawLeaveFUEntity:entity1];
+						[verify(engine) drawLeaveFUEntity:scene];				
 					});
 				});
 			});
-			
+			*/
 			context(@"added another game object", ^{
 				__block FUEntity* entity2 = nil;
 				

@@ -7,7 +7,6 @@
 //
 
 #import "FUBehavior.h"
-#import "FUSceneObject-Internal.h"
 
 
 @implementation FUBehavior
@@ -24,11 +23,19 @@
 
 #pragma mark - FUSceneObject Methods
 
-- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
+- (void)updateWithEngine:(FUEngine*)engine
 {
 	if ([self isEnabled])
 	{
-		[super acceptVisitor:visitor withSelectorPrefix:prefix];
+		[super updateWithEngine:engine];
+	}
+}
+
+- (void)drawWithEngine:(FUEngine*)engine
+{
+	if ([self isEnabled])
+	{
+		[super drawWithEngine:engine];
 	}
 }
 

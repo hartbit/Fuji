@@ -8,11 +8,11 @@
 
 #import "FUTestVisitors.h"
 
-
+/*
 @implementation FUParentSceneObject @end
 @implementation FUChildSceneObject @end
-
-
+*/
+/*
 @implementation FUGenericEngine
 
 - (void)updateFUSceneObject:(FUSceneObject*)sceneObject { }
@@ -41,7 +41,7 @@
 - (void)postdrawFUParentSceneObject:(FUParentSceneObject*)sceneObject { }
 
 @end
-
+*/
 
 @implementation FUVisitNothingVisitor
 

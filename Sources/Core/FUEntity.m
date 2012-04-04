@@ -10,7 +10,6 @@
 #import "FUEntity.h"
 #import "FUEntity-Internal.h"
 #import "FUScene.h"
-#import "FUSceneObject-Internal.h"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
 #import "FUTransform.h"
@@ -212,22 +211,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	return [NSSet setWithSet:[self components]];
 }
 
-#pragma mark - FUSceneObject Methods
-
-- (void)acceptVisitor:(id)visitor withSelectorPrefix:(NSString*)prefix
-{
-	NSString* enterPrefix = [prefix stringByAppendingString:@"Enter"];
-	[super acceptVisitor:visitor withSelectorPrefix:enterPrefix];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component acceptVisitor:visitor withSelectorPrefix:prefix];
-	}
-	
-	NSString* leavePrefix = [prefix stringByAppendingString:@"Leave"];
-	[super acceptVisitor:visitor withSelectorPrefix:leavePrefix];
-}
-
 #pragma mark - Private Methods
 
 - (void)validateUniquenessOfClass:(Class)componentClass
@@ -307,7 +290,17 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	}];
 }
 
-#pragma mark - FUIntefaceOrientation Methods
+#pragma mark - FUEngineVisiting Methods
+
+- (void)updateWithEngine:(FUEngine*)engine
+{
+}
+
+- (void)drawWithEngine:(FUEngine*)engine
+{
+}
+
+#pragma mark - FUInterfaceRotating Methods
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {

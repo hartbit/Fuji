@@ -33,7 +33,7 @@ describe(@"A behavior object", ^{
 		it(@"is enabled by default", ^{
 			expect([behavior isEnabled]).to.beTruthy();
 		});
-		
+		/*
 		context(@"created a valid visitor", ^{
 			__block FUBehaviorVisitor* visitor = nil;
 			
@@ -43,14 +43,14 @@ describe(@"A behavior object", ^{
 			
 			context(@"updating it with the visitor", ^{
 				it(@"calls the visitor update method", ^{
-					[behavior updateVisitor:visitor];
+					[behavior updateWithEngine:visitor];
 					[verify(visitor) updateFUBehavior:behavior];
 				});
 			});
 			
 			context(@"drawing it with the visitor", ^{
 				it(@"calls the visitor draw method", ^{
-					[behavior drawVisitor:visitor];
+					[behavior drawWithEngine:visitor];
 					[verify(visitor) drawFUBehavior:behavior];
 				});
 			});
@@ -66,19 +66,19 @@ describe(@"A behavior object", ^{
 				
 				context(@"updating it with the visitor", ^{
 					it(@"does not call the visitor update method", ^{
-						[behavior updateVisitor:visitor];
+						[behavior updateWithEngine:visitor];
 						[verifyCount(visitor, times(0)) updateFUBehavior:behavior];
 					});
 				});
 				
 				context(@"drawing it with the visitor", ^{
 					it(@"does not call the visitor draw method", ^{
-						[behavior drawVisitor:visitor];
+						[behavior drawWithEngine:visitor];
 						[verifyCount(visitor, times(0)) drawFUBehavior:behavior];
 					});
 				});
 			});
-		});
+		});*/
 	});
 });
 

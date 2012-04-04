@@ -117,10 +117,10 @@ describe(@"A director", ^{
 			});
 			
 			context(@"added a generic engine", ^{
-				__block FUGenericEngine* engine = nil;
+				__block FUEngine* engine = nil;
 				
 				beforeEach(^{
-					engine = mock([FUGenericEngine class]);
+					engine = mock([FUEngine class]);
 					[director addEngine:engine];
 				});
 				
@@ -187,14 +187,14 @@ describe(@"A director", ^{
 					context(@"calling the GLKViewController update method", ^{
 						it(@"updates the scene with the engine", ^{
 							[(id)director update];
-							[verify(scene) updateVisitor:engine];
+							[verify(scene) updateWithEngine:engine];
 						});
 					});
 					
 					context(@"calling the GLKViewDelegate draw method", ^{
 						it(@"draws the scene with the engine", ^{
 							[director glkView:nil drawInRect:CGRectZero];
-							[verify(scene) drawVisitor:engine];
+							[verify(scene) drawWithEngine:engine];
 						});
 					});
 				});

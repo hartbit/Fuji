@@ -14,8 +14,12 @@
 SPEC_BEGIN(FUComponentSpec)
 
 describe(@"A component object", ^{
-	it(@"is a scene object", ^{
-		expect([FUComponent class]).to.beSubclassOf([FUSceneObject class]);
+	it(@"can be visited by an engine", ^{
+		expect([[FUComponent class] conformsToProtocol:@protocol(FUEngineVisiting)]).to.beTruthy();
+	});
+	
+	it(@"can react to interface rotations", ^{
+		expect([[FUComponent class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
 	it(@"is not unique by default", ^{
