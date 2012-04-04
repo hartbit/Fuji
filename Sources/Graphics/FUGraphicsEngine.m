@@ -7,6 +7,7 @@
 //
 
 #include "Prefix.pch"
+#import "FUMath.h"
 #import "FUDirector.h"
 #import "FUScene.h"
 #import "FUGraphicsEngine.h"
@@ -123,7 +124,7 @@
 
 #pragma mark - Drawing
 
-- (void)predrawFUScene:(FUScene*)scene
+- (void)drawEnterFUScene:(FUScene*)scene
 {
 	FUGraphicsSettings* settings = [scene graphics];
 	[self setSettings:settings];
@@ -134,33 +135,47 @@
 	
 	[[self effect] prepareToDraw];
 	
-	NSLog(@"===================================");
+//	NSLog(@"===================================");
 }
 
-- (void)predrawFUTransform:(FUTransform*)transform
+- (void)updateFUTransform:(FUTransform*)transform
 {
-	GLKMatrixStackPush([self matrixStack]);
-	GLKMatrixStackMultiplyMatrix4([self matrixStack], [transform matrix]);
-	
-	NSLog(@"PUSH Transform: %p", [transform entity]);
+	[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 }
 
-- (void)postdrawFUTransform:(FUTransform*)transform
+/*
+- (void)drawEnterFUEntity:(FUEntity*)entity
 {
-	GLKMatrixStackPop([self matrixStack]);
+	if ([entity transform] != nil)
+	{
+		GLKMatrixStackPush([self matrixStack]);
+		GLKMatrixStackMultiplyMatrix4([self matrixStack], [[entity transform] matrix]);
 	
-	NSLog(@"POP Transform: %p", [transform entity]);
+//		NSLog(@"PUSH Transform: %p", entity);
+	}
 }
 
+- (void)drawLeaveFUEntity:(FUEntity*)entity
+{
+	if ([entity transform] != nil)
+	{
+		GLKMatrixStackPop([self matrixStack]);
+		
+//		NSLog(@"POP Transform: %p", entity);
+	}
+}
+*/
 - (void)drawFUSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
 {
-	NSLog(@"Draw: %p", [spriteRenderer entity]);
+//	NSLog(@"Draw: %p", [spriteRenderer entity]);
 	
 	const CGFloat width = 1;
 	const CGFloat height = 1;
 	
 	[[self effect] setConstantColor:[spriteRenderer color]];
-	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
+//	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
+	[[[self effect] transform] setModelviewMatrix:[[[spriteRenderer entity] transform] matrix]];
+	[[self effect] prepareToDraw];
 	
 	CGFloat halfWidth = width / 2;
 	CGFloat halfHeight = height / 2;
