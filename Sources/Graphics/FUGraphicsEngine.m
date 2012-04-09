@@ -21,7 +21,7 @@
 @property (nonatomic, strong) GLKBaseEffect* effect;
 @property (nonatomic, WEAK) FUGraphicsSettings* settings;
 @property (nonatomic) GLKMatrixStackRef matrixStack;
-@property (nonatomic) GLuint spriteBuffer;
+@property (nonatomic) NSMutableData* vertexData;
 
 @end
 
@@ -31,7 +31,7 @@
 @synthesize effect = _effect;
 @synthesize settings = _settings;
 @synthesize matrixStack = _matrixStack;
-@synthesize spriteBuffer = _spriteBuffer;
+@synthesize vertexData = _vertexData;
 
 #pragma mark - Initialization
 
@@ -41,7 +41,6 @@
 	if (self == nil) return nil;
 	
 	glEnable(GL_CULL_FACE);
-	glEnableVertexAttribArray(GLKVertexAttribPosition);
 	
 	return self;
 }
@@ -96,6 +95,17 @@
 	}
 }
 
+- (NSMutableData*)vertexData
+{
+	if (_vertexData == nil)
+	{
+		[self setVertexData:[NSMutableData data]];
+	}
+	
+	return _vertexData;
+}
+
+/*
 - (GLuint)spriteBuffer
 {
 	if (_spriteBuffer == 0)
@@ -114,7 +124,7 @@
 	
 	return _spriteBuffer;
 }
-
+*/
 #pragma mark - Drawing
 
 - (void)drawSceneEnter:(FUScene*)scene
@@ -134,28 +144,6 @@
 	[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 }
 
-/*
-- (void)drawEnterFUEntity:(FUEntity*)entity
-{
-	if ([entity transform] != nil)
-	{
-		GLKMatrixStackPush([self matrixStack]);
-		GLKMatrixStackMultiplyMatrix4([self matrixStack], [[entity transform] matrix]);
-	
-//		NSLog(@"PUSH Transform: %p", entity);
-	}
-}
-
-- (void)drawLeaveFUEntity:(FUEntity*)entity
-{
-	if ([entity transform] != nil)
-	{
-		GLKMatrixStackPop([self matrixStack]);
-		
-//		NSLog(@"POP Transform: %p", entity);
-	}
-}
-*/
 - (void)drawSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
 {
 //	NSLog(@"Draw: %p", [spriteRenderer entity]);
@@ -164,22 +152,51 @@
 	const CGFloat height = 1;
 	
 	[[self effect] setConstantColor:[spriteRenderer color]];
-//	[[[self effect] transform] setModelviewMatrix:GLKMatrixStackGetMatrix4([self matrixStack])];
-	[[[self effect] transform] setModelviewMatrix:[[[spriteRenderer entity] transform] matrix]];
-//	[[self effect] prepareToDraw];
 	
 	CGFloat halfWidth = width / 2;
 	CGFloat halfHeight = height / 2;
+	GLKMatrix4 matrix = [[[spriteRenderer entity] transform] matrix];
+	GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(-halfWidth, -halfHeight, 0));
+	GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(-halfWidth, halfHeight, 0));
+	GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(halfWidth, -halfHeight, 0));
+	GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(halfWidth, halfHeight, 0));
 	
+	NSUInteger vertexSize = sizeof(GLKVector2);
+	NSUInteger dataLength = [[self vertexData] length];
+	NSUInteger vertexIndex = dataLength / vertexSize;
+	[[self vertexData] setLength:dataLength + (vertexSize * 6)];
+	GLKVector2* vertexPointer = [[self vertexData] mutableBytes];
+	vertexPointer[vertexIndex] = GLKVector2Make(p0.x, p0.y);
+	vertexPointer[vertexIndex+1] = GLKVector2Make(p1.x, p1.y);
+	vertexPointer[vertexIndex+2] = GLKVector2Make(p2.x, p2.y);
+	vertexPointer[vertexIndex+3] = GLKVector2Make(p3.x, p3.y);
+	vertexPointer[vertexIndex+3] = GLKVector2Make(p3.x, p3.y);
+	vertexPointer[vertexIndex+3] = GLKVector2Make(p3.x, p3.y);
+/*	[[[self effect] transform] setModelviewMatrix:matrix];
+	[[self effect] prepareToDraw];*/
+	
+	
+/*	
 	float vertices[] = {
-		-halfWidth, -halfHeight,
-		-halfWidth, halfHeight,
-		halfWidth,  -halfHeight,
-		halfWidth,  halfHeight
+		p0.x, p0.y,
+		p1.x, p1.y,
+		p2.x, p2.y,
+		p3.x, p3.y
 	};
 	
+	glEnableVertexAttribArray(GLKVertexAttribPosition);
 	glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+ glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+ */
+
+	
+	/*
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, sizeof(GLKVector2), 0);
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
+    glDrawElements(GL_TRIANGLE_STRIP, sizeof(_indexBuffer)/sizeof(GLubyte), GL_UNSIGNED_BYTE, (void*)0);*/
 }
 
 #pragma mark - FUInterfaceRotation Methods
@@ -189,7 +206,7 @@
 	[self updateProjection];
 }
 
-#pragma maek - Private Methods
+#pragma mark - Private Methods
 
 - (void)updateProjection
 {
