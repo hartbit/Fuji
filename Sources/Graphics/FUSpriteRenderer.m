@@ -8,12 +8,20 @@
 
 #import "FUSpriteRenderer.h"
 #import "FUColor.h"
+#import "FUTransform.h"
 #import "FUEngine+Graphics.h"
 
 
 @implementation FUSpriteRenderer
 
 @synthesize color = _color;
+
+#pragma mark - FUComponent Class Methods
+
++ (NSSet*)requiredComponents
+{
+	return [NSSet setWithObject:[FUTransform class]];
+}
 
 #pragma mark - Initialization
 

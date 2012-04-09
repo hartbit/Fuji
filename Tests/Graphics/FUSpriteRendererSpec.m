@@ -17,6 +17,10 @@ describe(@"A sprite renderer component", ^{
 	it(@"is a behavior", ^{
 		expect([FUSpriteRenderer class]).to.beSubclassOf([FUBehavior class]);
 	});
+
+	it(@"requires a FUTransform", ^{
+		expect([FUSpriteRenderer requiredComponents]).to.contain([FUTransform class]);
+	});
 	
 	context(@"created and initiailized", ^{
 		__block FUSpriteRenderer* spriteRenderer = nil;
