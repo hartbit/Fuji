@@ -24,6 +24,7 @@
 @implementation FUTransform
 
 @synthesize position = _position;
+@synthesize depth = _depth;
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
 @synthesize matrix = _matrix;
@@ -73,6 +74,12 @@
 	[self setPosition:position];
 }
 
+- (void)setDepth:(float)depth
+{
+	_depth = depth;
+	[self setMatrixNeedsUpdate:YES];
+}
+
 - (void)setRotation:(float)rotation
 {
 	_rotation = rotation;
@@ -114,7 +121,7 @@
 	if ([self matrixNeedsUpdate])
 	{
 		GLKVector2 position = [self position];
-		_matrix = GLKMatrix4MakeTranslation(position.x, position.y, 0);
+		_matrix = GLKMatrix4MakeTranslation(position.x, position.y, [self depth]);
 		
 		float rotation = [self rotation];
 		

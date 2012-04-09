@@ -33,6 +33,10 @@ describe(@"A transform component", ^{
 			expect([transform positionY]).to.equal(0);
 		});
 		
+		it(@"has an initial depth of 0", ^{
+			expect([transform depth]).to.equal(0);
+		});
+		
 		it(@"has an initial rotation of 0", ^{
 			expect([transform rotation]).to.equal(0);
 		});
@@ -81,6 +85,21 @@ describe(@"A transform component", ^{
 			
 			it(@"has a matrix with a translation of (5, 9)", ^{
 				GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(5, 9, 0);
+				expect(FUMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
+			});
+		});
+		
+		context(@"set the depth to 5", ^{
+			beforeEach(^{
+				[transform setDepth:5];
+			});
+			
+			it(@"has a depth of 5", ^{
+				expect([transform depth]).to.equal(5);
+			});
+			
+			it(@"has a matrix with a z translation of (5)", ^{
+				GLKMatrix4 translationMatrix = GLKMatrix4MakeTranslation(0, 0, 5);
 				expect(FUMatrix4EqualToMatrix4([transform matrix], translationMatrix)).to.beTruthy();
 			});
 		});

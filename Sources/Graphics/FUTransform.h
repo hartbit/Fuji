@@ -15,6 +15,7 @@
 @property (nonatomic) GLKVector2 position;
 @property (nonatomic) float positionX;
 @property (nonatomic) float positionY;
+@property (nonatomic) float depth;
 @property (nonatomic) float rotation;
 @property (nonatomic) GLKVector2 scale;
 @property (nonatomic) float scaleX;
