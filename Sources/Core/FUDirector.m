@@ -104,8 +104,8 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 - (void)addEngine:(FUEngine*)engine
 {
 	FUAssert(engine != nil, FUEngineNilMessage);
-	FUAssert([engine director] == nil, FUEngineAlreadyUsedMessage, engine, [engine director]);
 	FUAssert([engine director] != self, FUEngineAlreadyInDirector, engine);
+	FUAssert([engine director] == nil, FUEngineAlreadyUsedMessage, engine, [engine director]);
 	
 	[[self engines] addObject:engine];
 	[engine setDirector:self];
