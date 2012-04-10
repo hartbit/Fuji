@@ -120,23 +120,13 @@
 {
 	if ([self matrixNeedsUpdate])
 	{
-		GLKVector2 position = [self position];
-		_matrix = GLKMatrix4MakeTranslation(position.x, position.y, [self depth]);
-		
-		float rotation = [self rotation];
-		
-		if (rotation != 0)
-		{
-			_matrix = GLKMatrix4Rotate(_matrix, rotation, 0, 0, 1);
-		}
-		
-		GLKVector2 scale = [self scale];
-		
-		if (!GLKVector2AllEqualToScalar(scale, 1))
-		{
-			_matrix = GLKMatrix4Scale(_matrix, scale.x, scale.y, 1);
-		}
-		
+		GLKVector2 t = [self position];
+		float z = [self depth];
+		float r = [self rotation];
+		float cos = cosf(r);
+		float sin = sinf(r);
+		GLKVector2 s = [self scale];
+		_matrix = GLKMatrix4Make(s.x*cos, s.x*sin, 0, 0, -s.y*sin, s.y*cos, 0, 0, 0, 0, 1, 0, t.x, t.y, z, 1);
 		[self setMatrixNeedsUpdate:NO];
 	}
 	

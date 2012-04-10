@@ -9,7 +9,10 @@
 
 static __inline__ BOOL FUMatrix4EqualToMatrix4(GLKMatrix4 left, GLKMatrix4 right)
 {
-	return memcmp(left.m, right.m, sizeof(float) * 16) == 0;
+	return (left.m00 == right.m00) && (left.m01 == right.m01) && (left.m02 == right.m02) && (left.m03 == right.m03) &&
+	(left.m10 == right.m10) && (left.m11 == right.m11) && (left.m12 == right.m12) && (left.m13 == right.m13) &&
+	(left.m20 == right.m20) && (left.m21 == right.m21) && (left.m22 == right.m22) && (left.m23 == right.m23) &&
+	(left.m30 == right.m30) && (left.m31 == right.m31) && (left.m32 == right.m32) && (left.m33 == right.m33);
 }
 
 static __inline__ BOOL FUAreCloseWithAccuracy(float a, float b, float epsilon)
