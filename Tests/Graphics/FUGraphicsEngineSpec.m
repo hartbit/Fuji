@@ -35,6 +35,10 @@ describe(@"The graphics engine", ^{
 		it(@"enabled GL_CULL_FACE", ^{
 			expect(glIsEnabled(GL_CULL_FACE)).to.beTruthy();
 		});
+		
+		it(@"enabled GL_DEPTH_TEST", ^{
+			expect(glIsEnabled(GL_DEPTH_TEST)).to.beTruthy();
+		});
 	});
 });
 

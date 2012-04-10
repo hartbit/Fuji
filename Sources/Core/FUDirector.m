@@ -123,6 +123,7 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 	[super viewDidLoad];
 	
 	GLKView* view = (GLKView*)[self view];
+	[view setDrawableDepthFormat:GLKViewDrawableDepthFormat16];
 	[view setContext:[self context]];
 }
 
