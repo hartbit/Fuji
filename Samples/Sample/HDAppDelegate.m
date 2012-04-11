@@ -32,13 +32,14 @@
 		FUScene* scene = [FUScene new];
 		[director setScene:scene];
 		
-		for (NSUInteger index = 0; index < 250; index++)
+		for (NSUInteger index = 0; index < 1000; index++)
 		{
 			FUEntity* entity = [scene createEntity];
 			FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
 			[renderer setColor:GLKVector4Make(FURandomUnit(), FURandomUnit(), FURandomUnit(), 1)];
 			FUTransform* transform = [entity transform];
 			[transform setScale:GLKVector2Make(52, 139)];
+			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 		}
 	}
 	
