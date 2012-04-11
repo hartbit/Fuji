@@ -16,12 +16,27 @@
 #import "FUTransform.h"
 
 
+typedef struct
+{
+	GLKVector3 position;
+	GLKVector4 color;
+	GLKVector2 texCoord;
+} FUVertex;
+
+
+static inline FUVertex FUVertexMake(GLKVector3 position, GLKVector4 color, GLKVector2 texCoord)
+{
+	return (FUVertex){ position, color, texCoord };
+}
+
+
 @interface FUGraphicsEngine ()
 
 @property (nonatomic, strong) GLKBaseEffect* effect;
 @property (nonatomic, WEAK) FUGraphicsSettings* settings;
 @property (nonatomic) GLKMatrixStackRef matrixStack;
 @property (nonatomic) NSMutableData* vertexData;
+@property (nonatomic) NSMutableData* indexData;
 
 @end
 
@@ -32,6 +47,7 @@
 @synthesize settings = _settings;
 @synthesize matrixStack = _matrixStack;
 @synthesize vertexData = _vertexData;
+@synthesize indexData = _indexData;
 
 #pragma mark - Initialization
 
@@ -41,6 +57,9 @@
 	if (self == nil) return nil;
 	
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glClearDepthf(1.0f);
 	
 	return self;
 }
@@ -59,7 +78,6 @@
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
 		
-		[effect setUseConstantColor:YES];
 		[self updateProjection];
 	}
  
@@ -105,26 +123,16 @@
 	return _vertexData;
 }
 
-/*
-- (GLuint)spriteBuffer
+- (NSMutableData*)indexData
 {
-	if (_spriteBuffer == 0)
+	if (_indexData == nil)
 	{
-		float vertices[] = {
-			-0.5f, -0.5f,
-			-0.5f, 0.5f,
-			0.5f,  -0.5f,
-			0.5f,  0.5f
-		};
-		
-		glGenBuffers(1, &_spriteBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, _spriteBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		[self setIndexData:[NSMutableData data]];
 	}
 	
-	return _spriteBuffer;
+	return _indexData;
 }
-*/
+
 #pragma mark - Drawing
 
 - (void)drawSceneEnter:(FUScene*)scene
@@ -134,9 +142,33 @@
 	
 	GLKVector4 backgroundColor = [settings backgroundColor];
 	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-	glClear(GL_COLOR_BUFFER_BIT);
-	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+- (void)drawSceneLeave:(FUScene*)scene
+{	
 	[[self effect] prepareToDraw];
+	
+	glEnableVertexAttribArray(GLKVertexAttribPosition);
+	glEnableVertexAttribArray(GLKVertexAttribColor);
+	glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+
+	FUVertex* vertices = [[self vertexData] mutableBytes];
+	glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].position);
+	glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].color);
+	glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].texCoord);	
+
+	NSUInteger indicesLength = [[self indexData] length];
+	NSUInteger indexCount = indicesLength / sizeof(GLushort);
+	GLushort* indices = [[self indexData] mutableBytes];
+	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, indices);
+	
+	glDisableVertexAttribArray(GLKVertexAttribPosition);
+	glDisableVertexAttribArray(GLKVertexAttribColor);
+	glDisableVertexAttribArray(GLKVertexAttribTexCoord0);
+	
+	[[self vertexData] setLength:0];
+	[[self indexData] setLength:0];
 }
 
 - (void)updateTransform:(FUTransform*)transform
@@ -146,57 +178,39 @@
 
 - (void)drawSpriteRenderer:(FUSpriteRenderer*)spriteRenderer
 {
-//	NSLog(@"Draw: %p", [spriteRenderer entity]);
-	
 	const CGFloat width = 1;
 	const CGFloat height = 1;
 	
-	[[self effect] setConstantColor:[spriteRenderer color]];
+	NSMutableData* vertexData = [self vertexData];
+	GLushort i0 = [vertexData length] / sizeof(FUVertex);
+	GLushort i1 = i0 + 1;
+	GLushort i2 = i0 + 2;
+	GLushort i3 = i0 + 3;
+	GLushort indices[] = { i0, i1, i2, i2, i1, i3 };
+	NSUInteger indicesLength = sizeof(GLushort) * 6;
+	[[self indexData] appendBytes:&indices length:indicesLength];
 	
 	CGFloat halfWidth = width / 2;
 	CGFloat halfHeight = height / 2;
-	GLKMatrix4 matrix = [[[spriteRenderer entity] transform] matrix];
-	GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(-halfWidth, -halfHeight, 0));
-	GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(-halfWidth, halfHeight, 0));
-	GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(halfWidth, -halfHeight, 0));
-	GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(halfWidth, halfHeight, 0));
-	
-	NSUInteger vertexSize = sizeof(GLKVector2);
-	NSUInteger dataLength = [[self vertexData] length];
-	NSUInteger vertexIndex = dataLength / vertexSize;
-	[[self vertexData] setLength:dataLength + (vertexSize * 6)];
-	GLKVector2* vertexPointer = [[self vertexData] mutableBytes];
-	vertexPointer[vertexIndex] = GLKVector2Make(p0.x, p0.y);
-	vertexPointer[vertexIndex+1] = GLKVector2Make(p1.x, p1.y);
-	vertexPointer[vertexIndex+2] = GLKVector2Make(p2.x, p2.y);
-	vertexPointer[vertexIndex+3] = GLKVector2Make(p3.x, p3.y);
-	vertexPointer[vertexIndex+3] = GLKVector2Make(p3.x, p3.y);
-	vertexPointer[vertexIndex+3] = GLKVector2Make(p3.x, p3.y);
-/*	[[[self effect] transform] setModelviewMatrix:matrix];
-	[[self effect] prepareToDraw];*/
-	
-	
-/*	
-	float vertices[] = {
-		p0.x, p0.y,
-		p1.x, p1.y,
-		p2.x, p2.y,
-		p3.x, p3.y
-	};
-	
-	glEnableVertexAttribArray(GLKVertexAttribPosition);
-	glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, vertices);
- glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
- */
-
-	
-	/*
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, sizeof(GLKVector2), 0);
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
-    glDrawElements(GL_TRIANGLE_STRIP, sizeof(_indexBuffer)/sizeof(GLubyte), GL_UNSIGNED_BYTE, (void*)0);*/
+	FUEntity* entity = [spriteRenderer entity];
+	FUTransform* transform = [entity transform];
+	GLKMatrix4 matrix = [transform matrix];
+	GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(-halfWidth, -halfHeight, 1));
+	GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(-halfWidth, halfHeight, 1));
+	GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(halfWidth, -halfHeight, 1));
+	GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, GLKVector3Make(halfWidth, halfHeight, 1));
+	GLKVector4 color = [spriteRenderer color];
+	GLKVector2 t0 = GLKVector2Make(0, 0);
+	GLKVector2 t1 = GLKVector2Make(0, 1);
+	GLKVector2 t2 = GLKVector2Make(1, 0);
+	GLKVector2 t3 = GLKVector2Make(1, 1);
+	FUVertex v0 = FUVertexMake(p0, color, t0);
+	FUVertex v1 = FUVertexMake(p1, color, t1);
+	FUVertex v2 = FUVertexMake(p2, color, t2);
+	FUVertex v3 = FUVertexMake(p3, color, t3);
+	FUVertex vertices[] = { v0, v1, v2, v3 };
+	NSUInteger verticesLength = sizeof(FUVertex) * 4;
+	[vertexData appendBytes:&vertices length:verticesLength];
 }
 
 #pragma mark - FUInterfaceRotation Methods
@@ -211,8 +225,9 @@
 - (void)updateProjection
 {
 	CGSize viewSize = [[[self director] view] bounds].size;
-	GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, -1, 1);
+	GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(0, viewSize.width, viewSize.height, 0, 0, FLT_MAX);
 	[[[self effect] transform] setProjectionMatrix:projectionMatrix];
+	[[self effect] prepareToDraw];
 }
 
 @end
