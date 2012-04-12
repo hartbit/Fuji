@@ -20,6 +20,7 @@ static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
 static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
+static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@' to have the same 'director=%@'";
 
 
 @interface FUDirector ()
@@ -204,6 +205,7 @@ static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not
 - (void)makeEnginesPerformSelectorWithPrefix:(NSString*)prefix withSceneObject:(FUSceneObject*)sceneObject
 {
 	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
+	FUAssert([[sceneObject scene] director] == self, FUSceneObjectInvalidMessage, sceneObject, [[sceneObject scene] director]);
 	
 	for (FUEngine* engine in [self engines])
 	{

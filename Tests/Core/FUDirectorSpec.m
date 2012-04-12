@@ -144,7 +144,7 @@ describe(@"A director", ^{
 				});
 				
 				it(@"set the director property of the previous scene to nil", ^{
-					expect([scene director]).to.beNil();
+					[verify(scene) setDirector:nil];
 				});
 			});
 			
@@ -216,75 +216,113 @@ describe(@"A director", ^{
 		});
 		
 		context(@"initialized a scene object", ^{
+			__block FUScene* scene = nil;
 			__block FUChildSceneObject* sceneObject = nil;
 			
 			beforeEach(^{
-				sceneObject = [[FUChildSceneObject alloc] initWithScene:mock([FUScene class])];
+				scene = mock([FUScene class]);
+				sceneObject = [[FUChildSceneObject alloc] initWithScene:scene];
 			});
 			
-			context(@"added an engine that registers/unregisters the child scene object", ^{
-				__block FUChildEngine* engine;
-				
+			context(@"registering the scene object", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([director registerSceneObject:sceneObject], nil);
+				});
+			});
+			
+			context(@"unregistering the scene object", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([director unregisterSceneObject:sceneObject], nil);
+				});
+			});
+
+			context(@"set another director on the scene", ^{
 				beforeEach(^{
-					engine = mock([FUChildEngine class]);
-					[director addEngine:engine];
+					[given([scene director]) willReturn:mock([FUDirector class])];
 				});
 				
 				context(@"registering the scene object", ^{
-					it(@"calls the engine's register method", ^{
-						[director registerSceneObject:sceneObject];
-						[verify(engine) registerFUChildSceneObject:sceneObject];
+					it(@"throws an exception", ^{
+						STAssertThrows([director registerSceneObject:sceneObject], nil);
 					});
 				});
 				
 				context(@"unregistering the scene object", ^{
-					it(@"calls the engine's unregister method", ^{
-						[director unregisterSceneObject:sceneObject];
-						[verify(engine) unregisterFUChildSceneObject:sceneObject];
+					it(@"throws an exception", ^{
+						STAssertThrows([director unregisterSceneObject:sceneObject], nil);
 					});
 				});
 			});
-			
-			context(@"added an engine that registers/unregisters the parent scene object", ^{
-				__block FUParentEngine* engine;
-				
+
+			context(@"set the director on the scene", ^{
 				beforeEach(^{
-					engine = mock([FUParentEngine class]);
-					[director addEngine:engine];
+					[given([scene director]) willReturn:director];
 				});
 				
-				context(@"registering the scene object", ^{
-					it(@"calls the engine's register method", ^{
-						[director registerSceneObject:sceneObject];
-						[verify(engine) registerFUParentSceneObject:sceneObject];
+				context(@"added an engine that registers/unregisters the child scene object", ^{
+					__block FUChildEngine* engine;
+					
+					beforeEach(^{
+						engine = mock([FUChildEngine class]);
+						[director addEngine:engine];
+					});
+					
+					context(@"registering the scene object", ^{
+						it(@"calls the engine's register method", ^{
+							[director registerSceneObject:sceneObject];
+							[verify(engine) registerFUChildSceneObject:sceneObject];
+						});
+					});
+					
+					context(@"unregistering the scene object", ^{
+						it(@"calls the engine's unregister method", ^{
+							[director unregisterSceneObject:sceneObject];
+							[verify(engine) unregisterFUChildSceneObject:sceneObject];
+						});
 					});
 				});
 				
-				context(@"unregistering the scene object", ^{
-					it(@"calls the engine's unregister method", ^{
-						[director unregisterSceneObject:sceneObject];
-						[verify(engine) unregisterFUParentSceneObject:sceneObject];
+				context(@"added an engine that registers/unregisters the parent scene object", ^{
+					__block FUParentEngine* engine;
+					
+					beforeEach(^{
+						engine = mock([FUParentEngine class]);
+						[director addEngine:engine];
+					});
+					
+					context(@"registering the scene object", ^{
+						it(@"calls the engine's register method", ^{
+							[director registerSceneObject:sceneObject];
+							[verify(engine) registerFUParentSceneObject:sceneObject];
+						});
+					});
+					
+					context(@"unregistering the scene object", ^{
+						it(@"calls the engine's unregister method", ^{
+							[director unregisterSceneObject:sceneObject];
+							[verify(engine) unregisterFUParentSceneObject:sceneObject];
+						});
 					});
 				});
-			});
-			
-			context(@"created an engine that does not register/unregister anything", ^{
-				__block FUEmptyEngine* engine;
 				
-				beforeEach(^{
-					engine = mock([FUEmptyEngine class]);
-					[director addEngine:engine];
-				});
-				
-				context(@"registering the scene object", ^{
-					it(@"does nothing", ^{
-						[director registerSceneObject:sceneObject];
+				context(@"created an engine that does not register/unregister anything", ^{
+					__block FUEmptyEngine* engine;
+					
+					beforeEach(^{
+						engine = mock([FUEmptyEngine class]);
+						[director addEngine:engine];
 					});
-				});
-				
-				context(@"unregistering the scene object", ^{
-					it(@"does nothing", ^{
-						[director unregisterSceneObject:sceneObject];
+					
+					context(@"registering the scene object", ^{
+						it(@"does nothing", ^{
+							[director registerSceneObject:sceneObject];
+						});
+					});
+					
+					context(@"unregistering the scene object", ^{
+						it(@"does nothing", ^{
+							[director unregisterSceneObject:sceneObject];
+						});
 					});
 				});
 			});
@@ -293,6 +331,7 @@ describe(@"A director", ^{
 });
 
 SPEC_END
+
 
 @implementation FUParentSceneObject
 @end
