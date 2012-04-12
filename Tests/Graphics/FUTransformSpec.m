@@ -23,9 +23,8 @@ describe(@"A transform component", ^{
 		__block FUTransform* transform = nil;
 		
 		beforeEach(^{
-			FUScene* scene = mock([FUScene class]);
 			FUEntity* entity = mock([FUEntity class]);
-			[given([entity scene]) willReturn:scene];
+			[given([entity scene]) willReturn:mock([FUScene class])];
 			transform = [[FUTransform alloc] initWithEntity:entity];
 		});
 		

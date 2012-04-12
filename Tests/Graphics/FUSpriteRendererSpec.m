@@ -26,9 +26,8 @@ describe(@"A sprite renderer component", ^{
 		__block FUSpriteRenderer* spriteRenderer = nil;
 		
 		beforeEach(^{
-			FUScene* scene = mock([FUScene class]);
 			FUEntity* entity = mock([FUEntity class]);
-			[given([entity scene]) willReturn:scene];
+			[given([entity scene]) willReturn:mock([FUScene class])];
 			spriteRenderer = [[FUSpriteRenderer alloc] initWithEntity:entity];
 		});
 		

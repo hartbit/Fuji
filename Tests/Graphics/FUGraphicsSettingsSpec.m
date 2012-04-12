@@ -22,9 +22,8 @@ describe(@"The graphics settings", ^{
 		__block FUGraphicsSettings* graphics = nil;
 		
 		beforeEach(^{
-			FUScene* scene = mock([FUScene class]);
 			FUEntity* entity = mock([FUEntity class]);
-			[given([entity scene]) willReturn:scene];
+			[given([entity scene]) willReturn:mock([FUScene class])];
 			graphics = [[FUGraphicsSettings alloc] initWithEntity:entity];
 		});
 		
