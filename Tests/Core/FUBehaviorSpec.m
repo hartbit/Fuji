@@ -34,7 +34,7 @@ describe(@"A behavior object", ^{
 		expect([FUBehavior class]).to.beSubclassOf([FUComponent class]);
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		__block FUBehavior* behavior = nil;
 		
 		beforeEach(^{

@@ -22,7 +22,7 @@ describe(@"A sprite renderer component", ^{
 		expect([FUSpriteRenderer requiredComponents]).to.contain([FUTransform class]);
 	});
 	
-	context(@"created and initiailized", ^{
+	context(@"initiailized", ^{
 		__block FUSpriteRenderer* spriteRenderer = nil;
 		
 		beforeEach(^{

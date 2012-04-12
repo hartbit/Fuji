@@ -18,7 +18,7 @@ describe(@"A scene", ^{
 		expect([[FUSceneObject class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
-	context(@"creating and initializing with init", ^{
+	context(@"initialized with init", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([FUSceneObject new], nil);
 		});
@@ -30,7 +30,7 @@ describe(@"A scene", ^{
 		});
 	});
 	
-	context(@"created and initialized with a scene", ^{
+	context(@"initialized with a scene", ^{
 		__block FUDirector* director;
 		__block FUScene* scene;
 		__block FUSceneObject* sceneObject;

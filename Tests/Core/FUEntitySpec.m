@@ -370,7 +370,7 @@ describe(@"An entity", ^{
 		});
 	});
 	
-	context(@"created and initialized a test entity", ^{
+	context(@"initialized a test entity", ^{
 		__block FUTestEntity* entity = nil;
 		
 		beforeEach(^{

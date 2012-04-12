@@ -18,7 +18,7 @@ describe(@"The graphics settings", ^{
 		expect([FUGraphicsSettings class]).to.beASubclassOf([FUComponent class]);
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		__block FUGraphicsSettings* graphics = nil;
 		
 		beforeEach(^{

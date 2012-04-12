@@ -21,7 +21,7 @@ describe(@"A scene", ^{
 		expect([FUScene class]).to.beSubclassOf([FUEntity class]);
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		beforeEach(^{
 			scene = [FUScene scene];
 		});
@@ -159,7 +159,7 @@ describe(@"A scene", ^{
 		});
 	});
 	
-	context(@"created and initialized a test scene with a mock entity", ^{
+	context(@"initialized a test scene with a mock entity", ^{
 		__block FUTestScene* scene = nil;
 		__block FUEntity* entity = nil;
 		

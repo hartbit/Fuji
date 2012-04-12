@@ -17,7 +17,7 @@ describe(@"An engine", ^{
 		expect([[FUEngine class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		__block FUEngine* engine = nil;
 		
 		beforeEach(^{

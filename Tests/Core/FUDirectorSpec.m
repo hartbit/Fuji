@@ -39,7 +39,7 @@ describe(@"A director", ^{
 		expect([FUDirector class]).to.beASubclassOf([GLKViewController class]);
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		__block FUDirector* director = nil;
 		
 		beforeEach(^{
@@ -215,7 +215,7 @@ describe(@"A director", ^{
 			});
 		});
 		
-		context(@"created and initialized a scene object", ^{
+		context(@"initialized a scene object", ^{
 			__block FUChildSceneObject* sceneObject = nil;
 			
 			beforeEach(^{

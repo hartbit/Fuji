@@ -19,7 +19,7 @@ describe(@"A transform component", ^{
 		expect([FUTransform class]).to.beASubclassOf([FUComponent class]);
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		__block FUTransform* transform = nil;
 		
 		beforeEach(^{

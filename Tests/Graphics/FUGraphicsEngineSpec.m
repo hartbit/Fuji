@@ -18,7 +18,7 @@ describe(@"The graphics engine", ^{
 		expect([FUGraphicsEngine class]).to.beSubclassOf([FUEngine class]);
 	});
 	
-	context(@"created and initialized a graphics engine", ^{
+	context(@"initialized a graphics engine", ^{
 		__block FUGraphicsEngine* graphicsEngine = nil;
 		
 		beforeEach(^{

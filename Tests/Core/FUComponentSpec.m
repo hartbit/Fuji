@@ -42,7 +42,7 @@ describe(@"A component object", ^{
 		});
 	});
 	
-	context(@"created and initialized", ^{
+	context(@"initialized", ^{
 		__block FUScene* scene = nil;
 		__block FUEntity* entity = nil;
 		__block FUComponent* component = nil;
