@@ -10,11 +10,6 @@
 #import "FUInterfaceRotating.h"
 
 
-@class FUEngine;
-
 @interface FUSceneObject : NSObject <FUInterfaceRotating>
-
-- (void)registerWithEngine:(FUEngine*)engine;
-- (void)unregisterFromEngine:(FUEngine*)engine;
 
 @end

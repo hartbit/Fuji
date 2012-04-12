@@ -11,6 +11,7 @@
 #import "FUScene-Internal.h"
 #import "FUEngine.h"
 #import "FUEngine-Internal.h"
+#import "FUSceneObject.h"
 #import "FUGraphicsEngine.h"
 
 
@@ -18,6 +19,7 @@ static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already s
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
+static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
 
 
 @interface FUDirector ()
@@ -116,6 +118,16 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 	return [NSSet setWithSet:[self engines]];
 }
 
+- (void)registerSceneObject:(FUSceneObject*)sceneObject
+{
+	[self makeEnginesPerformSelectorWithPrefix:@"register" withSceneObject:sceneObject];
+}
+
+- (void)unregisterSceneObject:(FUSceneObject*)sceneObject
+{
+	[self makeEnginesPerformSelectorWithPrefix:@"unregister" withSceneObject:sceneObject];
+}
+
 #pragma mark - UIViewController Methods
 
 - (void)viewDidLoad
@@ -184,6 +196,35 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 	for (FUEngine* engine in [self engines])
 	{
 		[engine draw];
+	}
+}
+
+#pragma mark - Private Methods
+
+- (void)makeEnginesPerformSelectorWithPrefix:(NSString*)prefix withSceneObject:(FUSceneObject*)sceneObject
+{
+	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
+	
+	for (FUEngine* engine in [self engines])
+	{
+		Class currentAncestor = [sceneObject class];
+	
+		while ([currentAncestor isSubclassOfClass:[FUSceneObject class]])
+		{
+			NSString* selectorString = [NSString stringWithFormat:@"%@%@:", prefix, NSStringFromClass(currentAncestor)];
+			SEL selector = NSSelectorFromString(selectorString);
+		
+			if ([engine respondsToSelector:selector])
+			{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+				[engine performSelector:selector withObject:sceneObject];
+#pragma clang diagnostic pop
+				break;
+			}
+		
+			currentAncestor = [currentAncestor superclass];
+		}
 	}
 }
 

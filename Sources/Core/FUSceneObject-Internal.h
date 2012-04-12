@@ -13,6 +13,7 @@
 
 @interface FUSceneObject ()
 
-- (void)makeEngine:(FUEngine*)engine performSelectorWithPrefix:(NSString*)prefix;
+- (void)register;
+- (void)unregister;
 
 @end

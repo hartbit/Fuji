@@ -95,26 +95,6 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - FUSceneObject Methods
 
-- (void)registerWithEngine:(FUEngine*)engine
-{
-	[super registerWithEngine:engine];
-	
-	for (FUEntity* entity in [self entities])
-	{
-		[entity registerWithEngine:engine];
-	}
-}
-
-- (void)unregisterFromEngine:(FUEngine*)engine
-{
-	[super unregisterFromEngine:engine];
-	
-	for (FUEntity* entity in [self entities])
-	{
-		[entity unregisterFromEngine:engine];
-	}
-}
-
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	for (FUEntity* entity in [self entities])

@@ -11,6 +11,7 @@
 
 @class FUScene;
 @class FUEngine;
+@class FUSceneObject;
 
 /** FUViewController
  * This is the view controller class.
@@ -21,5 +22,8 @@
 
 - (void)addEngine:(FUEngine*)engine;
 - (NSSet*)allEngines;
+
+- (void)registerSceneObject:(FUSceneObject*)sceneObject;
+- (void)unregisterSceneObject:(FUSceneObject*)sceneObject;
 
 @end

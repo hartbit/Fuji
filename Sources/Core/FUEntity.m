@@ -293,26 +293,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 #pragma mark - FUSceneObject Methods
 
-- (void)registerWithEngine:(FUEngine*)engine
-{
-	[super registerWithEngine:engine];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component registerWithEngine:engine];
-	}
-}
-
-- (void)unregisterFromEngine:(FUEngine*)engine
-{
-	[super unregisterFromEngine:engine];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component unregisterFromEngine:engine];
-	}
-}
-
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	for (FUComponent* component in [self components])
