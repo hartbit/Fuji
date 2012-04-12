@@ -144,8 +144,8 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	id component = [[componentClass alloc] initWithEntity:self];
 	[[self components] addObject:component];
-	
 	[self updatePropertiesAfterAdditionOfComponent:component];
+	[component register];
 	
 	return component;
 }
@@ -161,9 +161,9 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	[self validateRemovalOfComponent:component];
 	
+	[component unregister];
 	[[self components] removeObject:component];
 	[component setEntity:nil];
-	
 	[self updatePropertiesAfterRemovalOfComponent:component];
 }
 

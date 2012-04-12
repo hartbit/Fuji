@@ -50,11 +50,14 @@ describe(@"An entity", ^{
 	});
 	
 	context(@"initialized with a valid scene", ^{
+		__block FUDirector* director = nil;
 		__block FUScene* scene = nil;
 		__block FUEntity* entity = nil;
 		
 		beforeEach(^{
+			director = mock([FUDirector class]);
 			scene = mock([FUScene class]);
+			[given([scene director]) willReturn:director];
 			entity = [[FUEntity alloc] initWithScene:scene];
 		});
 		
@@ -74,6 +77,10 @@ describe(@"An entity", ^{
 		it(@"the transform property returns the transform component", ^{
 			FUTransform* transform = [entity componentWithClass:[FUTransform class]];
 			expect([entity transform]).to.beIdenticalTo(transform);
+		});
+		
+		it(@"registered the transform component", ^{
+			[verify(director) registerSceneObject:[entity transform]];
 		});
 		
 		context(@"removing the transform component", ^{
@@ -242,6 +249,10 @@ describe(@"An entity", ^{
 				expect([component1 scene]).to.beIdenticalTo(scene);
 			});
 			
+			it(@"registers the component with the director", ^{
+				[verify(director) registerSceneObject:component1];
+			});
+			
 			it(@"has that component", ^{
 				NSSet* components = [entity allComponents];
 				expect(components).to.haveCountOf(2);
@@ -277,6 +288,10 @@ describe(@"An entity", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
 				});
 				
+				it(@"registers the new component with the director", ^{
+					[verify(director) registerSceneObject:component2];
+				});
+				
 				it(@"has both components", ^{
 					NSSet* components = [entity allComponents];
 					expect(components).to.haveCountOf(3);
@@ -299,6 +314,10 @@ describe(@"An entity", ^{
 					expect([component2 scene]).to.beIdenticalTo(scene);
 				});
 				
+				it(@"registers the new component with the director", ^{
+					[verify(director) registerSceneObject:component2];
+				});
+				
 				it(@"has three components, including both explicitely created", ^{
 					NSSet* components = [entity allComponents];
 					expect(components).to.haveCountOf(4);
@@ -311,6 +330,14 @@ describe(@"An entity", ^{
 					expect([component3 wasInitCalled]).to.beTruthy();
 					expect([component3 scene]).to.beIdenticalTo(scene);
 					expect([entity allComponents]).to.contain(component3);
+				});
+				
+				it(@"registers the implicit component with the director", ^{
+					[verify(director) registerSceneObject:component3];
+				});
+				
+				it(@"has not registered the first component", ^{
+					[verify(director) registerSceneObject:component1];
 				});
 				
 				context(@"getting a component with a common ancestor of all components", ^{
@@ -374,6 +401,10 @@ describe(@"An entity", ^{
 					
 					it(@"sets the entity property of the component to nil", ^{
 						expect([component2 entity]).to.beNil();
+					});
+					
+					it(@"unregistered the component", ^{
+						[verify(director) unregisterSceneObject:component2];
 					});
 				});
 				
