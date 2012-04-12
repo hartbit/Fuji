@@ -21,8 +21,6 @@
 		634E08C71529E85800D5C3F8 /* FUSpriteRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 634E08C51529E85800D5C3F8 /* FUSpriteRenderer.h */; };
 		634E08C81529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */; };
 		634E08C91529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */; };
-		635A06B8152B2BB100934D78 /* FUTestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 635A06B7152B2BB100934D78 /* FUTestScene.m */; };
-		635A06BC152B2DAA00934D78 /* FUTestEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 635A06BB152B2DAA00934D78 /* FUTestEntity.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63822774151A29960009D036 /* FUGraphicsSettingsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */; };
@@ -43,7 +41,6 @@
 		63925259151214EA005B3FEC /* FUComponentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925256151214EA005B3FEC /* FUComponentSpec.m */; };
 		6392525A151214EA005B3FEC /* FUEntitySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925257151214EA005B3FEC /* FUEntitySpec.m */; };
 		6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925258151214EA005B3FEC /* FUSceneSpec.m */; };
-		6392525E15123D84005B3FEC /* FUTestComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 6392525D15123D84005B3FEC /* FUTestComponents.m */; };
 		6397C530151A33B500457829 /* FUDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6397C52E151A33B500457829 /* FUDirector.h */; };
 		6397C531151A33B500457829 /* FUDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397C52F151A33B500457829 /* FUDirector.m */; };
 		63A159A514FD1DB500364D24 /* FUScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 63A159A314FD1DB500364D24 /* FUScene.h */; };
@@ -51,7 +48,6 @@
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
-		63C1E05B15370DB000FE660F /* FUTestEngines.m in Sources */ = {isa = PBXBuildFile; fileRef = 63101716153703AC0039CC49 /* FUTestEngines.m */; };
 		63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
 		63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
@@ -76,8 +72,6 @@
 
 /* Begin PBXFileReference section */
 		631016FC153702AC0039CC49 /* FUSceneObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneObjectSpec.m; sourceTree = "<group>"; };
-		63101716153703AC0039CC49 /* FUTestEngines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestEngines.m; sourceTree = "<group>"; };
-		63101717153703AC0039CC49 /* FUTestEngines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestEngines.h; sourceTree = "<group>"; };
 		63117F2214FFAD3700A04563 /* FUEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUEntity.h; sourceTree = "<group>"; };
 		63117F2314FFAD3700A04563 /* FUEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUEntity.m; sourceTree = "<group>"; };
 		63117F2714FFB87A00A04563 /* FUComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUComponent.h; sourceTree = "<group>"; };
@@ -92,10 +86,6 @@
 		634E08C01529DC0A00D5C3F8 /* FUBehavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBehavior.m; sourceTree = "<group>"; };
 		634E08C51529E85800D5C3F8 /* FUSpriteRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSpriteRenderer.h; sourceTree = "<group>"; };
 		634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteRenderer.m; sourceTree = "<group>"; };
-		635A06B6152B2BB100934D78 /* FUTestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestScene.h; sourceTree = "<group>"; };
-		635A06B7152B2BB100934D78 /* FUTestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestScene.m; sourceTree = "<group>"; };
-		635A06BA152B2DAA00934D78 /* FUTestEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestEntity.h; sourceTree = "<group>"; };
-		635A06BB152B2DAA00934D78 /* FUTestEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestEntity.m; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGraphicsSettingsSpec.m; sourceTree = "<group>"; };
@@ -115,8 +105,6 @@
 		63925256151214EA005B3FEC /* FUComponentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponentSpec.m; sourceTree = "<group>"; };
 		63925257151214EA005B3FEC /* FUEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUEntitySpec.m; sourceTree = "<group>"; };
 		63925258151214EA005B3FEC /* FUSceneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneSpec.m; sourceTree = "<group>"; };
-		6392525C15123D84005B3FEC /* FUTestComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestComponents.h; sourceTree = "<group>"; };
-		6392525D15123D84005B3FEC /* FUTestComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTestComponents.m; sourceTree = "<group>"; };
 		6397C52E151A33B500457829 /* FUDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUDirector.h; sourceTree = "<group>"; };
 		6397C52F151A33B500457829 /* FUDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDirector.m; sourceTree = "<group>"; };
 		63A159A314FD1DB500364D24 /* FUScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUScene.h; sourceTree = "<group>"; };
@@ -269,14 +257,6 @@
 				63925258151214EA005B3FEC /* FUSceneSpec.m */,
 				63925256151214EA005B3FEC /* FUComponentSpec.m */,
 				634E08BD1529DB8400D5C3F8 /* FUBehaviorSpec.m */,
-				63101717153703AC0039CC49 /* FUTestEngines.h */,
-				63101716153703AC0039CC49 /* FUTestEngines.m */,
-				635A06BA152B2DAA00934D78 /* FUTestEntity.h */,
-				635A06BB152B2DAA00934D78 /* FUTestEntity.m */,
-				635A06B6152B2BB100934D78 /* FUTestScene.h */,
-				635A06B7152B2BB100934D78 /* FUTestScene.m */,
-				6392525C15123D84005B3FEC /* FUTestComponents.h */,
-				6392525D15123D84005B3FEC /* FUTestComponents.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -492,7 +472,6 @@
 				63925259151214EA005B3FEC /* FUComponentSpec.m in Sources */,
 				6392525A151214EA005B3FEC /* FUEntitySpec.m in Sources */,
 				6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */,
-				6392525E15123D84005B3FEC /* FUTestComponents.m in Sources */,
 				63822774151A29960009D036 /* FUGraphicsSettingsSpec.m in Sources */,
 				63822775151A29960009D036 /* FUTransformSpec.m in Sources */,
 				63822787151A2BA40009D036 /* FUMath.m in Sources */,
@@ -513,11 +492,8 @@
 				634E08C31529DC0A00D5C3F8 /* FUBehavior.m in Sources */,
 				634E08C41529E83A00D5C3F8 /* FUSpriteRendererSpec.m in Sources */,
 				634E08C91529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */,
-				635A06B8152B2BB100934D78 /* FUTestScene.m in Sources */,
-				635A06BC152B2DAA00934D78 /* FUTestEntity.m in Sources */,
 				63E9158D1535E16600F7864B /* FUSceneObject.m in Sources */,
 				631016FD153702AC0039CC49 /* FUSceneObjectSpec.m in Sources */,
-				63C1E05B15370DB000FE660F /* FUTestEngines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

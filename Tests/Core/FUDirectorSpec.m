@@ -12,11 +12,8 @@
 #import "FUEngine-Internal.h"
 
 
-@interface FUParentSceneObject : FUSceneObject
-@end
-
-@interface FUChildSceneObject : FUParentSceneObject
-@end
+@interface FUParentSceneObject : FUSceneObject @end
+@interface FUChildSceneObject : FUParentSceneObject @end
 
 @interface FUChildEngine : FUEngine
 - (void)registerFUChildSceneObject:(FUChildSceneObject*)sceneObject;
@@ -28,8 +25,7 @@
 - (void)unregisterFUParentSceneObject:(FUParentSceneObject*)sceneObject;
 @end
 
-@interface FUEmptyEngine : FUEngine
-@end
+@interface FUEmptyEngine : FUEngine @end
 
 
 SPEC_BEGIN(FUDirectorSpec)

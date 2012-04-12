@@ -12,18 +12,8 @@
 
 
 @interface FUBehaviorEngine : FUEngine
-
 - (void)registerFUBehavior:(FUBehavior*)behavior;
 - (void)unregisterFUBehavior:(FUBehavior*)behavior;
-
-@end
-
-
-@implementation FUBehaviorEngine
-
-- (void)registerFUBehavior:(FUBehavior*)behavior { }
-- (void)unregisterFUBehavior:(FUBehavior*)behavior { }
-
 @end
 
 
@@ -35,11 +25,13 @@ describe(@"A behavior object", ^{
 	});
 	
 	context(@"initialized", ^{
+		__block FUScene* scene = nil;
 		__block FUBehavior* behavior = nil;
 		
 		beforeEach(^{
+			scene = mock([FUScene class]);
 			FUEntity* entity = mock([FUEntity class]);
-			[given([entity scene]) willReturn:mock([FUScene class])];
+			[given([entity scene]) willReturn:scene];
 			behavior = [[FUBehavior alloc] initWithEntity:entity];
 		});
 		
@@ -51,26 +43,19 @@ describe(@"A behavior object", ^{
 			expect([behavior isEnabled]).to.beTruthy();
 		});
 		
-		context(@"created a mock engine", ^{
-			__block FUEngine* engine = nil;
-			
-			beforeEach(^{
-				engine = mock([FUBehaviorEngine class]);
-			});
-			
-			context(@"set it to disabled", ^{
-				beforeEach(^{
-					[behavior setEnabled:NO];
-				});
-				
-				it(@"sets it's enabled property to NO", ^{
-					expect([behavior isEnabled]).to.beFalsy();
-				});
-				
-#warning Make the enable property call the register/unregister methods
+		context(@"setting it to disabled", ^{
+			it(@"sets it's enabled property to NO", ^{
+				[behavior setEnabled:NO];
+				expect([behavior isEnabled]).to.beFalsy();
 			});
 		});
 	});
 });
 
 SPEC_END
+
+
+@implementation FUBehaviorEngine
+- (void)registerFUBehavior:(FUBehavior*)behavior { }
+- (void)unregisterFUBehavior:(FUBehavior*)behavior { }
+@end

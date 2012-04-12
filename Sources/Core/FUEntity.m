@@ -204,6 +204,54 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	return [NSSet setWithSet:[self components]];
 }
 
+#pragma mark - FUSceneObject Methods
+
+- (void)register
+{
+	[super register];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component register];
+	}	
+}
+
+- (void)unregister
+{
+	[super unregister];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component unregister];
+	}
+}
+
+#pragma mark - FUInterfaceRotating Methods
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	for (FUComponent* component in [self components])
+	{
+		[component willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	}
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+	for (FUComponent* component in [self components])
+	{
+		[component willAnimateRotationToInterfaceOrientation:interfaceOrientation duration:duration];
+	}
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	for (FUComponent* component in [self components])
+	{
+		[component didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+	}
+}
+
 #pragma mark - Private Methods
 
 - (void)validateUniquenessOfClass:(Class)componentClass
@@ -281,32 +329,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 			[self setValue:nextComponent forKey:key];
 		}
 	}];
-}
-
-#pragma mark - FUSceneObject Methods
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-	for (FUComponent* component in [self components])
-	{
-		[component willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-	}
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
-{
-	for (FUComponent* component in [self components])
-	{
-		[component willAnimateRotationToInterfaceOrientation:interfaceOrientation duration:duration];
-	}
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	for (FUComponent* component in [self components])
-	{
-		[component didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-	}
 }
 
 @end

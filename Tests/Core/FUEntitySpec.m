@@ -10,9 +10,32 @@
 #import "Fuji.h"
 #import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
-#import "FUTestEngines.h"
-#import "FUTestComponents.h"
-#import "FUTestEntity.h"
+
+
+@interface FUTestEntity : FUEntity @end
+
+@interface FUTestComponent : FUComponent
+@property (nonatomic, readonly) BOOL wasInitCalled;
+@end
+
+@interface FUUniqueParentComponent : FUTestComponent @end
+@interface FUUniqueChild1Component : FUUniqueParentComponent @end
+@interface FUUniqueChild2Component : FUUniqueParentComponent @end
+@interface FUCommonChildComponent : FUUniqueParentComponent @end
+@interface FUUniqueGrandChildComponent : FUCommonChildComponent @end
+
+@interface FURequireObjectComponent : FUTestComponent @end
+@interface FURequireInvalidSuperclassComponent : FURequireObjectComponent @end
+@interface FURequireNSStringComponent : FUTestComponent @end
+@interface FURequireBaseComponent : FUTestComponent @end
+@interface FURequireItselfComponent : FUTestComponent @end
+@interface FURequireSubclassComponent : FUTestComponent @end
+@interface FURequireRelativesComponent : FUTestComponent @end
+
+@interface FUCommonParentComponent : FUTestComponent @end
+@interface FURequireUniqueParentComponent : FUCommonParentComponent @end
+@interface FURequireRequiredComponent : FURequireUniqueParentComponent @end
+@interface FURequiredComponent : FUCommonParentComponent @end
 
 
 SPEC_BEGIN(FUEntitySpec)
@@ -37,10 +60,6 @@ describe(@"An entity", ^{
 		
 		it(@"is not nil", ^{
 			expect(entity).toNot.beNil();
-		});
-		
-		it(@"has the scene property set", ^{
-			expect([entity scene]).to.beIdenticalTo(scene);
 		});
 		
 		it(@"has a transform component", ^{
@@ -184,32 +203,32 @@ describe(@"An entity", ^{
 				STAssertThrows([entity addComponentWithClass:[FUUniqueGrandChildComponent class]], nil);
 			});
 		});
-#warning Re-add tests
-/*
-		context(@"created a generic engine", ^{
-			__block FUGenericEngine* engine = nil;
+
+		context(@"gave the scene a director", ^{
+			__block FUDirector* director = nil;
 			
 			beforeEach(^{
-				engine = mock([FUGenericEngine class]);
+				director = mock([FUDirector class]);
+				[given([scene director]) willReturn:director];
 			});
 			
-			context(@"registering the entity with the engine", ^{
-				it(@"registers itself and it's components with the engine", ^{
-					[entity registerWithEngine:engine];
-					[verify(engine) registerFUSceneObject:entity];
-					[verify(engine) registerFUSceneObject:[entity transform]];
+			context(@"registering the entity", ^{
+				it(@"registers itself and it's components with the director", ^{
+					[entity register];
+					[verify(director) registerSceneObject:entity];
+					[verify(director) registerSceneObject:[entity transform]];
 				});
 			});
 			
-			context(@"unregistering the entity from the engine", ^{
-				it(@"unregisters itself and it's components from the engine", ^{
-					[entity unregisterFromEngine:engine];
-					[verify(engine) unregisterFUSceneObject:entity];
-					[verify(engine) unregisterFUSceneObject:[entity transform]];
+			context(@"unregistering the entity", ^{
+				it(@"unregisters itself and it's components from the director", ^{
+					[entity unregister];
+					[verify(director) unregisterSceneObject:entity];
+					[verify(director) unregisterSceneObject:[entity transform]];
 				});
 			});
 		});
-*/
+		
 		context(@"added a unique component", ^{
 			__block FUUniqueChild1Component* component1 = nil;
 			
@@ -220,6 +239,7 @@ describe(@"An entity", ^{
 			it(@"initializes a new component", ^{
 				expect(component1).toNot.beNil();
 				expect([component1 wasInitCalled]).to.beTruthy();
+				expect([component1 scene]).to.beIdenticalTo(scene);
 			});
 			
 			it(@"has that component", ^{
@@ -276,6 +296,7 @@ describe(@"An entity", ^{
 				
 				it(@"initializes a new component", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
+					expect([component2 scene]).to.beIdenticalTo(scene);
 				});
 				
 				it(@"has three components, including both explicitely created", ^{
@@ -288,6 +309,7 @@ describe(@"An entity", ^{
 				it(@"had implicitely created the second required component", ^{
 					expect([component3 class]).to.beIdenticalTo([FURequiredComponent class]);
 					expect([component3 wasInitCalled]).to.beTruthy();
+					expect([component3 scene]).to.beIdenticalTo(scene);
 					expect([entity allComponents]).to.contain(component3);
 				});
 				
@@ -405,3 +427,97 @@ describe(@"An entity", ^{
 });
 
 SPEC_END
+
+
+@implementation FUTestEntity
+- (id)addComponentWithClass:(Class)componentClass
+{
+	FUComponent* mockComponent = mock(componentClass);
+	[[self performSelector:@selector(components)] addObject:mockComponent];
+	return mockComponent;
+}
+@end
+
+@interface FUTestComponent ()
+@property (nonatomic) NSUInteger initCallCount;
+@end
+
+@implementation FUTestComponent
+@synthesize initCallCount = _initCallCount;
+
+- (BOOL)wasInitCalled
+{
+	return [self initCallCount] == 1;
+}
+
+- (id)init
+{
+	if ((self = [super init]))
+	{
+		[self setInitCallCount:[self initCallCount] + 1];
+	}
+	
+	return self;
+}
+@end
+
+
+@implementation FUUniqueParentComponent
++ (BOOL)isUnique {return YES; }
+@end
+
+@implementation FUUniqueChild1Component
+@end
+
+@implementation FUUniqueChild2Component
+@end
+
+@implementation FUCommonChildComponent
++ (BOOL)isUnique { return NO; }
+@end
+
+@implementation FUUniqueGrandChildComponent
++ (BOOL)isUnique { return YES; }
+@end
+
+@implementation FURequireObjectComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[NSString string]]; }
+@end
+
+@implementation FURequireInvalidSuperclassComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[FURequiredComponent class]]; }
+@end
+
+@implementation FURequireNSStringComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[NSString class]]; }
+@end
+
+@implementation FURequireBaseComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[FUComponent class]]; }
+@end
+
+@implementation FURequireItselfComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:self]; }
+@end
+
+@implementation FURequireSubclassComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[FUTestComponent class]]; }
+@end
+
+@implementation FURequireRelativesComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObjects:[FUUniqueParentComponent class], [FUUniqueChild1Component class], nil]; }
+@end
+
+@implementation FUCommonParentComponent
+@end
+
+@implementation FURequireUniqueParentComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[FUUniqueParentComponent class]]; }
+@end
+
+@implementation FURequireRequiredComponent
++ (NSSet*)requiredComponents { return [NSSet setWithObject:[FURequiredComponent class]]; }
+@end
+
+@implementation FURequiredComponent
+@end

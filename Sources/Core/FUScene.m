@@ -104,6 +104,28 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - FUSceneObject Methods
 
+- (void)register
+{
+	[super register];
+	
+	for (FUEntity* entity in [self entities])
+	{
+		[entity register];
+	}
+}
+
+- (void)unregister
+{
+	[super unregister];
+	
+	for (FUEntity* entity in [self entities])
+	{
+		[entity unregister];
+	}
+}
+
+#pragma mark - FUInterfaceRotating Methods
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	for (FUEntity* entity in [self entities])

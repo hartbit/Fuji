@@ -8,8 +8,11 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
-#import "FUTestScene.h"
-#import "FUTestEngines.h"
+#import "FUScene-Internal.h"
+#import "FUSceneObject-Internal.h"
+
+
+@interface FUTestScene : FUScene @end
 
 
 SPEC_BEGIN(FUSceneSpec)
@@ -30,7 +33,7 @@ describe(@"A scene", ^{
 			expect(scene).toNot.beNil();
 		});
 		
-		it(@"has it's director property be nil", ^{
+		it(@"has it's director property at nil", ^{
 			expect([scene director]).to.beNil();
 		});
 		
@@ -94,33 +97,33 @@ describe(@"A scene", ^{
 				expect(entities).to.haveCountOf(1);
 				expect(entities).to.contain(entity1);
 			});
-#warning Re-add tests
-			/*
-			context(@"created a generic engine", ^{
-				__block FUGenericEngine* engine = nil;
+
+			context(@"set a director on the scene", ^{
+				__block FUDirector* director = nil;
 				
 				beforeEach(^{
-					engine = mock([FUGenericEngine class]);
+					director = mock([FUDirector class]);
+					[scene setDirector:director];
 				});
 				
-				context(@"registering the scene with the engine", ^{
-					it(@"registers the scene, it's components, and it's entities with the engine", ^{
-						[scene registerWithEngine:engine];
-						[verify(engine) registerFUSceneObject:scene];
-						[verify(engine) registerFUSceneObject:[scene graphics]];
-						[verify(engine) registerFUSceneObject:entity1];
+				context(@"registering the scene", ^{
+					it(@"registers the scene, it's components, and it's entities with the director", ^{
+						[scene register];
+						[verify(director) registerSceneObject:scene];
+						[verify(director) registerSceneObject:[scene graphics]];
+						[verify(director) registerSceneObject:entity1];
 					});
 				});
 				
-				context(@"unregistering the scene with the engine", ^{
+				context(@"unregistering the scene", ^{
 					it(@"unregisters the scene, it's components, and it's entities from the engine", ^{
-						[scene unregisterFromEngine:engine];
-						[verify(engine) unregisterFUSceneObject:scene];
-						[verify(engine) unregisterFUSceneObject:[scene graphics]];
-						[verify(engine) unregisterFUSceneObject:entity1];
+						[scene unregister];
+						[verify(director) unregisterSceneObject:scene];
+						[verify(director) unregisterSceneObject:[scene graphics]];
+						[verify(director) unregisterSceneObject:entity1];
 					});
 				});
-			});*/
+			});
 			
 			context(@"added another entity", ^{
 				__block FUEntity* entity2 = nil;
@@ -189,3 +192,13 @@ describe(@"A scene", ^{
 });
 
 SPEC_END
+
+
+@implementation FUTestScene
+- (FUEntity*)createEntity
+{
+	FUEntity* mockEntity = mock([FUEntity class]);
+	[[self performSelector:@selector(entities)] addObject:mockEntity];
+	return mockEntity;
+}
+@end
