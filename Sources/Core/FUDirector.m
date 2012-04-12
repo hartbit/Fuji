@@ -173,17 +173,17 @@ static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already 
 
 - (void)update
 {
-	for (id engine in [self engines])
+	for (FUEngine* engine in [self engines])
 	{
-		[[self scene] updateWithEngine:engine];
+		[engine update];
 	}
 }
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
-	for (id engine in [self engines])
+	for (FUEngine* engine in [self engines])
 	{
-		[[self scene] drawWithEngine:engine];
+		[engine draw];
 	}
 }
 

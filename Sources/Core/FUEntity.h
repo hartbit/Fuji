@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUEngineVisiting.h"
-#import "FUInterfaceRotating.h"
+#import "FUSceneObject.h"
 #import "FUMacros.h"
 
 
@@ -16,7 +15,7 @@
 @class FUComponent;
 @class FUTransform;
 
-@interface FUEntity : NSObject <FUEngineVisiting, FUInterfaceRotating>
+@interface FUEntity : FUSceneObject
 
 @property (nonatomic, WEAK, readonly) FUScene* scene;
 @property (nonatomic, WEAK, readonly) FUTransform* transform;

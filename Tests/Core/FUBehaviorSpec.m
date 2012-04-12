@@ -11,6 +11,22 @@
 #import "FUComponent-Internal.h"
 
 
+@interface FUBehaviorEngine : FUEngine
+
+- (void)registerFUBehavior:(FUBehavior*)behavior;
+- (void)unregisterFUBehavior:(FUBehavior*)behavior;
+
+@end
+
+
+@implementation FUBehaviorEngine
+
+- (void)registerFUBehavior:(FUBehavior*)behavior { }
+- (void)unregisterFUBehavior:(FUBehavior*)behavior { }
+
+@end
+
+
 SPEC_BEGIN(FUBehaviorSpec)
 
 describe(@"A behavior object", ^{
@@ -37,21 +53,7 @@ describe(@"A behavior object", ^{
 			__block FUEngine* engine = nil;
 			
 			beforeEach(^{
-				engine = mock([FUEngine class]);
-			});
-			
-			context(@"updating with the engine", ^{
-				it(@"calls the engine's behavior update method", ^{
-					[behavior updateWithEngine:engine];
-					[verify(engine) updateBehavior:behavior];
-				});
-			});
-			
-			context(@"drawing with the engine", ^{
-				it(@"calls the engine's behavior draw method", ^{
-					[behavior drawWithEngine:engine];
-					[verify(engine) drawBehavior:behavior];
-				});
+				engine = mock([FUBehaviorEngine class]);
 			});
 			
 			context(@"set it to disabled", ^{
@@ -63,19 +65,7 @@ describe(@"A behavior object", ^{
 					expect([behavior isEnabled]).to.beFalsy();
 				});
 				
-				context(@"updating with the engine", ^{
-					it(@"does not call the engine's behavior update method", ^{
-						[behavior updateWithEngine:engine];
-						[verifyCount(engine, never()) updateBehavior:behavior];
-					});
-				});
-				
-				context(@"drawing with the engine", ^{
-					it(@"does not call the engine's behavior draw method", ^{
-						[behavior drawWithEngine:engine];
-						[verifyCount(engine, never()) drawBehavior:behavior];
-					});
-				});
+#warning Make the enable property call the register/unregister methods
 			});
 		});
 	});

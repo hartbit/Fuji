@@ -13,7 +13,7 @@
 #import "FUEngine.h"
 
 
-static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of a game object";
+static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of an entity";
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 
@@ -95,18 +95,6 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 - (void)removeFromEntity
 {
 	[[self entity] removeComponent:self];
-}
-
-#pragma mark - FUEngineVisiting Methods
-
-- (void)updateWithEngine:(FUEngine*)engine
-{
-	[engine updateComponent:self];
-}
-
-- (void)drawWithEngine:(FUEngine*)engine
-{
-	[engine drawComponent:self];
 }
 
 #pragma mark - FUInterfaceRotating Methods

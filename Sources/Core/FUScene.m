@@ -93,43 +93,27 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 	return [NSSet setWithSet:[self entities]];
 }
 
-#pragma mark - FUEngineVisiting Methods
+#pragma mark - FUSceneObject Methods
 
-- (void)updateWithEngine:(FUEngine*)engine
+- (void)registerWithEngine:(FUEngine*)engine
 {
-	[engine updateSceneEnter:self];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component updateWithEngine:engine];
-	}
+	[super registerWithEngine:engine];
 	
 	for (FUEntity* entity in [self entities])
 	{
-		[entity updateWithEngine:engine];
+		[entity registerWithEngine:engine];
 	}
-	
-	[engine updateSceneLeave:self];
 }
 
-- (void)drawWithEngine:(FUEngine*)engine
+- (void)unregisterFromEngine:(FUEngine*)engine
 {
-	[engine drawSceneEnter:self];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component drawWithEngine:engine];
-	}
+	[super unregisterFromEngine:engine];
 	
 	for (FUEntity* entity in [self entities])
 	{
-		[entity drawWithEngine:engine];
+		[entity unregisterFromEngine:engine];
 	}
-	
-	[engine drawSceneLeave:self];
 }
-
-#pragma mark - FUIntefaceOrientation Methods
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {

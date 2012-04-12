@@ -10,6 +10,7 @@
 #import "Fuji.h"
 #import "FUEntity-Internal.h"
 #import "FUComponent-Internal.h"
+#import "FUTestEngines.h"
 #import "FUTestComponents.h"
 #import "FUTestEntity.h"
 
@@ -17,8 +18,8 @@
 SPEC_BEGIN(FUEntitySpec)
 
 describe(@"An entity", ^{
-	it(@"can be visited by an engine", ^{
-		expect([[FUEntity class] conformsToProtocol:@protocol(FUEngineVisiting)]).to.beTruthy();
+	it(@"is a scene object", ^{
+		expect([FUEntity class]).to.beSubclassOf([FUSceneObject class]);
 	});
 	
 	it(@"can react to interface rotations", ^{
@@ -196,28 +197,26 @@ describe(@"An entity", ^{
 			});
 		});
 
-		context(@"created a mock engine", ^{
-			__block FUEngine* engine = nil;
+		context(@"created a generic engine", ^{
+			__block FUGenericEngine* engine = nil;
 			
 			beforeEach(^{
-				engine = mock([FUEngine class]);
+				engine = mock([FUGenericEngine class]);
 			});
 			
-			context(@"updating with the engine", ^{
-				it(@"calls the entity's and components' update methods", ^{
-					[entity updateWithEngine:engine];
-					[verify(engine) updateEntityEnter:entity];
-					[verify(engine) updateTransform:[entity transform]];
-					[verify(engine) updateEntityLeave:entity];
+			context(@"registering the entity with the engine", ^{
+				it(@"registers itself and it's components with the engine", ^{
+					[entity registerWithEngine:engine];
+					[verify(engine) registerFUSceneObject:entity];
+					[verify(engine) registerFUSceneObject:[entity transform]];
 				});
 			});
 			
-			context(@"drawing with the engine", ^{
-				it(@"calls the entity's and components' draw methods", ^{
-					[entity drawWithEngine:engine];
-					[verify(engine) drawEntityEnter:entity];
-					[verify(engine) drawTransform:[entity transform]];
-					[verify(engine) drawEntityLeave:entity];					
+			context(@"unregistering the entity from the engine", ^{
+				it(@"unregisters itself and it's components from the engine", ^{
+					[entity unregisterFromEngine:engine];
+					[verify(engine) unregisterFUSceneObject:entity];
+					[verify(engine) unregisterFUSceneObject:[entity transform]];
 				});
 			});
 		});
@@ -355,7 +354,7 @@ describe(@"An entity", ^{
 						[entity removeComponent:component2];
 					});
 					
-					it(@"removes it from the game object", ^{
+					it(@"removes it from the entity", ^{
 						NSSet* components = [entity allComponents];
 						expect(components).to.haveCountOf(3);
 						expect(components).to.contain(component1);

@@ -175,16 +175,16 @@ describe(@"A director", ^{
 					});
 					
 					context(@"calling the GLKViewController update method", ^{
-						it(@"updates the scene with the engine", ^{
+						it(@"calls the engine update method", ^{
 							[(id)director update];
-							[verify(scene) updateWithEngine:engine];
+							[verify(engine) update];
 						});
 					});
 					
 					context(@"calling the GLKViewDelegate draw method", ^{
-						it(@"draws the scene with the engine", ^{
+						it(@"draws the engine's draw method", ^{
 							[director glkView:nil drawInRect:CGRectZero];
-							[verify(scene) drawWithEngine:engine];
+							[verify(engine) draw];
 						});
 					});
 				});

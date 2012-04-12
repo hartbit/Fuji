@@ -10,7 +10,6 @@
 #import "FUTransform.h"
 #import "FUMath.h"
 #import "FUComponent-Internal.h"
-#import "FUEngine+Graphics.h"
 
 
 @interface FUTransform ()
@@ -131,18 +130,6 @@
 	}
 	
 	return _matrix;
-}
-
-#pragma mark - FUEngineVisiting Methods
-
-- (void)updateWithEngine:(FUEngine*)engine
-{
-	[engine updateTransform:self];
-}
-
-- (void)drawWithEngine:(FUEngine*)engine
-{
-	[engine drawTransform:self];
 }
 
 @end

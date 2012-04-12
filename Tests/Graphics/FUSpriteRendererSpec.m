@@ -43,28 +43,6 @@ describe(@"A sprite renderer component", ^{
 				expect(GLKVector4AllEqualToVector4([spriteRenderer color], FUColorBrown)).to.beTruthy();
 			});
 		});
-		
-		context(@"created a mock engine", ^{
-			__block FUEngine* engine = nil;
-			
-			beforeEach(^{
-				engine = mock([FUEngine class]);
-			});
-			
-			context(@"updating with the engine", ^{
-				it(@"calls the engine's sprite renderer update method", ^{
-					[spriteRenderer updateWithEngine:engine];
-					[verify(engine) updateSpriteRenderer:spriteRenderer];
-				});
-			});
-			
-			context(@"drawing with the engine", ^{
-				it(@"calls the engine's sprite renderer draw method", ^{
-					[spriteRenderer drawWithEngine:engine];
-					[verify(engine) drawSpriteRenderer:spriteRenderer];
-				});
-			});
-		});
 	});
 });
 

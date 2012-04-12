@@ -14,8 +14,8 @@
 SPEC_BEGIN(FUComponentSpec)
 
 describe(@"A component object", ^{
-	it(@"can be visited by an engine", ^{
-		expect([[FUComponent class] conformsToProtocol:@protocol(FUEngineVisiting)]).to.beTruthy();
+	it(@"is a scene object", ^{
+		expect([FUComponent class]).to.beSubclassOf([FUSceneObject class]);
 	});
 	
 	it(@"can react to interface rotations", ^{
@@ -36,7 +36,7 @@ describe(@"A component object", ^{
 		});
 	});
 	
-	context(@"initializing with a nil game object", ^{
+	context(@"initializing with a nil entity", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([[FUComponent alloc] initWithEntity:nil], nil);
 		});
@@ -57,28 +57,6 @@ describe(@"A component object", ^{
 		
 		it(@"has the entity property set", ^{
 			expect([component entity]).to.beIdenticalTo(entity);
-		});
-		
-		context(@"created a mock engine", ^{
-			__block FUEngine* engine = nil;
-			
-			beforeEach(^{
-				engine = mock([FUEngine class]);
-			});
-			
-			context(@"updating the component with the engine", ^{
-				it(@"calls the engine's component update method", ^{
-					[component updateWithEngine:engine];
-					[verify(engine) updateComponent:component];
-				});
-			});
-			
-			context(@"drawing the component with the engine", ^{
-				it(@"calls the engine's component draw method", ^{
-					[component drawWithEngine:engine];
-					[verify(engine) drawComponent:component];
-				});
-			});
 		});
 
 		context(@"removing the component", ^{

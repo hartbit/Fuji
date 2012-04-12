@@ -18,7 +18,7 @@
 
 
 static NSString* const FUComponentAncestoryInvalidMessage = @"A non-unique 'component=%@' has a unique parent 'component=%@'";
-static NSString* const FUCreationInvalidMessage = @"Can not create a game object outside of a scene";
+static NSString* const FUCreationInvalidMessage = @"Can not create an entity outside of a scene";
 static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 static NSString* const FUComponentClassInvalidMessage = @"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)";
 static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@' is unique and another component of that class already exists";
@@ -291,33 +291,27 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	}];
 }
 
-#pragma mark - FUEngineVisiting Methods
+#pragma mark - FUSceneObject Methods
 
-- (void)updateWithEngine:(FUEngine*)engine
+- (void)registerWithEngine:(FUEngine*)engine
 {
-	[engine updateEntityEnter:self];
+	[super registerWithEngine:engine];
 	
 	for (FUComponent* component in [self components])
 	{
-		[component updateWithEngine:engine];
+		[component registerWithEngine:engine];
 	}
-	
-	[engine updateEntityLeave:self];
 }
 
-- (void)drawWithEngine:(FUEngine*)engine
+- (void)unregisterFromEngine:(FUEngine*)engine
 {
-	[engine drawEntityEnter:self];
+	[super unregisterFromEngine:engine];
 	
 	for (FUComponent* component in [self components])
 	{
-		[component drawWithEngine:engine];
+		[component unregisterFromEngine:engine];
 	}
-	
-	[engine drawEntityLeave:self];
 }
-
-#pragma mark - FUInterfaceRotating Methods
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {

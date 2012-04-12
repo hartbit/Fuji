@@ -9,6 +9,7 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUTestScene.h"
+#import "FUTestEngines.h"
 
 
 SPEC_BEGIN(FUSceneSpec)
@@ -37,7 +38,7 @@ describe(@"A scene", ^{
 			expect([scene scene]).to.beIdenticalTo(scene);
 		});
 		
-		it(@"contains no game objects", ^{
+		it(@"contains no entities", ^{
 			expect([scene allEntities]).to.beEmpty();
 		});
 		
@@ -63,81 +64,77 @@ describe(@"A scene", ^{
 			});
 		});
 		
-		context(@"removing a nil game object", ^{
+		context(@"removing a nil entity", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([scene removeEntity:nil], nil);
 			});
 		});
 		
-		context(@"removing a game object that is not in the scene", ^{
+		context(@"removing an entity that is not in the scene", ^{
 			it(@"throws an exception", ^{
 				STAssertThrows([scene removeEntity:mock([FUEntity class])], nil);
 			});
 		});
 		
-		context(@"created a game object", ^{
+		context(@"created an entity", ^{
 			__block FUEntity* entity1 = nil;
 			
 			beforeEach(^{
 				entity1 = [scene createEntity];
 			});
 			
-			it(@"returns a valid game object with the scene property set", ^{
+			it(@"returns a valid entity with the scene property set", ^{
 				expect(entity1).toNot.beNil();
 				expect(entity1).to.beAnInstanceOf([FUEntity class]);
 				expect([entity1 scene]).to.beIdenticalTo(scene);
 			});
 			
-			it(@"contains the game object", ^{
+			it(@"contains the entity", ^{
 				NSSet* entities = [scene allEntities];
 				expect(entities).to.haveCountOf(1);
 				expect(entities).to.contain(entity1);
 			});
 			
-			context(@"created a mock engine", ^{
-				__block FUEngine* engine = nil;
+			context(@"created a generic engine", ^{
+				__block FUGenericEngine* engine = nil;
 				
 				beforeEach(^{
-					engine = mock([FUEngine class]);
+					engine = mock([FUGenericEngine class]);
 				});
 				
-				context(@"updating the visitor", ^{
-					it(@"calls the scene, component and entity's update method", ^{
-						[scene updateWithEngine:engine];
-						[verify(engine) updateSceneEnter:scene];
-						[verify(engine) updateComponent:[scene graphics]];
-						[verify(engine) updateEntityEnter:entity1];
-						[verify(engine) updateEntityLeave:entity1];
-						[verify(engine) updateSceneLeave:scene];
+				context(@"registering the scene with the engine", ^{
+					it(@"registers the scene, it's components, and it's entities with the engine", ^{
+						[scene registerWithEngine:engine];
+						[verify(engine) registerFUSceneObject:scene];
+						[verify(engine) registerFUSceneObject:[scene graphics]];
+						[verify(engine) registerFUSceneObject:entity1];
 					});
 				});
 				
-				context(@"drawing the visitor", ^{
-					it(@"calls the scene, component and entity's draw methods", ^{
-						[scene drawWithEngine:engine];
-						[verify(engine) drawSceneEnter:scene];
-						[verify(engine) drawComponent:[scene graphics]];
-						[verify(engine) drawEntityEnter:entity1];
-						[verify(engine) drawEntityLeave:entity1];
-						[verify(engine) drawSceneLeave:scene];
+				context(@"unregistering the scene with the engine", ^{
+					it(@"unregisters the scene, it's components, and it's entities from the engine", ^{
+						[scene unregisterFromEngine:engine];
+						[verify(engine) unregisterFUSceneObject:scene];
+						[verify(engine) unregisterFUSceneObject:[scene graphics]];
+						[verify(engine) unregisterFUSceneObject:entity1];
 					});
 				});
 			});
 			
-			context(@"added another game object", ^{
+			context(@"added another entity", ^{
 				__block FUEntity* entity2 = nil;
 				
 				beforeEach(^{
 					entity2 = [scene createEntity];
 				});
 				
-				it(@"returns a valid game object with the scene property set", ^{
+				it(@"returns a valid entity with the scene property set", ^{
 					expect(entity2).toNot.beNil();
 					expect(entity2).to.beAnInstanceOf([FUEntity class]);
 					expect([entity2 scene]).to.beIdenticalTo(scene);
 				});
 				
-				it(@"contains both game object", ^{
+				it(@"contains both entity", ^{
 					NSSet* entities = [scene allEntities];
 					expect(entities).to.haveCountOf(2);
 					expect(entities).to.contain(entity1);
@@ -145,16 +142,16 @@ describe(@"A scene", ^{
 				});
 			});
 			
-			context(@"removed the game object", ^{
+			context(@"removed the entity", ^{
 				beforeEach(^{
 					[scene removeEntity:entity1];
 				});
 				
-				it(@"sets the scene property of the game object to nil", ^{
+				it(@"sets the scene property of the entity to nil", ^{
 					expect([entity1 scene]).to.beNil();
 				});
 				
-				it(@"contains no game objects", ^{
+				it(@"contains no entities", ^{
 					expect([scene allEntities]).to.beEmpty();
 				});
 			});

@@ -22,22 +22,4 @@
 	return self;
 }
 
-#pragma mark - FUSceneObject Methods
-
-- (void)updateWithEngine:(FUEngine*)engine
-{
-	if ([self isEnabled])
-	{
-		[engine updateBehavior:self];
-	}
-}
-
-- (void)drawWithEngine:(FUEngine*)engine
-{
-	if ([self isEnabled])
-	{
-		[engine drawBehavior:self];
-	}
-}
-
 @end

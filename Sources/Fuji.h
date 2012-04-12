@@ -17,7 +17,7 @@
 #import "FUDirector.h"
 #import "FUInterfaceRotating.h"
 #import "FUEngine.h"
-#import "FUEngineVisiting.h"
+#import "FUSceneObject.h"
 #import "FUEntity.h"
 #import "FUScene.h"
 #import "FUComponent.h"
@@ -25,7 +25,6 @@
 
 // Graphics
 
-#import "FUEngine+Graphics.h"
 #import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
 #import "FUTransform.h"
