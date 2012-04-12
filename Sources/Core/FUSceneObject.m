@@ -8,7 +8,8 @@
 
 #import "FUSceneObject.h"
 #import "FUSceneObject-Internal.h"
-#import "FUEngine.h"
+#import "FUScene.h"
+#import "FUDirector.h"
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";
@@ -69,12 +70,12 @@ static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 
 - (void)register
 {
-	
+	[[[self scene] director] registerSceneObject:self];
 }
 
 - (void)unregister
 {
-	
+	[[[self scene] director] unregisterSceneObject:self];
 }
 
 @end

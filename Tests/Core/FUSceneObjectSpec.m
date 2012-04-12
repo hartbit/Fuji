@@ -31,11 +31,14 @@ describe(@"A scene", ^{
 	});
 	
 	context(@"created and initialized with a scene", ^{
+		__block FUDirector* director;
 		__block FUScene* scene;
 		__block FUSceneObject* sceneObject;
 		
 		beforeEach(^{
+			director = mock([FUDirector class]);
 			scene = mock([FUScene class]);
+			[given([scene director]) willReturn:director];
 			sceneObject = [[FUSceneObject alloc] initWithScene:scene];
 		});
 		
@@ -45,6 +48,20 @@ describe(@"A scene", ^{
 		
 		it(@"has a nil scene", ^{
 			expect([sceneObject scene]).to.beIdenticalTo(scene);
+		});
+		
+		context(@"registering", ^{
+			it(@"calls the director's register method with itself", ^{
+				[sceneObject register];
+				[verify(director) registerSceneObject:sceneObject];
+			});
+		});
+		
+		context(@"unregistering", ^{
+			it(@"calls the director's unregister method with itself", ^{
+				[sceneObject unregister];
+				[verify(director) unregisterSceneObject:sceneObject];
+			});
 		});
 	});
 });
