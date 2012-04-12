@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUMacros.h"
 
 
-@class FUEngine;
+@class FUScene;
 
 @interface FUSceneObject ()
+
+@property (nonatomic, WEAK) FUScene* scene;
+
+- (id)initWithScene:(FUScene*)scene;
 
 - (void)register;
 - (void)unregister;

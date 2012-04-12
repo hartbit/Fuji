@@ -38,7 +38,10 @@ describe(@"A behavior object", ^{
 		__block FUBehavior* behavior = nil;
 		
 		beforeEach(^{
-			behavior = [[FUBehavior alloc] initWithEntity:mock([FUEntity class])];
+			FUScene* scene = mock([FUScene class]);
+			FUEntity* entity = mock([FUEntity class]);
+			[given([entity scene]) willReturn:scene];
+			behavior = [[FUBehavior alloc] initWithEntity:entity];
 		});
 		
 		it(@"is not nil", ^{

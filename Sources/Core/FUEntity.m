@@ -7,6 +7,8 @@
 //
 
 #include "Prefix.pch"
+#import "FUSceneObject.h"
+#import "FUSceneObject-Internal.h"
 #import "FUEntity.h"
 #import "FUEntity-Internal.h"
 #import "FUScene.h"
@@ -18,8 +20,6 @@
 
 
 static NSString* const FUComponentAncestoryInvalidMessage = @"A non-unique 'component=%@' has a unique parent 'component=%@'";
-static NSString* const FUCreationInvalidMessage = @"Can not create an entity outside of a scene";
-static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 static NSString* const FUComponentClassInvalidMessage = @"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)";
 static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@' is unique and another component of that class already exists";
 static NSString* const FUComponentNilMessage = @"Expected 'component' to not be nil";
@@ -124,19 +124,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 #pragma mark - Initialization
 
-- (id)init
-{
-	FUThrow(FUCreationInvalidMessage);
-}
-
 - (id)initWithScene:(FUScene*)scene
 {
-	FUAssert(scene != nil, FUSceneNilMessage);
-	
-	self = [super init];
+	self = [super initWithScene:scene];
 	if (self == nil) return nil;
 	
-	[self setScene:scene];
 	[self addComponentWithClass:[FUTransform class]];
 	return self;
 }

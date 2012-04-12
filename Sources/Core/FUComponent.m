@@ -9,25 +9,17 @@
 #include "Prefix.pch"
 #import "FUComponent.h"
 #import "FUComponent-Internal.h"
+#import "FUSceneObject-Internal.h"
 #import "FUEntity.h"
 #import "FUEngine.h"
 
 
-static NSString* const FUCreationInvalidMessage = @"Can not create a component outside of an entity";
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
-
-
-@interface FUComponent ()
-
-@property (nonatomic, getter=isInitializing) BOOL initializing;
-
-@end
 
 
 @implementation FUComponent
 
 @synthesize entity = _entity;
-@synthesize initializing = _initializing;
 
 #pragma mark - Class Methods
 
@@ -68,25 +60,14 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 #pragma mark - Initialization
 
-- (id)init
-{
-	FUAssert([self isInitializing], FUCreationInvalidMessage);
-	
-	self = [super init];
-	return self;
-}
-
 - (id)initWithEntity:(FUEntity*)entity
 {
 	FUAssert(entity != nil, FUEntityNilMessage);
 	
-	[self setInitializing:YES];
-
-	self = [self init];
+	self = [self initWithScene:[entity scene]];
 	if (self == nil) return nil;
 	
 	[self setEntity:entity];
-	[self setInitializing:NO];
 	return self;
 }
 

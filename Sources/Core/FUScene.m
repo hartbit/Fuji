@@ -8,11 +8,13 @@
 
 #include "Prefix.pch"
 #import "FUMacros.h"
+#import "FUSceneObject.h"
+#import "FUSceneObject-Internal.h"
 #import "FUScene.h"
 #import "FUScene-Internal.h"
 #import "FUTransform.h"
 #import "FUGraphicsSettings.h"
-#import "FUEntity-Internal.h"
+#import "FUEntity.h"
 #import "FUEngine.h"
 #import <objc/runtime.h>
 
@@ -44,9 +46,16 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - Initialization
 
-- (id)init
++ (id)scene
 {
-	self = [super initWithScene:self];
+	FUScene* scene = [self alloc];
+	scene = [scene initWithScene:scene];
+	return scene;
+}
+
+- (id)initWithScene:(FUScene*)scene
+{
+	self = [super initWithScene:scene];
 	if (self == nil) return nil;
 	
 	[self removeComponent:[self transform]];

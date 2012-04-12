@@ -23,7 +23,7 @@ describe(@"A scene", ^{
 	
 	context(@"created and initialized", ^{
 		beforeEach(^{
-			scene = [FUScene new];
+			scene = [FUScene scene];
 		});
 		
 		it(@"is not nil", ^{
@@ -164,7 +164,7 @@ describe(@"A scene", ^{
 		__block FUEntity* entity = nil;
 		
 		beforeEach(^{
-			scene = [FUTestScene new];
+			scene = [FUTestScene scene];
 			entity = [scene createEntity];
 		});
 		

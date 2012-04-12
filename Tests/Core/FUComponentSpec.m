@@ -43,11 +43,14 @@ describe(@"A component object", ^{
 	});
 	
 	context(@"created and initialized", ^{
+		__block FUScene* scene = nil;
 		__block FUEntity* entity = nil;
 		__block FUComponent* component = nil;
 		
 		beforeEach(^{
+			scene = mock([FUScene class]);
 			entity = mock([FUEntity class]);
+			[given([entity scene]) willReturn:scene];
 			component = [[FUComponent alloc] initWithEntity:entity];
 		});
 		
@@ -57,6 +60,10 @@ describe(@"A component object", ^{
 		
 		it(@"has the entity property set", ^{
 			expect([component entity]).to.beIdenticalTo(entity);
+		});
+		
+		it(@"has the scene property set", ^{
+			expect([component scene]).to.beIdenticalTo(scene);
 		});
 
 		context(@"removing the component", ^{

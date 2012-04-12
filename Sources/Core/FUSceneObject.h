@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "FUInterfaceRotating.h"
+#import "FUMacros.h"
 
+
+@class FUScene;
 
 @interface FUSceneObject : NSObject <FUInterfaceRotating>
+
+@property (nonatomic, WEAK, readonly) FUScene* scene;
 
 @end

@@ -8,7 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
-#import "FUEntity-Internal.h"
+#import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
 #import "FUTestEngines.h"
 #import "FUTestComponents.h"
@@ -24,18 +24,6 @@ describe(@"An entity", ^{
 	
 	it(@"can react to interface rotations", ^{
 		expect([[FUEntity class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
-	});
-	
-	context(@"initialized with init", ^{
-		it(@"throws an exception", ^{
-			STAssertThrows([FUEntity new], nil);
-		});
-	});
-	
-	context(@"initialized with a nil scene", ^{
-		it(@"throws an exception", ^{
-			STAssertThrows((void)[[FUEntity alloc] initWithScene:nil], nil);
-		});
 	});
 	
 	context(@"initialized with a valid scene", ^{

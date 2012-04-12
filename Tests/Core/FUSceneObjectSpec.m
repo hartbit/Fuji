@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUSceneObject-Internal.h"
 
 
 SPEC_BEGIN(FUSceneObject)
@@ -17,11 +18,33 @@ describe(@"A scene", ^{
 		expect([[FUSceneObject class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
-	context(@"created and initialized", ^{
-		__block FUSceneObject* sceneObject = nil;
+	context(@"creating and initializing with init", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([FUSceneObject new], nil);
+		});
+	});
+	
+	context(@"initialized with a nil scene", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows((void)[[FUSceneObject alloc] initWithScene:nil], nil);
+		});
+	});
+	
+	context(@"created and initialized with a scene", ^{
+		__block FUScene* scene;
+		__block FUSceneObject* sceneObject;
 		
 		beforeEach(^{
-			sceneObject = [FUSceneObject new];
+			scene = mock([FUScene class]);
+			sceneObject = [[FUSceneObject alloc] initWithScene:scene];
+		});
+		
+		it(@"is not nil", ^{
+			expect(sceneObject).toNot.beNil();
+		});
+		
+		it(@"has a nil scene", ^{
+			expect([sceneObject scene]).to.beIdenticalTo(scene);
 		});
 	});
 });

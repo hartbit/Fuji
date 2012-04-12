@@ -17,7 +17,6 @@
 
 @interface FUEntity : FUSceneObject
 
-@property (nonatomic, WEAK, readonly) FUScene* scene;
 @property (nonatomic, WEAK, readonly) FUTransform* transform;
 
 - (id)addComponentWithClass:(Class)componentClass;

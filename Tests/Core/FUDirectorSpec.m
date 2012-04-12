@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
 
 
@@ -110,11 +111,11 @@ describe(@"A director", ^{
 			});
 		});
 		
-		context(@"a scene is set", ^{
+		context(@"set a scene", ^{
 			__block FUScene* scene = nil;
 			
 			beforeEach(^{
-				scene = [FUScene new];
+				scene = mock([FUScene class]);
 				[director setScene:scene];
 			});
 			
@@ -123,7 +124,7 @@ describe(@"A director", ^{
 			});
 			
 			it(@"set it's scene director property point to itself", ^{
-				expect([scene director]).to.beIdenticalTo(director);
+				[verify(scene) setDirector:director];
 			});
 			
 			context(@"setting the same scene again", ^{
@@ -185,39 +186,30 @@ describe(@"A director", ^{
 					});
 				});
 				
-				context(@"created and set a mock scene", ^{
-					__block FUScene* scene = nil;
-					
-					beforeEach(^{
-						scene = mock([FUScene class]);
-						[director setScene:scene];
-					});
-					
-					context(@"calling the rotation methods", ^{
-						it(@"called the rotation methods on it's engine", ^{
-							[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-							[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+				context(@"calling the rotation methods", ^{
+					it(@"called the rotation methods on it's engine", ^{
+						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 							
-							[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-							[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 							
-							[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-							[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-						});
+						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+						[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 					});
+				});
 					
-					context(@"calling the GLKViewController update method", ^{
-						it(@"calls the engine update method", ^{
-							[(id)director update];
-							[verify(engine) update];
-						});
+				context(@"calling the GLKViewController update method", ^{
+					it(@"calls the engine update method", ^{
+						[(id)director update];
+						[verify(engine) update];
 					});
+				});
 					
-					context(@"calling the GLKViewDelegate draw method", ^{
-						it(@"draws the engine's draw method", ^{
-							[director glkView:nil drawInRect:CGRectZero];
-							[verify(engine) draw];
-						});
+				context(@"calling the GLKViewDelegate draw method", ^{
+					it(@"draws the engine's draw method", ^{
+						[director glkView:nil drawInRect:CGRectZero];
+						[verify(engine) draw];
 					});
 				});
 			});
@@ -227,7 +219,7 @@ describe(@"A director", ^{
 			__block FUChildSceneObject* sceneObject = nil;
 			
 			beforeEach(^{
-				sceneObject = [FUChildSceneObject new];
+				sceneObject = [[FUChildSceneObject alloc] initWithScene:mock([FUScene class])];
 			});
 			
 			context(@"added an engine that registers/unregisters the child scene object", ^{

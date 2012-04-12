@@ -22,7 +22,10 @@ describe(@"The graphics settings", ^{
 		__block FUGraphicsSettings* graphics = nil;
 		
 		beforeEach(^{
-			graphics = [[FUGraphicsSettings alloc] initWithEntity:mock([FUEntity class])];
+			FUScene* scene = mock([FUScene class]);
+			FUEntity* entity = mock([FUEntity class]);
+			[given([entity scene]) willReturn:scene];
+			graphics = [[FUGraphicsSettings alloc] initWithEntity:entity];
 		});
 		
 		it(@"is not nil", ^{

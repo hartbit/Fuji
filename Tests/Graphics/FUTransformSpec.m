@@ -23,7 +23,10 @@ describe(@"A transform component", ^{
 		__block FUTransform* transform = nil;
 		
 		beforeEach(^{
-			transform = [[FUTransform alloc] initWithEntity:mock([FUEntity class])];
+			FUScene* scene = mock([FUScene class]);
+			FUEntity* entity = mock([FUEntity class]);
+			[given([entity scene]) willReturn:scene];
+			transform = [[FUTransform alloc] initWithEntity:entity];
 		});
 		
 		it(@"has an initial position of (0, 0)", ^{

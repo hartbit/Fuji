@@ -11,7 +11,45 @@
 #import "FUEngine.h"
 
 
+static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";
+static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
+
+
+@interface FUSceneObject ()
+
+@property (nonatomic, getter=isInitializing) BOOL initializing;
+
+@end
+
+
 @implementation FUSceneObject
+
+@synthesize scene = _scene;
+@synthesize initializing = _initializing;
+
+#pragma mark - Initialization
+
+- (id)init
+{
+	FUAssert([self isInitializing], FUCreationInvalidMessage);
+	
+	self = [super init];
+	return self;
+}
+
+- (id)initWithScene:(FUScene*)scene
+{
+	FUAssert(scene != nil, FUSceneNilMessage);
+	
+	[self setInitializing:YES];
+	
+	self = [self init];
+	if (self == nil) return nil;
+	
+	[self setInitializing:NO];
+	[self setScene:scene];
+	return self;
+}
 
 #pragma mark - UIInterfaceRotation Methods
 
