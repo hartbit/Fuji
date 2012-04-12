@@ -46,7 +46,7 @@ describe(@"A scene", ^{
 			expect(sceneObject).toNot.beNil();
 		});
 		
-		it(@"has a nil scene", ^{
+		it(@"has the scene property set", ^{
 			expect([sceneObject scene]).to.beIdenticalTo(scene);
 		});
 		
