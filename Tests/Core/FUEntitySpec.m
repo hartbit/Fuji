@@ -79,8 +79,8 @@ describe(@"An entity", ^{
 			expect([entity transform]).to.beIdenticalTo(transform);
 		});
 		
-		it(@"registered the transform component", ^{
-			[verify(director) registerSceneObject:[entity transform]];
+		it(@"does not register the transform component", ^{
+			[verifyCount(director, never()) registerSceneObject:[entity transform]];
 		});
 		
 		context(@"removing the transform component", ^{

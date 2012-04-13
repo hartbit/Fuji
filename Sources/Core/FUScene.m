@@ -81,6 +81,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 {
 	FUEntity* entity = [[FUEntity alloc] initWithScene:self];
 	[[self entities] addObject:entity];
+	[entity register];
 	return entity;
 }
 
@@ -93,6 +94,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 		FUThrow(FUEntityNonexistentMessage, entity);
 	}
 	
+	[entity unregister];
 	[[self entities] removeObject:entity];
 	[entity setScene:nil];
 }

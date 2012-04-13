@@ -18,13 +18,13 @@
 SPEC_BEGIN(FUSceneSpec)
 
 describe(@"A scene", ^{
-	__block FUScene* scene = nil;
-	
 	it(@"is a subclass of FUEntity", ^{
 		expect([FUScene class]).to.beSubclassOf([FUEntity class]);
 	});
 	
 	context(@"initialized", ^{
+		__block FUScene* scene = nil;
+		
 		beforeEach(^{
 			scene = [FUScene scene];
 		});
@@ -79,84 +79,81 @@ describe(@"A scene", ^{
 			});
 		});
 		
-		context(@"created an entity", ^{
-			__block FUEntity* entity1 = nil;
+		context(@"set a director on the scene", ^{
+			__block FUDirector* director = nil;
 			
 			beforeEach(^{
-				entity1 = [scene createEntity];
+				director = mock([FUDirector class]);
+				[scene setDirector:director];
 			});
 			
-			it(@"returns a valid entity with the scene property set", ^{
-				expect(entity1).toNot.beNil();
-				expect(entity1).to.beAnInstanceOf([FUEntity class]);
-				expect([entity1 scene]).to.beIdenticalTo(scene);
-			});
-			
-			it(@"contains the entity", ^{
-				NSSet* entities = [scene allEntities];
-				expect(entities).to.haveCountOf(1);
-				expect(entities).to.contain(entity1);
-			});
-
-			context(@"set a director on the scene", ^{
-				__block FUDirector* director = nil;
+			context(@"created an entity", ^{
+				__block FUEntity* entity1 = nil;
 				
 				beforeEach(^{
-					director = mock([FUDirector class]);
-					[scene setDirector:director];
+					entity1 = [scene createEntity];
 				});
 				
-				context(@"registering the scene", ^{
-					it(@"registers the scene, it's components, and it's entities with the director", ^{
-						[scene register];
-						[verify(director) registerSceneObject:scene];
-						[verify(director) registerSceneObject:[scene graphics]];
-						[verify(director) registerSceneObject:entity1];
-					});
-				});
-				
-				context(@"unregistering the scene", ^{
-					it(@"unregisters the scene, it's components, and it's entities from the engine", ^{
-						[scene unregister];
-						[verify(director) unregisterSceneObject:scene];
-						[verify(director) unregisterSceneObject:[scene graphics]];
-						[verify(director) unregisterSceneObject:entity1];
-					});
-				});
-			});
-			
-			context(@"added another entity", ^{
-				__block FUEntity* entity2 = nil;
-				
-				beforeEach(^{
-					entity2 = [scene createEntity];
+				it(@"registers the entity and it's transform component", ^{
+					[verify(director) registerSceneObject:entity1];
+					[verify(director) registerSceneObject:[entity1 transform]];
 				});
 				
 				it(@"returns a valid entity with the scene property set", ^{
-					expect(entity2).toNot.beNil();
-					expect(entity2).to.beAnInstanceOf([FUEntity class]);
-					expect([entity2 scene]).to.beIdenticalTo(scene);
+					expect(entity1).toNot.beNil();
+					expect(entity1).to.beAnInstanceOf([FUEntity class]);
+					expect([entity1 scene]).to.beIdenticalTo(scene);
 				});
 				
-				it(@"contains both entity", ^{
+				it(@"contains the entity", ^{
 					NSSet* entities = [scene allEntities];
-					expect(entities).to.haveCountOf(2);
+					expect(entities).to.haveCountOf(1);
 					expect(entities).to.contain(entity1);
-					expect(entities).to.contain(entity2);
-				});
-			});
-			
-			context(@"removed the entity", ^{
-				beforeEach(^{
-					[scene removeEntity:entity1];
 				});
 				
-				it(@"sets the scene property of the entity to nil", ^{
-					expect([entity1 scene]).to.beNil();
+				context(@"added another entity", ^{
+					__block FUEntity* entity2 = nil;
+					
+					beforeEach(^{
+						entity2 = [scene createEntity];
+					});
+					
+					it(@"registers the new entity and it's transform component", ^{
+						[verify(director) registerSceneObject:entity2];
+						[verify(director) registerSceneObject:[entity2 transform]];
+					});
+					
+					it(@"returns a valid entity with the scene property set", ^{
+						expect(entity2).toNot.beNil();
+						expect(entity2).to.beAnInstanceOf([FUEntity class]);
+						expect([entity2 scene]).to.beIdenticalTo(scene);
+					});
+					
+					it(@"contains both entity", ^{
+						NSSet* entities = [scene allEntities];
+						expect(entities).to.haveCountOf(2);
+						expect(entities).to.contain(entity1);
+						expect(entities).to.contain(entity2);
+					});
 				});
 				
-				it(@"contains no entities", ^{
-					expect([scene allEntities]).to.beEmpty();
+				context(@"removed the entity", ^{
+					beforeEach(^{
+						[scene removeEntity:entity1];
+					});
+					
+					it(@"unregisters the new entity and it's transform component", ^{
+						[verify(director) unregisterSceneObject:entity1];
+						[verify(director) unregisterSceneObject:[entity1 transform]];
+					});
+					
+					it(@"sets the scene property of the entity to nil", ^{
+						expect([entity1 scene]).to.beNil();
+					});
+					
+					it(@"contains no entities", ^{
+						expect([scene allEntities]).to.beEmpty();
+					});
 				});
 			});
 		});

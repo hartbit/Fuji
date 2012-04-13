@@ -129,7 +129,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	self = [super initWithScene:scene];
 	if (self == nil) return nil;
 	
-	[self addComponentWithClass:[FUTransform class]];
+	[self addComponentWithClass:[FUTransform class] andRegister:NO];
 	return self;
 }
 
@@ -137,34 +137,12 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (id)addComponentWithClass:(Class)componentClass
 {
-	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
-	
-	[self validateUniquenessOfClass:componentClass];
-	[self addRequiredComponentsForClass:componentClass];
-	
-	id component = [[componentClass alloc] initWithEntity:self];
-	[[self components] addObject:component];
-	[self updatePropertiesAfterAdditionOfComponent:component];
-	[component register];
-	
-	return component;
+	return [self addComponentWithClass:componentClass andRegister:YES];
 }
 
 - (void)removeComponent:(FUComponent*)component
 {
-	FUAssert(component != nil, FUComponentNilMessage);
-	
-	if (![[self components] containsObject:component])
-	{
-		FUThrow(FUComponentNonexistentMessage, component);
-	}
-	
-	[self validateRemovalOfComponent:component];
-	
-	[component unregister];
-	[[self components] removeObject:component];
-	[component setEntity:nil];
-	[self updatePropertiesAfterRemovalOfComponent:component];
+	[self removeComponent:component andRegister:YES];
 }
 
 - (id)componentWithClass:(Class)componentClass
@@ -253,6 +231,46 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 }
 
 #pragma mark - Private Methods
+
+- (id)addComponentWithClass:(Class)componentClass andRegister:(BOOL)registering
+{
+	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	
+	[self validateUniquenessOfClass:componentClass];
+	[self addRequiredComponentsForClass:componentClass];
+	
+	id component = [[componentClass alloc] initWithEntity:self];
+	[[self components] addObject:component];
+	[self updatePropertiesAfterAdditionOfComponent:component];
+	
+	if (registering)
+	{
+		[component register];
+	}
+	
+	return component;
+}
+
+- (void)removeComponent:(FUComponent*)component andRegister:(BOOL)registering
+{
+	FUAssert(component != nil, FUComponentNilMessage);
+	
+	if (![[self components] containsObject:component])
+	{
+		FUThrow(FUComponentNonexistentMessage, component);
+	}
+	
+	[self validateRemovalOfComponent:component];
+	
+	if (registering)
+	{
+		[component unregister];
+	}
+	
+	[[self components] removeObject:component];
+	[component setEntity:nil];
+	[self updatePropertiesAfterRemovalOfComponent:component];
+}
 
 - (void)validateUniquenessOfClass:(Class)componentClass
 {
