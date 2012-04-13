@@ -147,8 +147,8 @@ describe(@"A director", ^{
 					[verify(scene) setDirector:nil];
 				});
 				
-				it(@"unregistered the scene", ^{
-					[verify(scene) unregister];
+				it(@"does not unregister the scene", ^{
+					[verifyCount(scene, never()) unregister];
 				});
 			});
 			
@@ -174,6 +174,13 @@ describe(@"A director", ^{
 					it(@"throws an exception", ^{
 						[given([engine director]) willReturn:director];
 						STAssertThrows([director addEngine:engine], nil);
+					});
+				});
+				
+				context(@"setting the scene to nil", ^{
+					it(@"calls the unregisterAll method on the engine", ^{
+						[director setScene:nil];
+						[verify(engine) unregisterAll];
 					});
 				});
 				

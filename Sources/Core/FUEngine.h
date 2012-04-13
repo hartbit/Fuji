@@ -17,6 +17,7 @@
 
 @property (nonatomic, WEAK, readonly) FUDirector* director;
 
+- (void)unregisterAll;
 - (void)update;
 - (void)draw;
 

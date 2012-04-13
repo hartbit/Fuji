@@ -16,6 +16,10 @@
 
 #pragma mark - Public Methods
 
+- (void)unregisterAll
+{
+}
+
 - (void)update
 {
 }

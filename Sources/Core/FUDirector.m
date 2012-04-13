@@ -46,7 +46,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	{
 		FUAssert([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
 		
-		[_scene unregister];
+		[self unregisterAll];
 		[_scene setDirector:nil];
 		_scene = scene;
 		[scene setDirector:self];
@@ -204,6 +204,14 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 }
 
 #pragma mark - Private Methods
+
+- (void)unregisterAll
+{
+	for (FUEngine* engine in [self engines])
+	{
+		[engine unregisterAll];
+	}
+}
 
 - (void)makeEnginesPerformSelectorWithPrefix:(NSString*)prefix withSceneObject:(FUSceneObject*)sceneObject
 {
