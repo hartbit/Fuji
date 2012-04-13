@@ -29,7 +29,7 @@
 		[director setPreferredFramesPerSecond:60];
 		[window setRootViewController:director];
 		
-		FUScene* scene = [FUScene new];
+		FUScene* scene = [FUScene scene];
 		[director setScene:scene];
 		
 		for (NSUInteger index = 0; index < 1000; index++)
