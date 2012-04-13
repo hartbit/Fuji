@@ -12,6 +12,7 @@
 #import "FUEngine.h"
 #import "FUEngine-Internal.h"
 #import "FUSceneObject.h"
+#import "FUSceneObject-Internal.h"
 #import "FUGraphicsEngine.h"
 
 
@@ -45,9 +46,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	{
 		FUAssert([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
 		
+		[_scene unregister];
 		[_scene setDirector:nil];
 		_scene = scene;
 		[scene setDirector:self];
+		[scene register];
 	}
 }
 

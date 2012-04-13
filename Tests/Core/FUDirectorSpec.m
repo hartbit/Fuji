@@ -107,7 +107,7 @@ describe(@"A director", ^{
 			});
 		});
 		
-		context(@"set a scene", ^{
+		context(@"set a mock scene", ^{
 			__block FUScene* scene = nil;
 			
 			beforeEach(^{
@@ -121,6 +121,10 @@ describe(@"A director", ^{
 			
 			it(@"set it's scene director property point to itself", ^{
 				[verify(scene) setDirector:director];
+			});
+			
+			it(@"registered the scene", ^{
+				[verify(scene) register];
 			});
 			
 			context(@"setting the same scene again", ^{
@@ -141,6 +145,10 @@ describe(@"A director", ^{
 				
 				it(@"set the director property of the previous scene to nil", ^{
 					[verify(scene) setDirector:nil];
+				});
+				
+				it(@"unregistered the scene", ^{
+					[verify(scene) unregister];
 				});
 			});
 			
