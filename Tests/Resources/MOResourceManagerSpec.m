@@ -6,11 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-#define SPT_CEDAR_SYNTAX
-#import "Specta.h"
-#define EXP_SHORTHAND
-#import "Expecta.h"
+#include "Prefix.pch"
 #import "Fuji.h"
 
 
