@@ -9,18 +9,21 @@
 #import <GLKit/GLKit.h>
 #import "FUMacros.h"
 
-#define ARC4RANDOM_MAX 0x100000000
-
 
 extern const GLKVector2 GLKVector2Zero;
 extern const GLKVector2 GLKVector2One;
 
 static inline double FURandomUnit()
 {
-	return (double)arc4random() / ARC4RANDOM_MAX;
+	return (double)arc4random() / 0x100000000;
 }
 
 static inline double FURandomDouble(float min, float max)
 {
-	return min + (FURandomUnit() * (max-min));
+	return min + (FURandomUnit() * (max - min));
+}
+
+static inline NSInteger FURandomInteger(NSInteger min, NSInteger max)
+{
+	return min + (NSInteger)(FURandomUnit() * (max - min + 1));
 }
