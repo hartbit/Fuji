@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUTexture.h"
 
+
+@class FUTexture;
 
 /** The resource manager manages the life cycle of all media in Fuji. */
 @interface FUResourceManager : NSObject
@@ -21,7 +22,7 @@
 */
 + (FUResourceManager*)sharedManager;
 
-- (BOOL)resourceIsLoadedWithName:(NSString*)name;
+//- (BOOL)resourceIsLoadedWithName:(NSString*)name;
 - (void)purgeResources;
 
 /** @name Loading Textures */
@@ -33,7 +34,7 @@
  @param name The name of the texture file. If this is the first time the texture is being loaded, the method looks for a texture with the specified name in the application’s main bundle.
  @return A `FUTexture` object with the texture information.
 */
-- (FUTexture*)textureWithName:(NSString*)name;
+//- (FUTexture*)textureWithName:(NSString*)name;
 
 /** Returns, and loads if necessary, the texture identified by the specified name
 
@@ -42,6 +43,6 @@
  @param name The name of the texture file. If this is the first time the texture is being loaded, the method looks for a texture with the specified name in the application’s main bundle.
  @param completion A block object to be executed when the texture is loaded. This block has no return value and takes no arguments. This parameter may be NULL.
 */
-- (void)textureWithName:(NSString*)name completion:(void (^)(FUTexture* texture))completion;
+//- (void)textureWithName:(NSString*)name completion:(void (^)(FUTexture* texture))completion;
 
 @end

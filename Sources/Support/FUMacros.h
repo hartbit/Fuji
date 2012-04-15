@@ -9,15 +9,16 @@
 #import <mach/mach_time.h>
 
 
-#ifdef TEST
-#define WEAK unsafe_unretained
-#else
+#ifndef TEST
 #define WEAK weak
+#else
+#define WEAK unsafe_unretained
 #endif
 
 
 #define FUThrow(format, ...) @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:format, ##__VA_ARGS__] userInfo:nil]
 #define FUAssert(condition, format, ...) do { if (!(condition)) FUThrow(format, ##__VA_ARGS__); } while(0)
+
 
 #define FUTimerStart() \
 	static uint64_t __totalTime = 0; \
@@ -33,3 +34,13 @@
 		uint64_t __time = (__totalTime / __sampleCount) * __timer.numer / __timer.denom; \
 		NSLog(@"%@ Timer: %quns", NSStringFromSelector(_cmd), __time); \
 	}
+
+
+// From http://lukeredpath.co.uk/blog/a-note-on-objective-c-singletons.html
+#define FU_SINGLETON_WITH_BLOCK(block) \
+	static dispatch_once_t __predicate = 0; \
+	__strong static id __singleton = nil; \
+	dispatch_once(&__predicate, ^{ \
+		__singleton = block(); \
+	}); \
+	return __singleton;
