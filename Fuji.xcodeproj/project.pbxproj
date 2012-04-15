@@ -162,6 +162,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6335C578153ACECF00022A4F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		633EE87414FED8C400281AC1 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +307,7 @@
 			children = (
 				6392523D15120CE7005B3FEC /* Support */,
 				6392523C15120C27005B3FEC /* Core */,
+				6335C578153ACECF00022A4F /* Resources */,
 				6382271E1519D8470009D036 /* Graphics */,
 				63822772151A293E0009D036 /* Fuji.h */,
 			);

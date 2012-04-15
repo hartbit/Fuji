@@ -150,7 +150,7 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 - (void)draw
 {
 	[self clearScreen];
-	[self fillSpriteData];
+	[self fillSpriteBuffers];
 	[self drawSprites];
 }
 
@@ -179,7 +179,7 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-- (void)fillSpriteData
+- (void)fillSpriteBuffers
 {
 	GLushort i0 = 0;
 	GLushort i1 = 1;
