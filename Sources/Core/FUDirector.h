@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) FUScene* scene;
 
+- (id)initAndShareResourcesWithDirector:(FUDirector*)director;
+
 - (void)addEngine:(FUEngine*)engine;
 - (NSSet*)allEngines;
 

@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUDirector-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
 
@@ -35,6 +36,12 @@ describe(@"A director", ^{
 		expect([FUDirector class]).to.beASubclassOf([GLKViewController class]);
 	});
 	
+	context(@"initializing a new director by sharing the resources with a nil director", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([[FUDirector alloc] initAndShareResourcesWithDirector:nil], nil);
+		});
+	});
+	
 	context(@"initialized", ^{
 		__block FUDirector* director = nil;
 		
@@ -44,6 +51,22 @@ describe(@"A director", ^{
 		
 		it(@"has a valid opengl view", ^{
 			expect([director view]).to.beKindOf([GLKView class]);
+		});
+		
+		it(@"has a valid context", ^{
+			expect([director context]).toNot.beNil();
+		});
+		
+		it(@"has a valid sharegroup", ^{
+			expect([[director context] sharegroup]).toNot.beNil();
+		});
+		
+		context(@"initializing a new director by sharing the same resources", ^{
+			it(@"shared the same sharegroup", ^{
+				FUDirector* newDirector = [[FUDirector alloc] initAndShareResourcesWithDirector:director];
+				expect([newDirector context]).toNot.beIdenticalTo([director context]);
+				expect([[newDirector context] sharegroup]).to.beIdenticalTo([[director context] sharegroup]);
+			});
 		});
 		
 		it(@"is the delegate of the opengl view", ^{

@@ -7,6 +7,7 @@
 //
 
 #import "FUDirector.h"
+#import "FUDirector-Internal.h"
 #import "FUScene.h"
 #import "FUScene-Internal.h"
 #import "FUEngine.h"
@@ -16,6 +17,7 @@
 #import "FUGraphicsEngine.h"
 
 
+static NSString* const FUDirectorNilMessage = @"Expected 'director ' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
@@ -26,7 +28,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @interface FUDirector ()
 
-@property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableSet* engines;
 
 @end
@@ -39,6 +40,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @synthesize engines = _engines;
 
 #pragma mark - Properties
+
+- (EAGLSharegroup*)sharegroup
+{
+	return [[self context] sharegroup];
+}
 
 - (void)setScene:(FUScene*)scene
 {
@@ -102,6 +108,18 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 	[self context];
 	[self addEngine:[FUGraphicsEngine new]];
+	return self;
+}
+
+- (id)initAndShareResourcesWithDirector:(FUDirector*)director
+{
+	FUAssert(director != nil, FUDirectorNilMessage);
+	
+	EAGLSharegroup* sharegroup = [[director context] sharegroup];
+	EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:sharegroup];
+	[self setContext:context];
+	
+	self = [self initWithNibName:nil bundle:nil];
 	return self;
 }
 
