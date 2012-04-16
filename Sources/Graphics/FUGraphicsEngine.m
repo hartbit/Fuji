@@ -130,6 +130,13 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	[[self vertexData] increaseLengthBy:kVertexSpriteStride];
 }
 
+- (void)unregisterFUSpriteRenderer:(FUSpriteRenderer*)renderer
+{
+	[[self renderers] removeObject:renderer];
+	[_indexData setLength:[_indexData length] - kIndexSpriteStride];
+	[_vertexData setLength:[_vertexData length] - kVertexSpriteStride];
+}
+
 - (void)unregisterAll
 {
 	[self setSettings:nil];
@@ -149,6 +156,7 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 
 - (void)draw
 {
+	[self setConstants];	
 	[self clearScreen];
 	[self fillSpriteBuffers];
 	[self drawSprites];
@@ -171,6 +179,27 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	[[self effect] prepareToDraw];
 }
 
+- (void)setConstants
+{
+	static BOOL constantsSet = NO;
+	
+	if (!constantsSet)
+	{
+		[[self effect] prepareToDraw];
+		
+		glEnableVertexAttribArray(GLKVertexAttribPosition);
+		glEnableVertexAttribArray(GLKVertexAttribColor);
+		glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+		
+		FUVertex* vertices = [[self vertexData] mutableBytes];
+		glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].position);
+		glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].color);
+		glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].texCoord);	
+		
+		constantsSet = YES;
+	}	
+}
+
 - (void)clearScreen
 {
 	FUGraphicsSettings* settings = [self settings];
@@ -181,13 +210,6 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 
 - (void)fillSpriteBuffers
 {
-	GLushort i0 = 0;
-	GLushort i1 = 1;
-	GLushort i2 = 2;
-	GLushort i3 = 3;
-	GLushort* indices = [[self indexData] mutableBytes];
-	FUVertex* vertices = [[self vertexData] mutableBytes];
-	
 	static const CGFloat kHalfSize = 0.5f;
 	static const CGFloat kDepth = 1.0f;
 	static const GLKVector3 kP0 = { -kHalfSize, -kHalfSize, kDepth };
@@ -199,19 +221,22 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	static const GLKVector2 kT2 = { 1, 0 };
 	static const GLKVector2 kT3 = { 1, 1 };
 	
-	for (FUSpriteRenderer* renderer in [self renderers])
-	{
-		*indices++ = i0;
-		*indices++ = i1;
-		*indices++ = i2;
-		*indices++ = i2;
-		*indices++ = i1;
-		*indices++ = i3;
+	__block GLushort* indices = [[self indexData] mutableBytes];
+	__block FUVertex* vertices = [[self vertexData] mutableBytes];
+	
+	[[self renderers] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(FUSpriteRenderer* renderer, NSUInteger index, BOOL* stop) {
+		GLushort i0 = index * kVertexSpriteCount;
+		GLushort i1 = i0 + 1;
+		GLushort i2 = i0 + 2;
+		GLushort i3 = i0 + 3;
 		
-		i0 += kVertexSpriteCount;
-		i1 += kVertexSpriteCount;
-		i2 += kVertexSpriteCount;
-		i3 += kVertexSpriteCount;
+		NSUInteger indexIndex = index * kIndexSpriteCount;
+		indices[indexIndex++] = i0;
+		indices[indexIndex++] = i1;
+		indices[indexIndex++] = i2;
+		indices[indexIndex++] = i2;
+		indices[indexIndex++] = i1;
+		indices[indexIndex++] = i3;
 		
 		GLKMatrix4 matrix = [[[renderer entity] transform] matrix];
 		GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP0);
@@ -220,26 +245,16 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 		GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP3);
 		GLKVector4 color = [renderer color];
 		
-		*vertices++ = FUVertexMake(p0, color, kT0);
-		*vertices++ = FUVertexMake(p1, color, kT1);
-		*vertices++ = FUVertexMake(p2, color, kT2);
-		*vertices++ = FUVertexMake(p3, color, kT3);
-	}
+		NSUInteger vertexIndex = index * kVertexSpriteCount;
+		vertices[vertexIndex++] = FUVertexMake(p0, color, kT0);
+		vertices[vertexIndex++] = FUVertexMake(p1, color, kT1);
+		vertices[vertexIndex++] = FUVertexMake(p2, color, kT2);
+		vertices[vertexIndex++] = FUVertexMake(p3, color, kT3);
+	}];
 }
 
 - (void)drawSprites
 {
-	[[self effect] prepareToDraw];
-	
-	glEnableVertexAttribArray(GLKVertexAttribPosition);
-	glEnableVertexAttribArray(GLKVertexAttribColor);
-	glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-	
-	FUVertex* vertices = [[self vertexData] mutableBytes];
-	glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].position);
-	glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].color);
-	glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(FUVertex), &vertices[0].texCoord);	
-	
 	NSMutableData* indexData = [self indexData];
 	NSUInteger indexCount = [indexData length] / sizeof(GLushort);
 	GLushort* indices = [indexData mutableBytes];
