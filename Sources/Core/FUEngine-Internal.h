@@ -8,9 +8,13 @@
 
 
 @class FUDirector;
+@class FUSceneObject;
 
 @interface FUEngine ()
 
 @property (nonatomic, WEAK) FUDirector* director;
+
+- (void)registerSceneObject:(FUSceneObject*)sceneObject;
+- (void)unregisterSceneObject:(FUSceneObject*)sceneObject;
 
 @end

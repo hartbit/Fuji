@@ -30,7 +30,6 @@
 		[window setRootViewController:director];
 		
 		FUScene* scene = [FUScene scene];
-		[director setScene:scene];
 		
 		for (NSUInteger index = 0; index < 1000; index++)
 		{
@@ -41,6 +40,8 @@
 			[transform setScale:GLKVector2Make(52, 139)];
 			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 		}
+		
+		[director setScene:scene];
 	}
 	
 	return _window;

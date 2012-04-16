@@ -142,12 +142,24 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)registerSceneObject:(FUSceneObject*)sceneObject
 {
-	[self makeEnginesPerformSelectorWithPrefix:@"register" withSceneObject:sceneObject];
+	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
+	FUAssert([[sceneObject scene] director] == self, FUSceneObjectInvalidMessage, sceneObject, [[sceneObject scene] director]);
+	
+	for (FUEngine* engine in [self engines])
+	{
+		[engine registerSceneObject:sceneObject];
+	}
 }
 
 - (void)unregisterSceneObject:(FUSceneObject*)sceneObject
 {
-	[self makeEnginesPerformSelectorWithPrefix:@"unregister" withSceneObject:sceneObject];
+	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
+	FUAssert([[sceneObject scene] director] == self, FUSceneObjectInvalidMessage, sceneObject, [[sceneObject scene] director]);
+	
+	for (FUEngine* engine in [self engines])
+	{
+		[engine unregisterSceneObject:sceneObject];
+	}
 }
 
 #pragma mark - UIViewController Methods
@@ -228,34 +240,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	for (FUEngine* engine in [self engines])
 	{
 		[engine unregisterAll];
-	}
-}
-
-- (void)makeEnginesPerformSelectorWithPrefix:(NSString*)prefix withSceneObject:(FUSceneObject*)sceneObject
-{
-	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
-	FUAssert([[sceneObject scene] director] == self, FUSceneObjectInvalidMessage, sceneObject, [[sceneObject scene] director]);
-	
-	for (FUEngine* engine in [self engines])
-	{
-		Class currentAncestor = [sceneObject class];
-	
-		while ([currentAncestor isSubclassOfClass:[FUSceneObject class]])
-		{
-			NSString* selectorString = [NSString stringWithFormat:@"%@%@:", prefix, NSStringFromClass(currentAncestor)];
-			SEL selector = NSSelectorFromString(selectorString);
-		
-			if ([engine respondsToSelector:selector])
-			{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-				[engine performSelector:selector withObject:sceneObject];
-#pragma clang diagnostic pop
-				break;
-			}
-		
-			currentAncestor = [currentAncestor superclass];
-		}
 	}
 }
 

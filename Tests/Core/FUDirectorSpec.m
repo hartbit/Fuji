@@ -13,22 +13,6 @@
 #import "FUEngine-Internal.h"
 
 
-@interface FUParentSceneObject : FUSceneObject @end
-@interface FUChildSceneObject : FUParentSceneObject @end
-
-@interface FUChildEngine : FUEngine
-- (void)registerFUChildSceneObject:(FUChildSceneObject*)sceneObject;
-- (void)unregisterFUChildSceneObject:(FUChildSceneObject*)sceneObject;
-@end
-
-@interface FUParentEngine : FUEngine
-- (void)registerFUParentSceneObject:(FUParentSceneObject*)sceneObject;
-- (void)unregisterFUParentSceneObject:(FUParentSceneObject*)sceneObject;
-@end
-
-@interface FUEmptyEngine : FUEngine @end
-
-
 SPEC_BEGIN(FUDirectorSpec)
 
 describe(@"A director", ^{
@@ -251,11 +235,12 @@ describe(@"A director", ^{
 		
 		context(@"initialized a scene object", ^{
 			__block FUScene* scene = nil;
-			__block FUChildSceneObject* sceneObject = nil;
+			__block FUSceneObject* sceneObject = nil;
 			
 			beforeEach(^{
 				scene = mock([FUScene class]);
-				sceneObject = [[FUChildSceneObject alloc] initWithScene:scene];
+				sceneObject = mock([FUSceneObject class]);
+				[given([sceneObject scene]) willReturn:scene];
 			});
 			
 			context(@"registering the scene object", ^{
@@ -293,69 +278,25 @@ describe(@"A director", ^{
 					[given([scene director]) willReturn:director];
 				});
 				
-				context(@"added an engine that registers/unregisters the child scene object", ^{
-					__block FUChildEngine* engine;
+				context(@"added a mock engine", ^{
+					__block FUEngine* engine;
 					
 					beforeEach(^{
-						engine = mock([FUChildEngine class]);
+						engine = mock([FUEngine class]);
 						[director addEngine:engine];
 					});
 					
 					context(@"registering the scene object", ^{
 						it(@"calls the engine's register method", ^{
 							[director registerSceneObject:sceneObject];
-							[verify(engine) registerFUChildSceneObject:sceneObject];
+							[verify(engine) registerSceneObject:sceneObject];
 						});
 					});
 					
 					context(@"unregistering the scene object", ^{
 						it(@"calls the engine's unregister method", ^{
 							[director unregisterSceneObject:sceneObject];
-							[verify(engine) unregisterFUChildSceneObject:sceneObject];
-						});
-					});
-				});
-				
-				context(@"added an engine that registers/unregisters the parent scene object", ^{
-					__block FUParentEngine* engine;
-					
-					beforeEach(^{
-						engine = mock([FUParentEngine class]);
-						[director addEngine:engine];
-					});
-					
-					context(@"registering the scene object", ^{
-						it(@"calls the engine's register method", ^{
-							[director registerSceneObject:sceneObject];
-							[verify(engine) registerFUParentSceneObject:sceneObject];
-						});
-					});
-					
-					context(@"unregistering the scene object", ^{
-						it(@"calls the engine's unregister method", ^{
-							[director unregisterSceneObject:sceneObject];
-							[verify(engine) unregisterFUParentSceneObject:sceneObject];
-						});
-					});
-				});
-				
-				context(@"created an engine that does not register/unregister anything", ^{
-					__block FUEmptyEngine* engine;
-					
-					beforeEach(^{
-						engine = mock([FUEmptyEngine class]);
-						[director addEngine:engine];
-					});
-					
-					context(@"registering the scene object", ^{
-						it(@"does nothing", ^{
-							[director registerSceneObject:sceneObject];
-						});
-					});
-					
-					context(@"unregistering the scene object", ^{
-						it(@"does nothing", ^{
-							[director unregisterSceneObject:sceneObject];
+							[verify(engine) unregisterSceneObject:sceneObject];
 						});
 					});
 				});
@@ -365,23 +306,3 @@ describe(@"A director", ^{
 });
 
 SPEC_END
-
-
-@implementation FUParentSceneObject
-@end
-
-@implementation FUChildSceneObject
-@end
-
-@implementation FUChildEngine
-- (void)registerFUChildSceneObject:(FUChildSceneObject*)sceneObject { }
-- (void)unregisterFUChildSceneObject:(FUChildSceneObject*)sceneObject { }
-@end
-
-@implementation FUParentEngine
-- (void)registerFUParentSceneObject:(FUParentSceneObject*)sceneObject { }
-- (void)unregisterFUParentSceneObject:(FUParentSceneObject*)sceneObject { }
-@end
-
-@implementation FUEmptyEngine
-@end
