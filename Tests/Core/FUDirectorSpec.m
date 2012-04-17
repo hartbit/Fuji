@@ -8,7 +8,6 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
-#import "FUDirector-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
 

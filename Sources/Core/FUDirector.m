@@ -7,7 +7,6 @@
 //
 
 #import "FUDirector.h"
-#import "FUDirector-Internal.h"
 #import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
 #import "FUScene.h"
