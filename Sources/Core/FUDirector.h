@@ -9,6 +9,7 @@
 #import <GLKit/GLKit.h>
 
 
+@class FUAssetStore;
 @class FUScene;
 @class FUEngine;
 @class FUSceneObject;
@@ -18,9 +19,10 @@
  */
 @interface FUDirector : GLKViewController <GLKViewDelegate>
 
+@property (nonatomic, strong, readonly) FUAssetStore* assetStore;
 @property (nonatomic, strong) FUScene* scene;
 
-- (id)initAndShareResourcesWithDirector:(FUDirector*)director;
+- (id)initWithAssetStore:(FUAssetStore*)assetStore;
 
 - (void)addEngine:(FUEngine*)engine;
 - (NSSet*)allEngines;

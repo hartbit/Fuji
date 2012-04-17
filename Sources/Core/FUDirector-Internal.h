@@ -6,11 +6,9 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/EAGL.h>
 
 
 @interface FUDirector ()
-
-@property (nonatomic, strong) EAGLContext* context;
 
 @end

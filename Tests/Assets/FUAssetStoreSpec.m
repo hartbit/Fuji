@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUAssetStore-Internal.h"
 
 
 #define NONEXISTANT @"Nonexistent.png"
@@ -23,8 +24,23 @@ describe(@"An asset store", ^{
 		[EAGLContext setCurrentContext:context];
 	});
 	
-	context(@"initialized with init", ^{
-		STAssertThrows([FUAssetStore new], nil);
+	context(@"initializing with init", ^{
+		it(@"throws an exception", ^{
+			STAssertThrows([FUAssetStore new], nil);
+		});
+	});
+	
+	context(@"initialized with the current sharegroup", ^{
+		__block FUAssetStore* assetStore = nil;
+		
+		beforeEach(^{
+			EAGLSharegroup* sharegroup = [[EAGLContext currentContext] sharegroup];
+			assetStore = [[FUAssetStore alloc] initWithSharegroup:sharegroup];
+		});
+		
+		it(@"is not nil", ^{
+			expect(assetStore).toNot.beNil();
+		});
 	});
 	/*
 	it(@"should return a valid singleton instance", ^{

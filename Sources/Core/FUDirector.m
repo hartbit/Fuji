@@ -8,6 +8,8 @@
 
 #import "FUDirector.h"
 #import "FUDirector-Internal.h"
+#import "FUAssetStore.h"
+#import "FUAssetStore-Internal.h"
 #import "FUScene.h"
 #import "FUScene-Internal.h"
 #import "FUEngine.h"
@@ -17,7 +19,7 @@
 #import "FUGraphicsEngine.h"
 
 
-static NSString* const FUDirectorNilMessage = @"Expected 'director ' to not be nil";
+static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
@@ -28,6 +30,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @interface FUDirector ()
 
+@property (nonatomic, strong) FUAssetStore* assetStore;
+@property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableSet* engines;
 
 @end
@@ -35,15 +39,23 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @implementation FUDirector
 
+@synthesize assetStore = _assetStore;
 @synthesize scene = _scene;
 @synthesize context = _context;
 @synthesize engines = _engines;
 
 #pragma mark - Properties
 
-- (EAGLSharegroup*)sharegroup
+- (FUAssetStore*)assetStore
 {
-	return [[self context] sharegroup];
+	if (_assetStore == nil)
+	{
+		EAGLSharegroup* sharegroup = [[self context] sharegroup];
+		FUAssetStore* assetStore = [[FUAssetStore alloc] initWithSharegroup:sharegroup];
+		[self setAssetStore:assetStore];
+	}
+	
+	return _assetStore;
 }
 
 - (void)setScene:(FUScene*)scene
@@ -111,13 +123,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return self;
 }
 
-- (id)initAndShareResourcesWithDirector:(FUDirector*)director
+- (id)initWithAssetStore:(FUAssetStore*)assetStore;
 {
-	FUAssert(director != nil, FUDirectorNilMessage);
+	FUAssert(assetStore != nil, FUAssetStoreNilMessage);
 	
-	EAGLSharegroup* sharegroup = [[director context] sharegroup];
-	EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:sharegroup];
-	[self setContext:context];
+	[self setAssetStore:assetStore];
 	
 	self = [self initWithNibName:nil bundle:nil];
 	return self;

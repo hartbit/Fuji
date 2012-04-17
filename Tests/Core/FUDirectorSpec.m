@@ -20,9 +20,9 @@ describe(@"A director", ^{
 		expect([FUDirector class]).to.beASubclassOf([GLKViewController class]);
 	});
 	
-	context(@"initializing a new director by sharing the resources with a nil director", ^{
+	context(@"initializing a new director with a nil asset store", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUDirector alloc] initAndShareResourcesWithDirector:nil], nil);
+			STAssertThrows([[FUDirector alloc] initWithAssetStore:nil], nil);
 		});
 	});
 	
@@ -37,22 +37,17 @@ describe(@"A director", ^{
 			expect([director view]).to.beKindOf([GLKView class]);
 		});
 		
-		it(@"has a valid context", ^{
-			expect([director context]).toNot.beNil();
+		it(@"has a valid asset store", ^{
+			expect([director assetStore]).toNot.beNil();
 		});
-		
-		it(@"has a valid sharegroup", ^{
-			expect([[director context] sharegroup]).toNot.beNil();
-		});
-		
-		context(@"initializing a new director by sharing the same resources", ^{
-			it(@"shared the same sharegroup", ^{
-				FUDirector* newDirector = [[FUDirector alloc] initAndShareResourcesWithDirector:director];
-				expect([newDirector context]).toNot.beIdenticalTo([director context]);
-				expect([[newDirector context] sharegroup]).to.beIdenticalTo([[director context] sharegroup]);
+
+		context(@"initializing a new director with the same asset store", ^{
+			it(@"shares the same asset store", ^{
+				FUDirector* newDirector = [[FUDirector alloc] initWithAssetStore:[director assetStore]];
+				expect([newDirector assetStore]).to.beIdenticalTo([director assetStore]);
 			});
 		});
-		
+
 		it(@"is the delegate of the opengl view", ^{
 			expect([(GLKView*)[director view] delegate]).to.beIdenticalTo(director);
 		});

@@ -7,6 +7,7 @@
 //
 
 #import "FUAssetStore.h"
+#import "FUAssetStore-Internal.h"
 #import "FUMacros.h"
 
 
@@ -20,6 +21,14 @@ static NSString* const FUCreationInvalidMessage = @"Can not create an asset stor
 - (id)init
 {
 	FUThrow(FUCreationInvalidMessage);
+}
+
+- (id)initWithSharegroup:(EAGLSharegroup*)sharegroup
+{
+	self = [super init];
+	if (self == nil) return nil;
+	
+	return self;
 }
 
 @end

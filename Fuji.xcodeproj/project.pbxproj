@@ -102,6 +102,7 @@
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		637F9808153D57AB007E7053 /* FUAssetStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUAssetStore.h; sourceTree = "<group>"; };
 		637F9809153D57AB007E7053 /* FUAssetStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAssetStore.m; sourceTree = "<group>"; };
+		637F980E153D599D007E7053 /* FUAssetStore-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUAssetStore-Internal.h"; sourceTree = "<group>"; };
 		638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGraphicsSettingsSpec.m; sourceTree = "<group>"; };
 		6382275E1519E38B0009D036 /* FUGraphicsSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUGraphicsSettings.h; sourceTree = "<group>"; };
 		6382275F1519E38B0009D036 /* FUGraphicsSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGraphicsSettings.m; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		6335C578153ACECF00022A4F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				637F980D153D5907007E7053 /* Internal */,
 				637F9808153D57AB007E7053 /* FUAssetStore.h */,
 				637F9809153D57AB007E7053 /* FUAssetStore.m */,
 			);
@@ -204,6 +206,14 @@
 				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,
 				63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */,
 				634E08B91529D66F00D5C3F8 /* FUScene-Internal.h */,
+			);
+			name = Internal;
+			sourceTree = "<group>";
+		};
+		637F980D153D5907007E7053 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				637F980E153D599D007E7053 /* FUAssetStore-Internal.h */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
