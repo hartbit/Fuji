@@ -44,6 +44,7 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 @property (nonatomic, strong) NSMutableArray* renderers;
 @property (nonatomic, strong) NSMutableData* vertexData;
 @property (nonatomic, strong) NSMutableData* indexData;
+@property (nonatomic) NSUInteger spriteCount;
 
 @end
 
@@ -55,6 +56,7 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 @synthesize renderers = _renderers;
 @synthesize vertexData = _vertexData;
 @synthesize indexData = _indexData;
+@synthesize spriteCount = _spriteCount;
 
 #pragma mark - Initialization
 
@@ -221,16 +223,23 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	static const GLKVector2 kT2 = { 1, 0 };
 	static const GLKVector2 kT3 = { 1, 1 };
 	
-	__block GLushort* indices = [[self indexData] mutableBytes];
-	__block FUVertex* vertices = [[self vertexData] mutableBytes];
+	GLushort* indices = [[self indexData] mutableBytes];
+	FUVertex* vertices = [[self vertexData] mutableBytes];
+	NSUInteger indexIndex = 0;
+	NSUInteger vertexIndex = 0;
+	NSUInteger spriteCount = 0;
+	GLushort i0 = 0;
+	GLushort i1 = 1;
+	GLushort i2 = 2;
+	GLushort i3 = 3;
 	
-	[[self renderers] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(FUSpriteRenderer* renderer, NSUInteger index, BOOL* stop) {
-		GLushort i0 = index * kVertexSpriteCount;
-		GLushort i1 = i0 + 1;
-		GLushort i2 = i0 + 2;
-		GLushort i3 = i0 + 3;
+	for (FUSpriteRenderer* renderer in [self renderers])
+	{
+		if (![renderer isEnabled])
+		{
+			continue;
+		}
 		
-		NSUInteger indexIndex = index * kIndexSpriteCount;
 		indices[indexIndex++] = i0;
 		indices[indexIndex++] = i1;
 		indices[indexIndex++] = i2;
@@ -245,19 +254,25 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 		GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP3);
 		GLKVector4 color = [renderer color];
 		
-		NSUInteger vertexIndex = index * kVertexSpriteCount;
 		vertices[vertexIndex++] = FUVertexMake(p0, color, kT0);
 		vertices[vertexIndex++] = FUVertexMake(p1, color, kT1);
 		vertices[vertexIndex++] = FUVertexMake(p2, color, kT2);
 		vertices[vertexIndex++] = FUVertexMake(p3, color, kT3);
-	}];
+		
+		spriteCount++;
+		i0 += kVertexSpriteCount;
+		i1 += kVertexSpriteCount;
+		i2 += kVertexSpriteCount;
+		i3 += kVertexSpriteCount;
+	}
+	
+	[self setSpriteCount:spriteCount];
 }
 
 - (void)drawSprites
 {
-	NSMutableData* indexData = [self indexData];
-	NSUInteger indexCount = [indexData length] / sizeof(GLushort);
-	GLushort* indices = [indexData mutableBytes];
+	NSUInteger indexCount = [self spriteCount] * kIndexSpriteCount;
+	GLushort* indices = [[self indexData] mutableBytes];
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, indices);
 }
 
