@@ -1,5 +1,5 @@
 //
-//  FUResourceManagerSpec.m
+//  FUAssetStoreSpec.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
@@ -15,19 +15,17 @@
 #define VALID @"Valid.png"
 
 
-SPEC_BEGIN(FUResourceManagerSpec)
+SPEC_BEGIN(FUAssetStoreSpec)
 
-describe(@"FUResourceManager", ^{
-	__block FUResourceManager* resourceManager = [FUResourceManager sharedManager];
-	
+describe(@"An asset store", ^{	
 	beforeAll(^{
 		EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 		[EAGLContext setCurrentContext:context];
 	});
 	
-	afterEach(^{
-		[resourceManager purgeResources];
-	});	
+	context(@"initialized with init", ^{
+		STAssertThrows([FUAssetStore new], nil);
+	});
 	/*
 	it(@"should return a valid singleton instance", ^{
 		expect(resourceManager).toNot.beNil();

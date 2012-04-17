@@ -23,9 +23,9 @@
 #import "FUComponent.h"
 #import "FUBehavior.h"
 
-// Resources
+// Assets
 
-#import "FUResourceManager.h"
+#import "FUAssetStore.h"
 
 // Graphics
 
