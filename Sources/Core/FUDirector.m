@@ -75,7 +75,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 		[_scene setDirector:nil];
 		_scene = scene;
 		[scene setDirector:self];
-//		[scene register];
+		[self didAddSceneObject:scene];
 	}
 }
 

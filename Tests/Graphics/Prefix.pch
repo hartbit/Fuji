@@ -13,5 +13,6 @@
 #import "Specta.h"
 #define EXP_SHORTHAND
 #import "Expecta.h"
+#import "OCHamcrest.h"
 #define MOCKITO_SHORTHAND
 #import "OCMockito.h"

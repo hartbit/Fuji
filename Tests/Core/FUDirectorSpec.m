@@ -97,111 +97,90 @@ describe(@"A director", ^{
 				STAssertThrows([director setScene:scene], nil);
 			});
 		});
-		
-		context(@"set a mock scene", ^{
-			__block FUScene* scene = nil;
+			
+		context(@"created and added a mock engine", ^{
+			__block FUEngine* engine = nil;
+			__block FUVisitor* registrationVisitor = nil;
+			__block FUVisitor* unregistrationVisitor = nil;
 			
 			beforeEach(^{
-				scene = mock([FUScene class]);
-				[director setScene:scene];
+				engine = mock([FUEngine class]);
+				registrationVisitor = mock([FUVisitor class]);
+				[given([engine registrationVisitor]) willReturn:registrationVisitor];
+				unregistrationVisitor = mock([FUVisitor class]);
+				[given([engine unregistrationVisitor]) willReturn:unregistrationVisitor];
+				[director addEngine:engine];
 			});
 			
-			it(@"has the scene property set", ^{
-				expect([director scene]).to.beIdenticalTo(scene);
+			it(@"set the engine's director property", ^{
+				[verify(engine) setDirector:director];
 			});
 			
-			it(@"set it's scene director property point to itself", ^{
-				[verify(scene) setDirector:director];
+			it(@"contains the engine", ^{
+				NSSet* engines = [director allEngines];
+				expect(engines).to.haveCountOf(2);
+				expect(engines).to.contain(engine);
 			});
 			
-//			it(@"registered the scene", ^{
-//				[verify(scene) register];
-//			});
+			context(@"adding the same engine again", ^{
+				it(@"throws an exception", ^{
+					[given([engine director]) willReturn:director];
+					STAssertThrows([director addEngine:engine], nil);
+				});
+			});
 			
-			context(@"setting the same scene again", ^{
-				it(@"does nothing", ^{
+			context(@"calling the rotation methods", ^{
+				it(@"called the rotation methods on it's engine", ^{
+					[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					[verify(engine) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					
+					[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					[verify(engine) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					
+					[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					[verify(engine) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+				});
+			});
+			
+			context(@"set a mock scene", ^{
+				__block FUScene* scene = nil;
+				
+				beforeEach(^{
+					scene = mock([FUScene class]);
 					[director setScene:scene];
+				});
+				
+				it(@"has the scene property set", ^{
 					expect([director scene]).to.beIdenticalTo(scene);
 				});
-			});
-			
-			context(@"set the scene to nil", ^{
-				beforeEach(^{
-					[director setScene:nil];
+				
+				it(@"set it's scene director property point to itself", ^{
+					[verify(scene) setDirector:director];
 				});
 				
-				it(@"set the scene property to nil", ^{
-					expect([director scene]).to.beNil();
+				it(@"called the unregisterAll method on the engine", ^{
+					[verify(engine) unregisterAll];
 				});
 				
-				it(@"set the director property of the previous scene to nil", ^{
-					[verify(scene) setDirector:nil];
+				it(@"called the scene's acceptVisitor method", ^{
+					[verify(scene) acceptVisitor:HC_anything()];
 				});
 				
-//				it(@"does not unregister the scene", ^{
-//					[verifyCount(scene, never()) unregister];
-//				});
-			});
-			
-			context(@"created and added a mock engine", ^{
-				__block FUEngine* engine = nil;
-				__block FUVisitor* registrationVisitor = nil;
-				__block FUVisitor* unregistrationVisitor = nil;
-				
-				beforeEach(^{
-					engine = mock([FUEngine class]);
-					registrationVisitor = mock([FUVisitor class]);
-					[given([engine registrationVisitor]) willReturn:registrationVisitor];
-					unregistrationVisitor = mock([FUVisitor class]);
-					[given([engine unregistrationVisitor]) willReturn:unregistrationVisitor];
-					[director addEngine:engine];
-				});
-							
-				it(@"set the engine's director property", ^{
-					[verify(engine) setDirector:director];
-				});
-				
-				it(@"contains the engine", ^{
-					NSSet* engines = [director allEngines];
-					expect(engines).to.haveCountOf(2);
-					expect(engines).to.contain(engine);
-				});
-				
-				context(@"adding the same engine again", ^{
-					it(@"throws an exception", ^{
-						[given([engine director]) willReturn:director];
-						STAssertThrows([director addEngine:engine], nil);
-					});
-				});
-				
-				context(@"setting the scene to nil", ^{
-					it(@"calls the unregisterAll method on the engine", ^{
-						[director setScene:nil];
-						[verify(engine) unregisterAll];
+				context(@"setting the same scene again", ^{
+					it(@"does nothing", ^{
+						[director setScene:scene];
+						expect([director scene]).to.beIdenticalTo(scene);
 					});
 				});
 				
 				context(@"calling the rotation methods", ^{
-					it(@"called the rotation methods on it's engine", ^{
-						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						[verify(engine) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						
-						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						[verify(engine) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-						
-						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-						[verify(engine) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
-					});
-				});
-				
-				context(@"calling the rotation methods", ^{
-					it(@"called the rotation methods on it's engine", ^{
+					it(@"called the rotation methods on it's scene", ^{
 						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 						[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-							
+						
 						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 						[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
-							
+						
 						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 						[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 					});
@@ -211,10 +190,9 @@ describe(@"A director", ^{
 					__block FUSceneObject* sceneObject = nil;
 					
 					beforeEach(^{
-						FUScene* scene = mock([FUScene class]);
 						sceneObject = [[FUSceneObject alloc] initWithScene:scene];
 					});
-
+					
 					context(@"calling didAddSceneObject: with the scene", ^{
 						it(@"calls the engine's registration visitor visit method with the scene object", ^{
 							[director didAddSceneObject:sceneObject];
@@ -229,19 +207,41 @@ describe(@"A director", ^{
 						});
 					});
 				});
+				
+				context(@"set the scene to nil", ^{
+					beforeEach(^{
+						[director setScene:nil];
+					});
 					
-				context(@"calling the GLKViewController update method", ^{
-					it(@"calls the engine update method", ^{
-						[(id)director update];
-						[verify(engine) update];
+					it(@"set the scene property to nil", ^{
+						expect([director scene]).to.beNil();
+					});
+					
+					it(@"set the director property of the previous scene to nil", ^{
+						[verify(scene) setDirector:nil];
+					});
+					
+					it(@"did not call the engine's unregistration visitor visit method with the scene", ^{
+						[verifyCount(unregistrationVisitor, never()) visitSceneObject:scene];
+					});
+					
+					it(@"called the unregisterAll method on the engine a second time", ^{
+						[verifyCount(engine, times(2)) unregisterAll];
 					});
 				});
-					
-				context(@"calling the GLKViewDelegate draw method", ^{
-					it(@"draws the engine's draw method", ^{
-						[director glkView:nil drawInRect:CGRectZero];
-						[verify(engine) draw];
-					});
+			});
+			
+			context(@"calling the GLKViewController update method", ^{
+				it(@"calls the engine update method", ^{
+					[(id)director update];
+					[verify(engine) update];
+				});
+			});
+			
+			context(@"calling the GLKViewDelegate draw method", ^{
+				it(@"draws the engine's draw method", ^{
+					[director glkView:nil drawInRect:CGRectZero];
+					[verify(engine) draw];
 				});
 			});
 		});
