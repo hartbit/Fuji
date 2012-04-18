@@ -9,6 +9,7 @@
 #include "Prefix.pch"
 #import "FUMath.h"
 #import "FUColor.h"
+#import "FUVisitor.h"
 #import "FUDirector.h"
 #import "FUScene.h"
 #import "FUGraphicsEngine.h"
@@ -37,8 +38,19 @@ static const NSUInteger kIndexSpriteStride = kIndexSpriteCount * sizeof(GLushort
 static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVertex);
 
 
+@interface FUGraphicsRegistrationVisitor : FUVisitor
+@property (nonatomic, WEAK) FUGraphicsEngine* graphicsEngine;
+@end
+
+@interface FUGraphicsUnregistrationVisitor : FUVisitor
+@property (nonatomic, WEAK) FUGraphicsEngine* graphicsEngine;
+@end
+
+
 @interface FUGraphicsEngine ()
 
+@property (nonatomic, strong) FUVisitor* registrationVisitor;
+@property (nonatomic, strong) FUVisitor* unregistrationVisitor;
 @property (nonatomic, strong) GLKBaseEffect* effect;
 @property (nonatomic, strong) FUGraphicsSettings* settings;
 @property (nonatomic, strong) NSMutableArray* renderers;
@@ -51,6 +63,8 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 
 @implementation FUGraphicsEngine
 
+@synthesize registrationVisitor = _registrationVisitor;
+@synthesize unregistrationVisitor = _unregistrationVisitor;
 @synthesize effect = _effect;
 @synthesize settings = _settings;
 @synthesize renderers = _renderers;
@@ -74,6 +88,32 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 }
 
 #pragma mark - Properties
+
+- (FUVisitor*)registrationVisitor
+{
+	if (_registrationVisitor == nil)
+	{
+		FUGraphicsRegistrationVisitor* visitor = [FUGraphicsRegistrationVisitor new];
+		[self setRegistrationVisitor:visitor];
+		
+		[visitor setGraphicsEngine:self];
+	}
+	
+	return _registrationVisitor;
+}
+
+- (FUVisitor*)unregistrationVisitor
+{
+	if (_unregistrationVisitor == nil)
+	{
+		FUGraphicsUnregistrationVisitor* visitor = [FUGraphicsUnregistrationVisitor new];
+		[self setUnregistrationVisitor:visitor];
+		
+		[visitor setGraphicsEngine:self];
+	}
+	
+	return _unregistrationVisitor;
+}
 
 - (GLKBaseEffect*)effect
 {
@@ -118,26 +158,7 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	return _indexData;
 }
 
-#pragma mark - Registration
-
-- (void)registerFUScene:(FUScene*)scene
-{
-	[self setSettings:[scene graphics]];
-}
-
-- (void)registerFUSpriteRenderer:(FUSpriteRenderer*)renderer
-{
-	[[self renderers] addObject:renderer];
-	[[self indexData] increaseLengthBy:kIndexSpriteStride];
-	[[self vertexData] increaseLengthBy:kVertexSpriteStride];
-}
-
-- (void)unregisterFUSpriteRenderer:(FUSpriteRenderer*)renderer
-{
-	[[self renderers] removeObject:renderer];
-	[_indexData setLength:[_indexData length] - kIndexSpriteStride];
-	[_vertexData setLength:[_vertexData length] - kVertexSpriteStride];
-}
+#pragma mark - FUEngine Methods
 
 - (void)unregisterAll
 {
@@ -274,6 +295,43 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	NSUInteger indexCount = [self spriteCount] * kIndexSpriteCount;
 	GLushort* indices = [[self indexData] mutableBytes];
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, indices);
+}
+
+@end
+
+
+@implementation FUGraphicsRegistrationVisitor
+
+@synthesize graphicsEngine = _graphicsEngine;
+
+- (void)visitFUScene:(FUScene*)scene
+{
+	[[self graphicsEngine] setSettings:[scene graphics]];
+}
+
+- (void)visitFUSpriteRenderer:(FUSpriteRenderer*)renderer
+{
+	[[[self graphicsEngine] renderers] addObject:renderer];
+	[[[self graphicsEngine] indexData] increaseLengthBy:kIndexSpriteStride];
+	[[[self graphicsEngine] vertexData] increaseLengthBy:kVertexSpriteStride];
+}
+
+@end
+
+
+@implementation FUGraphicsUnregistrationVisitor
+
+@synthesize graphicsEngine = _graphicsEngine;
+
+- (void)unregisterFUSpriteRenderer:(FUSpriteRenderer*)renderer
+{
+	[[[self graphicsEngine] renderers] removeObject:renderer];
+	
+	NSMutableData* indexData = [[self graphicsEngine] indexData];
+	[indexData setLength:[indexData length] - kIndexSpriteStride];
+	
+	NSMutableData* vertexData = [[self graphicsEngine] vertexData];
+	[vertexData setLength:[vertexData length] - kVertexSpriteStride];
 }
 
 @end
