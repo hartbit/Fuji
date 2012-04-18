@@ -8,6 +8,8 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUVisitor-Internal.h"
+#import "FUDirector-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
 
@@ -112,6 +114,10 @@ describe(@"A director", ^{
 				[verify(scene) setDirector:director];
 			});
 			
+//			it(@"registered the scene", ^{
+//				[verify(scene) register];
+//			});
+			
 			context(@"setting the same scene again", ^{
 				it(@"does nothing", ^{
 					[director setScene:scene];
@@ -131,13 +137,23 @@ describe(@"A director", ^{
 				it(@"set the director property of the previous scene to nil", ^{
 					[verify(scene) setDirector:nil];
 				});
+				
+//				it(@"does not unregister the scene", ^{
+//					[verifyCount(scene, never()) unregister];
+//				});
 			});
 			
 			context(@"created and added a mock engine", ^{
 				__block FUEngine* engine = nil;
+				__block FUVisitor* registrationVisitor = nil;
+				__block FUVisitor* unregistrationVisitor = nil;
 				
 				beforeEach(^{
 					engine = mock([FUEngine class]);
+					registrationVisitor = mock([FUVisitor class]);
+					[given([engine registrationVisitor]) willReturn:registrationVisitor];
+					unregistrationVisitor = mock([FUVisitor class]);
+					[given([engine unregistrationVisitor]) willReturn:unregistrationVisitor];
 					[director addEngine:engine];
 				});
 							
@@ -188,6 +204,29 @@ describe(@"A director", ^{
 							
 						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 						[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					});
+				});
+				
+				context(@"initialized a scene object", ^{
+					__block FUSceneObject* sceneObject = nil;
+					
+					beforeEach(^{
+						FUScene* scene = mock([FUScene class]);
+						sceneObject = [[FUSceneObject alloc] initWithScene:scene];
+					});
+
+					context(@"calling didAddSceneObject: with the scene", ^{
+						it(@"calls the engine's registration visitor visit method with the scene object", ^{
+							[director didAddSceneObject:sceneObject];
+							[verify(registrationVisitor) visitSceneObject:sceneObject];
+						});
+					});
+					
+					context(@"calling didRemoveSceneObject: with the scene", ^{
+						it(@"calls the engine's unregistration visitor visit method with the scene object", ^{
+							[director didRemoveSceneObject:sceneObject];
+							[verify(unregistrationVisitor) visitSceneObject:sceneObject];
+						});
 					});
 				});
 					

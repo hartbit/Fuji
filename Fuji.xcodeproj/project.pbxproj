@@ -59,6 +59,9 @@
 		63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D6349F153F08C900C7C648 /* FUVisitor.h */; };
 		63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
 		63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
+		63D634A8153F1A9800C7C648 /* FUProxyVisitor-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D634A6153F1A9700C7C648 /* FUProxyVisitor-Internal.h */; };
+		63D634A9153F1A9800C7C648 /* FUProxyVisitor-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A7153F1A9800C7C648 /* FUProxyVisitor-Internal.m */; };
+		63D634AA153F1C6C00C7C648 /* FUProxyVisitor-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A7153F1A9800C7C648 /* FUProxyVisitor-Internal.m */; };
 		63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
 		63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
@@ -135,6 +138,9 @@
 		63D6349F153F08C900C7C648 /* FUVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUVisitor.h; sourceTree = "<group>"; };
 		63D634A0153F08C900C7C648 /* FUVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitor.m; sourceTree = "<group>"; };
 		63D634A4153F119500C7C648 /* FUVisitor-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUVisitor-Internal.h"; sourceTree = "<group>"; };
+		63D634A5153F157F00C7C648 /* FUDirector-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUDirector-Internal.h"; sourceTree = "<group>"; };
+		63D634A6153F1A9700C7C648 /* FUProxyVisitor-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUProxyVisitor-Internal.h"; sourceTree = "<group>"; };
+		63D634A7153F1A9800C7C648 /* FUProxyVisitor-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUProxyVisitor-Internal.m"; sourceTree = "<group>"; };
 		63E6303D14F77B5F00923CB9 /* FUMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUMacros.h; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63E915891535E16600F7864B /* FUSceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSceneObject.h; sourceTree = "<group>"; };
@@ -208,6 +214,9 @@
 			isa = PBXGroup;
 			children = (
 				63D634A4153F119500C7C648 /* FUVisitor-Internal.h */,
+				63D634A6153F1A9700C7C648 /* FUProxyVisitor-Internal.h */,
+				63D634A7153F1A9800C7C648 /* FUProxyVisitor-Internal.m */,
+				63D634A5153F157F00C7C648 /* FUDirector-Internal.h */,
 				63F7B882152608C200F3064D /* FUEngine-Internal.h */,
 				63E9158E1535E1D200F7864B /* FUSceneObject-Internal.h */,
 				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,
@@ -393,6 +402,7 @@
 				63E9158B1535E16600F7864B /* FUSceneObject.h in Headers */,
 				637F980A153D57AB007E7053 /* FUAssetStore.h in Headers */,
 				63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */,
+				63D634A8153F1A9800C7C648 /* FUProxyVisitor-Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +535,7 @@
 				63E9158C1535E16600F7864B /* FUSceneObject.m in Sources */,
 				637F980B153D57AB007E7053 /* FUAssetStore.m in Sources */,
 				63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */,
+				63D634A9153F1A9800C7C648 /* FUProxyVisitor-Internal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +573,7 @@
 				637F980C153D57AB007E7053 /* FUAssetStore.m in Sources */,
 				63D6349D153F066200C7C648 /* FUVisitorSpec.m in Sources */,
 				63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */,
+				63D634AA153F1C6C00C7C648 /* FUProxyVisitor-Internal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

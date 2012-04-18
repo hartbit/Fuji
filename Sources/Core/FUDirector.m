@@ -7,6 +7,10 @@
 //
 
 #import "FUDirector.h"
+#import "FUDirector-Internal.h"
+#import "FUVisitor.h"
+#import "FUVisitor-Internal.h"
+#import "FUProxyVisitor-Internal.h"
 #import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
 #import "FUScene.h"
@@ -32,6 +36,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @property (nonatomic, strong) FUAssetStore* assetStore;
 @property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableSet* engines;
+@property (nonatomic, strong) FUProxyVisitor* registrationVisitor;
+@property (nonatomic, strong) FUProxyVisitor* unregistrationVisitor;
 
 @end
 
@@ -42,6 +48,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @synthesize scene = _scene;
 @synthesize context = _context;
 @synthesize engines = _engines;
+@synthesize registrationVisitor = _registrationVisitor;
+@synthesize unregistrationVisitor = _unregistrationVisitor;
 
 #pragma mark - Properties
 
@@ -110,6 +118,26 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return _engines;
 }
 
+- (FUProxyVisitor*)registrationVisitor
+{
+	if (_registrationVisitor == nil)
+	{
+		[self setRegistrationVisitor:[FUProxyVisitor new]];
+	}
+	
+	return _registrationVisitor;
+}
+
+- (FUProxyVisitor*)unregistrationVisitor
+{
+	if (_unregistrationVisitor == nil)
+	{
+		[self setUnregistrationVisitor:[FUProxyVisitor new]];
+	}
+	
+	return _unregistrationVisitor;
+}
+
 #pragma mark - Initialization
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
@@ -142,6 +170,20 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	
 	[[self engines] addObject:engine];
 	[engine setDirector:self];
+	
+	FUVisitor* registrationVisitor = [engine registrationVisitor];
+	
+	if (registrationVisitor != nil)
+	{
+		[[[self registrationVisitor] visitors] addObject:registrationVisitor];
+	}
+	
+	FUVisitor* unregistrationVisitor = [engine unregistrationVisitor];
+	
+	if (unregistrationVisitor != nil)
+	{
+		[[[self unregistrationVisitor] visitors] addObject:unregistrationVisitor];
+	}
 }
 
 - (NSSet*)allEngines
@@ -218,6 +260,18 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	{
 		[engine draw];
 	}
+}
+
+#pragma mark - Internal methods
+
+- (void)didAddSceneObject:(FUSceneObject*)sceneObject
+{
+	[sceneObject acceptVisitor:[self registrationVisitor]];
+}
+
+- (void)didRemoveSceneObject:(FUSceneObject*)sceneObject
+{
+	[sceneObject acceptVisitor:[self unregistrationVisitor]];
 }
 
 #pragma mark - Private Methods
