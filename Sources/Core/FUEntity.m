@@ -7,6 +7,8 @@
 //
 
 #include "Prefix.pch"
+#import "FUDirector.h"
+#import "FUDirector-Internal.h"
 #import "FUSceneObject.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEntity.h"
@@ -184,15 +186,15 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 #pragma mark - FUSceneObject Methods
 
-//- (void)acceptVisitor:(FUVisitor*)visitor
-//{
-//	[super acceptVisitor:visitor];
-//	
-//	for (FUComponent* component in [self components])
-//	{
-//		[component acceptVisitor:visitor];
-//	}	
-//}
+- (void)acceptVisitor:(FUVisitor*)visitor
+{
+	[super acceptVisitor:visitor];
+	
+	for (FUComponent* component in [self components])
+	{
+		[component acceptVisitor:visitor];
+	}	
+}
 
 #pragma mark - FUInterfaceRotating Methods
 
@@ -235,7 +237,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	if (registering)
 	{
-//		[component register];
+		[[[self scene] director] didAddSceneObject:component];
 	}
 	
 	return component;
@@ -254,7 +256,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	if (registering)
 	{
-//		[component unregister];
+		[[[self scene] director] didRemoveSceneObject:component];
 	}
 	
 	[[self components] removeObject:component];

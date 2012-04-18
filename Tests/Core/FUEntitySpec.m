@@ -8,6 +8,8 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUVisitor-Internal.h"
+#import "FUDirector-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
 
@@ -79,9 +81,9 @@ describe(@"An entity", ^{
 			expect([entity transform]).to.beIdenticalTo(transform);
 		});
 		
-//		it(@"does not register the transform component", ^{
-//			[verifyCount(director, never()) registerSceneObject:[entity transform]];
-//		});
+		it(@"does not register the transform component", ^{
+			[verifyCount(director, never()) didAddSceneObject:[entity transform]];
+		});
 		
 		context(@"removing the transform component", ^{
 			it(@"has the transform property to nil", ^{
@@ -211,30 +213,14 @@ describe(@"An entity", ^{
 			});
 		});
 
-//		context(@"gave the scene a director", ^{
-//			__block FUDirector* director = nil;
-//			
-//			beforeEach(^{
-//				director = mock([FUDirector class]);
-//				[given([scene director]) willReturn:director];
-//			});
-//			
-//			context(@"registering the entity", ^{
-//				it(@"registers itself and it's components with the director", ^{
-//					[entity register];
-//					[verify(director) registerSceneObject:entity];
-//					[verify(director) registerSceneObject:[entity transform]];
-//				});
-//			});
-//			
-//			context(@"unregistering the entity", ^{
-//				it(@"unregisters itself and it's components from the director", ^{
-//					[entity unregister];
-//					[verify(director) unregisterSceneObject:entity];
-//					[verify(director) unregisterSceneObject:[entity transform]];
-//				});
-//			});
-//		});
+		context(@"accepting a visitor", ^{
+			it(@"visits the entity and it's components", ^{
+				FUVisitor* visitor = mock([FUVisitor class]);
+				[entity acceptVisitor:visitor];
+				[verify(visitor) visitSceneObject:entity];
+				[verify(visitor) visitSceneObject:[entity transform]];
+			});
+		});
 		
 		context(@"added a unique component", ^{
 			__block FUUniqueChild1Component* component1 = nil;
@@ -249,9 +235,9 @@ describe(@"An entity", ^{
 				expect([component1 scene]).to.beIdenticalTo(scene);
 			});
 			
-//			it(@"registers the component with the director", ^{
-//				[verify(director) registerSceneObject:component1];
-//			});
+			it(@"registers the component with the director", ^{
+				[verify(director) didAddSceneObject:component1];
+			});
 			
 			it(@"has that component", ^{
 				NSSet* components = [entity allComponents];
@@ -288,9 +274,9 @@ describe(@"An entity", ^{
 					expect([component2 wasInitCalled]).to.beTruthy();
 				});
 				
-//				it(@"registers the new component with the director", ^{
-//					[verify(director) registerSceneObject:component2];
-//				});
+				it(@"registers the new component with the director", ^{
+					[verify(director) didAddSceneObject:component2];
+				});
 				
 				it(@"has both components", ^{
 					NSSet* components = [entity allComponents];
@@ -314,9 +300,9 @@ describe(@"An entity", ^{
 					expect([component2 scene]).to.beIdenticalTo(scene);
 				});
 				
-//				it(@"registers the new component with the director", ^{
-//					[verify(director) registerSceneObject:component2];
-//				});
+				it(@"registers the new component with the director", ^{
+					[verify(director) didAddSceneObject:component2];
+				});
 				
 				it(@"has three components, including both explicitely created", ^{
 					NSSet* components = [entity allComponents];
@@ -332,13 +318,13 @@ describe(@"An entity", ^{
 					expect([entity allComponents]).to.contain(component3);
 				});
 				
-//				it(@"registers the implicit component with the director", ^{
-//					[verify(director) registerSceneObject:component3];
-//				});
-//				
-//				it(@"has not registered the first component", ^{
-//					[verify(director) registerSceneObject:component1];
-//				});
+				it(@"registers the implicit component with the director", ^{
+					[verify(director) didAddSceneObject:component3];
+				});
+				
+				it(@"has not registered the first component", ^{
+					[verify(director) didAddSceneObject:component1];
+				});
 				
 				context(@"getting a component with a common ancestor of all components", ^{
 					it(@"returns any of the components", ^{
@@ -403,9 +389,9 @@ describe(@"An entity", ^{
 						expect([component2 entity]).to.beNil();
 					});
 					
-//					it(@"unregistered the component", ^{
-//						[verify(director) unregisterSceneObject:component2];
-//					});
+					it(@"unregistered the component", ^{
+						[verify(director) didRemoveSceneObject:component2];
+					});
 				});
 				
 				context(@"removing the first component", ^{
