@@ -269,7 +269,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	[sceneObject acceptVisitor:[self registrationVisitor]];
 }
 
-- (void)didRemoveSceneObject:(FUSceneObject*)sceneObject
+- (void)willRemoveSceneObject:(FUSceneObject*)sceneObject
 {
 	[sceneObject acceptVisitor:[self unregistrationVisitor]];
 }

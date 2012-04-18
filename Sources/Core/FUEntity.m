@@ -256,7 +256,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	if (registering)
 	{
-		[[[self scene] director] didRemoveSceneObject:component];
+		[[[self scene] director] willRemoveSceneObject:component];
 	}
 	
 	[[self components] removeObject:component];

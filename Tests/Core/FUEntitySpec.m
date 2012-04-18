@@ -390,7 +390,7 @@ describe(@"An entity", ^{
 					});
 					
 					it(@"unregistered the component", ^{
-						[verify(director) didRemoveSceneObject:component2];
+						[verify(director) willRemoveSceneObject:component2];
 					});
 				});
 				

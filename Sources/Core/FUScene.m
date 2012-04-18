@@ -8,6 +8,8 @@
 
 #include "Prefix.pch"
 #import "FUMacros.h"
+#import "FUDirector.h"
+#import "FUDirector-Internal.h"
 #import "FUSceneObject.h"
 #import "FUSceneObject-Internal.h"
 #import "FUScene.h"
@@ -81,7 +83,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 {
 	FUEntity* entity = [[FUEntity alloc] initWithScene:self];
 	[[self entities] addObject:entity];
-//	[entity register];
+	[[self director] didAddSceneObject:entity];
 	return entity;
 }
 
@@ -94,7 +96,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 		FUThrow(FUEntityNonexistentMessage, entity);
 	}
 	
-//	[entity unregister];
+	[[self director] willRemoveSceneObject:entity];
 	[[self entities] removeObject:entity];
 	[entity setScene:nil];
 }

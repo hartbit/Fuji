@@ -12,6 +12,6 @@
 @interface FUDirector ()
 
 - (void)didAddSceneObject:(FUSceneObject*)sceneObject;
-- (void)didRemoveSceneObject:(FUSceneObject*)sceneObject;
+- (void)willRemoveSceneObject:(FUSceneObject*)sceneObject;
 
 @end

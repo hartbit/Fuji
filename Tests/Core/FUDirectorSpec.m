@@ -202,7 +202,7 @@ describe(@"A director", ^{
 					
 					context(@"calling didRemoveSceneObject: with the scene", ^{
 						it(@"calls the engine's unregistration visitor visit method with the scene object", ^{
-							[director didRemoveSceneObject:sceneObject];
+							[director willRemoveSceneObject:sceneObject];
 							[verify(unregistrationVisitor) visitSceneObject:sceneObject];
 						});
 					});
