@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 
 
 @class FUAssetStore;
 @class FUScene;
 @class FUEngine;
-@class FUSceneObject;
 
 /** FUViewController
  * This is the view controller class.

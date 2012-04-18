@@ -11,7 +11,6 @@
 #import "FUMacros.h"
 
 
-@class FUScene;
 @class FUComponent;
 @class FUTransform;
 

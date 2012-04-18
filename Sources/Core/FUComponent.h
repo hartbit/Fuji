@@ -12,7 +12,6 @@
 
 
 @class FUEntity;
-@class FUTransform;
 
 @interface FUComponent : FUSceneObject
 
