@@ -108,15 +108,15 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - FUSceneObject Methods
 
-//- (void)acceptVisitor:(FUVisitor*)visitor
-//{
-//	[super acceptVisitor:visitor];
-//	
-//	for (FUEntity* entity in [self entities])
-//	{
-//		[entity acceptVisitor:visitor];
-//	}
-//}
+- (void)acceptVisitor:(FUVisitor*)visitor
+{
+	[super acceptVisitor:visitor];
+	
+	for (FUEntity* entity in [self entities])
+	{
+		[entity acceptVisitor:visitor];
+	}
+}
 
 #pragma mark - FUInterfaceRotating Methods
 

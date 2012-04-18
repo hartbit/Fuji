@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUVisitor-Internal.h"
 #import "FUDirector-Internal.h"
 #import "FUScene-Internal.h"
 #import "FUSceneObject-Internal.h"
@@ -133,6 +134,19 @@ describe(@"A scene", ^{
 						expect(entities).to.haveCountOf(2);
 						expect(entities).to.contain(entity1);
 						expect(entities).to.contain(entity2);
+					});
+					
+					context(@"accepting a visitor", ^{
+						it(@"makes the visitor visit the scene, it's entities, and their components", ^{
+							FUVisitor* visitor = mock([FUVisitor class]);
+							[scene acceptVisitor:visitor];
+							[verify(visitor) visitSceneObject:scene];
+							[verify(visitor) visitSceneObject:[scene graphics]];
+							[verify(visitor) visitSceneObject:entity1];
+							[verify(visitor) visitSceneObject:[entity1 transform]];
+							[verify(visitor) visitSceneObject:entity2];
+							[verify(visitor) visitSceneObject:[entity2 transform]];
+						});
 					});
 				});
 				
