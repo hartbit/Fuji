@@ -55,6 +55,10 @@
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
+		63D6349D153F066200C7C648 /* FUVisitorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D6349C153F066200C7C648 /* FUVisitorSpec.m */; };
+		63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D6349F153F08C900C7C648 /* FUVisitor.h */; };
+		63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
+		63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
 		63E6304714F781EB00923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
 		63E6305214F78D7800923CB9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63E6305314F78D8000923CB9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E6304614F781EB00923CB9 /* OpenGLES.framework */; };
@@ -127,6 +131,9 @@
 		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63B5739814F4D38000451E2E /* FujiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FujiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		63D6349C153F066200C7C648 /* FUVisitorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitorSpec.m; sourceTree = "<group>"; };
+		63D6349F153F08C900C7C648 /* FUVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUVisitor.h; sourceTree = "<group>"; };
+		63D634A0153F08C900C7C648 /* FUVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitor.m; sourceTree = "<group>"; };
 		63E6303D14F77B5F00923CB9 /* FUMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUMacros.h; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63E915891535E16600F7864B /* FUSceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSceneObject.h; sourceTree = "<group>"; };
@@ -202,8 +209,8 @@
 				63F7B882152608C200F3064D /* FUEngine-Internal.h */,
 				63E9158E1535E1D200F7864B /* FUSceneObject-Internal.h */,
 				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,
-				63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */,
 				634E08B91529D66F00D5C3F8 /* FUScene-Internal.h */,
+				63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -258,6 +265,8 @@
 			isa = PBXGroup;
 			children = (
 				633EE87414FED8C400281AC1 /* Internal */,
+				63D6349F153F08C900C7C648 /* FUVisitor.h */,
+				63D634A0153F08C900C7C648 /* FUVisitor.m */,
 				6397C52E151A33B500457829 /* FUDirector.h */,
 				6397C52F151A33B500457829 /* FUDirector.m */,
 				631241231529F1ED00E30DC6 /* FUInterfaceRotating.h */,
@@ -293,6 +302,7 @@
 		63925255151214AC005B3FEC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				63D6349C153F066200C7C648 /* FUVisitorSpec.m */,
 				63F7B8681525F4C300F3064D /* FUDirectorSpec.m */,
 				63F7B87B152605ED00F3064D /* FUEngineSpec.m */,
 				631016FC153702AC0039CC49 /* FUSceneObjectSpec.m */,
@@ -380,6 +390,7 @@
 				634E08C71529E85800D5C3F8 /* FUSpriteRenderer.h in Headers */,
 				63E9158B1535E16600F7864B /* FUSceneObject.h in Headers */,
 				637F980A153D57AB007E7053 /* FUAssetStore.h in Headers */,
+				63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +522,7 @@
 				634E08C81529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */,
 				63E9158C1535E16600F7864B /* FUSceneObject.m in Sources */,
 				637F980B153D57AB007E7053 /* FUAssetStore.m in Sources */,
+				63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +558,8 @@
 				6335C57B153ADB3F00022A4F /* FUMathSpec.m in Sources */,
 				6335C57E153ADDD800022A4F /* FUAssetStoreSpec.m in Sources */,
 				637F980C153D57AB007E7053 /* FUAssetStore.m in Sources */,
+				63D6349D153F066200C7C648 /* FUVisitorSpec.m in Sources */,
+				63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

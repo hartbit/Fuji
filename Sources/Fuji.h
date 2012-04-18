@@ -14,10 +14,11 @@
 
 // Core
 
+#import "FUSceneObject.h"
+#import "FUVisitor.h"
 #import "FUDirector.h"
 #import "FUInterfaceRotating.h"
 #import "FUEngine.h"
-#import "FUSceneObject.h"
 #import "FUEntity.h"
 #import "FUScene.h"
 #import "FUComponent.h"
