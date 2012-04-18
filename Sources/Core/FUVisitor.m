@@ -7,6 +7,7 @@
 //
 
 #import "FUVisitor.h"
+#import "FUVisitor-Internal.h"
 #import "FUSceneObject.h"
 
 
@@ -85,7 +86,7 @@
 	return selectorString;
 }
 
-#pragma mark - Public Methods
+#pragma mark - Internal Methods
 
 - (void)visitSceneObject:(FUSceneObject*)sceneObject
 {

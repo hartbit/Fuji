@@ -96,18 +96,6 @@ describe(@"A director", ^{
 			});
 		});
 		
-		context(@"registering a nil scene object", ^{
-			it(@"throws an exception", ^{
-				STAssertThrows([director registerSceneObject:nil], nil);
-			});
-		});
-		
-		context(@"unregistering a nil scene object", ^{
-			it(@"throws an exception", ^{
-				STAssertThrows([director unregisterSceneObject:nil], nil);
-			});
-		});
-		
 		context(@"set a mock scene", ^{
 			__block FUScene* scene = nil;
 			
@@ -122,10 +110,6 @@ describe(@"A director", ^{
 			
 			it(@"set it's scene director property point to itself", ^{
 				[verify(scene) setDirector:director];
-			});
-			
-			it(@"registered the scene", ^{
-				[verify(scene) register];
 			});
 			
 			context(@"setting the same scene again", ^{
@@ -146,10 +130,6 @@ describe(@"A director", ^{
 				
 				it(@"set the director property of the previous scene to nil", ^{
 					[verify(scene) setDirector:nil];
-				});
-				
-				it(@"does not unregister the scene", ^{
-					[verifyCount(scene, never()) unregister];
 				});
 			});
 			
@@ -222,76 +202,6 @@ describe(@"A director", ^{
 					it(@"draws the engine's draw method", ^{
 						[director glkView:nil drawInRect:CGRectZero];
 						[verify(engine) draw];
-					});
-				});
-			});
-		});
-		
-		context(@"initialized a scene object", ^{
-			__block FUScene* scene = nil;
-			__block FUSceneObject* sceneObject = nil;
-			
-			beforeEach(^{
-				scene = mock([FUScene class]);
-				sceneObject = mock([FUSceneObject class]);
-				[given([sceneObject scene]) willReturn:scene];
-			});
-			
-			context(@"registering the scene object", ^{
-				it(@"throws an exception", ^{
-					STAssertThrows([director registerSceneObject:sceneObject], nil);
-				});
-			});
-			
-			context(@"unregistering the scene object", ^{
-				it(@"throws an exception", ^{
-					STAssertThrows([director unregisterSceneObject:sceneObject], nil);
-				});
-			});
-
-			context(@"set another director on the scene", ^{
-				beforeEach(^{
-					[given([scene director]) willReturn:mock([FUDirector class])];
-				});
-				
-				context(@"registering the scene object", ^{
-					it(@"throws an exception", ^{
-						STAssertThrows([director registerSceneObject:sceneObject], nil);
-					});
-				});
-				
-				context(@"unregistering the scene object", ^{
-					it(@"throws an exception", ^{
-						STAssertThrows([director unregisterSceneObject:sceneObject], nil);
-					});
-				});
-			});
-
-			context(@"set the director on the scene", ^{
-				beforeEach(^{
-					[given([scene director]) willReturn:director];
-				});
-				
-				context(@"added a mock engine", ^{
-					__block FUEngine* engine;
-					
-					beforeEach(^{
-						engine = mock([FUEngine class]);
-						[director addEngine:engine];
-					});
-					
-					context(@"registering the scene object", ^{
-						it(@"calls the engine's register method", ^{
-							[director registerSceneObject:sceneObject];
-							[verify(engine) registerSceneObject:sceneObject];
-						});
-					});
-					
-					context(@"unregistering the scene object", ^{
-						it(@"calls the engine's unregister method", ^{
-							[director unregisterSceneObject:sceneObject];
-							[verify(engine) unregisterSceneObject:sceneObject];
-						});
 					});
 				});
 			});

@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUVisitor-Internal.h"
 #import "FUSceneObject-Internal.h"
 
 

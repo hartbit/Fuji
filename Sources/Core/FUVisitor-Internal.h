@@ -1,5 +1,5 @@
 //
-//  FUVisitor.h
+//  FUVisitor-Internal.h
 //  Fuji
 //
 //  Created by Hart David on 18.04.12.
@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FUVisitor : NSObject
+@class FUSceneObject;
+
+@interface FUVisitor ()
+
+- (void)visitSceneObject:(FUSceneObject*)sceneObject;
 
 @end

@@ -184,25 +184,15 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 #pragma mark - FUSceneObject Methods
 
-- (void)register
-{
-	[super register];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component register];
-	}	
-}
-
-- (void)unregister
-{
-	[super unregister];
-	
-	for (FUComponent* component in [self components])
-	{
-		[component unregister];
-	}
-}
+//- (void)acceptVisitor:(FUVisitor*)visitor
+//{
+//	[super acceptVisitor:visitor];
+//	
+//	for (FUComponent* component in [self components])
+//	{
+//		[component acceptVisitor:visitor];
+//	}	
+//}
 
 #pragma mark - FUInterfaceRotating Methods
 
@@ -245,7 +235,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	if (registering)
 	{
-		[component register];
+//		[component register];
 	}
 	
 	return component;
@@ -264,7 +254,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	if (registering)
 	{
-		[component unregister];
+//		[component unregister];
 	}
 	
 	[[self components] removeObject:component];

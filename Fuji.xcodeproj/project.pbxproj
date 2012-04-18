@@ -134,6 +134,7 @@
 		63D6349C153F066200C7C648 /* FUVisitorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitorSpec.m; sourceTree = "<group>"; };
 		63D6349F153F08C900C7C648 /* FUVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUVisitor.h; sourceTree = "<group>"; };
 		63D634A0153F08C900C7C648 /* FUVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitor.m; sourceTree = "<group>"; };
+		63D634A4153F119500C7C648 /* FUVisitor-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUVisitor-Internal.h"; sourceTree = "<group>"; };
 		63E6303D14F77B5F00923CB9 /* FUMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUMacros.h; sourceTree = "<group>"; };
 		63E6304614F781EB00923CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63E915891535E16600F7864B /* FUSceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSceneObject.h; sourceTree = "<group>"; };
@@ -206,6 +207,7 @@
 		633EE87414FED8C400281AC1 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				63D634A4153F119500C7C648 /* FUVisitor-Internal.h */,
 				63F7B882152608C200F3064D /* FUEngine-Internal.h */,
 				63E9158E1535E1D200F7864B /* FUSceneObject-Internal.h */,
 				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,

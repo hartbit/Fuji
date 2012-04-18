@@ -11,6 +11,7 @@
 
 
 @class FUScene;
+@class FUVisitor;
 
 @interface FUSceneObject ()
 
@@ -18,7 +19,6 @@
 
 - (id)initWithScene:(FUScene*)scene;
 
-- (void)register;
-- (void)unregister;
+- (void)acceptVisitor:(FUVisitor*)visitor;
 
 @end

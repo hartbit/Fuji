@@ -81,7 +81,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 {
 	FUEntity* entity = [[FUEntity alloc] initWithScene:self];
 	[[self entities] addObject:entity];
-	[entity register];
+//	[entity register];
 	return entity;
 }
 
@@ -94,7 +94,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 		FUThrow(FUEntityNonexistentMessage, entity);
 	}
 	
-	[entity unregister];
+//	[entity unregister];
 	[[self entities] removeObject:entity];
 	[entity setScene:nil];
 }
@@ -106,25 +106,15 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - FUSceneObject Methods
 
-- (void)register
-{
-	[super register];
-	
-	for (FUEntity* entity in [self entities])
-	{
-		[entity register];
-	}
-}
-
-- (void)unregister
-{
-	[super unregister];
-	
-	for (FUEntity* entity in [self entities])
-	{
-		[entity unregister];
-	}
-}
+//- (void)acceptVisitor:(FUVisitor*)visitor
+//{
+//	[super acceptVisitor:visitor];
+//	
+//	for (FUEntity* entity in [self entities])
+//	{
+//		[entity acceptVisitor:visitor];
+//	}
+//}
 
 #pragma mark - FUInterfaceRotating Methods
 

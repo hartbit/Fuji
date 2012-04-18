@@ -7,15 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUMacros.h"
 #import "FUInterfaceRotating.h"
+#import "FUMacros.h"
 
 
 @class FUDirector;
+@class FUVisitor;
 
 @interface FUEngine : NSObject <FUInterfaceRotating>
 
 @property (nonatomic, WEAK, readonly) FUDirector* director;
+
+- (FUVisitor*)registrationVisitor;
+- (FUVisitor*)unregistrationVisitor;
 
 - (void)unregisterAll;
 - (void)update;

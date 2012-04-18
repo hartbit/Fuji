@@ -94,10 +94,10 @@ describe(@"A scene", ^{
 					entity1 = [scene createEntity];
 				});
 				
-				it(@"registers the entity and it's transform component", ^{
-					[verify(director) registerSceneObject:entity1];
-					[verify(director) registerSceneObject:[entity1 transform]];
-				});
+//				it(@"registers the entity and it's transform component", ^{
+//					[verify(director) registerSceneObject:entity1];
+//					[verify(director) registerSceneObject:[entity1 transform]];
+//				});
 				
 				it(@"returns a valid entity with the scene property set", ^{
 					expect(entity1).toNot.beNil();
@@ -118,10 +118,10 @@ describe(@"A scene", ^{
 						entity2 = [scene createEntity];
 					});
 					
-					it(@"registers the new entity and it's transform component", ^{
-						[verify(director) registerSceneObject:entity2];
-						[verify(director) registerSceneObject:[entity2 transform]];
-					});
+//					it(@"registers the new entity and it's transform component", ^{
+//						[verify(director) registerSceneObject:entity2];
+//						[verify(director) registerSceneObject:[entity2 transform]];
+//					});
 					
 					it(@"returns a valid entity with the scene property set", ^{
 						expect(entity2).toNot.beNil();
@@ -142,10 +142,10 @@ describe(@"A scene", ^{
 						[scene removeEntity:entity1];
 					});
 					
-					it(@"unregisters the new entity and it's transform component", ^{
-						[verify(director) unregisterSceneObject:entity1];
-						[verify(director) unregisterSceneObject:[entity1 transform]];
-					});
+//					it(@"unregisters the new entity and it's transform component", ^{
+//						[verify(director) unregisterSceneObject:entity1];
+//						[verify(director) unregisterSceneObject:[entity1 transform]];
+//					});
 					
 					it(@"sets the scene property of the entity to nil", ^{
 						expect([entity1 scene]).to.beNil();

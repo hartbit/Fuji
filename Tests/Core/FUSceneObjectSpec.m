@@ -8,6 +8,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUVisitor-Internal.h"
 #import "FUSceneObject-Internal.h"
 
 
@@ -47,8 +48,12 @@ describe(@"A scene", ^{
 			expect([sceneObject scene]).to.beIdenticalTo(scene);
 		});
 		
-		context(@"created a mock visitor", ^{
-//			__block FUVisitor* visitor = nil;
+		context(@"accepting a visitor", ^{
+			it(@"calls the visitSceneObject: method on the visitor", ^{
+				FUVisitor* visitor = mock([FUVisitor class]);
+				[sceneObject acceptVisitor:visitor];
+				[verify(visitor) visitSceneObject:sceneObject];
+			});
 		});
 	});
 });

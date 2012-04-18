@@ -27,7 +27,4 @@
 - (void)addEngine:(FUEngine*)engine;
 - (NSSet*)allEngines;
 
-- (void)registerSceneObject:(FUSceneObject*)sceneObject;
-- (void)unregisterSceneObject:(FUSceneObject*)sceneObject;
-
 @end

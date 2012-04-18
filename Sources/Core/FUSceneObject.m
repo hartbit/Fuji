@@ -10,6 +10,8 @@
 #import "FUSceneObject-Internal.h"
 #import "FUScene.h"
 #import "FUDirector.h"
+#import "FUVisitor.h"
+#import "FUVisitor-Internal.h"
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";
@@ -68,14 +70,9 @@ static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 
 #pragma mark - Internal Methods
 
-- (void)register
+- (void)acceptVisitor:(FUVisitor*)visitor
 {
-	[[[self scene] director] registerSceneObject:self];
-}
-
-- (void)unregister
-{
-	[[[self scene] director] unregisterSceneObject:self];
+	[visitor visitSceneObject:self];
 }
 
 @end

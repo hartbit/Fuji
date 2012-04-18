@@ -67,7 +67,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 		[_scene setDirector:nil];
 		_scene = scene;
 		[scene setDirector:self];
-		[scene register];
+//		[scene register];
 	}
 }
 
@@ -147,28 +147,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 - (NSSet*)allEngines
 {
 	return [NSSet setWithSet:[self engines]];
-}
-
-- (void)registerSceneObject:(FUSceneObject*)sceneObject
-{
-	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
-	FUAssert([[sceneObject scene] director] == self, FUSceneObjectInvalidMessage, sceneObject, [[sceneObject scene] director]);
-	
-	for (FUEngine* engine in [self engines])
-	{
-		[engine registerSceneObject:sceneObject];
-	}
-}
-
-- (void)unregisterSceneObject:(FUSceneObject*)sceneObject
-{
-	FUAssert(sceneObject != nil, FUSceneObjectNilMessage);
-	FUAssert([[sceneObject scene] director] == self, FUSceneObjectInvalidMessage, sceneObject, [[sceneObject scene] director]);
-	
-	for (FUEngine* engine in [self engines])
-	{
-		[engine unregisterSceneObject:sceneObject];
-	}
 }
 
 #pragma mark - UIViewController Methods
