@@ -1,5 +1,5 @@
 //
-//  UIScreen+FUAdditions.h
+//  UIScreen+FUAdditions-Internal.h
 //  FUAdditions
 //
 //  Created by Hart David on 20.02.12.

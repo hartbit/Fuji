@@ -32,3 +32,12 @@ static inline BOOL FUMatrix4CloseToMatrix4(GLKMatrix4 left, GLKMatrix4 right)
 	FUAreClose(left.m20, right.m20) && FUAreClose(left.m21, right.m21) && FUAreClose(left.m22, right.m22) && FUAreClose(left.m23, right.m23) &&
 	FUAreClose(left.m30, right.m30) && FUAreClose(left.m31, right.m31) && FUAreClose(left.m32, right.m32) && FUAreClose(left.m33, right.m33);
 }
+
+
+#define FU_WAIT_UNTIL_TIMEOUT(condition, timeout) \
+	NSDate* timeoutDate = [[NSDate alloc] initWithTimeIntervalSinceNow:(timeout)]; \
+	while (!(condition) && ([timeoutDate timeIntervalSinceDate:[NSDate date]] > 0)) { \
+		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; \
+	}
+
+#define FU_WAIT_UNTIL(condition) FU_WAIT_UNTIL_TIMEOUT(condition, 10)

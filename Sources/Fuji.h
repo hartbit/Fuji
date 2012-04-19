@@ -27,6 +27,7 @@
 // Assets
 
 #import "FUAssetStore.h"
+#import "FUTexture.h"
 
 // Graphics
 

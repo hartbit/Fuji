@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63093F8C153FF94E00AC8CA8 /* FUTexture-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63093F89153FF94E00AC8CA8 /* FUTexture-Internal.h */; };
+		63093F8D153FF94E00AC8CA8 /* FUTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 63093F8A153FF94E00AC8CA8 /* FUTexture.h */; };
+		63093F8E153FF94E00AC8CA8 /* FUTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63093F8B153FF94E00AC8CA8 /* FUTexture.m */; };
+		63093F8F153FF94E00AC8CA8 /* FUTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63093F8B153FF94E00AC8CA8 /* FUTexture.m */; };
 		631016FD153702AC0039CC49 /* FUSceneObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 631016FC153702AC0039CC49 /* FUSceneObjectSpec.m */; };
 		63117F2414FFAD3700A04563 /* FUEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2214FFAD3700A04563 /* FUEntity.h */; };
 		63117F2514FFAD3700A04563 /* FUEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2314FFAD3700A04563 /* FUEntity.m */; };
@@ -50,6 +54,11 @@
 		6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925258151214EA005B3FEC /* FUSceneSpec.m */; };
 		6397C530151A33B500457829 /* FUDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6397C52E151A33B500457829 /* FUDirector.h */; };
 		6397C531151A33B500457829 /* FUDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397C52F151A33B500457829 /* FUDirector.m */; };
+		639CE436153FFBBD000D4A48 /* FUTextureSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE435153FFBBD000D4A48 /* FUTextureSpec.m */; };
+		639CE43A153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE439153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.m */; };
+		639CE43F1540000C000D4A48 /* UIDevice+FUAdditions-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE43C1540000C000D4A48 /* UIDevice+FUAdditions-Internal.m */; };
+		639CE4401540000C000D4A48 /* UIScreen+FUAdditions-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE43E1540000C000D4A48 /* UIScreen+FUAdditions-Internal.m */; };
+		639CE443154003F3000D4A48 /* NSBundle+FUAdditions-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 639CE438153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.h */; };
 		63A159A514FD1DB500364D24 /* FUScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 63A159A314FD1DB500364D24 /* FUScene.h */; };
 		63A159A614FD1DB500364D24 /* FUScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* FUScene.m */; };
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
@@ -85,6 +94,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63093F89153FF94E00AC8CA8 /* FUTexture-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUTexture-Internal.h"; sourceTree = "<group>"; };
+		63093F8A153FF94E00AC8CA8 /* FUTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTexture.h; sourceTree = "<group>"; };
+		63093F8B153FF94E00AC8CA8 /* FUTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTexture.m; sourceTree = "<group>"; };
 		631016FC153702AC0039CC49 /* FUSceneObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneObjectSpec.m; sourceTree = "<group>"; };
 		63117F2214FFAD3700A04563 /* FUEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUEntity.h; sourceTree = "<group>"; };
 		63117F2314FFAD3700A04563 /* FUEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUEntity.m; sourceTree = "<group>"; };
@@ -128,6 +140,13 @@
 		63925258151214EA005B3FEC /* FUSceneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneSpec.m; sourceTree = "<group>"; };
 		6397C52E151A33B500457829 /* FUDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUDirector.h; sourceTree = "<group>"; };
 		6397C52F151A33B500457829 /* FUDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDirector.m; sourceTree = "<group>"; };
+		639CE435153FFBBD000D4A48 /* FUTextureSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTextureSpec.m; sourceTree = "<group>"; };
+		639CE438153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+FUAdditions-Internal.h"; sourceTree = "<group>"; };
+		639CE439153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+FUAdditions-Internal.m"; sourceTree = "<group>"; };
+		639CE43B1540000C000D4A48 /* UIDevice+FUAdditions-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+FUAdditions-Internal.h"; sourceTree = "<group>"; };
+		639CE43C1540000C000D4A48 /* UIDevice+FUAdditions-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+FUAdditions-Internal.m"; sourceTree = "<group>"; };
+		639CE43D1540000C000D4A48 /* UIScreen+FUAdditions-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+FUAdditions-Internal.h"; sourceTree = "<group>"; };
+		639CE43E1540000C000D4A48 /* UIScreen+FUAdditions-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+FUAdditions-Internal.m"; sourceTree = "<group>"; };
 		63A159A314FD1DB500364D24 /* FUScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUScene.h; sourceTree = "<group>"; };
 		63A159A414FD1DB500364D24 /* FUScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUScene.m; sourceTree = "<group>"; };
 		63B5738814F4D38000451E2E /* libFuji.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFuji.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +215,8 @@
 				637F980D153D5907007E7053 /* Internal */,
 				637F9808153D57AB007E7053 /* FUAssetStore.h */,
 				637F9809153D57AB007E7053 /* FUAssetStore.m */,
+				63093F8A153FF94E00AC8CA8 /* FUTexture.h */,
+				63093F8B153FF94E00AC8CA8 /* FUTexture.m */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -204,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				6335C57D153ADDD800022A4F /* FUAssetStoreSpec.m */,
+				639CE435153FFBBD000D4A48 /* FUTextureSpec.m */,
 				6335C57F153ADDE100022A4F /* Invalid.txt */,
 				6335C580153ADDE100022A4F /* Valid.png */,
 			);
@@ -230,6 +252,13 @@
 			isa = PBXGroup;
 			children = (
 				637F980E153D599D007E7053 /* FUAssetStore-Internal.h */,
+				63093F89153FF94E00AC8CA8 /* FUTexture-Internal.h */,
+				639CE438153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.h */,
+				639CE439153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.m */,
+				639CE43B1540000C000D4A48 /* UIDevice+FUAdditions-Internal.h */,
+				639CE43C1540000C000D4A48 /* UIDevice+FUAdditions-Internal.m */,
+				639CE43D1540000C000D4A48 /* UIScreen+FUAdditions-Internal.h */,
+				639CE43E1540000C000D4A48 /* UIScreen+FUAdditions-Internal.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -403,6 +432,9 @@
 				637F980A153D57AB007E7053 /* FUAssetStore.h in Headers */,
 				63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */,
 				63D634A8153F1A9800C7C648 /* FUProxyVisitor-Internal.h in Headers */,
+				63093F8C153FF94E00AC8CA8 /* FUTexture-Internal.h in Headers */,
+				63093F8D153FF94E00AC8CA8 /* FUTexture.h in Headers */,
+				639CE443154003F3000D4A48 /* NSBundle+FUAdditions-Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +568,7 @@
 				637F980B153D57AB007E7053 /* FUAssetStore.m in Sources */,
 				63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */,
 				63D634A9153F1A9800C7C648 /* FUProxyVisitor-Internal.m in Sources */,
+				63093F8E153FF94E00AC8CA8 /* FUTexture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +607,11 @@
 				63D6349D153F066200C7C648 /* FUVisitorSpec.m in Sources */,
 				63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */,
 				63D634AA153F1C6C00C7C648 /* FUProxyVisitor-Internal.m in Sources */,
+				63093F8F153FF94E00AC8CA8 /* FUTexture.m in Sources */,
+				639CE436153FFBBD000D4A48 /* FUTextureSpec.m in Sources */,
+				639CE43A153FFF4D000D4A48 /* NSBundle+FUAdditions-Internal.m in Sources */,
+				639CE43F1540000C000D4A48 /* UIDevice+FUAdditions-Internal.m in Sources */,
+				639CE4401540000C000D4A48 /* UIScreen+FUAdditions-Internal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

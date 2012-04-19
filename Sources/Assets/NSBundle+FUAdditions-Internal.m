@@ -1,5 +1,5 @@
 //
-//  NSBundle+FUAdditions.m
+//  NSBundle+FUAdditions-Internal.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUViewController.h"
-#import "UIDevice+FUAdditions.h"
-#import "UIScreen+FUAdditions.h"
+#import "FUDirector.h"
+#import "UIDevice+FUAdditions-Internal.h"
+#import "UIScreen+FUAdditions-Internal.h"
 #import "FUMacros.h"
 
 
@@ -21,7 +21,7 @@
 	
 	if (sCurrentBundle == nil)
 	{
-		sCurrentBundle = [NSBundle bundleForClass:[FUViewController class]];
+		sCurrentBundle = [NSBundle bundleForClass:[FUDirector class]];
 	}
 	
 	return sCurrentBundle;
@@ -29,14 +29,9 @@
 
 - (NSString*)platformPathForResource:(NSString*)name ofType:(NSString*)extension
 {
-	FUAssertError(FUStringIsValid(name), @"name=%@", name);
-	FUAssertError(FUStringIsValid(extension), @"extension=%@", extension);
-	
-	NSAssert(name != nil, @"");
-	
 	NSString* platformSuffix = [[UIDevice currentDevice] platformSuffix];
 	NSString* scaleSuffix = [[UIScreen mainScreen] scaleSuffix];
-	BOOL hasScaleSuffix = FUStringIsValid(scaleSuffix);
+	BOOL hasScaleSuffix = [scaleSuffix length] != 0;
 	
 	NSString* nameWithSuffix = nil;
 	NSString* path = nil;

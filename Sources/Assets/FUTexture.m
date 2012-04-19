@@ -7,42 +7,50 @@
 //
 
 #import "FUTexture.h"
-#import <GLKit/GLKit.h>
-#import "NSBundle+FUAdditions.h"
 #import "FUTexture-Internal.h"
+#import <GLKit/GLKit.h>
+#import "NSBundle+FUAdditions-Internal.h"
 #import "FUMacros.h"
+
+
+static NSString* const FUCreationInvalidMessage = @"Can not create a texture outside of the asset store";
 
 
 @interface FUTexture ()
 
-@property (nonatomic, assign) GLuint identifier;
+@property (nonatomic, assign) GLuint name;
 
 @end
 
 
 @implementation FUTexture
 
-@synthesize identifier = _identifier;
+@synthesize name = _name;
 
 #pragma mark - Class Methods
 
 + (GLKTextureLoader*)asynchronousLoader
 {
-	static GLKTextureLoader* sTextureLoader = nil;
+	static NSMutableDictionary* sTextureLoaders = nil;
 	
-	if (sTextureLoader == nil)
+	if (sTextureLoaders == nil)
 	{
-		EAGLSharegroup* sharegroup = [[EAGLContext currentContext] sharegroup];
-		sTextureLoader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];
+		sTextureLoaders = [NSMutableDictionary dictionary];
 	}
 	
-	return sTextureLoader;
+	EAGLSharegroup* sharegroup = [[EAGLContext currentContext] sharegroup];
+	GLKTextureLoader* loader = [sTextureLoaders objectForKey:sharegroup];
+	
+	if (loader == nil)
+	{
+		loader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];
+	}
+	
+	return loader;
 }
 
 + (NSString*)pathWithName:(NSString*)name
 {
-	NSAssert(FUStringIsValid(name), @"");
-	
 	NSString* nameWithoutExtension = [name stringByDeletingPathExtension];
 	NSString* extension = [name pathExtension];
 	return [[NSBundle currentBundle] platformPathForResource:nameWithoutExtension ofType:extension];
@@ -50,42 +58,38 @@
 
 #pragma mark - Initialization
 
-+ (void)textureWithName:(NSString*)name completion:(void (^)(FUTexture* texture))completion
+- (id)init
 {
-	NSAssert(FUStringIsValid(name), @"");
-	NSAssert(completion != NULL, @"");
-	
+	FUThrow(FUCreationInvalidMessage);
+}
+
++ (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block
+{
 	NSString* path = [self pathWithName:name];
 	
 	[[self asynchronousLoader] textureWithContentsOfFile:path options:nil queue:NULL completionHandler:^(GLKTextureInfo* textureInfo, NSError* error) {
-		NSAssert(textureInfo != nil, [error localizedDescription]);
-		
-		FUTexture* texture = [[self alloc] initWithTextureInfo:textureInfo];
-		completion(texture);
+		FUAssert(textureInfo != nil, [error localizedDescription]);
+		block([[self alloc] initWithTextureInfo:textureInfo]);
 	}];
 }
 
 - (id)initWithName:(NSString*)name
 {
-	NSAssert(FUStringIsValid(name), @"");
-	
 	NSString* path = [[self class] pathWithName:name];
 	
 	NSError* error = nil;
 	GLKTextureInfo* textureInfo = [GLKTextureLoader textureWithContentsOfFile:path options:nil error:&error];
-	NSAssert(textureInfo != nil, [error localizedDescription]);
+	FUAssert(textureInfo != nil, [error localizedDescription]);
 	
 	return [self initWithTextureInfo:textureInfo];
 }
 
 - (id)initWithTextureInfo:(GLKTextureInfo*)textureInfo
 {
-	NSAssert(textureInfo != nil, @"");
+	self = [super init];
+	if (self == nil) return nil;
 	
-	if ((self = [super init]))
-	{
-		[self setIdentifier:[textureInfo name]];
-	}
+	[self setName:[textureInfo name]];
 	
 	return self;
 }

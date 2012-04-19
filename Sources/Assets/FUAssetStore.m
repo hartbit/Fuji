@@ -8,6 +8,7 @@
 
 #import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
+#import "FUTexture.h"
 #import "FUMacros.h"
 
 
@@ -29,6 +30,13 @@ static NSString* const FUCreationInvalidMessage = @"Can not create an asset stor
 	if (self == nil) return nil;
 	
 	return self;
+}
+
+#pragma maek - Public Methods
+
+- (FUTexture*)textureWithName:(NSString*)name
+{
+	return nil;
 }
 
 @end

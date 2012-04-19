@@ -1,12 +1,12 @@
 //
-//  UIScreen+FUAdditions.m
+//  UIScreen+FUAdditions-Internal.m
 //  FUAdditions
 //
 //  Created by Hart David on 20.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "UIScreen+FUAdditions-Internal.h"
 
 
 @implementation UIScreen (FUAdditions)

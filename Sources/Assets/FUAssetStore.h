@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+@class FUTexture;
+
 @interface FUAssetStore : NSObject
+
+- (FUTexture*)textureWithName:(NSString*)name;
 
 @end

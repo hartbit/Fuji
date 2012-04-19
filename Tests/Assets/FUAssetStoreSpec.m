@@ -11,11 +11,6 @@
 #import "FUAssetStore-Internal.h"
 
 
-#define NONEXISTANT @"Nonexistent.png"
-#define INVALID @"Invalid.txt"
-#define VALID @"Valid.png"
-
-
 SPEC_BEGIN(FUAssetStoreSpec)
 
 describe(@"An asset store", ^{	
