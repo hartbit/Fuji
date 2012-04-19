@@ -254,6 +254,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
+	[EAGLContext setCurrentContext:[self context]];
+	
 	for (FUEngine* engine in [self engines])
 	{
 		[engine draw];
