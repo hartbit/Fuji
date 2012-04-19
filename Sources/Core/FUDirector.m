@@ -34,6 +34,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @interface FUDirector ()
 
 @property (nonatomic, strong) FUAssetStore* assetStore;
+@property (nonatomic, strong) FUScene* scene;
 @property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableSet* engines;
 @property (nonatomic, strong) FUProxyVisitor* registrationVisitor;
@@ -63,20 +64,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	}
 	
 	return _assetStore;
-}
-
-- (void)setScene:(FUScene*)scene
-{
-	if (scene != _scene)
-	{
-		FUAssert([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
-		
-		[self unregisterAll];
-		[_scene setDirector:nil];
-		_scene = scene;
-		[scene setDirector:self];
-		[self didAddSceneObject:scene];
-	}
 }
 
 - (EAGLContext*)context
@@ -189,6 +176,17 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 - (NSSet*)allEngines
 {
 	return [NSSet setWithSet:[self engines]];
+}
+
+- (void)loadScene:(FUScene*)scene
+{
+	FUAssert([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
+	
+	[self unregisterAll];
+	[[self scene] setDirector:nil];
+	[self setScene:scene];
+	[scene setDirector:self];
+	[self didAddSceneObject:scene];
 }
 
 #pragma mark - UIViewController Methods

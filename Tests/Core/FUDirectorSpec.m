@@ -90,11 +90,11 @@ describe(@"A director", ^{
 			});
 		});
 		
-		context(@"adding a scene that already has a director", ^{
+		context(@"loading a scene that already has a director", ^{
 			it(@"throws an exception", ^{
 				FUScene* scene = mock([FUScene class]);
 				[given([scene director]) willReturn:mock([FUDirector class])];
-				STAssertThrows([director setScene:scene], nil);
+				STAssertThrows([director loadScene:scene], nil);
 			});
 		});
 			
@@ -142,12 +142,12 @@ describe(@"A director", ^{
 				});
 			});
 			
-			context(@"set a mock scene", ^{
+			context(@"load a mock scene", ^{
 				__block FUScene* scene = nil;
 				
 				beforeEach(^{
 					scene = mock([FUScene class]);
-					[director setScene:scene];
+					[director loadScene:scene];
 				});
 				
 				it(@"has the scene property set", ^{
@@ -166,10 +166,10 @@ describe(@"A director", ^{
 					[verify(scene) acceptVisitor:HC_anything()];
 				});
 				
-				context(@"setting the same scene again", ^{
-					it(@"does nothing", ^{
-						[director setScene:scene];
-						expect([director scene]).to.beIdenticalTo(scene);
+				context(@"loading the same scene again", ^{
+					it(@"throws an exception", ^{
+						[given([scene director]) willReturn:director];
+						STAssertThrows([director loadScene:scene], nil);
 					});
 				});
 				
@@ -208,9 +208,9 @@ describe(@"A director", ^{
 					});
 				});
 				
-				context(@"set the scene to nil", ^{
+				context(@"load a nil scene", ^{
 					beforeEach(^{
-						[director setScene:nil];
+						[director loadScene:nil];
 					});
 					
 					it(@"set the scene property to nil", ^{

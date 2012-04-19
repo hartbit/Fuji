@@ -17,11 +17,13 @@
 @interface FUDirector : GLKViewController <GLKViewDelegate>
 
 @property (nonatomic, strong, readonly) FUAssetStore* assetStore;
-@property (nonatomic, strong) FUScene* scene;
+@property (nonatomic, strong, readonly) FUScene* scene;
 
 - (id)initWithAssetStore:(FUAssetStore*)assetStore;
 
 - (void)addEngine:(FUEngine*)engine;
 - (NSSet*)allEngines;
+
+- (void)loadScene:(FUScene*)scene;
 
 @end

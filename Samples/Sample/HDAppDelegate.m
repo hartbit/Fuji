@@ -41,7 +41,7 @@
 			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 		}
 		
-		[director setScene:scene];
+		[director loadScene:scene];
 	}
 	
 	return _window;
