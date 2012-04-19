@@ -1,19 +1,15 @@
 //
-//  FUTexture.m
+//  FUTexture-Internal.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUTexture.h"
 #import "FUTexture-Internal.h"
 #import <GLKit/GLKit.h>
 #import "NSBundle+FUAdditions-Internal.h"
 #import "FUMacros.h"
-
-
-static NSString* const FUCreationInvalidMessage = @"Can not create a texture outside of the asset store";
 
 
 @interface FUTexture ()
@@ -57,11 +53,6 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a texture out
 }
 
 #pragma mark - Initialization
-
-- (id)init
-{
-	FUThrow(FUCreationInvalidMessage);
-}
 
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block
 {

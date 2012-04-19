@@ -6,11 +6,13 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import <OpenGLES/EAGL.h>
+#import <Foundation/Foundation.h>
 
 
-@interface FUAssetStore ()
+@class FUTexture;
 
-- (id)initWithSharegroup:(EAGLSharegroup*)sharegroup;
+@interface FUAssetStore : NSObject
+
+- (FUTexture*)textureWithName:(NSString*)name;
 
 @end

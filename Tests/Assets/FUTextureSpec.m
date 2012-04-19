@@ -19,13 +19,7 @@
 
 SPEC_BEGIN(FUTextureSpec)
 
-describe(@"A texture", ^{
-	context(@"initializing with init", ^{
-		it(@"throws an exception", ^{
-			STAssertThrows([FUTexture new], nil);
-		});
-	});
-	
+describe(@"A texture", ^{	
 	context(@"initializing with a non-existant texture", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([[FUTexture alloc] initWithName:NONEXISTANT], nil);

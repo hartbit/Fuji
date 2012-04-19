@@ -11,6 +11,8 @@
 
 @interface FUDirector ()
 
+@property (nonatomic, strong) FUAssetStore* assetStore;
+
 - (void)didAddSceneObject:(FUSceneObject*)sceneObject;
 - (void)willRemoveSceneObject:(FUSceneObject*)sceneObject;
 

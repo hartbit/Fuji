@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <OpenGLES/ES2/gl.h>
 
 
-@interface FUTexture ()
+@interface FUTexture : NSObject
+
+@property (nonatomic, readonly) GLuint name;
 
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block;
 - (id)initWithName:(NSString*)name;

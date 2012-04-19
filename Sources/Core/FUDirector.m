@@ -11,7 +11,6 @@
 #import "FUVisitor.h"
 #import "FUVisitor-Internal.h"
 #import "FUProxyVisitor-Internal.h"
-#import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
 #import "FUScene.h"
 #import "FUScene-Internal.h"
@@ -22,7 +21,7 @@
 #import "FUGraphicsEngine.h"
 
 
-static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
+static NSString* const FUDirectorNilMessage = @"Expected 'director' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
@@ -33,7 +32,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @interface FUDirector ()
 
-@property (nonatomic, strong) FUAssetStore* assetStore;
 @property (nonatomic, strong) FUScene* scene;
 @property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableSet* engines;
@@ -58,9 +56,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	if (_assetStore == nil)
 	{
-		EAGLSharegroup* sharegroup = [[self context] sharegroup];
-		FUAssetStore* assetStore = [[FUAssetStore alloc] initWithSharegroup:sharegroup];
-		[self setAssetStore:assetStore];
+		[self setAssetStore:[FUAssetStore new]];
 	}
 	
 	return _assetStore;
@@ -137,11 +133,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return self;
 }
 
-- (id)initWithAssetStore:(FUAssetStore*)assetStore;
+- (id)initAndShareAssetsWithDirector:(FUDirector*)director
 {
-	FUAssert(assetStore != nil, FUAssetStoreNilMessage);
+	FUAssert(director != nil, FUDirectorNilMessage);
 	
-	[self setAssetStore:assetStore];
+	[self setAssetStore:[director assetStore]];
 	
 	self = [self initWithNibName:nil bundle:nil];
 	return self;
@@ -246,6 +242,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)update
 {
+	[EAGLContext setCurrentContext:[self context]];
+	
 	for (FUEngine* engine in [self engines])
 	{
 		[engine update];

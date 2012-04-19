@@ -19,18 +19,11 @@ describe(@"An asset store", ^{
 		[EAGLContext setCurrentContext:context];
 	});
 	
-	context(@"initializing with init", ^{
-		it(@"throws an exception", ^{
-			STAssertThrows([FUAssetStore new], nil);
-		});
-	});
-	
-	context(@"initialized with the current sharegroup", ^{
+	context(@"initialized", ^{
 		__block FUAssetStore* assetStore = nil;
 		
 		beforeEach(^{
-			EAGLSharegroup* sharegroup = [[EAGLContext currentContext] sharegroup];
-			assetStore = [[FUAssetStore alloc] initWithSharegroup:sharegroup];
+			assetStore = [FUAssetStore new];
 		});
 		
 		it(@"is not nil", ^{
