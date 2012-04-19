@@ -72,11 +72,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 		[self setContext:context];
 	}
 	
-	if ([EAGLContext currentContext] != _context)
-	{
-		[EAGLContext setCurrentContext:_context];
-	}
-	
 	return _context;
 }
 
@@ -84,11 +79,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	if (_context != context)
 	{
-		if ([EAGLContext currentContext] == _context)
-		{
-			[EAGLContext setCurrentContext:context];
-		}
-		
 		_context = context;
 	}
 }
@@ -130,7 +120,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self == nil) return nil;
 
-	[self context];
+	[EAGLContext setCurrentContext:[self context]];
 	[self addEngine:[FUGraphicsEngine new]];
 	return self;
 }
