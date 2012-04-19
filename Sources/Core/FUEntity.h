@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FUSceneObject.h"
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 @class FUComponent;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 @class FUScene;

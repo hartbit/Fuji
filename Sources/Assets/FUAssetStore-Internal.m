@@ -8,7 +8,7 @@
 
 #import "FUAssetStore-Internal.h"
 #import "FUTexture-Internal.h"
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or empty";

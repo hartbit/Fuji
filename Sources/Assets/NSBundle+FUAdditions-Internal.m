@@ -10,7 +10,7 @@
 #import "FUDirector.h"
 #import "UIDevice+FUAdditions-Internal.h"
 #import "UIScreen+FUAdditions-Internal.h"
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 @implementation NSBundle (FUAdditions)

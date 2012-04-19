@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 @class FUEntity;

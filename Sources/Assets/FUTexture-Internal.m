@@ -9,7 +9,7 @@
 #import "FUTexture-Internal.h"
 #import <GLKit/GLKit.h>
 #import "NSBundle+FUAdditions-Internal.h"
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 @interface FUTexture ()

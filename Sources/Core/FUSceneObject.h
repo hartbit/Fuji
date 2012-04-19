@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FUInterfaceRotating.h"
-#import "FUMacros.h"
+#import "FUSupport.h"
 
 
 @class FUScene;
