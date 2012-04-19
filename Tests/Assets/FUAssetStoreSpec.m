@@ -7,6 +7,7 @@
 //
 
 #include "Prefix.pch"
+#import "FUTestFunctions.h"
 #import "Fuji.h"
 #import "FUAssetStore-Internal.h"
 
@@ -28,6 +29,30 @@ describe(@"An asset store", ^{
 		
 		it(@"is not nil", ^{
 			expect(assetStore).toNot.beNil();
+		});
+		
+		context(@"asking for a nil texture", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([assetStore textureWithName:nil], @"Expected 'name' to not be nil or empty", nil);
+			});
+		});
+		
+		context(@"asking for a empty texture name", ^{
+			it(@"throws an exception", ^{
+				STAssertThrows([assetStore textureWithName:@""], nil);
+			});
+		});
+		
+		context(@"asked for a valid texture", ^{
+			__block FUTexture* texture;
+			
+			beforeEach(^{
+				texture = [assetStore textureWithName:TEXTURE_VALID];
+			});
+			
+			it(@"is not nil", ^{
+				expect(texture).toNot.beNil();
+			});
 		});
 	});
 	/*

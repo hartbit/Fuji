@@ -12,23 +12,18 @@
 #import "FUTexture-Internal.h"
 
 
-#define NONEXISTANT @"Nonexistent.png"
-#define INVALID @"Invalid.txt"
-#define VALID @"Valid.png"
-
-
 SPEC_BEGIN(FUTextureSpec)
 
 describe(@"A texture", ^{	
 	context(@"initializing with a non-existant texture", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUTexture alloc] initWithName:NONEXISTANT], nil);
+			STAssertThrows([[FUTexture alloc] initWithName:TEXTURE_NONEXISTANT], nil);
 		});
 	});
 	
 	context(@"initializing with an invalid texture", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUTexture alloc] initWithName:INVALID], nil);
+			STAssertThrows([[FUTexture alloc] initWithName:TEXTURE_INVALID], nil);
 		});
 	});
 	
@@ -36,7 +31,7 @@ describe(@"A texture", ^{
 		__block FUTexture* texture;
 		
 		beforeEach(^{
-			texture = [[FUTexture alloc] initWithName:VALID];
+			texture = [[FUTexture alloc] initWithName:TEXTURE_VALID];
 		});
 		
 		it(@"is not nil", ^{
@@ -52,7 +47,7 @@ describe(@"A texture", ^{
 		__block FUTexture* asyncTexture;
 		
 		beforeEach(^{
-			[FUTexture textureWithName:VALID completionHandler:^(FUTexture* texture) {
+			[FUTexture textureWithName:TEXTURE_VALID completionHandler:^(FUTexture* texture) {
 				asyncTexture = texture;
 			}];
 			FU_WAIT_UNTIL(asyncTexture != nil);

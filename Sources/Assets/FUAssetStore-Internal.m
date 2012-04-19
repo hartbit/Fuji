@@ -11,13 +11,18 @@
 #import "FUMacros.h"
 
 
+static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or empty";
+
+
 @implementation FUAssetStore
 
 #pragma maek - Public Methods
 
 - (FUTexture*)textureWithName:(NSString*)name
 {
-	return nil;
+	FUAssert(FUStringIsValid(name), FUNameNilMessage);
+	
+	return [[FUTexture alloc] initWithName:name];
 }
 
 @end
