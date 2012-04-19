@@ -21,9 +21,9 @@ describe(@"A director", ^{
 		expect([FUDirector class]).to.beASubclassOf([GLKViewController class]);
 	});
 	
-	context(@"initializing a new director with a nil director", ^{
+	context(@"initializing a new director with a nil asset store", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUDirector alloc] initAndShareAssetsWithDirector:nil], nil);
+			STAssertThrows([[FUDirector alloc] initWithAssetStore:nil], nil);
 		});
 	});
 	
@@ -42,9 +42,9 @@ describe(@"A director", ^{
 			expect([director assetStore]).toNot.beNil();
 		});
 
-		context(@"initializing a new director by sharing the same assets", ^{
+		context(@"initializing a new director with the current asset store", ^{
 			it(@"shares the same asset store", ^{
-				FUDirector* newDirector = [[FUDirector alloc] initAndShareAssetsWithDirector:director];
+				FUDirector* newDirector = [[FUDirector alloc] initWithAssetStore:[director assetStore]];
 				expect([newDirector assetStore]).to.beIdenticalTo([director assetStore]);
 			});
 		});

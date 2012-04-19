@@ -11,6 +11,7 @@
 #import "FUVisitor.h"
 #import "FUVisitor-Internal.h"
 #import "FUProxyVisitor-Internal.h"
+#import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
 #import "FUScene.h"
 #import "FUScene-Internal.h"
@@ -21,7 +22,7 @@
 #import "FUGraphicsEngine.h"
 
 
-static NSString* const FUDirectorNilMessage = @"Expected 'director' to not be nil";
+static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
@@ -32,6 +33,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @interface FUDirector ()
 
+@property (nonatomic, strong) FUAssetStore* assetStore;
 @property (nonatomic, strong) FUScene* scene;
 @property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableSet* engines;
@@ -133,11 +135,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return self;
 }
 
-- (id)initAndShareAssetsWithDirector:(FUDirector*)director
+- (id)initWithAssetStore:(FUAssetStore*)assetStore;
 {
-	FUAssert(director != nil, FUDirectorNilMessage);
+	FUAssert(assetStore != nil, FUAssetStoreNilMessage);
 	
-	[self setAssetStore:[director assetStore]];
+	[self setAssetStore:assetStore];
 	
 	self = [self initWithNibName:nil bundle:nil];
 	return self;

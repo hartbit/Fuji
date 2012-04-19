@@ -11,7 +11,7 @@
 
 @class FUTexture;
 
-@interface FUAssetStore : NSObject
+@interface FUAssetStore ()
 
 - (FUTexture*)textureWithName:(NSString*)name;
 
