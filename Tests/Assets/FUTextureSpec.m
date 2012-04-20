@@ -31,7 +31,7 @@ describe(@"A texture", ^{
 		__block FUTexture* texture;
 		
 		beforeEach(^{
-			texture = [[FUTexture alloc] initWithName:TEXTURE_VALID];
+			texture = [[FUTexture alloc] initWithName:TEXTURE_VALID1];
 		});
 		
 		it(@"is not nil", ^{
@@ -47,7 +47,7 @@ describe(@"A texture", ^{
 		__block FUTexture* asyncTexture;
 		
 		beforeEach(^{
-			[FUTexture textureWithName:TEXTURE_VALID completionHandler:^(FUTexture* texture) {
+			[FUTexture textureWithName:TEXTURE_VALID1 completionHandler:^(FUTexture* texture) {
 				asyncTexture = texture;
 			}];
 			FU_WAIT_UNTIL(asyncTexture != nil);

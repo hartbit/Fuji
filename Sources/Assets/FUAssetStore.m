@@ -15,7 +15,28 @@
 static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or empty";
 
 
+@interface FUAssetStore ()
+
+@property (nonatomic, strong) NSCache* cache;
+
+@end
+
+
 @implementation FUAssetStore
+
+@synthesize cache = _cache;
+
+#pragma mark - Properties
+
+- (NSCache*)cache
+{
+	if (_cache == nil)
+	{
+		[self setCache:[NSCache new]];
+	}
+	
+	return _cache;
+}
 
 #pragma maek - Internal Methods
 
@@ -23,7 +44,15 @@ static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or emp
 {
 	FUAssert(FUStringIsValid(name), FUNameNilMessage);
 	
-	return [[FUTexture alloc] initWithName:name];
+	FUTexture* texture = [[self cache] objectForKey:name];
+	
+	if (texture == nil)
+	{
+		texture = [[FUTexture alloc] initWithName:name];
+		[[self cache] setObject:texture forKey:name];
+	}
+	
+	return texture;
 }
 
 @end

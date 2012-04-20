@@ -10,6 +10,7 @@
 #import "FUTestFunctions.h"
 #import "Fuji.h"
 #import "FUAssetStore-Internal.h"
+#import "FUTexture-Internal.h"
 
 
 SPEC_BEGIN(FUAssetStoreSpec)
@@ -47,11 +48,26 @@ describe(@"An asset store", ^{
 			__block FUTexture* texture;
 			
 			beforeEach(^{
-				texture = [assetStore textureWithName:TEXTURE_VALID];
+				texture = [assetStore textureWithName:TEXTURE_VALID1];
 			});
 			
 			it(@"is not nil", ^{
 				expect(texture).toNot.beNil();
+			});
+			
+			context(@"asking for same texture again", ^{
+				it(@"returns the same instance", ^{
+					FUTexture* newTexture = [assetStore textureWithName:TEXTURE_VALID1];
+					expect(newTexture).to.beIdenticalTo(texture);
+				});
+			});
+			
+			context(@"asking for a different texture", ^{
+				it(@"returns a different instance with a different name", ^{
+					FUTexture* newTexture = [assetStore textureWithName:TEXTURE_VALID2];
+					expect(newTexture).toNot.beIdenticalTo(texture);
+					expect([newTexture name]).toNot.equal([texture name]);
+				});
 			});
 		});
 	});

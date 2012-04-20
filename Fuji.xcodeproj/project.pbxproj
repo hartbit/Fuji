@@ -16,10 +16,11 @@
 		63117F2914FFB87A00A04563 /* FUComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2714FFB87A00A04563 /* FUComponent.h */; };
 		63117F2A14FFB87A00A04563 /* FUComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* FUComponent.m */; };
 		63117F2F14FFBBCB00A04563 /* FUComponent-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */; };
+		631DD3EE15418314008AA626 /* Valid1.png in Resources */ = {isa = PBXBuildFile; fileRef = 631DD3EC15418314008AA626 /* Valid1.png */; };
+		631DD3EF15418314008AA626 /* Valid2.png in Resources */ = {isa = PBXBuildFile; fileRef = 631DD3ED15418314008AA626 /* Valid2.png */; };
 		6335C57B153ADB3F00022A4F /* FUMathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6335C57A153ADB3F00022A4F /* FUMathSpec.m */; };
 		6335C57E153ADDD800022A4F /* FUAssetStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6335C57D153ADDD800022A4F /* FUAssetStoreSpec.m */; };
 		6335C581153ADDE100022A4F /* Invalid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6335C57F153ADDE100022A4F /* Invalid.txt */; };
-		6335C582153ADDE100022A4F /* Valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 6335C580153ADDE100022A4F /* Valid.png */; };
 		634E08BE1529DB8400D5C3F8 /* FUBehaviorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E08BD1529DB8400D5C3F8 /* FUBehaviorSpec.m */; };
 		634E08C11529DC0A00D5C3F8 /* FUBehavior.h in Headers */ = {isa = PBXBuildFile; fileRef = 634E08BF1529DC0A00D5C3F8 /* FUBehavior.h */; };
 		634E08C21529DC0A00D5C3F8 /* FUBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E08C01529DC0A00D5C3F8 /* FUBehavior.m */; };
@@ -102,10 +103,11 @@
 		63117F2814FFB87A00A04563 /* FUComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponent.m; sourceTree = "<group>"; };
 		63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUComponent-Internal.h"; sourceTree = "<group>"; };
 		631241231529F1ED00E30DC6 /* FUInterfaceRotating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUInterfaceRotating.h; sourceTree = "<group>"; };
+		631DD3EC15418314008AA626 /* Valid1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid1.png; sourceTree = "<group>"; };
+		631DD3ED15418314008AA626 /* Valid2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid2.png; sourceTree = "<group>"; };
 		6335C57A153ADB3F00022A4F /* FUMathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUMathSpec.m; sourceTree = "<group>"; };
 		6335C57D153ADDD800022A4F /* FUAssetStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAssetStoreSpec.m; sourceTree = "<group>"; };
 		6335C57F153ADDE100022A4F /* Invalid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Invalid.txt; sourceTree = "<group>"; };
-		6335C580153ADDE100022A4F /* Valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid.png; sourceTree = "<group>"; };
 		633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUEntity-Internal.h"; sourceTree = "<group>"; };
 		634E08B91529D66F00D5C3F8 /* FUScene-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUScene-Internal.h"; sourceTree = "<group>"; };
 		634E08BB1529DB1C00D5C3F8 /* FUSpriteRendererSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteRendererSpec.m; sourceTree = "<group>"; };
@@ -223,7 +225,8 @@
 				6335C57D153ADDD800022A4F /* FUAssetStoreSpec.m */,
 				639CE435153FFBBD000D4A48 /* FUTextureSpec.m */,
 				6335C57F153ADDE100022A4F /* Invalid.txt */,
-				6335C580153ADDE100022A4F /* Valid.png */,
+				631DD3EC15418314008AA626 /* Valid1.png */,
+				631DD3ED15418314008AA626 /* Valid2.png */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -506,7 +509,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6335C581153ADDE100022A4F /* Invalid.txt in Resources */,
-				6335C582153ADDE100022A4F /* Valid.png in Resources */,
+				631DD3EE15418314008AA626 /* Valid1.png in Resources */,
+				631DD3EF15418314008AA626 /* Valid2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

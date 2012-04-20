@@ -36,7 +36,8 @@ static inline BOOL FUMatrix4CloseToMatrix4(GLKMatrix4 left, GLKMatrix4 right)
 
 #define TEXTURE_NONEXISTANT @"Nonexistent.png"
 #define TEXTURE_INVALID @"Invalid.txt"
-#define TEXTURE_VALID @"Valid.png"
+#define TEXTURE_VALID1 @"Valid1.png"
+#define TEXTURE_VALID2 @"Valid2.png"
 
 
 #define FU_WAIT_UNTIL_TIMEOUT(condition, timeout) \
