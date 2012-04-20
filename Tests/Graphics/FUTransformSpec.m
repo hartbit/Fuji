@@ -12,7 +12,7 @@
 #import "FUTestFunctions.h"
 
 
-SPEC_BEGIN(FUTransformSpec)
+SPEC_BEGIN(FUTransform)
 
 describe(@"A transform component", ^{
 	it(@"is a subclass of FUComponent", ^{

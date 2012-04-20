@@ -10,7 +10,7 @@
 #import "Fuji.h"
 
 
-SPEC_BEGIN(FUColorSpec)
+SPEC_BEGIN(FUColor)
 
 describe(@"The color data type", ^{
 	context(@"creating with byte components", ^{

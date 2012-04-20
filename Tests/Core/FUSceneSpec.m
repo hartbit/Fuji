@@ -17,7 +17,7 @@
 @interface FUTestScene : FUScene @end
 
 
-SPEC_BEGIN(FUSceneSpec)
+SPEC_BEGIN(FUScene)
 
 describe(@"A scene", ^{
 	it(@"is a subclass of FUEntity", ^{

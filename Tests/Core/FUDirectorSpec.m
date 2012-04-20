@@ -14,7 +14,7 @@
 #import "FUEngine-Internal.h"
 
 
-SPEC_BEGIN(FUDirectorSpec)
+SPEC_BEGIN(FUDirector)
 
 describe(@"A director", ^{
 	it(@"is a subclass of GLKViewController", ^{

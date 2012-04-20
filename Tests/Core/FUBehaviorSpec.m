@@ -17,7 +17,7 @@
 @end
 
 
-SPEC_BEGIN(FUBehaviorSpec)
+SPEC_BEGIN(FUBehavior)
 
 describe(@"A behavior object", ^{
 	it(@"is a subclass of FUComponent", ^{

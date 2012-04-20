@@ -11,7 +11,7 @@
 #import "FUComponent-Internal.h"
 
 
-SPEC_BEGIN(FUSpriteRendererSpec)
+SPEC_BEGIN(FUSpriteRenderer)
 
 describe(@"A sprite renderer component", ^{
 	it(@"is a behavior", ^{

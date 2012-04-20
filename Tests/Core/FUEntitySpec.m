@@ -40,7 +40,7 @@
 @interface FURequiredComponent : FUCommonParentComponent @end
 
 
-SPEC_BEGIN(FUEntitySpec)
+SPEC_BEGIN(FUEntity)
 
 describe(@"An entity", ^{
 	it(@"is a scene object", ^{

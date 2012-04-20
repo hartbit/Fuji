@@ -28,7 +28,7 @@
 @interface FUEmptyVisitor : FUVisitor @end
 
 
-SPEC_BEGIN(FUVisitorSpec)
+SPEC_BEGIN(FUVisitor)
 
 describe(@"A visitor", ^{	
 	context(@"created a child scene object", ^{

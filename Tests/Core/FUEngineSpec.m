@@ -12,7 +12,7 @@
 #import "FUSceneObject-Internal.h"
 
 
-SPEC_BEGIN(FUEngineSpec)
+SPEC_BEGIN(FUEngine)
 
 describe(@"An engine", ^{
 	it(@"can react to interface rotations", ^{

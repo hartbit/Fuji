@@ -10,7 +10,7 @@
 #import "Fuji.h"
 
 
-SPEC_BEGIN(FUMathSpec)
+SPEC_BEGIN(FUMath)
 
 describe(@"FUMath", ^{
 	it(@"has a GLKVector2 constant that equals (0, 0)", ^{

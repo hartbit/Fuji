@@ -12,7 +12,7 @@
 #import "FUTexture-Internal.h"
 
 
-SPEC_BEGIN(FUTextureSpec)
+SPEC_BEGIN(FUTexture)
 
 describe(@"A texture", ^{	
 	context(@"initializing with a non-existant texture", ^{

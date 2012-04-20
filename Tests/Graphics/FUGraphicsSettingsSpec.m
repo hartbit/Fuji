@@ -11,7 +11,7 @@
 #import "FUComponent-Internal.h"
 
 
-SPEC_BEGIN(FUGraphicsSettingsSpec)
+SPEC_BEGIN(FUGraphicsSettings)
 
 describe(@"The graphics settings", ^{
 	it(@"is a subclass of FUComponent", ^{

@@ -11,7 +11,7 @@
 #import "FUComponent-Internal.h"
 
 
-SPEC_BEGIN(FUComponentSpec)
+SPEC_BEGIN(FUComponent)
 
 describe(@"A component object", ^{
 	it(@"is a scene object", ^{

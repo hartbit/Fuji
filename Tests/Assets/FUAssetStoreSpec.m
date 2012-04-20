@@ -13,7 +13,7 @@
 #import "FUTexture-Internal.h"
 
 
-SPEC_BEGIN(FUAssetStoreSpec)
+SPEC_BEGIN(FUAssetStore)
 
 describe(@"An asset store", ^{	
 	beforeAll(^{
