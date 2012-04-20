@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6329099B1541BF5000FA1DC0 /* Grossini.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329099A1541BF5000FA1DC0 /* Grossini.png */; };
 		63AFB6B21529AB8F00D103FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6B11529AB8F00D103FE /* UIKit.framework */; };
 		63AFB6B41529AB8F00D103FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6B31529AB8F00D103FE /* Foundation.framework */; };
 		63AFB6B61529AB8F00D103FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6B51529AB8F00D103FE /* CoreGraphics.framework */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6329099A1541BF5000FA1DC0 /* Grossini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Grossini.png; sourceTree = "<group>"; };
 		63AFB6AD1529AB8F00D103FE /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AFB6B11529AB8F00D103FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63AFB6B31529AB8F00D103FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,10 +51,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		632909961541BF2100FA1DC0 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				6329099A1541BF5000FA1DC0 /* Grossini.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		63AFB6A21529AB8F00D103FE = {
 			isa = PBXGroup;
 			children = (
 				63AFB6B71529AB8F00D103FE /* Sample */,
+				632909961541BF2100FA1DC0 /* Assets */,
 				63AFB6B81529AB8F00D103FE /* Support */,
 				63AFB6B01529AB8F00D103FE /* Frameworks */,
 				63AFB6AE1529AB8F00D103FE /* Products */,
@@ -151,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6329099B1541BF5000FA1DC0 /* Grossini.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

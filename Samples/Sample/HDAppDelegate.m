@@ -35,10 +35,8 @@
 		{
 			FUEntity* entity = [scene createEntity];
 			FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
+			[renderer setTexture:@"Grossini.png"];
 			[renderer setColor:GLKVector4Make(FURandomUnit(), FURandomUnit(), FURandomUnit(), 1)];
-			FUTransform* transform = [entity transform];
-			[transform setScale:GLKVector2Make(52, 139)];
-			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
 		}
 		
 		[director loadScene:scene];
