@@ -75,6 +75,11 @@ static NSString* const FUAccessError = @"Accessing 'asset=%@' without a prior ca
 
 #pragma mark - Internal Methods
 
+- (NSUInteger)sizeInBytes
+{
+	return 0;
+}
+
 - (void)verifyAccessibility
 {
 	if ([self accessCount] < 1)

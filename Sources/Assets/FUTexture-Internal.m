@@ -95,6 +95,12 @@
 
 #pragma mark - FUAsset Methods
 
+- (NSUInteger)sizeInBytes
+{
+	GLKTextureInfo* info = [self info];
+	return [info width] * [info height] * 4;
+}
+
 - (void)discardContent
 {
 	GLuint name = [[self info] name];

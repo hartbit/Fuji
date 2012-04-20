@@ -11,6 +11,7 @@
 
 @interface FUAsset : NSObject <NSDiscardableContent>
 
+- (NSUInteger)sizeInBytes;
 - (void)verifyAccessibility;
 - (void)discardContent;
 
