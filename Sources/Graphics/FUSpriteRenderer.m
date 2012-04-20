@@ -13,6 +13,7 @@
 
 @implementation FUSpriteRenderer
 
+@synthesize texture = _texture;
 @synthesize color = _color;
 
 #pragma mark - FUComponent Class Methods

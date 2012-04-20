@@ -35,6 +35,17 @@ describe(@"A sprite renderer component", ^{
 			expect(spriteRenderer).toNot.beNil();
 		});
 		
+		it(@"has a nil texture", ^{
+			expect([spriteRenderer texture]).to.beNil();
+		});
+		
+		context(@"setting the texture to Test.png", ^{
+			it(@"has it's texture property to Test.png", ^{
+				[spriteRenderer setTexture:@"Test.png"];
+				expect([spriteRenderer texture]).to.equal(@"Test.png");
+			});
+		});
+		
 		it(@"has a white color", ^{
 			expect(GLKVector4AllEqualToVector4([spriteRenderer color], FUColorWhite)).to.beTruthy();
 		});
