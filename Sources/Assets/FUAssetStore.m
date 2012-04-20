@@ -49,10 +49,12 @@ static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or emp
 	if (texture == nil)
 	{
 		texture = [[FUTexture alloc] initWithName:name];
+		[texture endContentAccess];
+		
 		[[self cache] setObject:texture forKey:name];
 	}
 	
-	return texture;
+	return [texture autoContentAccessingProxy];
 }
 
 @end

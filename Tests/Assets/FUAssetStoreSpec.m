@@ -13,6 +13,11 @@
 #import "FUTexture-Internal.h"
 
 
+@interface FUTexture ()
+@property (nonatomic) NSInteger accessCount;
+@end
+
+
 SPEC_BEGIN(FUAssetStore)
 
 describe(@"An asset store", ^{	
@@ -48,6 +53,7 @@ describe(@"An asset store", ^{
 			__block FUTexture* texture;
 			
 			beforeEach(^{
+				assetStore = [FUAssetStore new];
 				texture = [assetStore textureWithName:TEXTURE_VALID1];
 			});
 			
@@ -55,10 +61,15 @@ describe(@"An asset store", ^{
 				expect(texture).toNot.beNil();
 			});
 			
+			it(@"has an access count of 1", ^{
+				expect([texture accessCount]).to.equal(1);
+			});
+			
 			context(@"asking for same texture again", ^{
-				it(@"returns the same instance", ^{
+				it(@"returns a different instance with the same name", ^{
 					FUTexture* newTexture = [assetStore textureWithName:TEXTURE_VALID1];
-					expect(newTexture).to.beIdenticalTo(texture);
+					expect(newTexture).toNot.beIdenticalTo(texture);
+					expect([newTexture name]).to.equal([texture name]);
 				});
 			});
 			
@@ -69,72 +80,15 @@ describe(@"An asset store", ^{
 					expect([newTexture name]).toNot.equal([texture name]);
 				});
 			});
-		});
-	});
-	/*
-	it(@"should return a valid singleton instance", ^{
-		expect(resourceManager).toNot.beNil();
-	});
-	
-	context(@"resourceIsLoadedWithName:", ^{
-		it(@"should not load textures beforehand", ^{
-			expect([resourceManager resourceIsLoadedWithName:NONEXISTANT]).to.beFalsy();
-			expect([resourceManager resourceIsLoadedWithName:INVALID]).to.beFalsy();
-			expect([resourceManager resourceIsLoadedWithName:VALID]).to.beFalsy();
-		});
-	});
-	
-	context(@"textureWithName:", ^{
-		it(@"should raise when loading a texture that does not exist", ^{
-			STAssertThrows([resourceManager textureWithName:NONEXISTANT], nil);
-			expect([resourceManager resourceIsLoadedWithName:NONEXISTANT]).to.beFalsy();
-		});
-		
-		it(@"should raise when loading an invalid texture", ^{
-			STAssertThrows([resourceManager textureWithName:INVALID], nil);
-			expect([resourceManager resourceIsLoadedWithName:INVALID]).to.beFalsy();
-		});
-		
-		it(@"should load a valid texture", ^{
-			FUTexture* texture = [resourceManager textureWithName:VALID];
-			expect(texture).toNot.beNil();
-			expect([resourceManager resourceIsLoadedWithName:VALID]).to.beTruthy();
-		});
-	});
-	
-    context(@"textureWithName:completion:", ^{
-		pending(@"should raise when loading a texture that does not exist");
-		pending(@"should raise when loading an invalid texture");
-
-		it(@"should load a texture asynchronously", ^{
-			__block FUTexture* asyncTexture = nil;
 			
-			[resourceManager textureWithName:VALID completion:^(FUTexture* texture) {
-				asyncTexture = texture;
-			}];
-			
-			expect(asyncTexture).willNot.beNil();
-			expect([resourceManager resourceIsLoadedWithName:VALID]).will.beTruthy();
-		});
-		
-		it(@"should accept NULL block", ^{
-			[resourceManager textureWithName:VALID completion:NULL];
-			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-		});
-		
-		it(@"should accept NULL block once in the cache", ^{
-			[resourceManager textureWithName:VALID];
-			[resourceManager textureWithName:VALID completion:NULL];
+			context(@"receiving a memory warning", ^{
+				it(@"leaves the texture in the cache", ^{
+					[[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification object:self];
+					FU_WAIT_UNTIL(NO);
+				});
+			});
 		});
 	});
-	
-	context(@"purgeResources", ^{
-		it(@"should remove resources from the cache", ^{
-			[resourceManager textureWithName:VALID];
-			[resourceManager purgeResources];
-			expect([resourceManager resourceIsLoadedWithName:VALID]).will.beFalsy();
-		});
-	});*/
 });
 
 SPEC_END
