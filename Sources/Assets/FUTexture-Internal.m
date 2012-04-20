@@ -14,14 +14,14 @@
 
 @interface FUTexture ()
 
-@property (nonatomic, assign) GLuint name;
+@property (nonatomic, strong) GLKTextureInfo* info;
 
 @end
 
 
 @implementation FUTexture
 
-@synthesize name = _name;
+@synthesize info = _info;
 
 #pragma mark - Class Methods
 
@@ -52,6 +52,14 @@
 	return [[NSBundle currentBundle] platformPathForResource:nameWithoutExtension ofType:extension];
 }
 
+#pragma mark - Properties
+
+- (GLuint)name
+{
+	[self verifyAccessibility];
+	return [[self info] name];
+}
+
 #pragma mark - Initialization
 
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block
@@ -80,9 +88,17 @@
 	self = [super init];
 	if (self == nil) return nil;
 	
-	[self setName:[textureInfo name]];
+	[self setInfo:textureInfo];
 	
 	return self;
+}
+
+#pragma mark - FUAsset Methods
+
+- (void)discardContent
+{
+	GLuint name = [[self info] name];
+	glDeleteTextures(1, &name);
 }
 
 @end

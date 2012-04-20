@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <OpenGLES/ES2/gl.h>
+#import "FUAsset-Internal.h"
 
 
-@interface FUTexture : NSObject
+@interface FUTexture : FUAsset
 
 @property (nonatomic, readonly) GLuint name;
 

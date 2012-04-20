@@ -9,12 +9,17 @@
 #include "Prefix.pch"
 #import "FUTestFunctions.h"
 #import "Fuji.h"
+#import "FUAsset-Internal.h"
 #import "FUTexture-Internal.h"
 
 
 SPEC_BEGIN(FUTexture)
 
 describe(@"A texture", ^{	
+	it(@"is an asset", ^{
+		expect([FUTexture class]).to.beSubclassOf([FUAsset class]);
+	});
+	
 	context(@"initializing with a non-existant texture", ^{
 		it(@"throws an exception", ^{
 			STAssertThrows([[FUTexture alloc] initWithName:TEXTURE_NONEXISTANT], nil);
@@ -29,9 +34,11 @@ describe(@"A texture", ^{
 	
 	context(@"initialized with a valid texture", ^{
 		__block FUTexture* texture;
+		__block GLuint name;
 		
 		beforeEach(^{
 			texture = [[FUTexture alloc] initWithName:TEXTURE_VALID1];
+			name = [texture name];
 		});
 		
 		it(@"is not nil", ^{
@@ -39,7 +46,26 @@ describe(@"A texture", ^{
 		});
 		
 		it(@"has a valid texture name", ^{
-			expect([texture name]).toNot.equal(0);
+			expect(glIsTexture(name)).to.beTruthy();
+		});
+		
+		context(@"ended content access", ^{
+			beforeEach(^{
+				[texture endContentAccess];
+			});
+			
+			context(@"accessing the name", ^{
+				it(@"throws an exception", ^{
+					STAssertThrows([texture name], nil);
+				});
+			});
+			
+			context(@"calling discardContentIfPossible", ^{
+				it(@"invalidates the texture name", ^{
+					[texture discardContentIfPossible];
+					expect(glIsTexture(name)).to.beFalsy();
+				});
+			});
 		});
 	});
 	
