@@ -14,6 +14,8 @@
 @interface FUTexture : FUAsset
 
 @property (nonatomic, readonly) GLuint name;
+@property (nonatomic, readonly) GLuint width;
+@property (nonatomic, readonly) GLuint height;
 
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block;
 - (id)initWithName:(NSString*)name;

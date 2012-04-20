@@ -60,6 +60,16 @@
 	return [[self info] name];
 }
 
+- (GLuint)width
+{
+	return [[self info] width];
+}
+
+- (GLuint)height
+{
+	return [[self info] height];
+}
+
 #pragma mark - Initialization
 
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block

@@ -49,6 +49,11 @@ describe(@"A texture", ^{
 			expect(glIsTexture(name)).to.beTruthy();
 		});
 		
+		it(@"has the correct size", ^{
+			expect([texture width]).to.equal(64);
+			expect([texture height]).to.equal(100);
+		});
+		
 		context(@"ended content access", ^{
 			beforeEach(^{
 				[texture endContentAccess];
@@ -73,7 +78,7 @@ describe(@"A texture", ^{
 		__block FUTexture* asyncTexture;
 		
 		beforeEach(^{
-			[FUTexture textureWithName:TEXTURE_VALID1 completionHandler:^(FUTexture* texture) {
+			[FUTexture textureWithName:TEXTURE_VALID2 completionHandler:^(FUTexture* texture) {
 				asyncTexture = texture;
 			}];
 			FU_WAIT_UNTIL(asyncTexture != nil);
@@ -85,6 +90,11 @@ describe(@"A texture", ^{
 		
 		it(@"has a valid texture name", ^{
 			expect([asyncTexture name]).toNot.equal(0);
+		});
+		
+		it(@"has the correct size", ^{
+			expect([asyncTexture width]).to.equal(80);
+			expect([asyncTexture height]).to.equal(64);
 		});
 	});
 });
