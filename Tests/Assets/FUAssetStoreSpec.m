@@ -80,13 +80,6 @@ describe(@"An asset store", ^{
 					expect([newTexture name]).toNot.equal([texture name]);
 				});
 			});
-			
-			context(@"receiving a memory warning", ^{
-				it(@"leaves the texture in the cache", ^{
-					[[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification object:self];
-					FU_WAIT_UNTIL(NO);
-				});
-			});
 		});
 	});
 });
