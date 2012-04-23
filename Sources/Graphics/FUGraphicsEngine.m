@@ -16,6 +16,9 @@
 #import "FUGraphicsSettings.h"
 #import "FUSpriteRenderer.h"
 #import "FUTransform.h"
+#import "FUAssetStore.h"
+#import "FUAssetStore-Internal.h"
+#import "FUTexture-Internal.h"
 
 
 typedef struct
@@ -46,6 +49,11 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 @property (nonatomic, WEAK) FUGraphicsEngine* graphicsEngine;
 @end
 
+@interface FUDrawBatch : NSObject
+@property (nonatomic, strong) FUTexture* texture;
+@property (nonatomic, strong) NSMutableArray* renderers;
+@end
+
 
 @interface FUGraphicsEngine ()
 
@@ -53,10 +61,9 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 @property (nonatomic, strong) FUVisitor* unregistrationVisitor;
 @property (nonatomic, strong) GLKBaseEffect* effect;
 @property (nonatomic, strong) FUGraphicsSettings* settings;
-@property (nonatomic, strong) NSMutableArray* renderers;
+@property (nonatomic, strong) NSMutableDictionary* drawBatches;
 @property (nonatomic, strong) NSMutableData* vertexData;
 @property (nonatomic, strong) NSMutableData* indexData;
-@property (nonatomic) NSUInteger spriteCount;
 
 @end
 
@@ -67,10 +74,9 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 @synthesize unregistrationVisitor = _unregistrationVisitor;
 @synthesize effect = _effect;
 @synthesize settings = _settings;
-@synthesize renderers = _renderers;
+@synthesize drawBatches = _drawBatches;
 @synthesize vertexData = _vertexData;
 @synthesize indexData = _indexData;
-@synthesize spriteCount = _spriteCount;
 
 #pragma mark - Initialization
 
@@ -81,6 +87,8 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthFunc(GL_LEQUAL);
 	glClearDepthf(1.0f);
 	
@@ -122,20 +130,24 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
 		
+		GLKEffectPropertyTexture* textureProperty = [[self effect] texture2d0];
+		[textureProperty setEnvMode:GLKTextureEnvModeModulate];
+		[textureProperty setTarget:GLKTextureTarget2D];
+		
 		[self updateProjection];
 	}
  
 	return _effect;
 }
 
-- (NSMutableArray*)renderers
+- (NSMutableDictionary*)drawBatches
 {
-	if (_renderers == NULL)
+	if (_drawBatches == nil)
 	{
-		[self setRenderers:[NSMutableArray array]];
+		[self setDrawBatches:[NSMutableDictionary dictionary]];
 	}
 	
-	return _renderers;
+	return _drawBatches;
 }
 
 - (NSMutableData*)vertexData
@@ -163,25 +175,31 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 - (void)unregisterAll
 {
 	[self setSettings:nil];
-	[[self renderers] removeAllObjects];
+	[[self drawBatches] removeAllObjects];
 }
 
 #pragma mark - Drawing
 
 - (void)update
 {
-	for (FUSpriteRenderer* renderer in [self renderers])
-	{
-		FUTransform* transform = [[renderer entity] transform];
-		[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
-	}
+	NSTimeInterval speed = [[self director] timeSinceFirstResume] * 5;
+	
+	[[self drawBatches] enumerateKeysAndObjectsUsingBlock:^(id key, FUDrawBatch* batch, BOOL* stop) {
+		[[batch	renderers] enumerateObjectsUsingBlock:^(FUSpriteRenderer* renderer, NSUInteger idx, BOOL* stop) {
+			FUTransform* transform = [[renderer entity] transform];
+			float scale = cosf(idx + speed) * 0.25f + 0.5f;
+			[transform setScale:GLKVector2Make(scale, scale)];
+			
+			float rotation = 0.1f * (idx + speed) * M_PI;
+			[transform setRotation:rotation];
+		}];
+	}];
 }
 
 - (void)draw
 {
 	[self setConstants];	
 	[self clearScreen];
-	[self fillSpriteBuffers];
 	[self drawSprites];
 }
 
@@ -231,70 +249,78 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-- (void)fillSpriteBuffers
+- (void)drawSprites
 {
-	static const CGFloat kHalfSize = 0.5f;
-	static const CGFloat kDepth = 1.0f;
-	static const GLKVector3 kP0 = { -kHalfSize, -kHalfSize, kDepth };
-	static const GLKVector3 kP1 = { -kHalfSize, kHalfSize, kDepth };
-	static const GLKVector3 kP2 = { kHalfSize, -kHalfSize, kDepth };
-	static const GLKVector3 kP3 = { kHalfSize, kHalfSize, kDepth };
 	static const GLKVector2 kT0 = { 0, 0 };
 	static const GLKVector2 kT1 = { 0, 1 };
 	static const GLKVector2 kT2 = { 1, 0 };
 	static const GLKVector2 kT3 = { 1, 1 };
 	
+	GLKEffectPropertyTexture* textureProperty = [[self effect] texture2d0];
 	GLushort* indices = [[self indexData] mutableBytes];
 	FUVertex* vertices = [[self vertexData] mutableBytes];
-	NSUInteger indexIndex = 0;
-	NSUInteger vertexIndex = 0;
-	NSUInteger spriteCount = 0;
-	GLushort i0 = 0;
-	GLushort i1 = 1;
-	GLushort i2 = 2;
-	GLushort i3 = 3;
+	__block NSUInteger indexIndex = 0;
+	__block NSUInteger vertexIndex = 0;
+	__block NSUInteger spriteCount = 0;
+	__block GLushort i0 = 0;
+	__block GLushort i1 = 1;
+	__block GLushort i2 = 2;
+	__block GLushort i3 = 3;
 	
-	for (FUSpriteRenderer* renderer in [self renderers])
-	{
-		if (![renderer isEnabled])
+	[[self drawBatches] enumerateKeysAndObjectsUsingBlock:^(id key, FUDrawBatch* batch, BOOL* stop) {
+		FUTexture* texture = [batch texture];
+		
+		if ([textureProperty name] != [texture name])
 		{
-			continue;
+			[textureProperty setName:[texture name]];
+			[[self effect] prepareToDraw];
 		}
 		
-		indices[indexIndex++] = i0;
-		indices[indexIndex++] = i1;
-		indices[indexIndex++] = i2;
-		indices[indexIndex++] = i2;
-		indices[indexIndex++] = i1;
-		indices[indexIndex++] = i3;
+		float halfWidth = [texture width] / 2;
+		float halfHeight = [texture height] / 2;
+		GLKVector3 kP0 = { -halfWidth, -halfHeight, 0 };
+		GLKVector3 kP1 = { -halfWidth, halfHeight, 0 };
+		GLKVector3 kP2 = { halfWidth, -halfHeight, 0 };
+		GLKVector3 kP3 = { halfWidth, halfHeight, 0 };
 		
-		GLKMatrix4 matrix = [[[renderer entity] transform] matrix];
-		GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP0);
-		GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP1);
-		GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP2);
-		GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP3);
-		GLKVector4 color = [renderer color];
+		GLushort* indicesStart = indices;
 		
-		vertices[vertexIndex++] = FUVertexMake(p0, color, kT0);
-		vertices[vertexIndex++] = FUVertexMake(p1, color, kT1);
-		vertices[vertexIndex++] = FUVertexMake(p2, color, kT2);
-		vertices[vertexIndex++] = FUVertexMake(p3, color, kT3);
+		for (FUSpriteRenderer* renderer in [batch renderers])
+		{
+			if (![renderer isEnabled])
+			{
+				continue;
+			}
+			
+			indices[indexIndex++] = i0;
+			indices[indexIndex++] = i1;
+			indices[indexIndex++] = i2;
+			indices[indexIndex++] = i2;
+			indices[indexIndex++] = i1;
+			indices[indexIndex++] = i3;
+			
+			GLKMatrix4 matrix = [[[renderer entity] transform] matrix];
+			GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP0);
+			GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP1);
+			GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP2);
+			GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP3);
+			GLKVector4 color = [renderer color];
+			
+			vertices[vertexIndex++] = FUVertexMake(p0, color, kT0);
+			vertices[vertexIndex++] = FUVertexMake(p1, color, kT1);
+			vertices[vertexIndex++] = FUVertexMake(p2, color, kT2);
+			vertices[vertexIndex++] = FUVertexMake(p3, color, kT3);
+			
+			spriteCount++;
+			i0 += kVertexSpriteCount;
+			i1 += kVertexSpriteCount;
+			i2 += kVertexSpriteCount;
+			i3 += kVertexSpriteCount;
+		}
 		
-		spriteCount++;
-		i0 += kVertexSpriteCount;
-		i1 += kVertexSpriteCount;
-		i2 += kVertexSpriteCount;
-		i3 += kVertexSpriteCount;
-	}
-	
-	[self setSpriteCount:spriteCount];
-}
-
-- (void)drawSprites
-{
-	NSUInteger indexCount = [self spriteCount] * kIndexSpriteCount;
-	GLushort* indices = [[self indexData] mutableBytes];
-	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, indices);
+		NSUInteger indexCount = spriteCount * kIndexSpriteCount;
+		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, indicesStart);
+	}];
 }
 
 @end
@@ -311,9 +337,30 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 
 - (void)visitFUSpriteRenderer:(FUSpriteRenderer*)renderer
 {
-	[[[self graphicsEngine] renderers] addObject:renderer];
-	[[[self graphicsEngine] indexData] increaseLengthBy:kIndexSpriteStride];
-	[[[self graphicsEngine] vertexData] increaseLengthBy:kVertexSpriteStride];
+	FUGraphicsEngine* graphicsEngine = [self graphicsEngine];
+	
+	NSString* rendererTexture = [renderer texture];
+	id textureKey = (rendererTexture != nil) ? rendererTexture : [NSNull null];
+	FUDrawBatch* batch = [[graphicsEngine drawBatches] objectForKey:textureKey];
+	
+	if (batch == nil)
+	{
+		batch = [FUDrawBatch new];
+		[batch setRenderers:[NSMutableArray array]];
+		
+		if (rendererTexture != nil)
+		{
+			FUTexture* texture = [[[graphicsEngine director] assetStore] textureWithName:rendererTexture];
+			[batch setTexture:texture];
+		}
+		
+		[[graphicsEngine drawBatches] setObject:batch forKey:textureKey];
+	}
+	
+	[[batch renderers] addObject:renderer];
+	
+	[[graphicsEngine indexData] increaseLengthBy:kIndexSpriteStride];
+	[[graphicsEngine vertexData] increaseLengthBy:kVertexSpriteStride];
 }
 
 @end
@@ -325,13 +372,31 @@ static const NSUInteger kVertexSpriteStride = kVertexSpriteCount * sizeof(FUVert
 
 - (void)unregisterFUSpriteRenderer:(FUSpriteRenderer*)renderer
 {
-	[[[self graphicsEngine] renderers] removeObject:renderer];
+	FUGraphicsEngine* graphicsEngine = [self graphicsEngine];
 	
-	NSMutableData* indexData = [[self graphicsEngine] indexData];
+	NSString* rendererTexture = [renderer texture];
+	id textureKey = (rendererTexture != nil) ? rendererTexture : [NSNull null];
+	FUDrawBatch* batch = [[graphicsEngine drawBatches] objectForKey:textureKey];
+	
+	[[batch renderers] removeObject:renderer];
+	
+	if ([[batch renderers] count] == 0)
+	{
+		[[graphicsEngine drawBatches] removeObjectForKey:textureKey];
+	}
+	
+	NSMutableData* indexData = [graphicsEngine indexData];
 	[indexData setLength:[indexData length] - kIndexSpriteStride];
 	
-	NSMutableData* vertexData = [[self graphicsEngine] vertexData];
+	NSMutableData* vertexData = [graphicsEngine vertexData];
 	[vertexData setLength:[vertexData length] - kVertexSpriteStride];
 }
 
 @end
+
+
+@implementation FUDrawBatch
+@synthesize texture = _texture;
+@synthesize renderers = _renderers;
+@end
+
