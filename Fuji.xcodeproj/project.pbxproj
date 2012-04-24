@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6301B2C21545938200DA9994 /* FUSpriteBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6301B2C01545938200DA9994 /* FUSpriteBuffer.h */; };
+		6301B2C31545938200DA9994 /* FUSpriteBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301B2C11545938200DA9994 /* FUSpriteBuffer.m */; };
 		63093F8C153FF94E00AC8CA8 /* FUTexture-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63093F89153FF94E00AC8CA8 /* FUTexture-Internal.h */; };
 		63093F8E153FF94E00AC8CA8 /* FUTexture-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63093F8B153FF94E00AC8CA8 /* FUTexture-Internal.m */; };
 		63093F8F153FF94E00AC8CA8 /* FUTexture-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63093F8B153FF94E00AC8CA8 /* FUTexture-Internal.m */; };
@@ -74,6 +76,9 @@
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
+		63D3CE5C1546C9E80033BA8E /* FUSpriteBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D3CE5A1546C9E80033BA8E /* FUSpriteBatch.h */; };
+		63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
+		63D3CE5E1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
 		63D6349D153F066200C7C648 /* FUVisitorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D6349C153F066200C7C648 /* FUVisitorSpec.m */; };
 		63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D6349F153F08C900C7C648 /* FUVisitor.h */; };
 		63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
@@ -104,6 +109,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6301B2C01545938200DA9994 /* FUSpriteBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSpriteBuffer.h; sourceTree = "<group>"; };
+		6301B2C11545938200DA9994 /* FUSpriteBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteBuffer.m; sourceTree = "<group>"; };
 		63093F89153FF94E00AC8CA8 /* FUTexture-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUTexture-Internal.h"; sourceTree = "<group>"; };
 		63093F8B153FF94E00AC8CA8 /* FUTexture-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUTexture-Internal.m"; sourceTree = "<group>"; };
 		631016FC153702AC0039CC49 /* FUSceneObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneObjectSpec.m; sourceTree = "<group>"; };
@@ -168,6 +175,9 @@
 		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63B5739814F4D38000451E2E /* FujiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FujiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		63D3CE5A1546C9E80033BA8E /* FUSpriteBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSpriteBatch.h; sourceTree = "<group>"; };
+		63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteBatch.m; sourceTree = "<group>"; };
+		63D3CE601546CC680033BA8E /* FUGraphicsTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUGraphicsTypes.h; sourceTree = "<group>"; };
 		63D6349C153F066200C7C648 /* FUVisitorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitorSpec.m; sourceTree = "<group>"; };
 		63D6349F153F08C900C7C648 /* FUVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUVisitor.h; sourceTree = "<group>"; };
 		63D634A0153F08C900C7C648 /* FUVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitor.m; sourceTree = "<group>"; };
@@ -286,8 +296,13 @@
 		6382271E1519D8470009D036 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				63D3CE601546CC680033BA8E /* FUGraphicsTypes.h */,
 				63F7B8741526019600F3064D /* FUGraphicsEngine.h */,
 				63F7B8751526019600F3064D /* FUGraphicsEngine.m */,
+				6301B2C01545938200DA9994 /* FUSpriteBuffer.h */,
+				6301B2C11545938200DA9994 /* FUSpriteBuffer.m */,
+				63D3CE5A1546C9E80033BA8E /* FUSpriteBatch.h */,
+				63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */,
 				6382275E1519E38B0009D036 /* FUGraphicsSettings.h */,
 				6382275F1519E38B0009D036 /* FUGraphicsSettings.m */,
 				63822767151A1B300009D036 /* FUTransform.h */,
@@ -456,6 +471,8 @@
 				639CE44715402C15000D4A48 /* FUAssetStore.h in Headers */,
 				631DD3F415418573008AA626 /* FUAsset-Internal.h in Headers */,
 				631DD3F915419931008AA626 /* FUAutoContentAccessingProxy-Internal.h in Headers */,
+				6301B2C21545938200DA9994 /* FUSpriteBuffer.h in Headers */,
+				63D3CE5C1546C9E80033BA8E /* FUSpriteBatch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +613,8 @@
 				6329099C1541C53300FA1DC0 /* NSBundle+FUAdditions-Internal.m in Sources */,
 				6329099D1541C53300FA1DC0 /* UIDevice+FUAdditions-Internal.m in Sources */,
 				6329099E1541C53300FA1DC0 /* UIScreen+FUAdditions-Internal.m in Sources */,
+				6301B2C31545938200DA9994 /* FUSpriteBuffer.m in Sources */,
+				63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +661,7 @@
 				631DD3F11541849C008AA626 /* FUAssetSpec.m in Sources */,
 				631DD3F615418573008AA626 /* FUAsset-Internal.m in Sources */,
 				631DD3FB15419931008AA626 /* FUAutoContentAccessingProxy-Internal.m in Sources */,
+				63D3CE5E1546C9E80033BA8E /* FUSpriteBatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

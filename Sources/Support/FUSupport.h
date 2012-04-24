@@ -17,7 +17,21 @@
 
 
 #define FUThrow(format, ...) @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:format, ##__VA_ARGS__] userInfo:nil]
+
+#ifndef NS_BLOCK_ASSERTIONS
 #define FUAssert(condition, format, ...) do { if (!(condition)) FUThrow(format, ##__VA_ARGS__); } while(0)
+#else
+#define FUAssert(condition, format, ...)
+#endif
+
+#if DEBUG
+#define FU_CHECK_OPENGL_ERROR() do { \
+	GLenum __error = glGetError(); \
+	if (__error) NSLog(@"OpenGL Error: 0x%04X in %s %d", __error, __FUNCTION__, __LINE__); \
+} while (0)
+#else
+#define FU_CHECK_OPENGL_ERROR()
+#endif
 
 
 #define FUTimerStart() \
