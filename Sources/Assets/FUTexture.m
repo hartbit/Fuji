@@ -1,13 +1,13 @@
 //
-//  FUTexture-Internal.m
+//  FUTexture.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUTexture-Internal.h"
 #import <GLKit/GLKit.h>
+#import "FUTexture-Internal.h"
 #import "NSBundle+FUAdditions-Internal.h"
 #import "FUSupport.h"
 

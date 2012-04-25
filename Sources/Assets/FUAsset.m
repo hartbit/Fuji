@@ -1,5 +1,5 @@
 //
-//  FUAsset-Internal.m
+//  FUAsset.m
 //  Fuji
 //
 //  Created by David Hart on 4/20/12.

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUComponent.h"
 #import "FUSupport.h"
 
 

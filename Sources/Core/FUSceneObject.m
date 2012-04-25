@@ -6,11 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUSceneObject.h"
 #import "FUSceneObject-Internal.h"
-#import "FUScene.h"
-#import "FUDirector.h"
-#import "FUVisitor.h"
 #import "FUVisitor-Internal.h"
 
 

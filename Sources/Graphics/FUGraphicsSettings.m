@@ -7,7 +7,6 @@
 //
 
 #import "FUGraphicsSettings.h"
-#import "FUComponent-Internal.h"
 #import "FUColor.h"
 
 

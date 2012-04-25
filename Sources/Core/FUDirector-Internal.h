@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#import "FUDirector.h"
+
 
 @class FUSceneObject;
 

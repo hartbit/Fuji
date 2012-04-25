@@ -6,20 +6,14 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#include "Prefix.pch"
-#import "FUMath.h"
+#import "FUGraphicsEngine.h"
 #import "FUColor.h"
 #import "FUVisitor.h"
 #import "FUDirector.h"
 #import "FUScene.h"
-#import "FUGraphicsEngine.h"
 #import "FUGraphicsSettings.h"
-#import "FUSpriteRenderer.h"
-#import "FUTransform.h"
-#import "FUAssetStore.h"
-#import "FUAssetStore-Internal.h"
 #import "FUTexture-Internal.h"
-#import "FUSpriteBuffer.h"
+#import "FUSpriteBuffer-Internal.h"
 
 
 @interface FUGraphicsRegistrationVisitor : FUVisitor

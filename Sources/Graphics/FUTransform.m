@@ -6,10 +6,8 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#include "Prefix.pch"
 #import "FUTransform.h"
 #import "FUMath.h"
-#import "FUComponent-Internal.h"
 
 
 @interface FUTransform ()

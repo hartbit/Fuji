@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUSpriteBatch.h"
+#import "FUSpriteBatch-Internal.h"
 #import "FUSupport.h"
 
 

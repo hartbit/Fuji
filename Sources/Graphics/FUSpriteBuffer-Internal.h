@@ -1,5 +1,5 @@
 //
-//  FUSpriteBuffer.h
+//  FUSpriteBuffer-Internal.h
 //  Fuji
 //
 //  Created by Hart David on 23.04.12.

@@ -6,16 +6,14 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#include "Prefix.pch"
-#import "FUSpriteBuffer.h"
+#import "FUSpriteBuffer-Internal.h"
 #import "FUEntity.h"
-#import "FUSpriteRenderer.h"
 #import "FUTransform.h"
-#import "FUSpriteBatch.h"
+#import "FUSpriteRenderer.h"
+#import "FUSpriteBatch-Internal.h"
 #import "FUTexture-Internal.h"
-#import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
-#import "FUGraphicsTypes.h"
+#import "FUGraphicsTypes-Internal.h"
 
 
 static const NSUInteger kDefaultCapacity = 100;

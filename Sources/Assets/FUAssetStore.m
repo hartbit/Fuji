@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUAssetStore.h"
 #import "FUAssetStore-Internal.h"
 #import "FUTexture-Internal.h"
 #import "FUSupport.h"

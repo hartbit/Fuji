@@ -7,7 +7,6 @@
 //
 
 #import "FUBehavior.h"
-#import "FUEngine.h"
 
 
 @implementation FUBehavior

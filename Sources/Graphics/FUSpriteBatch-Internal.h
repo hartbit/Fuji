@@ -1,5 +1,5 @@
 //
-//  FUSpriteBatch.h
+//  FUSpriteBatch-Internal.h
 //  Fuji
 //
 //  Created by David Hart on 4/24/12.

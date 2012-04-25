@@ -6,9 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUEngine.h"
 #import "FUEngine-Internal.h"
-#import "FUSceneObject.h"
 
 
 @implementation FUEngine

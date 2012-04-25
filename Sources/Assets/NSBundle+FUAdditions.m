@@ -1,5 +1,5 @@
 //
-//  NSBundle+FUAdditions-Internal.m
+//  NSBundle+FUAdditions.m
 //  Fuji
 //
 //  Created by Hart David on 24.02.12.
@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUDirector.h"
+#import "NSBundle+FUAdditions-Internal.h"
 #import "UIDevice+FUAdditions-Internal.h"
 #import "UIScreen+FUAdditions-Internal.h"
+#import "FUDirector.h"
 #import "FUSupport.h"
 
 

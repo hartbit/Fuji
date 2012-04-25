@@ -6,19 +6,13 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#include "Prefix.pch"
-#import "FUSupport.h"
-#import "FUDirector.h"
-#import "FUDirector-Internal.h"
-#import "FUSceneObject.h"
-#import "FUSceneObject-Internal.h"
-#import "FUScene.h"
-#import "FUScene-Internal.h"
-#import "FUTransform.h"
-#import "FUGraphicsSettings.h"
-#import "FUEntity.h"
-#import "FUEngine.h"
 #import <objc/runtime.h>
+#import "FUScene-Internal.h"
+#import "FUDirector-Internal.h"
+#import "FUSceneObject-Internal.h"
+#import "FUGraphicsSettings.h"
+#import "FUTransform.h"
+#import "FUEngine.h"
 
 
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";

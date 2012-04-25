@@ -1,5 +1,5 @@
 //
-//  UIDevice+FUAdditions-Internal.m
+//  UIDevice+FUAdditions.m
 //  FUAdditions
 //
 //  Created by David Hart on 23/02/2011.

@@ -6,19 +6,13 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#include "Prefix.pch"
-#import "FUDirector.h"
-#import "FUDirector-Internal.h"
-#import "FUSceneObject.h"
-#import "FUSceneObject-Internal.h"
-#import "FUEntity.h"
+#import <objc/runtime.h>
 #import "FUEntity-Internal.h"
+#import "FUDirector-Internal.h"
+#import "FUSceneObject-Internal.h"
 #import "FUScene.h"
-#import "FUComponent.h"
 #import "FUComponent-Internal.h"
 #import "FUTransform.h"
-#import "FUEngine.h"
-#import <objc/runtime.h>
 
 
 static NSString* const FUComponentAncestoryInvalidMessage = @"A non-unique 'component=%@' has a unique parent 'component=%@'";

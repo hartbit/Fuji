@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUEntity.h"
 
 
 @interface FUEntity ()

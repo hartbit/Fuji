@@ -1,5 +1,5 @@
 //
-//  FUAutoContentAccessingProxy-Internal.m
+//  FUAutoContentAccessingProxy.m
 //  Fuji
 //
 //  Created by David Hart on 4/20/12.
@@ -7,8 +7,8 @@
 //  From: http://stackoverflow.com/a/9182946
 //
 
-#import "FUAutoContentAccessingProxy-Internal.h"
 #import <objc/runtime.h>
+#import "FUAutoContentAccessingProxy-Internal.h"
 
 
 @implementation FUAutoContentAccessingProxy
@@ -20,7 +20,7 @@ static id autoContentAccessingProxy(id self, SEL _cmd)
 	return [FUAutoContentAccessingProxy proxyWithTarget:self];
 }
 
-+ (void) load
++ (void)load
 {
 	method_setImplementation(class_getInstanceMethod([NSObject class], @selector(autoContentAccessingProxy)), (IMP)autoContentAccessingProxy);
 }

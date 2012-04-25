@@ -1,5 +1,5 @@
 //
-//  FUProxyVisitor-Internal.m
+//  FUProxyVisitor.m
 //  Fuji
 //
 //  Created by Hart David on 18.04.12.

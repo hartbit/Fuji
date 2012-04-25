@@ -1,12 +1,13 @@
 //
-//  FUGraphicsTypes.h
+//  FUGraphicsTypes-Internal.h
 //  Fuji
 //
 //  Created by David Hart on 4/24/12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#include "Prefix.pch"
+#import <OpenGLES/ES2/gl.h>
+#import <GLKit/GLKit.h>
 
 
 typedef GLushort FUIndex;

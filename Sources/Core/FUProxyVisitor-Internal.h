@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "FUVisitor.h"
 
 

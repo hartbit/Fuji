@@ -1,23 +1,16 @@
 //
-//  FUViewController.m
+//  FUDirector.m
 //  Fuji
 //
 //  Created by Hart David on 22.02.12.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 
-#import "FUDirector.h"
 #import "FUDirector-Internal.h"
-#import "FUVisitor.h"
-#import "FUVisitor-Internal.h"
 #import "FUProxyVisitor-Internal.h"
 #import "FUAssetStore.h"
-#import "FUAssetStore-Internal.h"
-#import "FUScene.h"
 #import "FUScene-Internal.h"
-#import "FUEngine.h"
 #import "FUEngine-Internal.h"
-#import "FUSceneObject.h"
 #import "FUSceneObject-Internal.h"
 #import "FUGraphicsEngine.h"
 
