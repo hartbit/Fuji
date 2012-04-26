@@ -39,7 +39,7 @@ describe(@"An asset store", ^{
 		
 		context(@"asking for a nil texture", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([assetStore textureWithName:nil], @"Expected 'name' to not be nil or empty", nil);
+				STAssertThrows([assetStore textureWithName:nil], nil);
 			});
 		});
 		

@@ -428,8 +428,8 @@
 			children = (
 				63822777151A29BB0009D036 /* Prefix.pch */,
 				63822771151A1C6B0009D036 /* FUTestFunctions.h */,
-				6335C57A153ADB3F00022A4F /* FUMathSpec.m */,
 				63F7B8771526022600F3064D /* FUColorSpec.m */,
+				6335C57A153ADB3F00022A4F /* FUMathSpec.m */,
 			);
 			name = Support;
 			path = Graphics;
