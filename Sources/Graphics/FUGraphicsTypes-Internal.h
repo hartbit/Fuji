@@ -16,12 +16,12 @@ typedef GLushort FUIndex;
 typedef struct
 {
 	GLKVector3 position;
-	GLKVector4 color;
+	FUColor color;
 	GLKVector2 texCoord;
 } FUVertex;
 
 
-static inline FUVertex FUVertexMake(GLKVector3 position, GLKVector4 color, GLKVector2 texCoord)
+static inline FUVertex FUVertexMake(GLKVector3 position, FUColor color, GLKVector2 texCoord)
 {
 	return (FUVertex){ position, color, texCoord };
 }

@@ -8,10 +8,11 @@
 
 #import <GLKit/GLKit.h>
 #import "FUComponent.h"
+#import "FUColor.h"
 
 
 @interface FUGraphicsSettings : FUComponent
 
-@property (nonatomic) GLKVector4 backgroundColor;
+@property (nonatomic) FUColor backgroundColor;
 
 @end

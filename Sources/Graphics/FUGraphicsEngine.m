@@ -180,8 +180,9 @@
 - (void)clearScreen
 {
 	FUGraphicsSettings* settings = [self settings];
-	GLKVector4 backgroundColor = (settings != nil) ? [settings backgroundColor] : FUColorBlack;
-	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+	FUColor backgroundColor = (settings != nil) ? [settings backgroundColor] : FUColorBlack;
+	GLKVector4 vectorColor = FUVector4FromColor(backgroundColor);
+	glClearColor(vectorColor.r, vectorColor.g, vectorColor.b, vectorColor.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	FU_CHECK_OPENGL_ERROR();

@@ -284,8 +284,8 @@
 			isa = PBXGroup;
 			children = (
 				63E6303D14F77B5F00923CB9 /* FUSupport.h */,
-				6382277A151A2A030009D036 /* FUMath.h */,
 				63822778151A2A030009D036 /* FUColor.h */,
+				6382277A151A2A030009D036 /* FUMath.h */,
 			);
 			name = "Public Headers";
 			sourceTree = "<group>";

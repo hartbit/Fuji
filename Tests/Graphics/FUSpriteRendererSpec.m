@@ -47,13 +47,13 @@ describe(@"A sprite renderer component", ^{
 		});
 		
 		it(@"has a white color", ^{
-			expect(GLKVector4AllEqualToVector4([spriteRenderer color], FUColorWhite)).to.beTruthy();
+			expect(FUColorAreEqual([spriteRenderer color], FUColorWhite)).to.beTruthy();
 		});
 		
 		context(@"setting the color to brown", ^{
 			it(@"has it's color property to brown", ^{
 				[spriteRenderer setColor:FUColorBrown];
-				expect(GLKVector4AllEqualToVector4([spriteRenderer color], FUColorBrown)).to.beTruthy();
+				expect(FUColorAreEqual([spriteRenderer color], FUColorBrown)).to.beTruthy();
 			});
 		});
 	});

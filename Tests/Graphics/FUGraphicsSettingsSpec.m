@@ -32,13 +32,13 @@ describe(@"The graphics settings", ^{
 		});
 		
 		it(@"has a default background color of Cornflower Blue", ^{
-			expect(GLKVector4AllEqualToVector4([graphics backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
+			expect(FUColorAreEqual([graphics backgroundColor], FUColorCornflowerBlue)).to.beTruthy();
 		});
 		
 		it(@"setting the background color to Gray", ^{
 			it(@"has a background color of Gray", ^{
 				[graphics setBackgroundColor:FUColorGray];
-				expect(GLKVector4AllEqualToVector4([graphics backgroundColor], FUColorGray)).to.beTruthy();
+				expect(FUColorAreEqual([graphics backgroundColor], FUColorGray)).to.beTruthy();
 			});
 		});
 	});

@@ -37,7 +37,7 @@
 			
 			FUSpriteRenderer* renderer = [entity addComponentWithClass:[FUSpriteRenderer class]];
 			[renderer setTexture:@"Grossini.png"];
-			[renderer setColor:GLKVector4Make(FURandomUnit(), FURandomUnit(), FURandomUnit(), 1)];
+			[renderer setColor:FURandomColor()];
 			
 			FUTransform* transform = [entity transform];
 			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];

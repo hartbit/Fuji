@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 #import "FUBehavior.h"
+#import "FUColor.h"
 
 
 @interface FUSpriteRenderer : FUBehavior
 
 @property (nonatomic, copy) NSString* texture;
-@property (nonatomic) GLKVector4 color;
+@property (nonatomic) FUColor color;
 
 @end
