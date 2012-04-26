@@ -290,13 +290,9 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 - (void)checkTextureChanges
 {
-	NSMutableDictionary* spriteBatches = [self spriteBatches];
 	NSMutableSet* spritesToUpdate = [NSMutableSet set];
 	
-	for (id textureKey in [spriteBatches allKeys])
-	{
-		FUSpriteBatch* batch = [spriteBatches objectForKey:textureKey];
-		
+	[[self spriteBatches] enumerateKeysAndObjectsUsingBlock:^(id textureKey, FUSpriteBatch* batch, BOOL* stop) {
 		for (FUSpriteRenderer* sprite in batch)
 		{
 			NSString* spriteTexture = [sprite texture];
@@ -306,7 +302,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 				[spritesToUpdate addObject:sprite];
 			}
 		}
-	}
+	}];
 	
 	for (FUSpriteRenderer* sprite in spritesToUpdate)
 	{
@@ -323,16 +319,15 @@ static const NSUInteger kVertexSpriteCount = 4;
 	static const GLKVector2 kT3 = { 1, 1 };
 	
 	FUVertex* vertices = [[self vertexData] mutableBytes];
-	NSUInteger vertexIndex = 0;
-	NSUInteger drawIndex = 0;
+	__block NSUInteger vertexIndex = 0;
+	__block NSUInteger drawIndex = 0;
 	
-	for (FUSpriteBatch* batch in [[self spriteBatches] allValues])
-	{
+	[[self spriteBatches] enumerateKeysAndObjectsUsingBlock:^(id textureKey, FUSpriteBatch* batch, BOOL* stop) {
 		FUTexture* texture = [batch texture];
 		
 		if (texture == nil)
 		{
-			continue;
+			return;
 		}
 		
 		float halfWidth = [texture width] / 2;
@@ -369,7 +364,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 		
 		[batch setDrawCount:drawCount];
 		drawIndex += drawCount;
-	}
+	}];
 	
 	glBindBuffer(GL_ARRAY_BUFFER, [self vertexBuffer]);
 	glBufferData(GL_ARRAY_BUFFER, vertexIndex * sizeof(FUVertex), vertices, GL_DYNAMIC_DRAW);
@@ -384,13 +379,12 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 	GLKEffectPropertyTexture* textureProperty = [effect texture2d0];
 	
-	for (FUSpriteBatch* batch in [[self spriteBatches] allValues])
-	{
+	[[self spriteBatches] enumerateKeysAndObjectsUsingBlock:^(id textureKey, FUSpriteBatch* batch, BOOL* stop) {
 		FUTexture* texture = [batch texture];
 		
 		if (texture == nil)
 		{
-			continue;
+			return;
 		}
 		
 		if ([textureProperty name] != [texture name])
@@ -402,7 +396,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 		NSUInteger indexCount = [batch drawCount] * kIndexSpriteCount;
 		NSUInteger indexOffset = [batch drawIndex] * kIndexSpriteCount * sizeof(FUIndex);
 		glDrawElements(GL_TRIANGLES, indexCount, FU_INDEX_TYPE, (GLvoid*)indexOffset);
-	}
+	}];
 
 	glBindVertexArrayOES(0);
 	
