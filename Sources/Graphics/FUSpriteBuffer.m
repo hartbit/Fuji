@@ -212,6 +212,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 - (void)drawWithEffect:(GLKBaseEffect*)effect
 {
+	[self checkTextureChanges];
 	[self fillVertexBuffer];
 	[self drawSpritesWithEffect:effect];
 }
@@ -285,6 +286,33 @@ static const NSUInteger kVertexSpriteCount = 4;
 	[vertexData setLength:vertexLength];
 	
 	FU_CHECK_OPENGL_ERROR();
+}
+
+- (void)checkTextureChanges
+{
+	NSMutableDictionary* spriteBatches = [self spriteBatches];
+	NSMutableSet* spritesToUpdate = [NSMutableSet set];
+	
+	for (id textureKey in [spriteBatches allKeys])
+	{
+		FUSpriteBatch* batch = [spriteBatches objectForKey:textureKey];
+		
+		for (FUSpriteRenderer* sprite in batch)
+		{
+			NSString* spriteTexture = [sprite texture];
+			
+			if (((textureKey == [NSNull null]) && (spriteTexture != nil)) || ![spriteTexture isEqualToString:textureKey])
+			{
+				[spritesToUpdate addObject:sprite];
+			}
+		}
+	}
+	
+	for (FUSpriteRenderer* sprite in spritesToUpdate)
+	{
+		[self removeSprite:sprite];
+		[self addSprite:sprite];
+	}
 }
 
 - (void)fillVertexBuffer
