@@ -317,24 +317,12 @@ static const NSUInteger kVertexSpriteCount = 4;
 		[batch setDrawIndex:drawIndex];
 		NSUInteger drawCount = 0;
 		
-		static NSDate* startDate = nil;
-		if (startDate == nil) startDate = [NSDate date];
-		
-		NSTimeInterval speed = [startDate timeIntervalSinceNow] * 5;
-		
 		for (FUSpriteRenderer* sprite in batch)
 		{
 			if (![sprite isEnabled])
 			{
 				continue;
 			}
-			
-			FUTransform* transform = [[sprite entity] transform];
-			float scale = cosf(drawCount + speed) * 0.25f + 1.0f;
-			[transform setScale:GLKVector2Make(scale, scale)];
-						
-			float rotation = 0.1f * (drawCount + speed) * M_PI;
-			[transform setRotation:rotation];
 			
 			GLKMatrix4 matrix = [[[sprite entity] transform] matrix];			
 			GLKVector3 p0 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP0);
