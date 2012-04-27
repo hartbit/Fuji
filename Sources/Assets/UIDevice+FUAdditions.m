@@ -2,7 +2,7 @@
 //  UIDevice+FUAdditions.m
 //  FUAdditions
 //
-//  Created by David Hart on 23/02/2011.
+//  Created by David Hart
 //  Copyright 2011 hart[dev]. All rights reserved.
 //
 
