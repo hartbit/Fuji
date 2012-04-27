@@ -7,6 +7,7 @@
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the Simplified BSD License.
+//
 //  From: http://stackoverflow.com/a/9182946
 //
 
@@ -22,6 +23,8 @@ static id autoContentAccessingProxy(id self, SEL _cmd)
 {
 	return [FUAutoContentAccessingProxy proxyWithTarget:self];
 }
+
+#pragma mark - Class Methods
 
 + (void)load
 {
@@ -45,10 +48,14 @@ static id autoContentAccessingProxy(id self, SEL _cmd)
 	return proxy;
 }
 
+#pragma mark - Initialization
+
 - (void)dealloc
 {
 	[[self target] endContentAccess];
 }
+
+#pragma mark - NSProxy Methods
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {

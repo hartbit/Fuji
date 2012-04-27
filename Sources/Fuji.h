@@ -12,8 +12,8 @@
 // Support
 
 #import "FUSupport.h"
-#import "FUMath.h"
 #import	"FUColor.h"
+#import "FUMath.h"
 
 // Core
 
@@ -26,6 +26,10 @@
 #import "FUScene.h"
 #import "FUComponent.h"
 #import "FUBehavior.h"
+
+// Animations
+
+#import "FUAnimation.h"
 
 // Assets
 

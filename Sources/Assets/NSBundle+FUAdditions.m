@@ -19,6 +19,8 @@
 
 @implementation NSBundle (FUAdditions)
 
+#pragma mark - Class Methods
+
 + (NSBundle*)currentBundle
 {
 	static NSBundle* sCurrentBundle = nil;
@@ -30,6 +32,8 @@
 	
 	return sCurrentBundle;
 }
+
+#pragma mark - Public Methods
 
 - (NSString*)platformPathForResource:(NSString*)name ofType:(NSString*)extension
 {

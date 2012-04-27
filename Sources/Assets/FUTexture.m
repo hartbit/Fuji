@@ -55,24 +55,6 @@
 	return [[NSBundle currentBundle] platformPathForResource:nameWithoutExtension ofType:extension];
 }
 
-#pragma mark - Properties
-
-- (GLuint)name
-{
-	[self verifyAccessibility];
-	return [[self info] name];
-}
-
-- (GLuint)width
-{
-	return [[self info] width];
-}
-
-- (GLuint)height
-{
-	return [[self info] height];
-}
-
 #pragma mark - Initialization
 
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block
@@ -104,6 +86,24 @@
 	[self setInfo:textureInfo];
 	
 	return self;
+}
+
+#pragma mark - Properties
+
+- (GLuint)name
+{
+	[self verifyAccessibility];
+	return [[self info] name];
+}
+
+- (GLuint)width
+{
+	return [[self info] width];
+}
+
+- (GLuint)height
+{
+	return [[self info] height];
 }
 
 #pragma mark - FUAsset Methods

@@ -16,6 +16,8 @@
 
 @synthesize enabled = _enabled;
 
+#pragma mark - Initialization
+
 - (id)init
 {
 	self = [super init];

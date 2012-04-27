@@ -51,6 +51,37 @@ static const NSUInteger kVertexSpriteCount = 4;
 @synthesize vertexBuffer = _vertexBuffer;
 @synthesize assetStore = _assetStore;
 
+#pragma mark - Initialization
+
+- (id)init
+{
+	FUThrow(@"");
+}
+
+- (id)initWithAssetStore:(FUAssetStore*)assetStore
+{
+	return [self initWithAssetStore:assetStore capacity:kDefaultCapacity];
+}
+
+- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity
+{
+	self = [super init];
+	if (self == nil) return nil;
+	
+	[self setAssetStore:assetStore];
+	[self setCapacity:capacity];
+	[self setupArrayAndBuffers];
+	
+	return self;
+}
+
+- (void)dealloc
+{
+	glDeleteVertexArraysOES(1, &_vertexArray);
+	glDeleteBuffers(1, &_indexBuffer);
+	glDeleteBuffers(1, &_vertexBuffer);
+}
+
 #pragma mark - Properties
 
 - (void)setCapacity:(NSUInteger)capacity
@@ -133,37 +164,6 @@ static const NSUInteger kVertexSpriteCount = 4;
 	}
 	
 	return _vertexBuffer;
-}
-
-#pragma mark - Initialization
-
-- (id)init
-{
-	FUThrow(@"");
-}
-
-- (id)initWithAssetStore:(FUAssetStore*)assetStore
-{
-	return [self initWithAssetStore:assetStore capacity:kDefaultCapacity];
-}
-
-- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity
-{
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self setAssetStore:assetStore];
-	[self setCapacity:capacity];
-	[self setupArrayAndBuffers];
-	
-	return self;
-}
-
-- (void)dealloc
-{
-	glDeleteVertexArraysOES(1, &_vertexArray);
-	glDeleteBuffers(1, &_indexBuffer);
-	glDeleteBuffers(1, &_vertexBuffer);
 }
 
 #pragma mark - Public Methods

@@ -48,6 +48,28 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @synthesize registrationVisitor = _registrationVisitor;
 @synthesize unregistrationVisitor = _unregistrationVisitor;
 
+#pragma mark - Initialization
+
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
+{
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self == nil) return nil;
+
+	[EAGLContext setCurrentContext:[self context]];
+	[self addEngine:[FUGraphicsEngine new]];
+	return self;
+}
+
+- (id)initWithAssetStore:(FUAssetStore*)assetStore;
+{
+	FUAssert(assetStore != nil, FUAssetStoreNilMessage);
+	
+	[self setAssetStore:assetStore];
+	
+	self = [self initWithNibName:nil bundle:nil];
+	return self;
+}
+
 #pragma mark - Properties
 
 - (FUAssetStore*)assetStore
@@ -107,28 +129,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	}
 	
 	return _unregistrationVisitor;
-}
-
-#pragma mark - Initialization
-
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
-{
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self == nil) return nil;
-
-	[EAGLContext setCurrentContext:[self context]];
-	[self addEngine:[FUGraphicsEngine new]];
-	return self;
-}
-
-- (id)initWithAssetStore:(FUAssetStore*)assetStore;
-{
-	FUAssert(assetStore != nil, FUAssetStoreNilMessage);
-	
-	[self setAssetStore:assetStore];
-	
-	self = [self initWithNibName:nil bundle:nil];
-	return self;
 }
 
 #pragma mark - Public Methods

@@ -28,6 +28,18 @@
 @synthesize texture = _texture;
 @synthesize sprites = _sprites;
 
+#pragma mark - Initialization
+
+- (id)initWithTexture:(FUTexture*)texture
+{
+	self = [super init];
+	if (self == nil) return nil;
+	
+	[self setTexture:texture];
+	
+	return self;
+}
+
 #pragma mark - Properties
 
 - (NSUInteger)count
@@ -43,18 +55,6 @@
 	}
 	
 	return _sprites;
-}
-
-#pragma mark - Initialization
-
-- (id)initWithTexture:(FUTexture*)texture
-{
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self setTexture:texture];
-	
-	return self;
 }
 
 #pragma mark - Public Methods

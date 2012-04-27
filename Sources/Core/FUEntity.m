@@ -109,6 +109,17 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	return classProperties;
 }
 
+#pragma mark - Initialization
+
+- (id)initWithScene:(FUScene*)scene
+{
+	self = [super initWithScene:scene];
+	if (self == nil) return nil;
+	
+	[self addComponentWithClass:[FUTransform class] andRegister:NO];
+	return self;
+}
+
 #pragma mark - Properties
 
 - (NSMutableSet*)components
@@ -119,17 +130,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	}
 	
 	return _components;
-}
-
-#pragma mark - Initialization
-
-- (id)initWithScene:(FUScene*)scene
-{
-	self = [super initWithScene:scene];
-	if (self == nil) return nil;
-	
-	[self addComponentWithClass:[FUTransform class] andRegister:NO];
-	return self;
 }
 
 #pragma mark - Public Methods

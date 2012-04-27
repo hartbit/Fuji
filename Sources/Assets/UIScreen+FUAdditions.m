@@ -14,6 +14,8 @@
 
 @implementation UIScreen (FUAdditions)
 
+#pragma mark - Public Methods
+
 - (NSString*)scaleSuffix
 {
 	if ([self scale] != 1)
