@@ -86,6 +86,8 @@
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
+		63C11E4E1550427A00600C7F /* FUInstantActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C11E4D1550427A00600C7F /* FUInstantActionSpec.m */; };
+		63C11E52155042C400600C7F /* FUInstantAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C11E51155042C400600C7F /* FUInstantAction.m */; };
 		63D3CE5C1546C9E80033BA8E /* FUSpriteBatch-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D3CE5A1546C9E80033BA8E /* FUSpriteBatch-Internal.h */; };
 		63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
 		63D3CE5E1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
@@ -192,6 +194,9 @@
 		63B5738B14F4D38000451E2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63B5739814F4D38000451E2E /* FujiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FujiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B5739914F4D38000451E2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		63C11E4D1550427A00600C7F /* FUInstantActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUInstantActionSpec.m; sourceTree = "<group>"; };
+		63C11E50155042C400600C7F /* FUInstantAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUInstantAction.h; sourceTree = "<group>"; };
+		63C11E51155042C400600C7F /* FUInstantAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUInstantAction.m; sourceTree = "<group>"; };
 		63D3CE5A1546C9E80033BA8E /* FUSpriteBatch-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUSpriteBatch-Internal.h"; sourceTree = "<group>"; };
 		63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteBatch.m; sourceTree = "<group>"; };
 		63D3CE601546CC680033BA8E /* FUGraphicsTypes-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUGraphicsTypes-Internal.h"; sourceTree = "<group>"; };
@@ -418,6 +423,7 @@
 			children = (
 				634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */,
 				634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */,
+				63C11E4D1550427A00600C7F /* FUInstantActionSpec.m */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -428,6 +434,7 @@
 				634E2A88155018A20012C4FB /* FUAction.h */,
 				634E2A87155018A20012C4FB /* FUAnimator.h */,
 				634E2A9815501BC50012C4FB /* FUFiniteAction.h */,
+				63C11E50155042C400600C7F /* FUInstantAction.h */,
 			);
 			name = "Public Headers";
 			sourceTree = "<group>";
@@ -437,6 +444,7 @@
 			children = (
 				634E2A8B155018A70012C4FB /* FUAnimator.m */,
 				634E2A9915501BC50012C4FB /* FUFiniteAction.m */,
+				63C11E51155042C400600C7F /* FUInstantAction.m */,
 			);
 			name = "Implementation Files";
 			sourceTree = "<group>";
@@ -808,6 +816,8 @@
 				634E2A90155018BE0012C4FB /* FUAnimatorSpec.m in Sources */,
 				634E2A9715501B820012C4FB /* FUFiniteActionSpec.m in Sources */,
 				634E2A9C15501BC50012C4FB /* FUFiniteAction.m in Sources */,
+				63C11E4E1550427A00600C7F /* FUInstantActionSpec.m in Sources */,
+				63C11E52155042C400600C7F /* FUInstantAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
