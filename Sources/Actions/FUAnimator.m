@@ -42,7 +42,7 @@
 
 #pragma mark - Public Methods
 
-- (void)playAction:(id<FUAction>)action
+- (void)runAction:(id<FUAction>)action
 {
 	[[self actions] addObject:action];
 }

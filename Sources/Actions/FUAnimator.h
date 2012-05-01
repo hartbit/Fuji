@@ -17,7 +17,7 @@
 
 @property (nonatomic, readonly) BOOL isComplete;
 
-- (void)playAction:(id<FUAction>)action;
+- (void)runAction:(id<FUAction>)action;
 - (void)advanceTime:(NSTimeInterval)deltaTime;
 
 @end

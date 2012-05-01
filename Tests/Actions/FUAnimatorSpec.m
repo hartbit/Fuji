@@ -38,11 +38,11 @@ describe(@"An animator", ^{
 			beforeEach(^{
 				action1 = mockProtocol(@protocol(FUAction));
 				[given([action2 isComplete]) willReturnBool:NO];
-				[animator playAction:action1];
+				[animator runAction:action1];
 				
 				action2 = mockProtocol(@protocol(FUAction));
 				[given([action2 isComplete]) willReturnBool:YES];
-				[animator playAction:action2];
+				[animator runAction:action2];
 			});
 			
 			context(@"advancing time", ^{
