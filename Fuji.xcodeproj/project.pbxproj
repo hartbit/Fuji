@@ -47,6 +47,10 @@
 		634E2A8C155018A70012C4FB /* FUAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8B155018A70012C4FB /* FUAnimator.m */; };
 		634E2A8D155018A70012C4FB /* FUAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8B155018A70012C4FB /* FUAnimator.m */; };
 		634E2A90155018BE0012C4FB /* FUAnimatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */; };
+		634E2A9715501B820012C4FB /* FUFiniteActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */; };
+		634E2A9A15501BC50012C4FB /* FUFiniteAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 634E2A9815501BC50012C4FB /* FUFiniteAction.h */; };
+		634E2A9B15501BC50012C4FB /* FUFiniteAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A9915501BC50012C4FB /* FUFiniteAction.m */; };
+		634E2A9C15501BC50012C4FB /* FUFiniteAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A9915501BC50012C4FB /* FUFiniteAction.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63822774151A29960009D036 /* FUGraphicsSettingsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */; };
@@ -148,6 +152,9 @@
 		634E2A88155018A20012C4FB /* FUAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUAction.h; sourceTree = "<group>"; };
 		634E2A8B155018A70012C4FB /* FUAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAnimator.m; sourceTree = "<group>"; };
 		634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAnimatorSpec.m; sourceTree = "<group>"; };
+		634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUFiniteActionSpec.m; sourceTree = "<group>"; };
+		634E2A9815501BC50012C4FB /* FUFiniteAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUFiniteAction.h; sourceTree = "<group>"; };
+		634E2A9915501BC50012C4FB /* FUFiniteAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUFiniteAction.m; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		637F980E153D599D007E7053 /* FUAssetStore-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUAssetStore-Internal.h"; sourceTree = "<group>"; };
@@ -410,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */,
+				634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -417,8 +425,9 @@
 		634E2A851550188A0012C4FB /* Public Headers */ = {
 			isa = PBXGroup;
 			children = (
-				634E2A87155018A20012C4FB /* FUAnimator.h */,
 				634E2A88155018A20012C4FB /* FUAction.h */,
+				634E2A87155018A20012C4FB /* FUAnimator.h */,
+				634E2A9815501BC50012C4FB /* FUFiniteAction.h */,
 			);
 			name = "Public Headers";
 			sourceTree = "<group>";
@@ -427,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				634E2A8B155018A70012C4FB /* FUAnimator.m */,
+				634E2A9915501BC50012C4FB /* FUFiniteAction.m */,
 			);
 			name = "Implementation Files";
 			sourceTree = "<group>";
@@ -601,6 +611,7 @@
 				63D3CE5C1546C9E80033BA8E /* FUSpriteBatch-Internal.h in Headers */,
 				634E2A89155018A20012C4FB /* FUAnimator.h in Headers */,
 				634E2A8A155018A20012C4FB /* FUAction.h in Headers */,
+				634E2A9A15501BC50012C4FB /* FUFiniteAction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +755,7 @@
 				6301B2C31545938200DA9994 /* FUSpriteBuffer.m in Sources */,
 				63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */,
 				634E2A8C155018A70012C4FB /* FUAnimator.m in Sources */,
+				634E2A9B15501BC50012C4FB /* FUFiniteAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +806,8 @@
 				633FA519154986CB003901C9 /* FUSpriteBuffer.m in Sources */,
 				634E2A8D155018A70012C4FB /* FUAnimator.m in Sources */,
 				634E2A90155018BE0012C4FB /* FUAnimatorSpec.m in Sources */,
+				634E2A9715501B820012C4FB /* FUFiniteActionSpec.m in Sources */,
+				634E2A9C15501BC50012C4FB /* FUFiniteAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

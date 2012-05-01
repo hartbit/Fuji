@@ -16,7 +16,7 @@
 SPEC_BEGIN(FUAnimator)
 
 describe(@"An animator", ^{
-	it(@"is animatable", ^{
+	it(@"is an action", ^{
 		expect([[FUAnimator class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
 	

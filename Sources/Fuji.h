@@ -31,6 +31,7 @@
 
 #import "FUAction.h"
 #import "FUAnimator.h"
+#import "FUFiniteAction.h"
 
 // Assets
 
