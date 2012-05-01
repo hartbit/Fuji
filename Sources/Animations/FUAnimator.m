@@ -12,7 +12,16 @@
 #import "FUAnimator.h"
 
 
+@interface FUAnimator ()
+
+@property (nonatomic, strong) NSMutableArray* animatables;
+
+@end
+
+
 @implementation FUAnimator
+
+@synthesize animatables = _animatables;
 
 #pragma mark - Properties
 
@@ -21,10 +30,29 @@
 	return NO;
 }
 
+- (NSMutableArray*)animatables
+{
+	if (_animatables == nil)
+	{
+		[self setAnimatables:[NSMutableArray array]];
+	}
+	
+	return _animatables;
+}
+
 #pragma mark - Public Methods
+
+- (void)playAnimatable:(id<FUAnimatable>)animatable
+{
+	[[self animatables] addObject:animatable];
+}
 
 - (void)advanceTime:(NSTimeInterval)deltaTime
 {
+	for (id<FUAnimatable> animatable in [self animatables])
+	{
+		[animatable advanceTime:deltaTime];
+	}
 }
 
 @end

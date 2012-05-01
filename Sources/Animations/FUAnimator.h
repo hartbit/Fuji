@@ -17,6 +17,7 @@
 
 @property (nonatomic, readonly) BOOL isComplete;
 
+- (void)playAnimatable:(id<FUAnimatable>)animatable;
 - (void)advanceTime:(NSTimeInterval)deltaTime;
 
 @end
