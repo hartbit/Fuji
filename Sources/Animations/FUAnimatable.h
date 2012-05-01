@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol FUAnimatable <NSObject>
+@protocol FUAnimatable
 
 @property (nonatomic, readonly) BOOL isComplete;
 
