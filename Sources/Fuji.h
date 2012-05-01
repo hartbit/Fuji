@@ -29,7 +29,8 @@
 
 // Animations
 
-#import "FUAnimation.h"
+#import "FUAnimatable.h"
+#import "FUAnimator.h"
 
 // Assets
 

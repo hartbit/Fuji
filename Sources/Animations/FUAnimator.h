@@ -1,5 +1,5 @@
 //
-//  FUAnimation.h
+//  FUAnimator.h
 //  Fuji
 //
 //  Created by David Hart
@@ -10,13 +10,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUAnimatable.h"
 
 
-@interface FUAnimation : NSObject
+@interface FUAnimator : NSObject <FUAnimatable>
 
-@property (nonatomic, readonly) float speed;
-@property (nonatomic, readonly, getter=isPlaying) BOOL playing;
+@property (nonatomic, readonly) BOOL isComplete;
 
-- (NSTimeInterval)duration;
+- (void)advanceTime:(NSTimeInterval)deltaTime;
 
 @end
