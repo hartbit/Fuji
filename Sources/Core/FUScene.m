@@ -25,7 +25,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 @interface FUScene ()
 
 @property (nonatomic, WEAK) FUGraphicsSettings* graphics;
-@property (nonatomic, strong) NSMutableSet* entities;
+@property (nonatomic, strong) NSMutableArray* entities;
 
 @end
 
@@ -64,11 +64,11 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 #pragma mark - Properties
 
-- (NSMutableSet*)entities
+- (NSMutableArray*)entities
 {
 	if (_entities == nil)
 	{
-		[self setEntities:[NSMutableSet set]];
+		[self setEntities:[NSMutableArray array]];
 	}
 	
 	return _entities;
@@ -98,9 +98,9 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 	[entity setScene:nil];
 }
 
-- (NSSet*)allEntities
+- (NSArray*)allEntities
 {
-	return [NSSet setWithSet:[self entities]];
+	return [NSArray arrayWithArray:[self entities]];
 }
 
 #pragma mark - FUSceneObject Methods

@@ -15,7 +15,7 @@
 
 @interface FUEntity ()
 
-@property (nonatomic, strong) NSMutableSet* components;
+@property (nonatomic, strong) NSMutableArray* components;
 
 + (NSDictionary*)componentProperties;
 + (NSDictionary*)allComponentProperties;

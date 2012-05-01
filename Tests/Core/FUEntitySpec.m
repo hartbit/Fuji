@@ -74,8 +74,7 @@ describe(@"An entity", ^{
 			FUTransform* transform = [entity componentWithClass:[FUTransform class]];
 			expect(transform).toNot.beNil();
 			
-			NSSet* components = [entity allComponents];
-			expect(components).to.haveCountOf(1);
+			NSArray* components = [entity allComponents];
 			expect(components).to.contain(transform);
 		});
 		
@@ -243,8 +242,7 @@ describe(@"An entity", ^{
 			});
 			
 			it(@"has that component", ^{
-				NSSet* components = [entity allComponents];
-				expect(components).to.haveCountOf(2);
+				NSArray* components = [entity allComponents];
 				expect(components).to.contain(component1);
 			});
 			
@@ -282,8 +280,7 @@ describe(@"An entity", ^{
 				});
 				
 				it(@"has both components", ^{
-					NSSet* components = [entity allComponents];
-					expect(components).to.haveCountOf(3);
+					NSArray* components = [entity allComponents];
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
 				});
@@ -308,8 +305,7 @@ describe(@"An entity", ^{
 				});
 				
 				it(@"has three components, including both explicitely created", ^{
-					NSSet* components = [entity allComponents];
-					expect(components).to.haveCountOf(4);
+					NSArray* components = [entity allComponents];
 					expect(components).to.contain(component1);
 					expect(components).to.contain(component2);
 				});
@@ -352,8 +348,7 @@ describe(@"An entity", ^{
 				
 				context(@"getting all the components with a common ancestor of all components", ^{
 					it(@"returns a set with all components", ^{
-						NSSet* components = [entity allComponentsWithClass:[FUTestComponent class]];
-						expect(components).to.haveCountOf(3);
+						NSArray* components = [entity allComponentsWithClass:[FUTestComponent class]];
 						expect(components).to.contain(component1);
 						expect(components).to.contain(component2);
 						expect(components).to.contain(component3);
@@ -362,8 +357,7 @@ describe(@"An entity", ^{
 				
 				context(@"getting all the components with a common ancestor of the last two components", ^{
 					it(@"returns a set with the last two components", ^{
-						NSSet* components = [entity allComponentsWithClass:[FUCommonParentComponent class]];
-						expect(components).to.haveCountOf(2);
+						NSArray* components = [entity allComponentsWithClass:[FUCommonParentComponent class]];
 						expect(components).to.contain(component2);
 						expect(components).to.contain(component3);
 					});
@@ -382,8 +376,7 @@ describe(@"An entity", ^{
 					});
 					
 					it(@"removes it from the entity", ^{
-						NSSet* components = [entity allComponents];
-						expect(components).to.haveCountOf(3);
+						NSArray* components = [entity allComponents];
 						expect(components).to.contain(component1);
 						expect(components).to.contain(component3);
 					});

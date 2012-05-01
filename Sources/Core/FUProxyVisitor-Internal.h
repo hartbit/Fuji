@@ -15,6 +15,6 @@
 
 @interface FUProxyVisitor : FUVisitor
 
-@property (nonatomic, strong, readonly) NSMutableSet* visitors;
+@property (nonatomic, strong, readonly) NSMutableArray* visitors;
 
 @end

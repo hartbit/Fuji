@@ -54,8 +54,7 @@ describe(@"A scene", ^{
 			FUGraphicsSettings* graphicsSettings = [scene componentWithClass:[FUGraphicsSettings class]];
 			expect(graphicsSettings).toNot.beNil();
 			
-			NSSet* components = [scene allComponents];
-			expect(components).to.haveCountOf(1);
+			NSArray* components = [scene allComponents];
 			expect(components).to.contain(graphicsSettings);
 		});
 		
@@ -110,9 +109,7 @@ describe(@"A scene", ^{
 				});
 				
 				it(@"contains the entity", ^{
-					NSSet* entities = [scene allEntities];
-					expect(entities).to.haveCountOf(1);
-					expect(entities).to.contain(entity1);
+					expect([scene allEntities]).to.contain(entity1);
 				});
 				
 				context(@"added another entity", ^{
@@ -133,8 +130,7 @@ describe(@"A scene", ^{
 					});
 					
 					it(@"contains both entity", ^{
-						NSSet* entities = [scene allEntities];
-						expect(entities).to.haveCountOf(2);
+						NSArray* entities = [scene allEntities];
 						expect(entities).to.contain(entity1);
 						expect(entities).to.contain(entity2);
 					});

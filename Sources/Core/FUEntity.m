@@ -122,11 +122,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 #pragma mark - Properties
 
-- (NSMutableSet*)components
+- (NSMutableArray*)components
 {
 	if (_components == nil)
 	{
-		[self setComponents:[NSMutableSet set]];
+		[self setComponents:[NSMutableArray array]];
 	}
 	
 	return _components;
@@ -159,11 +159,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	return nil;
 }
 
-- (NSSet*)allComponentsWithClass:(Class)componentClass
+- (NSArray*)allComponentsWithClass:(Class)componentClass
 {
 	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
-	NSMutableSet* components = [NSMutableSet set];
+	NSMutableArray* components = [NSMutableArray array];
 	
 	for (FUComponent* component in [self components])
 	{
@@ -173,12 +173,12 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 		}
 	}
 	
-	return [NSSet setWithSet:components];
+	return [NSArray arrayWithArray:components];
 }
 
-- (NSSet*)allComponents
+- (NSArray*)allComponents
 {
-	return [NSSet setWithSet:[self components]];
+	return [NSArray arrayWithArray:[self components]];
 }
 
 #pragma mark - FUSceneObject Methods

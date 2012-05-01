@@ -15,7 +15,7 @@
 
 @interface FUProxyVisitor ()
 
-@property (nonatomic, strong) NSMutableSet* visitors;
+@property (nonatomic, strong) NSMutableArray* visitors;
 
 @end
 
@@ -26,11 +26,11 @@
 
 #pragma mark - Properties
 
-- (NSMutableSet*)visitors
+- (NSMutableArray*)visitors
 {
 	if (_visitors == nil)
 	{
-		[self setVisitors:[NSMutableSet set]];
+		[self setVisitors:[NSMutableArray array]];
 	}
 	
 	return _visitors;

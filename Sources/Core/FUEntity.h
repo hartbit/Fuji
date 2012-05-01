@@ -24,7 +24,7 @@
 - (id)addComponentWithClass:(Class)componentClass;
 - (void)removeComponent:(FUComponent*)component;
 - (id)componentWithClass:(Class)componentClass;
-- (NSSet*)allComponentsWithClass:(Class)componentClass;
-- (NSSet*)allComponents;
+- (NSArray*)allComponentsWithClass:(Class)componentClass;
+- (NSArray*)allComponents;
 
 @end

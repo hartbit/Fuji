@@ -16,7 +16,7 @@
 @interface FUSpriteBatch ()
 
 @property (nonatomic, strong) FUTexture* texture;
-@property (nonatomic, strong) NSMutableSet* sprites;
+@property (nonatomic, strong) NSMutableArray* sprites;
 
 @end
 
@@ -47,11 +47,11 @@
 	return [[self sprites] count];
 }
 
-- (NSMutableSet*)sprites
+- (NSMutableArray*)sprites
 {
 	if (_sprites == nil)
 	{
-		[self setSprites:[NSMutableSet set]];
+		[self setSprites:[NSMutableArray array]];
 	}
 	
 	return _sprites;
@@ -66,7 +66,6 @@
 
 - (void)removeSprite:(FUSpriteRenderer*)sprite
 {
-	FUAssert([[self sprites] containsObject:sprite], @"");
 	[[self sprites] removeObject:sprite];
 }
 

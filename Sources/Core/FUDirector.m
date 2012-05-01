@@ -32,7 +32,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @property (nonatomic, strong) FUAssetStore* assetStore;
 @property (nonatomic, strong) FUScene* scene;
 @property (nonatomic, strong) EAGLContext* context;
-@property (nonatomic, strong) NSMutableSet* engines;
+@property (nonatomic, strong) NSMutableArray* engines;
 @property (nonatomic, strong) FUProxyVisitor* registrationVisitor;
 @property (nonatomic, strong) FUProxyVisitor* unregistrationVisitor;
 
@@ -101,11 +101,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	}
 }
 
-- (NSMutableSet*)engines
+- (NSMutableArray*)engines
 {
 	if (_engines == nil)
 	{
-		[self setEngines:[NSMutableSet set]];
+		[self setEngines:[NSMutableArray array]];
 	}
 	
 	return _engines;
@@ -157,9 +157,9 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	}
 }
 
-- (NSSet*)allEngines
+- (NSArray*)allEngines
 {
-	return [NSSet setWithSet:[self engines]];
+	return [NSArray arrayWithArray:[self engines]];
 }
 
 - (void)loadScene:(FUScene*)scene

@@ -25,6 +25,6 @@
 
 - (FUEntity*)createEntity;
 - (void)removeEntity:(FUEntity*)entity;
-- (NSSet*)allEntities;
+- (NSArray*)allEntities;
 
 @end

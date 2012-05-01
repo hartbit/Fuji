@@ -293,7 +293,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 - (void)checkTextureChanges
 {
-	NSMutableSet* spritesToUpdate = [NSMutableSet set];
+	NSMutableArray* spritesToUpdate = [NSMutableArray array];
 	
 	[[self spriteBatches] enumerateKeysAndObjectsUsingBlock:^(id textureKey, FUSpriteBatch* batch, BOOL* stop) {
 		for (FUSpriteRenderer* sprite in batch)

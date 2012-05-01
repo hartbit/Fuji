@@ -67,9 +67,13 @@ describe(@"A director", ^{
 		});
 		
 		it(@"has a graphics engine", ^{
-			NSSet* engines = [director allEngines];
-			expect(engines).to.haveCountOf(1);
-			expect([engines anyObject]).to.beKindOf([FUGraphicsEngine class]);
+			for (FUEngine* engine in [director allEngines]) {
+				if ([engine isKindOfClass:[FUGraphicsEngine class]]) {
+					return;
+				}
+			}
+			
+		   STFail(nil);
 		});
 		
 		it(@"automatically rotates in all orientations", ^{
@@ -120,9 +124,7 @@ describe(@"A director", ^{
 			});
 			
 			it(@"contains the engine", ^{
-				NSSet* engines = [director allEngines];
-				expect(engines).to.haveCountOf(2);
-				expect(engines).to.contain(engine);
+				expect([director allEngines]).to.contain(engine);
 			});
 			
 			context(@"adding the same engine again", ^{
