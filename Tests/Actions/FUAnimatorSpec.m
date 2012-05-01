@@ -46,9 +46,18 @@ describe(@"An animator", ^{
 			});
 			
 			context(@"advancing time", ^{
-				it(@"advances time on the actions", ^{
+				it(@"advances time on the incomplete action", ^{
 					[animator advanceTime:1.5f];
 					[verify(action1) advanceTime:1.5f];
+					[verifyCount(action2, never()) advanceTime:1.5f];
+				});
+			});
+			
+			context(@"advancing time with an action that completes later", ^{
+				it(@"advances time on none of the actions", ^{
+					[given([action1 isComplete]) willReturnBool:NO];
+					[animator advanceTime:1.5f];
+					[verifyCount(action2, never()) advanceTime:1.5f];
 					[verifyCount(action2, never()) advanceTime:1.5f];
 				});
 			});
