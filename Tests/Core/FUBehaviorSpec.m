@@ -28,8 +28,8 @@ describe(@"A behavior object", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUScene* scene = nil;
-		__block FUBehavior* behavior = nil;
+		__block FUScene* scene;
+		__block FUBehavior* behavior;
 		
 		beforeEach(^{
 			scene = mock([FUScene class]);

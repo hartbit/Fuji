@@ -26,7 +26,7 @@ describe(@"A sprite renderer component", ^{
 	});
 	
 	context(@"initiailized", ^{
-		__block FUSpriteRenderer* spriteRenderer = nil;
+		__block FUSpriteRenderer* spriteRenderer;
 		
 		beforeEach(^{
 			FUEntity* entity = mock([FUEntity class]);

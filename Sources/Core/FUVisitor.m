@@ -24,7 +24,7 @@
 		return NULL;
 	}
 	
-	static NSMutableDictionary* sSelectors = nil;
+	static NSMutableDictionary* sSelectors;
 	
 	if (sSelectors == nil)
 	{

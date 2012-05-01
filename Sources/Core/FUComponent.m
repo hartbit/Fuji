@@ -35,7 +35,7 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 + (NSSet*)allRequiredComponents
 {
-	static NSMutableDictionary* sComponents = nil;
+	static NSMutableDictionary* sComponents;
 	
 	if (sComponents == nil)
 	{

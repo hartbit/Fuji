@@ -22,7 +22,7 @@ describe(@"The graphics engine", ^{
 	});
 	
 	context(@"initialized a graphics engine", ^{
-		__block FUGraphicsEngine* graphicsEngine = nil;
+		__block FUGraphicsEngine* graphicsEngine;
 		
 		beforeEach(^{
 			EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];

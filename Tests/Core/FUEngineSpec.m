@@ -23,7 +23,7 @@ describe(@"An engine", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUEngine* engine = nil;
+		__block FUEngine* engine;
 		
 		beforeEach(^{
 			engine = [FUEngine new];

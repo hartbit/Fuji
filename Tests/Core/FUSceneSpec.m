@@ -28,7 +28,7 @@ describe(@"A scene", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUScene* scene = nil;
+		__block FUScene* scene;
 		
 		beforeEach(^{
 			scene = [FUScene scene];
@@ -84,7 +84,7 @@ describe(@"A scene", ^{
 		});
 		
 		context(@"set a director on the scene", ^{
-			__block FUDirector* director = nil;
+			__block FUDirector* director;
 			
 			beforeEach(^{
 				director = mock([FUDirector class]);
@@ -92,7 +92,7 @@ describe(@"A scene", ^{
 			});
 			
 			context(@"created an entity", ^{
-				__block FUEntity* entity1 = nil;
+				__block FUEntity* entity1;
 				
 				beforeEach(^{
 					entity1 = [scene createEntity];
@@ -113,7 +113,7 @@ describe(@"A scene", ^{
 				});
 				
 				context(@"added another entity", ^{
-					__block FUEntity* entity2 = nil;
+					__block FUEntity* entity2;
 					
 					beforeEach(^{
 						entity2 = [scene createEntity];
@@ -171,8 +171,8 @@ describe(@"A scene", ^{
 	});
 	
 	context(@"initialized a test scene with a mock entity", ^{
-		__block FUTestScene* scene = nil;
-		__block FUEntity* entity = nil;
+		__block FUTestScene* scene;
+		__block FUEntity* entity;
 		
 		beforeEach(^{
 			scene = [FUTestScene scene];

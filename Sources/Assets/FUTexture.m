@@ -30,7 +30,7 @@
 
 + (GLKTextureLoader*)asynchronousLoader
 {
-	static NSMutableDictionary* sTextureLoaders = nil;
+	static NSMutableDictionary* sTextureLoaders;
 	
 	if (sTextureLoaders == nil)
 	{
@@ -71,7 +71,7 @@
 {
 	NSString* path = [[self class] pathWithName:name];
 	
-	NSError* error = nil;
+	NSError* error;
 	GLKTextureInfo* textureInfo = [GLKTextureLoader textureWithContentsOfFile:path options:nil error:&error];
 	FUAssert(textureInfo != nil, [error localizedDescription]);
 	

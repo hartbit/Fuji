@@ -31,7 +31,7 @@ describe(@"A director", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUDirector* director = nil;
+		__block FUDirector* director;
 		
 		beforeEach(^{
 			director = [FUDirector new];
@@ -106,9 +106,9 @@ describe(@"A director", ^{
 		});
 			
 		context(@"created and added a mock engine", ^{
-			__block FUEngine* engine = nil;
-			__block FUVisitor* registrationVisitor = nil;
-			__block FUVisitor* unregistrationVisitor = nil;
+			__block FUEngine* engine;
+			__block FUVisitor* registrationVisitor;
+			__block FUVisitor* unregistrationVisitor;
 			
 			beforeEach(^{
 				engine = mock([FUEngine class]);
@@ -148,7 +148,7 @@ describe(@"A director", ^{
 			});
 			
 			context(@"load a mock scene", ^{
-				__block FUScene* scene = nil;
+				__block FUScene* scene;
 				
 				beforeEach(^{
 					scene = mock([FUScene class]);
@@ -192,7 +192,7 @@ describe(@"A director", ^{
 				});
 				
 				context(@"initialized a scene object", ^{
-					__block FUSceneObject* sceneObject = nil;
+					__block FUSceneObject* sceneObject;
 					
 					beforeEach(^{
 						sceneObject = [[FUSceneObject alloc] initWithScene:scene];

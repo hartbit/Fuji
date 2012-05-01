@@ -30,7 +30,7 @@ describe(@"An asset store", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUAssetStore* assetStore = nil;
+		__block FUAssetStore* assetStore;
 		
 		beforeEach(^{
 			assetStore = [FUAssetStore new];

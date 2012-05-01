@@ -55,9 +55,9 @@ describe(@"An entity", ^{
 	});
 	
 	context(@"initialized with a valid scene", ^{
-		__block FUDirector* director = nil;
-		__block FUScene* scene = nil;
-		__block FUEntity* entity = nil;
+		__block FUDirector* director;
+		__block FUScene* scene;
+		__block FUEntity* entity;
 		
 		beforeEach(^{
 			director = mock([FUDirector class]);
@@ -225,7 +225,7 @@ describe(@"An entity", ^{
 		});
 		
 		context(@"added a unique component", ^{
-			__block FUUniqueChild1Component* component1 = nil;
+			__block FUUniqueChild1Component* component1;
 			
 			beforeEach(^{
 				component1 = [entity addComponentWithClass:[FUUniqueChild1Component class]];
@@ -265,7 +265,7 @@ describe(@"An entity", ^{
 			});
 			
 			context(@"added a non-unique component", ^{
-				__block FUTestComponent* component2 = nil;
+				__block FUTestComponent* component2;
 				
 				beforeEach(^{
 					component2 = [entity addComponentWithClass:[FUTestComponent class]];
@@ -287,8 +287,8 @@ describe(@"An entity", ^{
 			});
 			
 			context(@"added a component that requires the unique parent component and another one", ^{
-				__block FURequireRequiredComponent* component2 = nil;
-				__block FURequiredComponent* component3 = nil;
+				__block FURequireRequiredComponent* component2;
+				__block FURequiredComponent* component3;
 				
 				beforeEach(^{
 					component2 = [entity addComponentWithClass:[FURequireRequiredComponent class]];
@@ -406,7 +406,7 @@ describe(@"An entity", ^{
 	});
 	
 	context(@"initialized a test entity", ^{
-		__block FUTestEntity* entity = nil;
+		__block FUTestEntity* entity;
 		
 		beforeEach(^{
 			entity = [[FUTestEntity alloc] initWithScene:mock([FUScene class])];
@@ -417,7 +417,7 @@ describe(@"An entity", ^{
 		});
 			
 		context(@"adding a mock component", ^{
-			__block FUComponent* component = nil;
+			__block FUComponent* component;
 				
 			beforeEach(^{
 				component = [entity addComponentWithClass:[FUComponent class]];

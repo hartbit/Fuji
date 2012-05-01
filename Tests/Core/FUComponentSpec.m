@@ -46,9 +46,9 @@ describe(@"A component object", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUScene* scene = nil;
-		__block FUEntity* entity = nil;
-		__block FUComponent* component = nil;
+		__block FUScene* scene;
+		__block FUEntity* entity;
+		__block FUComponent* component;
 		
 		beforeEach(^{
 			scene = mock([FUScene class]);

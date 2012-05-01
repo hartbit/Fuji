@@ -56,7 +56,7 @@
 // From http://lukeredpath.co.uk/blog/a-note-on-objective-c-singletons.html
 #define FU_SINGLETON_WITH_BLOCK(block) \
 	static dispatch_once_t __predicate = 0; \
-	__strong static id __singleton = nil; \
+	__strong static id __singleton; \
 	dispatch_once(&__predicate, ^{ \
 		__singleton = block(); \
 	}); \

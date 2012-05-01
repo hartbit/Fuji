@@ -23,7 +23,7 @@ describe(@"A transform component", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUTransform* transform = nil;
+		__block FUTransform* transform;
 		
 		beforeEach(^{
 			FUEntity* entity = mock([FUEntity class]);

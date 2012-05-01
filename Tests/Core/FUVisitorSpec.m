@@ -35,7 +35,7 @@ SPEC_BEGIN(FUVisitor)
 
 describe(@"A visitor", ^{	
 	context(@"created a child scene object", ^{
-		__block FUChildSceneObject* sceneObject = nil;
+		__block FUChildSceneObject* sceneObject;
 		
 		beforeEach(^{
 			sceneObject = [[FUChildSceneObject alloc] initWithScene:mock([FUScene class])];

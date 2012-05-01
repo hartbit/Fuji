@@ -86,7 +86,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 + (NSDictionary*)allComponentProperties
 {
-	static NSMutableDictionary* sProperties = nil;
+	static NSMutableDictionary* sProperties;
 	
 	if (sProperties == nil)
 	{

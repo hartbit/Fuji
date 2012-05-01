@@ -19,7 +19,7 @@ static NSString* const kPadSuffix = @"~iphone";
 
 + (NSSet*)platformSuffixes
 {
-	static NSSet* kPlatformSuffixes = nil;
+	static NSSet* kPlatformSuffixes;
 	
 	if (kPlatformSuffixes == nil)
 	{

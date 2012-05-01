@@ -23,7 +23,7 @@
 
 + (NSBundle*)currentBundle
 {
-	static NSBundle* sCurrentBundle = nil;
+	static NSBundle* sCurrentBundle;
 	
 	if (sCurrentBundle == nil)
 	{
@@ -41,8 +41,8 @@
 	NSString* scaleSuffix = [[UIScreen mainScreen] scaleSuffix];
 	BOOL hasScaleSuffix = [scaleSuffix length] != 0;
 	
-	NSString* nameWithSuffix = nil;
-	NSString* path = nil;
+	NSString* nameWithSuffix;
+	NSString* path;
 	
 	if (hasScaleSuffix)
 	{

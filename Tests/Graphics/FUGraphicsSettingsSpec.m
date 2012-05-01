@@ -22,7 +22,7 @@ describe(@"The graphics settings", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUGraphicsSettings* graphics = nil;
+		__block FUGraphicsSettings* graphics;
 		
 		beforeEach(^{
 			FUEntity* entity = mock([FUEntity class]);
