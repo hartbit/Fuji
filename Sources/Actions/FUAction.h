@@ -1,5 +1,5 @@
 //
-//  FUAnimatable.h
+//  FUAction.h
 //  Fuji
 //
 //  Created by David Hart
@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol FUAnimatable
+@protocol FUAction
 
 @property (nonatomic, readonly) BOOL isComplete;
 

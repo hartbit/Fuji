@@ -17,7 +17,7 @@ SPEC_BEGIN(FUAnimator)
 
 describe(@"An animator", ^{
 	it(@"is animatable", ^{
-		expect([[FUAnimator class] conformsToProtocol:@protocol(FUAnimatable)]).to.beTruthy();
+		expect([[FUAnimator class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
 	
 	context(@"initialized", ^{
@@ -31,22 +31,25 @@ describe(@"An animator", ^{
 			expect(animator).toNot.beNil();
 		});
 		
-		context(@"adding two animatables", ^{
-			__block id<FUAnimatable> animatable1;
-			__block id<FUAnimatable> animatable2;
+		context(@"adding two actions", ^{
+			__block id<FUAction> action1;
+			__block id<FUAction> action2;
 			
 			beforeEach(^{
-				animatable1 = mockProtocol(@protocol(FUAnimatable));
-				[animator playAnimatable:animatable1];
-				animatable2 = mockProtocol(@protocol(FUAnimatable));
-				[animator playAnimatable:animatable2];
+				action1 = mockProtocol(@protocol(FUAction));
+				[given([action2 isComplete]) willReturnBool:NO];
+				[animator playAction:action1];
+				
+				action2 = mockProtocol(@protocol(FUAction));
+				[given([action2 isComplete]) willReturnBool:YES];
+				[animator playAction:action2];
 			});
 			
 			context(@"advancing time", ^{
-				it(@"advances time on the animatables", ^{
+				it(@"advances time on the actions", ^{
 					[animator advanceTime:1.5f];
-					[verify(animatable1) advanceTime:1.5f];
-					[verify(animatable2) advanceTime:1.5f];
+					[verify(action1) advanceTime:1.5f];
+					[verifyCount(action2, never()) advanceTime:1.5f];
 				});
 			});
 		});

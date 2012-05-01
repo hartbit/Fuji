@@ -27,9 +27,9 @@
 #import "FUComponent.h"
 #import "FUBehavior.h"
 
-// Animations
+// Actions
 
-#import "FUAnimatable.h"
+#import "FUAction.h"
 #import "FUAnimator.h"
 
 // Assets

@@ -10,14 +10,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUAnimatable.h"
+#import "FUAction.h"
 
 
-@interface FUAnimator : NSObject <FUAnimatable>
+@interface FUAnimator : NSObject <FUAction>
 
 @property (nonatomic, readonly) BOOL isComplete;
 
-- (void)playAnimatable:(id<FUAnimatable>)animatable;
+- (void)playAction:(id<FUAction>)action;
 - (void)advanceTime:(NSTimeInterval)deltaTime;
 
 @end
