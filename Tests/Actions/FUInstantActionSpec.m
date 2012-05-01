@@ -19,6 +19,26 @@ describe(@"An instant action", ^{
 	it(@"is a finite action", ^{
 		expect([FUInstantAction class]).to.beSubclassOf([FUFiniteAction class]);
 	});
+	
+	context(@"initialized", ^{
+		__block FUInstantAction* instantAction;
+		
+		beforeEach(^{
+			instantAction = [FUInstantAction new];
+		});
+		
+		it(@"is not nil", ^{
+			expect(instantAction).toNot.beNil();
+		});
+		
+		it(@"has a duration of 0", ^{
+			expect([instantAction duration]).to.equal(0);
+		});
+		
+		it(@"the reverse is itself", ^{
+			expect([instantAction reverse]).to.beIdenticalTo(instantAction);
+		});
+	});
 });
 
 SPEC_END
