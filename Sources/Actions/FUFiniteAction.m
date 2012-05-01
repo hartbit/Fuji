@@ -23,6 +23,13 @@
 	return NO;
 }
 
+#pragma mark - FUFiniteAction Methods
+
+- (FUFiniteAction*)reverse
+{
+	return self;
+}
+
 #pragma mark - FUAction Methods
 
 - (void)advanceTime:(NSTimeInterval)deltaTime

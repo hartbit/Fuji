@@ -15,6 +15,7 @@
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly) BOOL isComplete;
 
+- (FUFiniteAction*)reverse;
 - (void)advanceTime:(NSTimeInterval)deltaTime;
 
 @end

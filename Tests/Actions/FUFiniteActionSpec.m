@@ -34,6 +34,10 @@ describe(@"A finite action", ^{
 		it(@"has a duration of 0", ^{
 			expect([finiteAction duration]).to.equal(0);
 		});
+		
+		it(@"the reverse is itself", ^{
+			expect([finiteAction reverse]).to.beIdenticalTo(finiteAction);
+		});
 	});
 });
 
