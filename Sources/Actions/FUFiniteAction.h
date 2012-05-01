@@ -12,6 +12,7 @@
 
 @interface FUFiniteAction : NSObject <FUAction>
 
+@property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly) BOOL isComplete;
 
 - (void)advanceTime:(NSTimeInterval)deltaTime;

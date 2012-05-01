@@ -13,6 +13,11 @@
 
 #pragma mark - Properties
 
+- (NSTimeInterval)duration
+{
+	return 0;
+}
+
 - (BOOL)isComplete
 {
 	return NO;

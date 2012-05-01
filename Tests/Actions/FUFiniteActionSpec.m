@@ -19,6 +19,22 @@ describe(@"A finite action", ^{
 	it(@"is an action", ^{
 		expect([[FUFiniteAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
+	
+	context(@"initialized", ^{
+		__block FUFiniteAction* finiteAction;
+		
+		beforeEach(^{
+			finiteAction = [FUFiniteAction new];
+		});
+		
+		it(@"is not nil", ^{
+			expect(finiteAction).toNot.beNil();
+		});
+		
+		it(@"has a duration of 0", ^{
+			expect([finiteAction duration]).to.equal(0);
+		});
+	});
 });
 
 SPEC_END
