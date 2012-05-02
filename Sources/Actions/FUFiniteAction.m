@@ -46,7 +46,7 @@
 
 #pragma mark - FUAction Methods
 
-- (void)advanceTime:(NSTimeInterval)deltaTime
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	NSTimeInterval duration = [self duration];
 	NSTimeInterval time = [self time] + deltaTime;

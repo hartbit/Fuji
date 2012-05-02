@@ -46,24 +46,24 @@ describe(@"An animator", ^{
 			});
 			
 			it(@"advanced time by 0 to kick-off initilization on un-complete actions", ^{
-				[verify(action1) advanceTime:0];
-				[verifyCount(action2, never()) advanceTime:0];
+				[verify(action1) updateWithDeltaTime:0];
+				[verifyCount(action2, never()) updateWithDeltaTime:0];
 			});
 			
 			context(@"advancing time", ^{
 				it(@"advances time on the incomplete action", ^{
-					[animator advanceTime:1.5f];
-					[verify(action1) advanceTime:1.5f];
-					[verifyCount(action2, never()) advanceTime:1.5f];
+					[animator updateWithDeltaTime:1.5f];
+					[verify(action1) updateWithDeltaTime:1.5f];
+					[verifyCount(action2, never()) updateWithDeltaTime:1.5f];
 				});
 			});
 			
 			context(@"advancing time with all actions complete", ^{
 				it(@"advances time on none of the actions", ^{
 					[given([action1 isComplete]) willReturnBool:YES];
-					[animator advanceTime:2.0f];
-					[verifyCount(action2, never()) advanceTime:2.0f];
-					[verifyCount(action2, never()) advanceTime:2.0f];
+					[animator updateWithDeltaTime:2.0f];
+					[verifyCount(action2, never()) updateWithDeltaTime:2.0f];
+					[verifyCount(action2, never()) updateWithDeltaTime:2.0f];
 				});
 			});
 		});

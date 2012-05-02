@@ -19,7 +19,7 @@
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
 - (FUFiniteAction*)reverse;
-- (void)advanceTime:(NSTimeInterval)deltaTime;
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 - (void)updateWithFactor:(float)factor;
 
 @end

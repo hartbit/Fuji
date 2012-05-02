@@ -48,7 +48,7 @@ describe(@"A finite action", ^{
 		
 		context(@"advancing time", ^{
 			it(@"makes it complete", ^{
-				[action advanceTime:0];
+				[action updateWithDeltaTime:0];
 				expect([action isComplete]).to.beTruthy();
 			});
 		});
@@ -75,7 +75,7 @@ describe(@"A finite action", ^{
 		
 		context(@"advanced time of 0.5 seconds", ^{
 			beforeEach(^{
-				[action advanceTime:0.5];
+				[action updateWithDeltaTime:0.5];
 			});
 			
 			it(@"is not complete", ^{
@@ -84,7 +84,7 @@ describe(@"A finite action", ^{
 			
 			context(@"advanced time of 0.5 seconds", ^{
 				beforeEach(^{
-					[action advanceTime:0.5];
+					[action updateWithDeltaTime:0.5];
 				});
 				
 				it(@"is complete", ^{
@@ -94,7 +94,7 @@ describe(@"A finite action", ^{
 			
 			context(@"advanced time of -0.51 seconds", ^{
 				beforeEach(^{
-					[action advanceTime:0.51];
+					[action updateWithDeltaTime:-0.51];
 				});
 				
 				it(@"is not complete", ^{

@@ -50,12 +50,12 @@
 	}
 	
 	[[self actions] addObject:action];
-	[action advanceTime:0];
+	[action updateWithDeltaTime:0];
 }
 
 #pragma mark - FUAction Methods
 
-- (void)advanceTime:(NSTimeInterval)deltaTime
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	__block NSMutableIndexSet* completeIndices;
 	
@@ -71,7 +71,7 @@
 		}
 		else
 		{
-			[action advanceTime:deltaTime];
+			[action updateWithDeltaTime:deltaTime];
 		}
 	}];
 	
