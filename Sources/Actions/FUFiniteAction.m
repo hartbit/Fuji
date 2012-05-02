@@ -48,6 +48,11 @@
 
 - (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
+	if ([self isComplete])
+	{
+		return;
+	}
+	
 	NSTimeInterval duration = [self duration];
 	NSTimeInterval time = [self time] + deltaTime;
 	

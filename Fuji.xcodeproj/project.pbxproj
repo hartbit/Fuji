@@ -68,6 +68,10 @@
 		6382278C151A2BA40009D036 /* FUScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* FUScene.m */; };
 		6382278D151A2BA40009D036 /* FUGraphicsSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6382275F1519E38B0009D036 /* FUGraphicsSettings.m */; };
 		6382278E151A2BA40009D036 /* FUTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 63822768151A1B300009D036 /* FUTransform.m */; };
+		6384354C155188AC00313BB2 /* FUBlockActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384354B155188AC00313BB2 /* FUBlockActionSpec.m */; };
+		63843550155189D300313BB2 /* FUBlockAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6384354E155189D300313BB2 /* FUBlockAction.h */; };
+		63843551155189D300313BB2 /* FUBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384354F155189D300313BB2 /* FUBlockAction.m */; };
+		63843552155189D300313BB2 /* FUBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384354F155189D300313BB2 /* FUBlockAction.m */; };
 		63925259151214EA005B3FEC /* FUComponentSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925256151214EA005B3FEC /* FUComponentSpec.m */; };
 		6392525A151214EA005B3FEC /* FUEntitySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925257151214EA005B3FEC /* FUEntitySpec.m */; };
 		6392525B151214EA005B3FEC /* FUSceneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63925258151214EA005B3FEC /* FUSceneSpec.m */; };
@@ -171,6 +175,9 @@
 		63822779151A2A030009D036 /* FUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUColor.m; sourceTree = "<group>"; };
 		6382277A151A2A030009D036 /* FUMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUMath.h; sourceTree = "<group>"; };
 		6382277B151A2A030009D036 /* FUMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUMath.m; sourceTree = "<group>"; };
+		6384354B155188AC00313BB2 /* FUBlockActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBlockActionSpec.m; sourceTree = "<group>"; };
+		6384354E155189D300313BB2 /* FUBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBlockAction.h; sourceTree = "<group>"; };
+		6384354F155189D300313BB2 /* FUBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBlockAction.m; sourceTree = "<group>"; };
 		639252531512138E005B3FEC /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		63925256151214EA005B3FEC /* FUComponentSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponentSpec.m; sourceTree = "<group>"; };
 		63925257151214EA005B3FEC /* FUEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUEntitySpec.m; sourceTree = "<group>"; };
@@ -418,6 +425,7 @@
 			children = (
 				634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */,
 				634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */,
+				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -428,6 +436,7 @@
 				634E2A88155018A20012C4FB /* FUAction.h */,
 				634E2A87155018A20012C4FB /* FUAnimator.h */,
 				634E2A9815501BC50012C4FB /* FUFiniteAction.h */,
+				6384354E155189D300313BB2 /* FUBlockAction.h */,
 			);
 			name = "Public Headers";
 			sourceTree = "<group>";
@@ -437,6 +446,7 @@
 			children = (
 				634E2A8B155018A70012C4FB /* FUAnimator.m */,
 				634E2A9915501BC50012C4FB /* FUFiniteAction.m */,
+				6384354F155189D300313BB2 /* FUBlockAction.m */,
 			);
 			name = "Implementation Files";
 			sourceTree = "<group>";
@@ -612,6 +622,7 @@
 				634E2A89155018A20012C4FB /* FUAnimator.h in Headers */,
 				634E2A8A155018A20012C4FB /* FUAction.h in Headers */,
 				634E2A9A15501BC50012C4FB /* FUFiniteAction.h in Headers */,
+				63843550155189D300313BB2 /* FUBlockAction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +767,7 @@
 				63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */,
 				634E2A8C155018A70012C4FB /* FUAnimator.m in Sources */,
 				634E2A9B15501BC50012C4FB /* FUFiniteAction.m in Sources */,
+				63843551155189D300313BB2 /* FUBlockAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -808,6 +820,8 @@
 				634E2A90155018BE0012C4FB /* FUAnimatorSpec.m in Sources */,
 				634E2A9715501B820012C4FB /* FUFiniteActionSpec.m in Sources */,
 				634E2A9C15501BC50012C4FB /* FUFiniteAction.m in Sources */,
+				6384354C155188AC00313BB2 /* FUBlockActionSpec.m in Sources */,
+				63843552155189D300313BB2 /* FUBlockAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
