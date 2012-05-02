@@ -14,7 +14,7 @@
 
 @protocol FUAction
 
-@property (nonatomic, readonly) BOOL isComplete;
+@property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
 - (void)advanceTime:(NSTimeInterval)deltaTime;
 

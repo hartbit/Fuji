@@ -44,7 +44,13 @@
 
 - (void)runAction:(id<FUAction>)action
 {
+	if ([action isComplete])
+	{
+		return;
+	}
+	
 	[[self actions] addObject:action];
+	[action advanceTime:0];
 }
 
 #pragma mark - FUAction Methods

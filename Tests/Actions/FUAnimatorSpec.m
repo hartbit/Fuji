@@ -37,12 +37,17 @@ describe(@"An animator", ^{
 			
 			beforeEach(^{
 				action1 = mockProtocol(@protocol(FUAction));
-				[given([action2 isComplete]) willReturnBool:NO];
+				[given([action1 isComplete]) willReturnBool:NO];
 				[animator runAction:action1];
 				
 				action2 = mockProtocol(@protocol(FUAction));
 				[given([action2 isComplete]) willReturnBool:YES];
 				[animator runAction:action2];
+			});
+			
+			it(@"advanced time by 0 to kick-off initilization on un-complete actions", ^{
+				[verify(action1) advanceTime:0];
+				[verifyCount(action2, never()) advanceTime:0];
 			});
 			
 			context(@"advancing time", ^{
@@ -53,12 +58,12 @@ describe(@"An animator", ^{
 				});
 			});
 			
-			context(@"advancing time with an action that completes later", ^{
+			context(@"advancing time with all actions complete", ^{
 				it(@"advances time on none of the actions", ^{
-					[given([action1 isComplete]) willReturnBool:NO];
-					[animator advanceTime:1.5f];
-					[verifyCount(action2, never()) advanceTime:1.5f];
-					[verifyCount(action2, never()) advanceTime:1.5f];
+					[given([action1 isComplete]) willReturnBool:YES];
+					[animator advanceTime:2.0f];
+					[verifyCount(action2, never()) advanceTime:2.0f];
+					[verifyCount(action2, never()) advanceTime:2.0f];
 				});
 			});
 		});

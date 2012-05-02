@@ -17,6 +17,8 @@
 extern const GLKVector2 GLKVector2Zero;
 extern const GLKVector2 GLKVector2One;
 
+#pragma mark - RNG Functions
+
 static inline double FURandomUnit()
 {
 	return (double)arc4random() / 0x100000000;
@@ -40,4 +42,12 @@ static inline NSInteger FURandomInteger(NSInteger min, NSInteger max)
 static inline FUColor FURandomColor()
 {
 	return FUColorMake(FURandomByte(), FURandomByte(), FURandomByte(), FURandomByte());
+}
+
+#pragma mark - General Math Functions
+
+static inline double FUClamp(double value, double min, double max)
+{
+	FUAssert(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
+	return MIN(MAX(value, min), max);
 }
