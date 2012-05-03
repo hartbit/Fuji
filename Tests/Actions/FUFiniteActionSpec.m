@@ -38,10 +38,6 @@ describe(@"A finite action", ^{
 			expect([action duration]).to.equal(0);
 		});
 		
-		it(@"the reverse is itself", ^{
-			expect([action reverse]).to.beIdenticalTo(action);
-		});
-		
 		it(@"is not complete", ^{
 			expect([action isComplete]).to.beFalsy();
 		});

@@ -18,7 +18,6 @@
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
-- (FUFiniteAction*)reverse;
 - (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 - (void)updateWithFactor:(float)factor;
 

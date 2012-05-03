@@ -35,11 +35,6 @@
 
 #pragma mark - FUFiniteAction Methods
 
-- (FUFiniteAction*)reverse
-{
-	return self;
-}
-
 - (void)updateWithFactor:(float)factor
 {
 }
