@@ -13,6 +13,9 @@
 #import "Fuji.h"
 
 
+@interface FUTestAction : NSObject <FUAction> @end
+
+
 SPEC_BEGIN(FUAnimator)
 
 describe(@"An animator", ^{
@@ -32,15 +35,15 @@ describe(@"An animator", ^{
 		});
 		
 		context(@"adding two actions", ^{
-			__block id<FUAction> action1;
-			__block id<FUAction> action2;
+			__block NSObject<FUAction>* action1;
+			__block NSObject<FUAction>* action2;
 			
 			beforeEach(^{
-				action1 = mockProtocol(@protocol(FUAction));
+				action1 = mock([FUTestAction class]);
 				[given([action1 isComplete]) willReturnBool:NO];
 				[animator runAction:action1];
 				
-				action2 = mockProtocol(@protocol(FUAction));
+				action2 = mock([FUTestAction class]);
 				[given([action2 isComplete]) willReturnBool:YES];
 				[animator runAction:action2];
 			});
@@ -66,8 +69,45 @@ describe(@"An animator", ^{
 					[verifyCount(action2, never()) updateWithDeltaTime:2.0f];
 				});
 			});
+			
+			context(@"created a copy", ^{
+				__block FUAnimator* animatorCopy;
+				__block id<FUAction> action1Copy;
+				__block id<FUAction> action2Copy;
+				
+				beforeEach(^{
+					action1Copy = mockProtocol(@protocol(FUAction));
+					[given([action1 copy]) willReturn:action1Copy];
+					
+					action2Copy = mockProtocol(@protocol(FUAction));
+					[given([action2 copy]) willReturn:action2Copy];
+					
+					animatorCopy = [animator copy];
+				});
+				
+				it(@"is different", ^{
+					expect(animatorCopy).toNot.beIdenticalTo(animator);
+				});
+				
+				context(@"advancing time", ^{
+					it(@"advances time on the incomplete copied actions", ^{
+						[animatorCopy updateWithDeltaTime:1.0];
+						[verifyCount(action1, never()) updateWithDeltaTime:1.0];
+						[verifyCount(action2, never()) updateWithDeltaTime:1.0];
+						[verify(action1Copy) updateWithDeltaTime:1.0];
+						[verifyCount(action2Copy, never()) updateWithDeltaTime:1.0];
+					});
+				});
+			});
 		});
 	});
 });
 
 SPEC_END
+
+
+@implementation FUTestAction
+- (id)copyWithZone:(NSZone*)zone { return nil; }
+- (BOOL)isComplete { return NO; }
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime { }
+@end

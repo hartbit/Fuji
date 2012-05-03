@@ -14,7 +14,7 @@
 
 @interface FUBlockAction ()
 
-@property (nonatomic, strong) void (^block)();
+@property (nonatomic, copy) void (^block)();
 
 @end
 
@@ -22,6 +22,20 @@
 @implementation FUBlockAction
 
 @synthesize block = _block;
+
+#pragma mark - Initialization
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	id copy;
+	
+	if ((copy = [super copyWithZone:zone]))
+	{
+		[copy setBlock:[self block]];
+	}
+	
+	return copy;
+}
 
 #pragma mark - Initialization
 

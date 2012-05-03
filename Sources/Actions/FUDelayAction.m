@@ -25,6 +25,20 @@
 
 #pragma mark - Initialization
 
+- (id)copyWithZone:(NSZone*)zone
+{
+	id copy;
+	
+	if ((copy = [super copyWithZone:zone]))
+	{
+		[copy setDelay:[self delay]];
+	}
+	
+	return copy;
+}
+
+#pragma mark - Initialization
+
 + (FUDelayAction*)actionWithDelay:(NSTimeInterval)delay
 {
 	return [[self alloc] initWithDelay:delay];

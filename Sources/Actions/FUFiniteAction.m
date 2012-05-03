@@ -26,6 +26,21 @@
 @synthesize time = _time;
 @synthesize complete = _complete;
 
+#pragma mark - Initialization
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	id copy;
+	
+	if ((copy = [[self class] new]))
+	{
+		[copy setTime:[self time]];
+		[copy setComplete:[self isComplete]];
+	}
+	
+	return copy;
+}
+
 #pragma mark - Properties
 
 - (NSTimeInterval)duration

@@ -56,9 +56,42 @@ describe(@"A block action", ^{
 				expect(callCount).to.equal(1);
 			});
 			
+			context(@"creating a copy", ^{
+				it(@"is complete", ^{
+					FUBlockAction* copy = [action copy];
+					expect([copy isComplete]).to.beTruthy();
+				});
+			});
+			
 			context(@"updating the action a second time", ^{
 				it(@"does not call the block again", ^{
 					[action updateWithDeltaTime:1];
+					expect(callCount).to.equal(1);
+				});
+			});
+		});
+		
+		context(@"created a copy", ^{
+			__block FUBlockAction* copy;
+			
+			beforeEach(^{
+				copy = [action copy];
+			});
+			
+			it(@"is not complete", ^{
+				expect([copy isComplete]).to.beFalsy();
+			});
+			
+			context(@"updated the copy", ^{
+				beforeEach(^{
+					[copy updateWithDeltaTime:0];
+				});
+				
+				it(@"is complete", ^{
+					expect([copy isComplete]).to.beTruthy();
+				});
+				
+				it(@"called the block", ^{
 					expect(callCount).to.equal(1);
 				});
 			});

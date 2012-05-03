@@ -23,6 +23,21 @@
 
 @synthesize actions = _actions;
 
+#pragma mark - Initialization
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	id copy;
+	
+	if ((copy = [[self class] new]))
+	{
+		NSMutableArray* actions = [[NSMutableArray alloc] initWithArray:[self actions] copyItems:YES];
+		[copy setActions:actions];
+	}
+	
+	return copy;
+}
+
 #pragma mark - Properties
 
 - (BOOL)isComplete

@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol FUAction
+@protocol FUAction <NSCopying>
 
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 

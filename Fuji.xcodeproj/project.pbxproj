@@ -94,6 +94,7 @@
 		63C2097D15526D6700B32A89 /* FUDelayAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C2097B15526D6700B32A89 /* FUDelayAction.h */; };
 		63C2097E15526D6700B32A89 /* FUDelayAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C2097C15526D6700B32A89 /* FUDelayAction.m */; };
 		63C2097F15526D6700B32A89 /* FUDelayAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C2097C15526D6700B32A89 /* FUDelayAction.m */; };
+		63C2098115526EE900B32A89 /* FUActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C2098015526EE900B32A89 /* FUActionSpec.m */; };
 		63D3CE5C1546C9E80033BA8E /* FUSpriteBatch-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D3CE5A1546C9E80033BA8E /* FUSpriteBatch-Internal.h */; };
 		63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
 		63D3CE5E1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
@@ -206,6 +207,7 @@
 		63C2097815526CB700B32A89 /* FUDelayActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDelayActionSpec.m; sourceTree = "<group>"; };
 		63C2097B15526D6700B32A89 /* FUDelayAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUDelayAction.h; sourceTree = "<group>"; };
 		63C2097C15526D6700B32A89 /* FUDelayAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDelayAction.m; sourceTree = "<group>"; };
+		63C2098015526EE900B32A89 /* FUActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUActionSpec.m; sourceTree = "<group>"; };
 		63D3CE5A1546C9E80033BA8E /* FUSpriteBatch-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUSpriteBatch-Internal.h"; sourceTree = "<group>"; };
 		63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteBatch.m; sourceTree = "<group>"; };
 		63D3CE601546CC680033BA8E /* FUGraphicsTypes-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUGraphicsTypes-Internal.h"; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 		634E2A841550186E0012C4FB /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				63C2098015526EE900B32A89 /* FUActionSpec.m */,
 				634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */,
 				634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */,
 				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
@@ -836,6 +839,7 @@
 				63843552155189D300313BB2 /* FUBlockAction.m in Sources */,
 				63C2097915526CB700B32A89 /* FUDelayActionSpec.m in Sources */,
 				63C2097F15526D6700B32A89 /* FUDelayAction.m in Sources */,
+				63C2098115526EE900B32A89 /* FUActionSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
