@@ -20,6 +20,7 @@
 
 static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
+static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
 static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
@@ -62,7 +63,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (id)initWithAssetStore:(FUAssetStore*)assetStore;
 {
-	FUAssert(assetStore != nil, FUAssetStoreNilMessage);
+	FUCheck(assetStore != nil, FUAssetStoreNilMessage);
 	
 	[self setAssetStore:assetStore];
 	
@@ -135,9 +136,9 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)addEngine:(FUEngine*)engine
 {
-	FUAssert(engine != nil, FUEngineNilMessage);
-	FUAssert([engine director] != self, FUEngineAlreadyInDirector, engine);
-	FUAssert([engine director] == nil, FUEngineAlreadyUsedMessage, engine, [engine director]);
+	FUCheck(engine != nil, FUEngineNilMessage);
+	FUCheck([engine director] != self, FUEngineAlreadyInDirector, engine);
+	FUCheck([engine director] == nil, FUEngineAlreadyUsedMessage, engine, [engine director]);
 	
 	[[self engines] addObject:engine];
 	[engine setDirector:self];
@@ -164,7 +165,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)loadScene:(FUScene*)scene
 {
-	FUAssert([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
+	FUCheck([scene director] != self, FUSceneAlreadyInDirector, scene);
+	FUCheck([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
 	
 	[self unregisterAll];
 	[[self scene] setDirector:nil];

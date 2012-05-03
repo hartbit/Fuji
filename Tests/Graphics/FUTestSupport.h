@@ -50,3 +50,42 @@ static inline BOOL FUMatrix4AreClose(GLKMatrix4 left, GLKMatrix4 right)
 	}
 
 #define FU_WAIT_UNTIL(condition) FU_WAIT_UNTIL_TIMEOUT(condition, 10)
+
+#define assertThrows(expr, expectedName, expectedReason, ...) do { \
+	BOOL __caughtException = NO; \
+	NSString* __expectedReason = STComposeString(expectedReason, ##__VA_ARGS__); \
+	@try { \
+		(expr);\
+	} \
+	@catch (NSException* exception) { \
+		__caughtException = YES; \
+		if (![expectedName isEqualToString:[exception name]]) { \
+			NSString* description = STComposeString(@"(Expected exception: (name: %@))", expectedName); \
+			[self failWithException: \
+				([NSException failureInRaise:[NSString stringWithUTF8String:#expr] \
+								   exception:exception \
+									  inFile:[NSString stringWithUTF8String:__FILE__] \
+									  atLine:__LINE__ \
+							 withDescription:description])]; \
+		} else if (![__expectedReason isEqualToString:[exception reason]]) { \
+			NSString* description = STComposeString(@"(Expected exception) %@", __expectedReason); \
+			[self failWithException: \
+				([NSException failureInRaise:[NSString stringWithUTF8String:#expr] \
+								   exception:exception \
+									  inFile:[NSString stringWithUTF8String:__FILE__] \
+									  atLine:__LINE__ \
+							 withDescription:description])]; \
+		} \
+	} \
+	\
+	if (!__caughtException) { \
+		[self failWithException: \
+			([NSException failureInRaise:[NSString stringWithUTF8String:#expr] \
+							   exception:nil \
+								  inFile:[NSString stringWithUTF8String:__FILE__] \
+								  atLine:__LINE__ \
+						 withDescription:@"(Expected exception)"])]; \
+	} \
+} while (0)
+
+#define assertNoThrow(expr) STAssertNoThrow((expr), nil)

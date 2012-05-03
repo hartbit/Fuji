@@ -177,7 +177,7 @@
 		63822765151A1A800009D036 /* FUTransformSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTransformSpec.m; sourceTree = "<group>"; };
 		63822767151A1B300009D036 /* FUTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTransform.h; sourceTree = "<group>"; };
 		63822768151A1B300009D036 /* FUTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTransform.m; sourceTree = "<group>"; };
-		63822771151A1C6B0009D036 /* FUTestFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestFunctions.h; sourceTree = "<group>"; };
+		63822771151A1C6B0009D036 /* FUTestSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTestSupport.h; sourceTree = "<group>"; };
 		63822772151A293E0009D036 /* Fuji.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fuji.h; sourceTree = "<group>"; };
 		63822777151A29BB0009D036 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		63822778151A2A030009D036 /* FUColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUColor.h; sourceTree = "<group>"; };
@@ -513,7 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				63822777151A29BB0009D036 /* Prefix.pch */,
-				63822771151A1C6B0009D036 /* FUTestFunctions.h */,
+				63822771151A1C6B0009D036 /* FUTestSupport.h */,
 				63F7B8771526022600F3064D /* FUColorSpec.m */,
 				6335C57A153ADB3F00022A4F /* FUMathSpec.m */,
 			);

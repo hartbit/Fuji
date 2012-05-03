@@ -12,6 +12,10 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUComponent-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 
 SPEC_BEGIN(FUComponent)
@@ -35,13 +39,13 @@ describe(@"A component object", ^{
 	
 	context(@"initializing with init", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([FUComponent new], nil);
+			assertThrows([FUComponent new], NSInternalInconsistencyException, @"Can not create a scene object outside of a scene");
 		});
 	});
 	
 	context(@"initializing with a nil entity", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUComponent alloc] initWithEntity:nil], nil);
+			assertThrows([[FUComponent alloc] initWithEntity:nil], NSInvalidArgumentException, FUEntityNilMessage);
 		});
 	});
 	

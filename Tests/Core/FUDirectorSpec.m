@@ -15,6 +15,17 @@
 #import "FUDirector-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
+static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
+static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
+static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
+static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
+static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
+static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
+static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@' to have the same 'director=%@'";
 
 
 SPEC_BEGIN(FUDirector)
@@ -26,7 +37,7 @@ describe(@"A director", ^{
 	
 	context(@"initializing a new director with a nil asset store", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUDirector alloc] initWithAssetStore:nil], nil);
+			assertThrows([[FUDirector alloc] initWithAssetStore:nil], NSInvalidArgumentException, FUAssetStoreNilMessage);
 		});
 	});
 	
@@ -85,23 +96,25 @@ describe(@"A director", ^{
 		
 		context(@"adding a nil engine", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([director addEngine:nil], nil);
+				assertThrows([director addEngine:nil], NSInvalidArgumentException, FUEngineNilMessage);
 			});
 		});
 		
 		context(@"adding an engine that already has a director", ^{
 			it(@"throws an exception", ^{
 				FUEngine* engine = mock([FUEngine class]);
-				[given([engine director]) willReturn:mock([FUDirector class])];
-				STAssertThrows([director addEngine:engine], nil);
+				FUDirector* otherDirector = mock([FUDirector class]);
+				[given([engine director]) willReturn:otherDirector];
+				assertThrows([director addEngine:engine], NSInvalidArgumentException, FUEngineAlreadyUsedMessage, engine, otherDirector);
 			});
 		});
 		
 		context(@"loading a scene that already has a director", ^{
 			it(@"throws an exception", ^{
 				FUScene* scene = mock([FUScene class]);
-				[given([scene director]) willReturn:mock([FUDirector class])];
-				STAssertThrows([director loadScene:scene], nil);
+				FUDirector* otherDirector = mock([FUDirector class]);
+				[given([scene director]) willReturn:otherDirector];
+				assertThrows([director loadScene:scene], NSInvalidArgumentException, FUSceneAlreadyUsedMessage, scene, otherDirector);
 			});
 		});
 			
@@ -130,7 +143,7 @@ describe(@"A director", ^{
 			context(@"adding the same engine again", ^{
 				it(@"throws an exception", ^{
 					[given([engine director]) willReturn:director];
-					STAssertThrows([director addEngine:engine], nil);
+					assertThrows([director addEngine:engine], NSInvalidArgumentException, FUEngineAlreadyInDirector, engine);
 				});
 			});
 			
@@ -174,7 +187,7 @@ describe(@"A director", ^{
 				context(@"loading the same scene again", ^{
 					it(@"throws an exception", ^{
 						[given([scene director]) willReturn:director];
-						STAssertThrows([director loadScene:scene], nil);
+						assertThrows([director loadScene:scene], NSInvalidArgumentException, FUSceneAlreadyInDirector, scene);
 					});
 				});
 				

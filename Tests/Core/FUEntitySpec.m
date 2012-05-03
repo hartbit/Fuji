@@ -15,6 +15,18 @@
 #import "FUDirector-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUComponentAncestoryInvalidMessage = @"A non-unique 'component=%@' has a unique parent 'component=%@'";
+static NSString* const FUComponentClassInvalidMessage = @"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)";
+static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@' is unique and another component of that class already exists";
+static NSString* const FUComponentNilMessage = @"Expected 'component' to not be nil";
+static NSString* const FUComponentNonexistentMessage = @"Can not remove a 'component=%@' that does not exist";
+static NSString* const FURequiredComponentTypeMessage = @"Expected 'requiredComponent=%@' to be of type Class";
+static NSString* const FURequiredComponentSuperclassMessage = @"The 'requiredComponent=%@' can not be the same class or a superclass of added 'componentClass=%@'";
+static NSString* const FURequiredComponentSubclassMessage = @"The 'requiredComponent=%@' can not be the same class or a subclass of other 'requiredComponent=%@'";
+static NSString* const FUComponentRequiredMessage = @"Can not remove 'component=%@' because it is required by another 'component=%@'.";
 
 
 @interface FUTestEntity : FUEntity @end
@@ -97,85 +109,86 @@ describe(@"An entity", ^{
 		
 		context(@"adding a component with a NULL class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:NULL], nil);
+				assertThrows([entity addComponentWithClass:NULL], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass(NULL));
 			});
 		});
 		
 		context(@"adding a component with a class that does not subclass FUComponent", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[NSString class]], nil);
+				assertThrows([entity addComponentWithClass:[NSString class]], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass([NSString class]));
 			});
 		});
 		
 		context(@"adding a component with the FUComponent class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FUComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FUComponent class]], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass([FUComponent class]));
 			});
 		});
 		
 		context(@"adding a component that requires an object that is not a class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireObjectComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireObjectComponent class]], NSInvalidArgumentException, FURequiredComponentTypeMessage, NSStringFromClass([NSString string]));
 			});
 		});
 		
-		context(@"adding a component who's subclass requires an invalid component class", ^{
+		context(@"adding a component who's superclass requires an invalid component class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireInvalidSuperclassComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireInvalidSuperclassComponent class]], NSInvalidArgumentException, FURequiredComponentTypeMessage, NSStringFromClass([NSString string]));
 			});
 		});
 		
 		context(@"adding a component that requires a class that does not subclass FUComponent", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireNSStringComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireNSStringComponent class]], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass([NSString class]));
 			});
 		});
 		
 		context(@"adding a component that requires a FUComponent", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireBaseComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireBaseComponent class]], NSInvalidArgumentException, FURequiredComponentSuperclassMessage, NSStringFromClass([FUComponent class]), NSStringFromClass([FURequireBaseComponent class]));
 			});
 		});
 		
 		context(@"adding a component that requires itself", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireItselfComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireItselfComponent class]], NSInvalidArgumentException, FURequiredComponentSuperclassMessage, NSStringFromClass([FURequireItselfComponent class]), NSStringFromClass([FURequireItselfComponent class]));
 			});
 		});
 
 		context(@"adding a component that requires a subclass of itself", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireSubclassComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireSubclassComponent class]], NSInvalidArgumentException, FURequiredComponentSuperclassMessage, NSStringFromClass([FUTestComponent class]), NSStringFromClass([FURequireSubclassComponent class]));
 			});
 		});
 		
 		context(@"adding a component that requires relatives", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FURequireRelativesComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FURequireRelativesComponent class]], NSInvalidArgumentException, FURequiredComponentSubclassMessage, NSStringFromClass([FUUniqueChild1Component class]), NSStringFromClass([FURequireRelativesComponent class]));
 			});
 		});
 		
 		context(@"removing a nil component", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity removeComponent:nil], nil);
+				assertThrows([entity removeComponent:nil], NSInvalidArgumentException, FUComponentNilMessage);
 			});
 		});
 		
 		context(@"removing a component that does not exist", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity removeComponent:mock([FUComponent class])], nil);
+				id component = mock([FUComponent class]);
+				assertThrows([entity removeComponent:component], NSInvalidArgumentException, FUComponentNonexistentMessage, component);
 			});
 		});
 		
 		context(@"getting a component with a NULL class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity componentWithClass:NULL], nil);
+				assertThrows([entity componentWithClass:NULL], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass(NULL));
 			});
 		});
 		
 		context(@"getting a component with the FUComponent class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity componentWithClass:[FUComponent class]], nil);
+				assertThrows([entity componentWithClass:[FUComponent class]], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass([FUComponent class]));
 			});
 		});
 		
@@ -187,13 +200,13 @@ describe(@"An entity", ^{
 		
 		context(@"getting all components with a NULL class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity allComponentsWithClass:NULL], nil);
+				assertThrows([entity allComponentsWithClass:NULL], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass(NULL));
 			});
 		});
 		
 		context(@"getting all components with the FUComponent class", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity allComponentsWithClass:[FUComponent class]], nil);
+				assertThrows([entity allComponentsWithClass:[FUComponent class]], NSInvalidArgumentException, FUComponentClassInvalidMessage, NSStringFromClass([FUComponent class]));
 			});
 		});
 		
@@ -205,13 +218,13 @@ describe(@"An entity", ^{
 		
 		context(@"adding a non-unique component that has a unique ancestor", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FUCommonChildComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FUCommonChildComponent class]], NSInvalidArgumentException, FUComponentAncestoryInvalidMessage, NSStringFromClass([FUCommonChildComponent class]), NSStringFromClass([FUUniqueParentComponent class]));
 			});
 		});
 		
 		context(@"adding a unique component that has a non-unique ancestor that itself has a unique ancestor", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([entity addComponentWithClass:[FUUniqueGrandChildComponent class]], nil);
+				assertThrows([entity addComponentWithClass:[FUUniqueGrandChildComponent class]], NSInvalidArgumentException, FUComponentAncestoryInvalidMessage, NSStringFromClass([FUCommonChildComponent class]), NSStringFromClass([FUUniqueParentComponent class]));
 			});
 		});
 
@@ -248,19 +261,19 @@ describe(@"An entity", ^{
 			
 			context(@"adding the same component", ^{
 				it(@"throws an exception", ^{
-					STAssertThrows([entity addComponentWithClass:[FUUniqueChild1Component class]], nil);
+					assertThrows([entity addComponentWithClass:[FUUniqueChild1Component class]], NSInvalidArgumentException, FUComponentUniqueAndExistsMessage, NSStringFromClass([FUUniqueChild1Component class]));
 				});
 			});
 			
 			context(@"adding a unique ancestor component", ^{
 				it(@"throws an exception", ^{
-					STAssertThrows([entity addComponentWithClass:[FUUniqueParentComponent class]], nil);
+					assertThrows([entity addComponentWithClass:[FUUniqueParentComponent class]], NSInvalidArgumentException, FUComponentUniqueAndExistsMessage, NSStringFromClass([FUUniqueParentComponent class]));
 				});
 			});
 			
 			context(@"adding a sibling that has the same unique ancestor component", ^{
 				it(@"throws an exception", ^{
-					STAssertThrows([entity addComponentWithClass:[FUUniqueChild2Component class]], nil);
+					assertThrows([entity addComponentWithClass:[FUUniqueChild2Component class]], NSInvalidArgumentException, FUComponentUniqueAndExistsMessage, NSStringFromClass([FUUniqueChild2Component class]));
 				});
 			});
 			
@@ -392,13 +405,13 @@ describe(@"An entity", ^{
 				
 				context(@"removing the first component", ^{
 					it(@"throws an exception", ^{
-						STAssertThrows([entity removeComponent:component1], nil);
+						assertThrows([entity removeComponent:component1], NSInternalInconsistencyException, FUComponentRequiredMessage, component1, component2);
 					});
 				});
 				
 				context(@"removing the second required component", ^{
 					it(@"throws an exception", ^{
-						STAssertThrows([entity removeComponent:component3], nil);
+						assertThrows([entity removeComponent:component3], NSInternalInconsistencyException, FUComponentRequiredMessage, component3, component2);
 					});
 				});
 			});

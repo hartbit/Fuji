@@ -10,10 +10,13 @@
 //
 
 #include "Prefix.pch"
-#import "FUTestFunctions.h"
 #import "Fuji.h"
 #import "FUAssetStore-Internal.h"
 #import "FUTexture-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or empty";
 
 
 @interface FUTexture ()
@@ -42,13 +45,13 @@ describe(@"An asset store", ^{
 		
 		context(@"asking for a nil texture", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([assetStore textureWithName:nil], nil);
+				assertThrows([assetStore textureWithName:nil], NSInvalidArgumentException, FUNameNilMessage);
 			});
 		});
 		
 		context(@"asking for a empty texture name", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([assetStore textureWithName:@""], nil);
+				assertThrows([assetStore textureWithName:@""], NSInvalidArgumentException, FUNameNilMessage);
 			});
 		});
 		

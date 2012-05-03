@@ -86,12 +86,8 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 - (void)removeEntity:(FUEntity*)entity
 {
-	FUAssert(entity != nil, FUEntityNilMessage);
-	
-	if (![[self entities] containsObject:entity])
-	{
-		FUThrow(FUEntityNonexistentMessage, entity);
-	}
+	FUCheck(entity != nil, FUEntityNilMessage);
+	FUCheck([[self entities] containsObject:entity], FUEntityNonexistentMessage, entity);
 	
 	[[self director] willRemoveSceneObject:entity];
 	[[self entities] removeObject:entity];

@@ -10,6 +10,10 @@
 //
 
 #import "FUAnimator.h"
+#import "FUSupport.h"
+
+
+static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 
 @interface FUAnimator ()
@@ -59,6 +63,8 @@
 
 - (void)runAction:(id<FUAction>)action
 {
+	FUCheck(action != nil, FUActionNilMessage);
+	
 	if ([action isComplete])
 	{
 		return;

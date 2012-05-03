@@ -48,6 +48,6 @@ static inline FUColor FURandomColor()
 
 static inline double FUClamp(double value, double min, double max)
 {
-	FUAssert(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
+	FUCheck(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
 	return MIN(MAX(value, min), max);
 }

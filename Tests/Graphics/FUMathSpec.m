@@ -11,6 +11,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
 
 
 SPEC_BEGIN(FUMath)
@@ -28,11 +29,11 @@ describe(@"FUMath", ^{
 	
 	context(@"FUClamp", ^{
 		it(@"throws an exception when the min value is greater than the max value", ^{
-			STAssertThrows(FUClamp(0, 1, -1), nil);
+			assertThrows(FUClamp(0, 1, -1), NSInvalidArgumentException, @"Expected 'min=1' to be less than or equal to 'max=-1'");
 		});
 		
 		it(@"does not throw an exception when min = max", ^{
-			STAssertNoThrow(FUClamp(0, 0, 0), nil);
+			assertNoThrow(FUClamp(0, 0, 0));
 		});
 		
 		it(@"returns the same value if within the range", ^{

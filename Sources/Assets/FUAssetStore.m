@@ -44,7 +44,7 @@ static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or emp
 
 - (FUTexture*)textureWithName:(NSString*)name
 {
-	FUAssert(FUStringIsValid(name), FUNameNilMessage);
+	FUCheck(FUStringIsValid(name), FUNameNilMessage);
 	
 	FUTexture* texture = [[self cache] objectForKey:name];
 	

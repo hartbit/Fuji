@@ -10,10 +10,14 @@
 //
 
 #include "Prefix.pch"
-#import "FUTestFunctions.h"
 #import "Fuji.h"
 #import "FUAsset-Internal.h"
 #import "FUTexture-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUTextureDoesNotExistError = @"The texture with 'name=%@' does not exist";
+static NSString* const FUTextureLoaderError = @"The texture couldn't be loaded because of 'error=%@'";
 
 
 SPEC_BEGIN(FUTexture)
@@ -25,13 +29,13 @@ describe(@"A texture", ^{
 	
 	context(@"initializing with a non-existant texture", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUTexture alloc] initWithName:TEXTURE_NONEXISTANT], nil);
+			assertThrows([[FUTexture alloc] initWithName:TEXTURE_NONEXISTANT], NSInvalidArgumentException, FUTextureDoesNotExistError, TEXTURE_NONEXISTANT);
 		});
 	});
 	
 	context(@"initializing with an invalid texture", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([[FUTexture alloc] initWithName:TEXTURE_INVALID], nil);
+			assertThrows([[FUTexture alloc] initWithName:TEXTURE_INVALID], NSInternalInconsistencyException, FUTextureLoaderError, @"GLKTextureLoaderErrorDataPreprocessingFailure");
 		});
 	});
 	
@@ -64,7 +68,7 @@ describe(@"A texture", ^{
 			
 			context(@"accessing the name", ^{
 				it(@"throws an exception", ^{
-					STAssertThrows([texture name], nil);
+					assertThrows([texture name], NSInternalInconsistencyException, @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'", texture);
 				});
 			});
 			

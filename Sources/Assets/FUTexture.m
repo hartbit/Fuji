@@ -15,6 +15,11 @@
 #import "FUSupport.h"
 
 
+static NSString* const FUTextureDoesNotExistError = @"The texture with 'name=%@' does not exist";
+static NSString* const FUTextureLoaderError = @"The texture couldn't be loaded because of 'error=%@'";
+static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
+
+
 @interface FUTexture ()
 
 @property (nonatomic, strong) GLKTextureInfo* info;
@@ -60,9 +65,10 @@
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block
 {
 	NSString* path = [self pathWithName:name];
+	FUCheck(path != nil, FUTextureDoesNotExistError, name);
 	
 	[[self asynchronousLoader] textureWithContentsOfFile:path options:nil queue:NULL completionHandler:^(GLKTextureInfo* textureInfo, NSError* error) {
-		FUAssert(textureInfo != nil, [error localizedDescription]);
+		FUAssert(textureInfo != nil, FUTextureLoaderError, NSStringFromGLKTextureLoaderError([error code]));
 		block([[self alloc] initWithTextureInfo:textureInfo]);
 	}];
 }
@@ -70,10 +76,11 @@
 - (id)initWithName:(NSString*)name
 {
 	NSString* path = [[self class] pathWithName:name];
+	FUCheck(path != nil, FUTextureDoesNotExistError, name);
 	
 	NSError* error;
 	GLKTextureInfo* textureInfo = [GLKTextureLoader textureWithContentsOfFile:path options:nil error:&error];
-	FUAssert(textureInfo != nil, [error localizedDescription]);
+	FUAssert(textureInfo != nil, FUTextureLoaderError, NSStringFromGLKTextureLoaderError([error code]));
 	
 	return [self initWithTextureInfo:textureInfo];
 }
@@ -121,3 +128,31 @@
 }
 
 @end
+
+
+static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error)
+{
+	switch (error)
+	{
+		case GLKTextureLoaderErrorFileOrURLNotFound: return @"GLKTextureLoaderErrorFileOrURLNotFound";
+		case GLKTextureLoaderErrorInvalidNSData: return @"GLKTextureLoaderErrorInvalidNSData";
+		case GLKTextureLoaderErrorInvalidCGImage: return @"GLKTextureLoaderErrorInvalidCGImage";
+		case GLKTextureLoaderErrorUnknownPathType: return @"GLKTextureLoaderErrorUnknownPathType";
+		case GLKTextureLoaderErrorUnknownFileType: return @"GLKTextureLoaderErrorUnknownFileType";
+		case GLKTextureLoaderErrorPVRAtlasUnsupported: return @"GLKTextureLoaderErrorPVRAtlasUnsupported";
+		case GLKTextureLoaderErrorCubeMapInvalidNumFiles: return @"GLKTextureLoaderErrorCubeMapInvalidNumFiles";
+		case GLKTextureLoaderErrorCompressedTextureUpload: return @"GLKTextureLoaderErrorCompressedTextureUpload";
+		case GLKTextureLoaderErrorUncompressedTextureUpload: return @"GLKTextureLoaderErrorUncompressedTextureUpload";
+		case GLKTextureLoaderErrorUnsupportedCubeMapDimensions: return @"GLKTextureLoaderErrorUnsupportedCubeMapDimensions";
+		case GLKTextureLoaderErrorUnsupportedBitDepth: return @"GLKTextureLoaderErrorUnsupportedBitDepth";
+		case GLKTextureLoaderErrorUnsupportedPVRFormat: return @"GLKTextureLoaderErrorUnsupportedPVRFormat";
+		case GLKTextureLoaderErrorDataPreprocessingFailure: return @"GLKTextureLoaderErrorDataPreprocessingFailure";
+		case GLKTextureLoaderErrorMipmapUnsupported: return @"GLKTextureLoaderErrorMipmapUnsupported";
+		case GLKTextureLoaderErrorUnsupportedOrientation: return @"GLKTextureLoaderErrorUnsupportedOrientation";
+		case GLKTextureLoaderErrorReorientationFailure: return @"GLKTextureLoaderErrorReorientationFailure";
+		case GLKTextureLoaderErrorAlphaPremultiplicationFailure: return @"GLKTextureLoaderErrorAlphaPremultiplicationFailure";
+		case GLKTextureLoaderErrorInvalidEAGLContext: return @"GLKTextureLoaderErrorInvalidEAGLContext";
+	}
+	
+	FUThrow(@"Invalid GLKTextureLoaderError with 'code=%i'", error);
+}

@@ -13,6 +13,11 @@
 #import "Fuji.h"
 #import "FUVisitor-Internal.h"
 #import "FUSceneObject-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";
+static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 
 
 SPEC_BEGIN(FUSceneObject)
@@ -24,13 +29,13 @@ describe(@"A scene", ^{
 	
 	context(@"initialized with init", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows([FUSceneObject new], nil);
+			assertThrows([FUSceneObject new], NSInternalInconsistencyException, FUCreationInvalidMessage);
 		});
 	});
 	
 	context(@"initialized with a nil scene", ^{
 		it(@"throws an exception", ^{
-			STAssertThrows((void)[[FUSceneObject alloc] initWithScene:nil], nil);
+			assertThrows([[FUSceneObject alloc] initWithScene:nil], NSInvalidArgumentException, FUSceneNilMessage);
 		});
 	});
 	

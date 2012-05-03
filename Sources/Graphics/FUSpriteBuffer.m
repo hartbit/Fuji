@@ -65,12 +65,12 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 - (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity
 {
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self setAssetStore:assetStore];
-	[self setCapacity:capacity];
-	[self setupArrayAndBuffers];
+	if ((self = [super init]))
+	{
+		[self setAssetStore:assetStore];
+		[self setCapacity:capacity];
+		[self setupArrayAndBuffers];
+	}
 	
 	return self;
 }

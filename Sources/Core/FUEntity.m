@@ -50,7 +50,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 		
 		if (![currentAncestor isUnique] && [parentClass isUnique])
 		{
-			FUThrow(FUComponentAncestoryInvalidMessage, NSStringFromClass(currentAncestor), NSStringFromClass(parentClass));
+			_FUThrow(NSInvalidArgumentException, FUComponentAncestoryInvalidMessage, NSStringFromClass(currentAncestor), NSStringFromClass(parentClass));
 		}
 		else if ([currentAncestor isUnique] && ![parentClass isUnique])
 		{
@@ -146,7 +146,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (id)componentWithClass:(Class)componentClass
 {
-	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	FUCheck(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	for (FUComponent* component in [self components])
 	{
@@ -161,7 +161,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (NSArray*)allComponentsWithClass:(Class)componentClass
 {
-	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	FUCheck(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	NSMutableArray* components = [NSMutableArray array];
 	
@@ -223,7 +223,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (id)addComponentWithClass:(Class)componentClass andRegister:(BOOL)registering
 {
-	FUAssert(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
+	FUCheck(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
 	[self validateUniquenessOfClass:componentClass];
 	[self addRequiredComponentsForClass:componentClass];
@@ -242,12 +242,8 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)removeComponent:(FUComponent*)component andRegister:(BOOL)registering
 {
-	FUAssert(component != nil, FUComponentNilMessage);
-	
-	if (![[self components] containsObject:component])
-	{
-		FUThrow(FUComponentNonexistentMessage, component);
-	}
+	FUCheck(component != nil, FUComponentNilMessage);
+	FUCheck([[self components] containsObject:component], FUComponentNonexistentMessage, component);
 	
 	[self validateRemovalOfComponent:component];
 	
@@ -267,7 +263,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	if ([componentClass isUnique] && ([self componentWithClass:oldestUniqueAncestor] != nil))
 	{
-		FUThrow(FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
+		_FUThrow(NSInvalidArgumentException, FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
 	}
 }
 
@@ -277,18 +273,18 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	for (id requiredClass in requiredComponents)
 	{
-		FUAssert(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
+		FUCheck(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
 		
 		if ([componentClass isSubclassOfClass:requiredClass])
 		{
-			FUThrow(FURequiredComponentSuperclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+			_FUThrow(NSInvalidArgumentException, FURequiredComponentSuperclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
 		}
 		
 		for (id otherRequiredClass in requiredComponents)
 		{
 			if ((otherRequiredClass != requiredClass) && [requiredClass isSubclassOfClass:otherRequiredClass])
 			{
-				FUThrow(FURequiredComponentSubclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
+				_FUThrow(NSInvalidArgumentException, FURequiredComponentSubclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
 			}
 		}
 		

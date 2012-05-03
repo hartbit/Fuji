@@ -15,6 +15,11 @@
 #import "FUDirector-Internal.h"
 #import "FUScene-Internal.h"
 #import "FUSceneObject-Internal.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
+static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%@' that does not exist";
 
 
 @interface FUTestScene : FUScene @end
@@ -73,13 +78,14 @@ describe(@"A scene", ^{
 		
 		context(@"removing a nil entity", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([scene removeEntity:nil], nil);
+				assertThrows([scene removeEntity:nil], NSInvalidArgumentException, FUEntityNilMessage);
 			});
 		});
 		
 		context(@"removing an entity that is not in the scene", ^{
 			it(@"throws an exception", ^{
-				STAssertThrows([scene removeEntity:mock([FUEntity class])], nil);
+				FUEntity* entity = mock([FUEntity class]);
+				assertThrows([scene removeEntity:entity], NSInvalidArgumentException, FUEntityNonexistentMessage, entity);
 			});
 		});
 		

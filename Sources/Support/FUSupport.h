@@ -9,6 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#import <Foundation/Foundation.h>
 #import <mach/mach_time.h>
 
 
@@ -19,12 +20,17 @@
 #endif
 
 
-#define FUThrow(format, ...) @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:format, ##__VA_ARGS__] userInfo:nil]
+#define _FUThrow(name, format, ...) @throw [NSException exceptionWithName:(name) reason:[NSString stringWithFormat:(format), ##__VA_ARGS__] userInfo:nil]
+#define FUThrow(format, ...) _FUThrow(NSInternalInconsistencyException, format, ##__VA_ARGS__)
 
 #ifndef NS_BLOCK_ASSERTIONS
-#define FUAssert(condition, format, ...) do { if (!(condition)) FUThrow(format, ##__VA_ARGS__); } while(0)
+#define _FUAssert(condition, name, reason, ...) do { if (!(condition)) _FUThrow(name, reason, ##__VA_ARGS__); } while(0)
+#define FUCheck(condition, reason, ...) _FUAssert(condition, NSInvalidArgumentException, reason, ##__VA_ARGS__)
+#define FUAssert(condition, reason, ...) _FUAssert(condition, NSInternalInconsistencyException, reason, ##__VA_ARGS__) 
 #else
-#define FUAssert(condition, format, ...)
+#define _FUAssert(condition, reason, ...)
+#define FUCheck(condition, reason, ...)
+#define FUAssert(condition, reason, ...)
 #endif
 
 #if DEBUG

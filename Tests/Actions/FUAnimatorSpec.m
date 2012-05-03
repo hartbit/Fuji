@@ -11,6 +11,10 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 
 @interface FUTestAction : NSObject <FUAction> @end
@@ -32,6 +36,12 @@ describe(@"An animator", ^{
 		
 		it(@"is not nil", ^{
 			expect(animator).toNot.beNil();
+		});
+		
+		context(@"adding a nil action", ^{
+			it(@"throws an exception", ^{
+				assertThrows([animator runAction:nil], NSInvalidArgumentException, FUActionNilMessage);
+			});
 		});
 		
 		context(@"adding two actions", ^{
