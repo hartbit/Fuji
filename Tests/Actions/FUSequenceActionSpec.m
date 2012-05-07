@@ -26,7 +26,7 @@ describe(@"A sequence action", ^{
 	
 	context(@"initilized with a nil array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([FUSequenceAction actionWithArray:nil], NSInvalidArgumentException, FUArrayNilMessage);
+			assertThrows([FUSequenceAction sequenceWithArray:nil], NSInvalidArgumentException, FUArrayNilMessage);
 		});
 	});
 });
