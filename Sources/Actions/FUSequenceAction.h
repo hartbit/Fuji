@@ -9,9 +9,13 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#import <Foundation/Foundation.h>
 #import "FUFiniteAction.h"
 
 
 @interface FUSequenceAction : FUFiniteAction
+
++ (FUSequenceAction*)actionWithArray:(NSArray*)array;
+- (id)initWithArray:(NSArray*)array;
 
 @end

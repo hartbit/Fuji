@@ -11,6 +11,10 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
 
 
 SPEC_BEGIN(FUSequenceAction)
@@ -18,6 +22,12 @@ SPEC_BEGIN(FUSequenceAction)
 describe(@"A sequence action", ^{
 	it(@"is a finite action", ^{
 		expect([FUSequenceAction class]).to.beSubclassOf([FUFiniteAction class]);
+	});
+	
+	context(@"initilized with a nil array", ^{
+		it(@"throws an exception", ^{
+			assertThrows([FUSequenceAction actionWithArray:nil], NSInvalidArgumentException, FUArrayNilMessage);
+		});
 	});
 });
 

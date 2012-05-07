@@ -10,8 +10,35 @@
 //
 
 #import "FUSequenceAction.h"
+#import "FUSupport.h"
+
+
+static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
+
+
+@interface FUSequenceAction ()
+
+@end
 
 
 @implementation FUSequenceAction
+
+#pragma mark - Initialization
+
++ (FUSequenceAction*)actionWithArray:(NSArray*)array
+{
+	return [[self alloc] initWithArray:array];
+}
+
+- (id)initWithArray:(NSArray*)array
+{
+	FUCheck(array != nil, FUArrayNilMessage);
+
+	if ((self = [super init]))
+	{
+	}
+	
+	return self;
+}
 
 @end
