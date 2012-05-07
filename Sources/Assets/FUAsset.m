@@ -13,8 +13,8 @@
 #import "FUSupport.h"
 
 
-static NSString* const FUAccessMatchingError = @"Call to 'endContentAccess' on 'asset=%@' did not match a previous call to 'beginContentAccess'";
-static NSString* const FUAccessError = @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'";
+static NSString* const FUAccessMatchingMessage = @"Call to 'endContentAccess' on 'asset=%@' did not match a previous call to 'beginContentAccess'";
+static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'";
 
 
 @interface FUAsset ()
@@ -56,7 +56,7 @@ static NSString* const FUAccessError = @"Accessing 'asset=%@' without a prior ca
 {
 	if ([self accessCount] < 1)
 	{
-		FUThrow(FUAccessMatchingError, self);
+		FUThrow(FUAccessMatchingMessage, self);
 	}
 
 	[self setAccessCount:[self accessCount] - 1];
@@ -87,7 +87,7 @@ static NSString* const FUAccessError = @"Accessing 'asset=%@' without a prior ca
 {
 	if ([self accessCount] < 1)
 	{
-		FUThrow(FUAccessError, self);
+		FUThrow(FUAccessMessage, self);
 	}
 }
 

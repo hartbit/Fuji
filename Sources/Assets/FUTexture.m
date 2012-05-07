@@ -15,8 +15,8 @@
 #import "FUSupport.h"
 
 
-static NSString* const FUTextureDoesNotExistError = @"The texture with 'name=%@' does not exist";
-static NSString* const FUTextureLoaderError = @"The texture couldn't be loaded because of 'error=%@'";
+static NSString* const FUTextureNonexistantMessage = @"The texture with 'name=%@' does not exist";
+static NSString* const FUTextureLoaderMessage = @"The texture couldn't be loaded because of 'error=%@'";
 static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 
 
@@ -65,10 +65,10 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 + (void)textureWithName:(NSString*)name completionHandler:(void (^)(FUTexture* texture))block
 {
 	NSString* path = [self pathWithName:name];
-	FUCheck(path != nil, FUTextureDoesNotExistError, name);
+	FUCheck(path != nil, FUTextureNonexistantMessage, name);
 	
 	[[self asynchronousLoader] textureWithContentsOfFile:path options:nil queue:NULL completionHandler:^(GLKTextureInfo* textureInfo, NSError* error) {
-		FUAssert(textureInfo != nil, FUTextureLoaderError, NSStringFromGLKTextureLoaderError([error code]));
+		FUAssert(textureInfo != nil, FUTextureLoaderMessage, NSStringFromGLKTextureLoaderError([error code]));
 		block([[self alloc] initWithTextureInfo:textureInfo]);
 	}];
 }
@@ -76,11 +76,11 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 - (id)initWithName:(NSString*)name
 {
 	NSString* path = [[self class] pathWithName:name];
-	FUCheck(path != nil, FUTextureDoesNotExistError, name);
+	FUCheck(path != nil, FUTextureNonexistantMessage, name);
 	
 	NSError* error;
 	GLKTextureInfo* textureInfo = [GLKTextureLoader textureWithContentsOfFile:path options:nil error:&error];
-	FUAssert(textureInfo != nil, FUTextureLoaderError, NSStringFromGLKTextureLoaderError([error code]));
+	FUAssert(textureInfo != nil, FUTextureLoaderMessage, NSStringFromGLKTextureLoaderError([error code]));
 	
 	return [self initWithTextureInfo:textureInfo];
 }

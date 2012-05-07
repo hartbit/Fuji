@@ -15,8 +15,8 @@
 #import "FUTestSupport.h"
 
 
-static NSString* const FUAccessMatchingError = @"Call to 'endContentAccess' on 'asset=%@' did not match a previous call to 'beginContentAccess'";
-static NSString* const FUAccessError = @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'";
+static NSString* const FUAccessMatchingMessage = @"Call to 'endContentAccess' on 'asset=%@' did not match a previous call to 'beginContentAccess'";
+static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'";
 
 
 SPEC_BEGIN(FUAsset)
@@ -73,13 +73,13 @@ describe(@"An asset", ^{
 			
 			context(@"ending content access", ^{
 				it(@"throws an exception", ^{
-					assertThrows([asset endContentAccess], NSInternalInconsistencyException,FUAccessMatchingError, asset);
+					assertThrows([asset endContentAccess], NSInternalInconsistencyException,FUAccessMatchingMessage, asset);
 				});
 			});
 			
 			context(@"accessing content", ^{
 				it(@"throws an exception", ^{
-					assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessError, asset);
+					assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessMessage, asset);
 				});
 			});
 			
@@ -98,13 +98,13 @@ describe(@"An asset", ^{
 				
 				context(@"accessing content", ^{
 					it(@"throws an exception", ^{
-						assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessError, asset);
+						assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessMessage, asset);
 					});
 				});
 				
 				context(@"ending content access", ^{
 					it(@"throws an exception", ^{
-						assertThrows([asset endContentAccess], NSInternalInconsistencyException, FUAccessMatchingError, asset);
+						assertThrows([asset endContentAccess], NSInternalInconsistencyException, FUAccessMatchingMessage, asset);
 					});
 				});
 			});
@@ -170,13 +170,13 @@ describe(@"An asset", ^{
 					
 					context(@"ending content access", ^{
 						it(@"throws an exception", ^{
-							assertThrows([asset endContentAccess], NSInternalInconsistencyException, FUAccessMatchingError, asset);
+							assertThrows([asset endContentAccess], NSInternalInconsistencyException, FUAccessMatchingMessage, asset);
 						});
 					});
 					
 					context(@"accessing content", ^{
 						it(@"throws an exception", ^{
-							assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessError, asset);
+							assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessMessage, asset);
 						});
 					});
 					
@@ -195,13 +195,13 @@ describe(@"An asset", ^{
 						
 						context(@"accessing content", ^{
 							it(@"throws an exception", ^{
-								assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessError, asset);
+								assertThrows([asset verifyAccessibility], NSInternalInconsistencyException, FUAccessMessage, asset);
 							});
 						});
 						
 						context(@"ending content access", ^{
 							it(@"throws an exception", ^{
-								assertThrows([asset endContentAccess], NSInternalInconsistencyException, FUAccessMatchingError, asset);
+								assertThrows([asset endContentAccess], NSInternalInconsistencyException, FUAccessMatchingMessage, asset);
 							});
 						});
 					});

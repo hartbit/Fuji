@@ -10,6 +10,10 @@
 //
 
 #import "FUDelayAction.h"
+#import "FUSupport.h"
+
+
+static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be positive";
 
 
 @interface FUDelayAction ()
@@ -46,6 +50,8 @@
 
 - (id)initWithDelay:(NSTimeInterval)delay
 {
+	FUCheck(delay >= 0, FUDelayNegativeMessage, delay);
+	
 	if ((self = [super init]))
 	{
 		[self setDelay:delay];

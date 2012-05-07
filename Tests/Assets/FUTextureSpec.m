@@ -16,8 +16,8 @@
 #import "FUTestSupport.h"
 
 
-static NSString* const FUTextureDoesNotExistError = @"The texture with 'name=%@' does not exist";
-static NSString* const FUTextureLoaderError = @"The texture couldn't be loaded because of 'error=%@'";
+static NSString* const FUTextureNonexistantMessage = @"The texture with 'name=%@' does not exist";
+static NSString* const FUTextureLoaderMessage = @"The texture couldn't be loaded because of 'error=%@'";
 
 
 SPEC_BEGIN(FUTexture)
@@ -29,13 +29,13 @@ describe(@"A texture", ^{
 	
 	context(@"initializing with a non-existant texture", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUTexture alloc] initWithName:TEXTURE_NONEXISTANT], NSInvalidArgumentException, FUTextureDoesNotExistError, TEXTURE_NONEXISTANT);
+			assertThrows([[FUTexture alloc] initWithName:TEXTURE_NONEXISTANT], NSInvalidArgumentException, FUTextureNonexistantMessage, TEXTURE_NONEXISTANT);
 		});
 	});
 	
 	context(@"initializing with an invalid texture", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUTexture alloc] initWithName:TEXTURE_INVALID], NSInternalInconsistencyException, FUTextureLoaderError, @"GLKTextureLoaderErrorDataPreprocessingFailure");
+			assertThrows([[FUTexture alloc] initWithName:TEXTURE_INVALID], NSInternalInconsistencyException, FUTextureLoaderMessage, @"GLKTextureLoaderErrorDataPreprocessingFailure");
 		});
 	});
 	

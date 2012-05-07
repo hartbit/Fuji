@@ -11,6 +11,10 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be positive";
 
 
 SPEC_BEGIN(FUDelayAction)
@@ -20,7 +24,19 @@ describe(@"A dekay action", ^{
 		expect([FUDelayAction class]).to.beSubclassOf([FUFiniteAction class]);
 	});
 	
-	context(@"initialized with a delay", ^{
+	context(@"initizing with a negative delay", ^{
+		it(@"throws an exception", ^{
+			assertThrows([[FUDelayAction alloc] initWithDelay:-0.1], NSInvalidArgumentException, FUDelayNegativeMessage, -0.1);
+		});
+	});
+	
+	context(@"initizing with a null delay", ^{
+		it(@"is valid", ^{
+			assertNoThrow([[FUDelayAction alloc] initWithDelay:0]);
+		});
+	});
+	
+	context(@"initialized with a postiive delay", ^{
 		__block FUDelayAction* action;
 		
 		beforeEach(^{
