@@ -26,13 +26,13 @@ describe(@"A dekay action", ^{
 	
 	context(@"initizing with a negative delay", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUDelayAction alloc] initWithDelay:-0.1], NSInvalidArgumentException, FUDelayNegativeMessage, -0.1);
+			assertThrows([FUDelayAction actionWithDelay:-0.1], NSInvalidArgumentException, FUDelayNegativeMessage, -0.1);
 		});
 	});
 	
 	context(@"initizing with a null delay", ^{
 		it(@"is valid", ^{
-			assertNoThrow([[FUDelayAction alloc] initWithDelay:0]);
+			assertNoThrow([FUDelayAction actionWithDelay:0]);
 		});
 	});
 	
