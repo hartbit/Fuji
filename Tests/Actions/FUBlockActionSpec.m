@@ -11,6 +11,10 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
+
+
+static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 
 SPEC_BEGIN(FUBlockAction)
@@ -18,6 +22,12 @@ SPEC_BEGIN(FUBlockAction)
 describe(@"A block action", ^{
 	it(@"is a finite action", ^{
 		expect([FUBlockAction class]).to.beSubclassOf([FUFiniteAction class]);
+	});
+	
+	context(@"initizing with a NULL block", ^{
+		it(@"throws an exception", ^{
+			assertThrows([FUBlockAction actionWithBlock:NULL], NSInvalidArgumentException, FUBlockNullMessage, -0.1);
+		});
 	});
 	
 	context(@"initialized with a block", ^{

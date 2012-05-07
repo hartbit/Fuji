@@ -10,6 +10,10 @@
 //
 
 #import "FUBlockAction.h"
+#import "FUSupport.h"
+
+
+static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 
 @interface FUBlockAction ()
@@ -46,6 +50,8 @@
 
 - (id)initWithBlock:(void (^)())block
 {
+	FUCheck(block != NULL, FUBlockNullMessage);
+	
 	if ((self = [super init]))
 	{
 		[self setBlock:block];
