@@ -5,9 +5,6 @@
       location = "group:Fuji.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Samples/Sample.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

@@ -1,0 +1,121 @@
+//
+//  FUSequenceAction.m
+//  Fuji
+//
+//  Created by David Hart
+//  Copyright (c) 2012 hart[dev]. All rights reserved.
+//
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the Simplified BSD License.
+//
+
+#import "FUSequenceAction.h"
+#import "FUFiniteAction-Internal.h"
+#import "FUSupport.h"
+
+
+static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
+static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to not be a subclass of FUFiniteAction";
+
+
+@interface FUSequenceAction ()
+
+@property (nonatomic, strong) NSArray* actions;
+@property (nonatomic) NSTimeInterval duration;
+
+@end
+
+
+@implementation FUSequenceAction
+
+@synthesize actions = _actions;
+@synthesize duration = _duration;
+
+#pragma mark - Initialization
+
++ (FUSequenceAction*)sequenceWithActions:(FUFiniteAction*)action1, ...
+{
+	NSMutableArray* actions = [NSMutableArray array];
+
+	va_list args;
+	va_start(args, action1);
+
+	for (FUFiniteAction* action = action1; action != nil; action = va_arg(args, FUFiniteAction*))
+    {
+        [actions addObject:action];
+    }
+	
+    va_end(args);
+	
+	return [[self alloc] initWithArray:actions];
+}
+
++ (FUSequenceAction*)sequenceWithArray:(NSArray*)array
+{
+	return [[self alloc] initWithArray:array];
+}
+
+- (id)initWithActions:(FUFiniteAction*)action1, ...
+{
+	NSMutableArray* actions = [NSMutableArray array];
+	
+	va_list args;
+	va_start(args, action1);
+	
+	for (FUFiniteAction* action = action1; action != nil; action = va_arg(args, FUFiniteAction*))
+    {
+        [actions addObject:action];
+    }
+	
+    va_end(args);
+
+	return [self initWithArray:actions];
+}
+
+- (id)initWithArray:(NSArray*)array
+{
+	FUCheck(array != nil, FUArrayNilMessage);
+	
+	NSTimeInterval duration = 0.0;
+	
+	for (FUFiniteAction* action in array)
+	{
+		FUCheck([action isKindOfClass:[FUFiniteAction class]], FUFiniteActionSubclassMessage, action);
+		duration += [action duration];
+	}
+
+	if ((self = [super init]))
+	{
+		[self setActions:array];
+		[self setDuration:duration];
+	}
+	
+	return self;
+}
+
+#pragma mark - FUAction Methods
+
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
+{
+	[super updateWithDeltaTime:deltaTime];
+	
+	for (FUFiniteAction* action in [self actions])
+	{
+		if ([action isComplete])
+		{
+			continue;
+		}
+		
+		NSTimeInterval timeLeft = [action duration] - [action time];
+		[action updateWithDeltaTime:deltaTime];
+		
+		if (timeLeft > deltaTime)
+		{
+			return;
+		}
+		
+		deltaTime -= timeLeft;
+	}
+}
+
+@end

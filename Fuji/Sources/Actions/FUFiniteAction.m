@@ -9,13 +9,12 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUFiniteAction.h"
+#import "FUFiniteAction-Internal.h"
 #import "FUMath.h"
 
 
 @interface FUFiniteAction ()
 
-@property (nonatomic) NSTimeInterval time;
 @property (nonatomic, getter=isComplete) BOOL complete;
 
 @end
