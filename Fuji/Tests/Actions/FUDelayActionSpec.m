@@ -50,13 +50,6 @@ describe(@"A dekay action", ^{
 		it(@"has a duration of 2.5", ^{
 			expect([action duration]).to.equal(2.5);
 		});
-		
-		context(@"creating a copy", ^{
-			it(@"has a duration of 2.5", ^{
-				FUDelayAction* copy = [action copy];
-				expect([copy duration]).to.equal(2.5);
-			});
-		});
 	});
 });
 

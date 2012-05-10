@@ -16,30 +16,7 @@
 static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be positive";
 
 
-@interface FUDelayAction ()
-
-@property (nonatomic) NSTimeInterval delay;
-
-@end
-
-
 @implementation FUDelayAction
-
-@synthesize delay = _delay;
-
-#pragma mark - Initialization
-
-- (id)copyWithZone:(NSZone*)zone
-{
-	id copy;
-	
-	if ((copy = [super copyWithZone:zone]))
-	{
-		[copy setDelay:[self delay]];
-	}
-	
-	return copy;
-}
 
 #pragma mark - Initialization
 
@@ -52,19 +29,11 @@ static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be posi
 {
 	FUCheck(delay >= 0, FUDelayNegativeMessage, delay);
 	
-	if ((self = [super init]))
+	if ((self = [super initWithDuration:delay]))
 	{
-		[self setDelay:delay];
 	}
 	
 	return self;
-}
-
-#pragma mark - FUFiniteAction Methods
-
-- (NSTimeInterval)duration
-{
-	return [self delay];
 }
 
 @end

@@ -15,6 +15,8 @@
 
 @interface FUFiniteAction : NSObject <FUAction>
 
+- (id)initWithDuration:(NSTimeInterval)duration;
+
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 

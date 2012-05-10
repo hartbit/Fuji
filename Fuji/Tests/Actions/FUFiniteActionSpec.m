@@ -14,9 +14,6 @@
 #import "FUFiniteAction-Internal.h"
 
 
-@interface FUOneSecondDurationAction : FUFiniteAction @end
-
-
 SPEC_BEGIN(FUFiniteAction)
 
 describe(@"A finite action", ^{
@@ -56,17 +53,17 @@ describe(@"A finite action", ^{
 	});
 	
 	context(@"initialized a one second duration action", ^{
-		__block FUOneSecondDurationAction* action;
+		__block FUFiniteAction* action;
 		
 		beforeEach(^{
-			action = [FUOneSecondDurationAction new];
+			action = [[FUFiniteAction alloc] initWithDuration:1];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 0", ^{
+		it(@"has a duration of 1.0", ^{
 			expect([action duration]).to.equal(1.0);
 		});
 		
@@ -102,6 +99,26 @@ describe(@"A finite action", ^{
 				
 				it(@"is complete", ^{
 					expect([action isComplete]).to.beTruthy();
+				});
+				
+				context(@"created a copy", ^{
+					__block FUFiniteAction* actionCopy;
+					
+					beforeEach(^{
+						actionCopy = [action copy];
+					});
+					
+					it(@"has a duration of 1.0", ^{
+						expect([actionCopy duration]).to.equal(1.0);
+					});
+					
+					it(@"has a time of 1.0", ^{
+						expect([action time]).to.equal(1.0);
+					});
+					
+					it(@"is complete", ^{
+						expect([action isComplete]).to.beTruthy();
+					});
 				});
 				
 				context(@"advanced time of -0.5 seconds", ^{
@@ -165,11 +182,3 @@ describe(@"A finite action", ^{
 });
 
 SPEC_END
-
-
-@implementation FUOneSecondDurationAction
-- (NSTimeInterval)duration
-{
-	return 1.0;
-}
-@end

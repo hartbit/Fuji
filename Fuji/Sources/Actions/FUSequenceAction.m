@@ -21,7 +21,6 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 @interface FUSequenceAction ()
 
 @property (nonatomic, strong) NSArray* actions;
-@property (nonatomic) NSTimeInterval duration;
 
 @end
 
@@ -29,7 +28,6 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 @implementation FUSequenceAction
 
 @synthesize actions = _actions;
-@synthesize duration = _duration;
 
 #pragma mark - Initialization
 
@@ -84,10 +82,9 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 		duration += [action duration];
 	}
 
-	if ((self = [super init]))
+	if ((self = [super initWithDuration:duration]))
 	{
 		[self setActions:array];
-		[self setDuration:duration];
 	}
 	
 	return self;

@@ -15,6 +15,7 @@
 
 @interface FUFiniteAction ()
 
+@property (nonatomic) NSTimeInterval duration;
 @property (nonatomic, getter=isComplete) BOOL complete;
 
 @end
@@ -23,9 +24,20 @@
 @implementation FUFiniteAction
 
 @synthesize time = _time;
+@synthesize duration = _duration;
 @synthesize complete = _complete;
 
 #pragma mark - Initialization
+
+- (id)initWithDuration:(NSTimeInterval)duration
+{
+	if ((self = [super init]))
+	{
+		[self setDuration:duration];
+	}
+	
+	return self;
+}
 
 - (id)copyWithZone:(NSZone*)zone
 {
@@ -34,17 +46,11 @@
 	if ((copy = [[self class] new]))
 	{
 		[copy setTime:[self time]];
+		[copy setDuration:[self duration]];
 		[copy setComplete:[self isComplete]];
 	}
 	
 	return copy;
-}
-
-#pragma mark - Properties
-
-- (NSTimeInterval)duration
-{
-	return 0;
 }
 
 #pragma mark - FUFiniteAction Methods
