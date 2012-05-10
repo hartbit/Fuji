@@ -11,6 +11,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUFiniteAction-Internal.h"
 
 
 @interface FUOneSecondDurationAction : FUFiniteAction @end
@@ -35,7 +36,11 @@ describe(@"A finite action", ^{
 		});
 		
 		it(@"has a duration of 0", ^{
-			expect([action duration]).to.equal(0);
+			expect([action duration]).to.equal(0.0);
+		});
+		
+		it(@"has a time of 0", ^{
+			expect([action time]).to.equal(0.0);
 		});
 		
 		it(@"is not complete", ^{
@@ -65,6 +70,10 @@ describe(@"A finite action", ^{
 			expect([action duration]).to.equal(1.0);
 		});
 		
+		it(@"has a time of 0", ^{
+			expect([action time]).to.equal(0.0);
+		});
+		
 		it(@"is not complete", ^{
 			expect([action isComplete]).to.beFalsy();
 		});
@@ -72,6 +81,10 @@ describe(@"A finite action", ^{
 		context(@"advanced time of 0.5 seconds", ^{
 			beforeEach(^{
 				[action updateWithDeltaTime:0.5];
+			});
+			
+			it(@"has a time of 0.5", ^{
+				expect([action time]).to.equal(0.5);
 			});
 			
 			it(@"is not complete", ^{
@@ -83,8 +96,40 @@ describe(@"A finite action", ^{
 					[action updateWithDeltaTime:0.5];
 				});
 				
+				it(@"has a time of 1.0", ^{
+					expect([action time]).to.equal(1.0);
+				});
+				
 				it(@"is complete", ^{
 					expect([action isComplete]).to.beTruthy();
+				});
+				
+				context(@"advanced time of -0.5 seconds", ^{
+					beforeEach(^{
+						[action updateWithDeltaTime:-0.5];
+					});
+					
+					it(@"has a time of 1.0", ^{
+						expect([action time]).to.equal(1.0);
+					});
+					
+					it(@"is complete", ^{
+						expect([action isComplete]).to.beTruthy();
+					});
+				});
+			});
+			
+			context(@"advanced time of -0.5 seconds", ^{
+				beforeEach(^{
+					[action updateWithDeltaTime:-0.5];
+				});
+				
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.equal(0.0);
+				});
+				
+				it(@"is not complete", ^{
+					expect([action isComplete]).to.beFalsy();
 				});
 			});
 			
@@ -93,8 +138,26 @@ describe(@"A finite action", ^{
 					[action updateWithDeltaTime:-0.51];
 				});
 				
-				it(@"is not complete", ^{
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.equal(0.0);
+				});
+				
+				it(@"is complete", ^{
 					expect([action isComplete]).to.beTruthy();
+				});
+				
+				context(@"advanced time of 0.5 seconds", ^{
+					beforeEach(^{
+						[action updateWithDeltaTime:0.5];
+					});
+					
+					it(@"has a time of 0.0", ^{
+						expect([action time]).to.equal(0.0);
+					});
+					
+					it(@"is complete", ^{
+						expect([action isComplete]).to.beTruthy();
+					});
 				});
 			});
 		});
