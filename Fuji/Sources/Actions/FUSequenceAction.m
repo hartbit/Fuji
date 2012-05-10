@@ -92,6 +92,19 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	return self;
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+	id copy;
+	
+	if ((copy = [super copyWithZone:zone]))
+	{
+		[copy setActions:[[NSArray alloc] initWithArray:[self actions] copyItems:YES]];
+		[copy setActionIndex:[self actionIndex]];
+	}
+	
+	return copy;
+}
+
 #pragma mark - FUAction Methods
 
 - (void)updateWithDeltaTime:(NSTimeInterval)deltaTime

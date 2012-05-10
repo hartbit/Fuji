@@ -124,10 +124,54 @@ describe(@"A sequence action", ^{
 						expect([sequence isComplete]).to.beTruthy();
 					});
 					
-					it(@"updates the first and second action", ^{
+					it(@"updates the second and third actions", ^{
 						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0];
 						[verify(action2) updateWithDeltaTime:1];
 						[[verify(action3) withMatcher:HC_closeTo(0.5, DBL_EPSILON)] updateWithDeltaTime:0.5];
+					});
+				});
+				
+				context(@"updating a copy of the sequence with 1 seconds", ^{
+					__block FUSequenceAction* sequenceCopy;
+					__block FUFiniteAction* action1Copy;
+					__block FUFiniteAction* action2Copy;
+					__block FUFiniteAction* action3Copy;
+					
+					beforeEach(^{
+						action1Copy = mock([FUFiniteAction class]);
+						[given([action1 copy]) willReturn:action1Copy];
+						[given([action1Copy isComplete]) willReturnBool:YES];
+						
+						action2Copy = mock([FUFiniteAction class]);
+						[given([action2 copy]) willReturn:action2Copy];
+						[given([action2Copy duration]) willReturnDouble:2.0];
+						[given([action2Copy time]) willReturnDouble:1.5];
+						
+						action3Copy = mock([FUFiniteAction class]);
+						[given([action3 copy]) willReturn:action3Copy];
+						
+						sequenceCopy = [sequence copy];
+						[sequenceCopy updateWithDeltaTime:1];
+					});
+
+					it(@"has the original not complete", ^{
+						expect([sequence isComplete]).to.beFalsy();
+					});
+					
+					it(@"has the copy complete", ^{
+						expect([sequenceCopy isComplete]).to.beTruthy();
+					});
+					
+					it(@"does not update the original actions", ^{
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+					});
+					
+					it(@"updates the second and third copied actions", ^{
+						[[verifyCount(action1Copy, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[verify(action2Copy) updateWithDeltaTime:1];
+						[[verify(action3Copy) withMatcher:HC_closeTo(0.5, DBL_EPSILON)] updateWithDeltaTime:0.5];
 					});
 				});
 				
