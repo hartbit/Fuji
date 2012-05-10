@@ -60,14 +60,14 @@ describe(@"An animator", ^{
 			
 			it(@"advanced time by 0 to kick-off initilization on un-complete actions", ^{
 				[verify(action1) updateWithDeltaTime:0];
-				[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
 			});
 			
 			context(@"advancing time", ^{
 				it(@"advances time on the incomplete action", ^{
 					[animator updateWithDeltaTime:1.5f];
 					[verify(action1) updateWithDeltaTime:1.5f];
-					[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+					[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
 				});
 			});
 			
@@ -75,8 +75,8 @@ describe(@"An animator", ^{
 				it(@"advances time on none of the actions", ^{
 					[given([action1 isComplete]) willReturnBool:YES];
 					[animator updateWithDeltaTime:2.0f];
-					[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
-					[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+					[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+					[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
 				});
 			});
 			
@@ -102,10 +102,10 @@ describe(@"An animator", ^{
 				context(@"advancing time", ^{
 					it(@"advances time on the incomplete copied actions", ^{
 						[animatorCopy updateWithDeltaTime:1.0];
-						[[verify(action1) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
-						[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+						[[verify(action1) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
 						[verify(action1Copy) updateWithDeltaTime:1.0];
-						[[verifyCount(action2Copy, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+						[[verifyCount(action2Copy, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
 					});
 				});
 			});
