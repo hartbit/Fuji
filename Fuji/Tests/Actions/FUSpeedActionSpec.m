@@ -129,6 +129,38 @@ describe(@"A speed action", ^{
 					[verify(subaction) updateWithDeltaTime:-1.5];
 				});
 			});
+			
+			context(@"created a copy", ^{
+				__block FUSpeedAction* actionCopy;
+				__block NSObject<FUAction>* subactionCopy;
+				
+				beforeEach(^{
+					subactionCopy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
+					[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
+					
+					actionCopy = [action copy];
+				});
+				
+				it(@"is not nil", ^{
+					expect(actionCopy).toNot.beNil();
+				});
+				
+				it(@"has a speed of 1.5", ^{
+					expect([actionCopy speed]).to.equal(1.5);
+				});
+				
+				it(@"has the copied subaction", ^{
+					expect([actionCopy action]).to.beIdenticalTo(subactionCopy);
+				});
+				
+				context(@"updating the copied action", ^{
+					it(@"updates the copied subaction", ^{
+						[actionCopy updateWithDeltaTime:1.0];
+						[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[verify(subactionCopy) updateWithDeltaTime:1.5];
+					});
+				});
+			});
 		});
 		
 		context(@"set the speed at -2.0", ^{
