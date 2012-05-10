@@ -85,8 +85,8 @@ describe(@"A sequence action", ^{
 			it(@"updates only the first action", ^{
 				[sequence updateWithDeltaTime:1];
 				[verify(action1) updateWithDeltaTime:1];
-				[verifyCount(action2, never()) updateWithDeltaTime:1];
-				[verifyCount(action3, never()) updateWithDeltaTime:1];
+				[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+				[[verifyCount(action3, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
 			});
 		});
 		
@@ -94,8 +94,8 @@ describe(@"A sequence action", ^{
 			it(@"updates the first and second action", ^{
 				[sequence updateWithDeltaTime:2];
 				[verify(action1) updateWithDeltaTime:2];
-				[verify(action2) updateWithDeltaTime:0.5];
-				[verifyCount(action3, never()) updateWithDeltaTime:2];
+				[[verify(action2) withMatcher:HC_closeTo(0.5, DBL_EPSILON) forArgument:0] updateWithDeltaTime:0.5];
+				[[verifyCount(action3, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
 			});
 		});
 		
@@ -103,8 +103,8 @@ describe(@"A sequence action", ^{
 			it(@"updates the first and second and third action", ^{
 				[sequence updateWithDeltaTime:3.6];
 				[verify(action1) updateWithDeltaTime:3.6];
-				[verify(action2) updateWithDeltaTime:2.1];
-				[verify(action3) updateWithDeltaTime:0.1];
+				[[verify(action2) withMatcher:HC_closeTo(2.1, DBL_EPSILON) forArgument:0] updateWithDeltaTime:2.1];
+				[[verify(action3) withMatcher:HC_closeTo(0.1, DBL_EPSILON) forArgument:0] updateWithDeltaTime:0.1];
 			});
 		});
 	});
