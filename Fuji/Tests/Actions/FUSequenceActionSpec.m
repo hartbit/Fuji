@@ -130,6 +130,24 @@ describe(@"A sequence action", ^{
 						[[verify(action3) withMatcher:HC_closeTo(0.5, DBL_EPSILON)] updateWithDeltaTime:0.5];
 					});
 				});
+				
+				context(@"updating the sequence with -5 seconds", ^{
+					beforeEach(^{
+						[given([action1 isComplete]) willReturnBool:YES];
+						[given([action2 time]) willReturnDouble:1.5];
+						[sequence updateWithDeltaTime:-5];
+					});
+					
+					it(@"is complete", ^{
+						expect([sequence isComplete]).to.beTruthy();
+					});
+					
+					it(@"updates the first and second action backwards", ^{
+						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[verify(action2) updateWithDeltaTime:-5];
+						[[verify(action1) withMatcher:HC_closeTo(-3.5, DBL_EPSILON)] updateWithDeltaTime:-3.5];
+					});
+				});
 			});
 		});
 	});

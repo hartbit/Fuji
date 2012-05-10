@@ -21,6 +21,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 @interface FUSequenceAction ()
 
 @property (nonatomic, strong) NSArray* actions;
+@property (nonatomic) NSUInteger actionIndex;
 
 @end
 
@@ -28,6 +29,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 @implementation FUSequenceAction
 
 @synthesize actions = _actions;
+@synthesize actionIndex = _actionIndex;
 
 #pragma mark - Initialization
 
@@ -96,22 +98,30 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 {
 	[super updateWithDeltaTime:deltaTime];
 	
-	for (FUFiniteAction* action in [self actions])
+	NSArray* actions = [self actions];
+	NSUInteger actionCount = [actions count];
+	NSInteger actionIndex = [self actionIndex];
+	BOOL isDeltaTimePositive = deltaTime >= 0.0;
+	NSInteger deltaIndex = isDeltaTimePositive ? 1 : -1;
+	
+	while (YES)
 	{
-		if ([action isComplete])
-		{
-			continue;
-		}
+		FUFiniteAction* action = [actions objectAtIndex:actionIndex];
+		NSTimeInterval targetTime = isDeltaTimePositive ? [action duration] : 0.0;
+		NSTimeInterval timeToCompletion = targetTime - [action time];
 		
-		NSTimeInterval timeLeft = [action duration] - [action time];
 		[action updateWithDeltaTime:deltaTime];
 		
-		if (timeLeft > deltaTime)
+		if ((ABS(timeToCompletion) > ABS(deltaTime)) ||
+			(!isDeltaTimePositive && ([self actionIndex] == 0)) ||
+			(isDeltaTimePositive && ([self actionIndex] == actionCount - 1)))
 		{
 			return;
 		}
 		
-		deltaTime -= timeLeft;
+		deltaTime -= timeToCompletion;
+		actionIndex += deltaIndex;
+		[self setActionIndex:actionIndex];
 	}
 }
 
