@@ -99,6 +99,10 @@
 		63C209911552A4FC00B32A89 /* FUSequenceAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C2098F1552A4FC00B32A89 /* FUSequenceAction.h */; };
 		63C209921552A4FC00B32A89 /* FUSequenceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C209901552A4FC00B32A89 /* FUSequenceAction.m */; };
 		63C209931552A4FC00B32A89 /* FUSequenceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C209901552A4FC00B32A89 /* FUSequenceAction.m */; };
+		63CA5175155BF8DD0017E335 /* FUSpeedActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */; };
+		63CA5179155BF9570017E335 /* FUSpeedAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 63CA5177155BF9570017E335 /* FUSpeedAction.h */; };
+		63CA517A155BF9570017E335 /* FUSpeedAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CA5178155BF9570017E335 /* FUSpeedAction.m */; };
+		63CA517B155BF9570017E335 /* FUSpeedAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CA5178155BF9570017E335 /* FUSpeedAction.m */; };
 		63D3CE5C1546C9E80033BA8E /* FUSpriteBatch-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D3CE5A1546C9E80033BA8E /* FUSpriteBatch-Internal.h */; };
 		63D3CE5D1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
 		63D3CE5E1546C9E80033BA8E /* FUSpriteBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */; };
@@ -216,6 +220,9 @@
 		63C2098C1552A49700B32A89 /* FUSequenceActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSequenceActionSpec.m; sourceTree = "<group>"; };
 		63C2098F1552A4FC00B32A89 /* FUSequenceAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSequenceAction.h; sourceTree = "<group>"; };
 		63C209901552A4FC00B32A89 /* FUSequenceAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSequenceAction.m; sourceTree = "<group>"; };
+		63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpeedActionSpec.m; sourceTree = "<group>"; };
+		63CA5177155BF9570017E335 /* FUSpeedAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSpeedAction.h; sourceTree = "<group>"; };
+		63CA5178155BF9570017E335 /* FUSpeedAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpeedAction.m; sourceTree = "<group>"; };
 		63D3CE5A1546C9E80033BA8E /* FUSpriteBatch-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUSpriteBatch-Internal.h"; sourceTree = "<group>"; };
 		63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpriteBatch.m; sourceTree = "<group>"; };
 		63D3CE601546CC680033BA8E /* FUGraphicsTypes-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUGraphicsTypes-Internal.h"; sourceTree = "<group>"; };
@@ -451,6 +458,7 @@
 			children = (
 				63C2098015526EE900B32A89 /* FUActionSpec.m */,
 				634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */,
+				63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */,
 				634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */,
 				63C2098C1552A49700B32A89 /* FUSequenceActionSpec.m */,
 				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
@@ -464,6 +472,7 @@
 			children = (
 				634E2A88155018A20012C4FB /* FUAction.h */,
 				634E2A87155018A20012C4FB /* FUAnimator.h */,
+				63CA5177155BF9570017E335 /* FUSpeedAction.h */,
 				634E2A9815501BC50012C4FB /* FUFiniteAction.h */,
 				63C2098F1552A4FC00B32A89 /* FUSequenceAction.h */,
 				6384354E155189D300313BB2 /* FUBlockAction.h */,
@@ -476,6 +485,7 @@
 			isa = PBXGroup;
 			children = (
 				634E2A8B155018A70012C4FB /* FUAnimator.m */,
+				63CA5178155BF9570017E335 /* FUSpeedAction.m */,
 				634E2A9915501BC50012C4FB /* FUFiniteAction.m */,
 				63C209901552A4FC00B32A89 /* FUSequenceAction.m */,
 				6384354F155189D300313BB2 /* FUBlockAction.m */,
@@ -658,6 +668,7 @@
 				63843550155189D300313BB2 /* FUBlockAction.h in Headers */,
 				63C2097D15526D6700B32A89 /* FUDelayAction.h in Headers */,
 				63C209911552A4FC00B32A89 /* FUSequenceAction.h in Headers */,
+				63CA5179155BF9570017E335 /* FUSpeedAction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +816,7 @@
 				63843551155189D300313BB2 /* FUBlockAction.m in Sources */,
 				63C2097E15526D6700B32A89 /* FUDelayAction.m in Sources */,
 				63C209921552A4FC00B32A89 /* FUSequenceAction.m in Sources */,
+				63CA517A155BF9570017E335 /* FUSpeedAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,6 +876,8 @@
 				63C2098115526EE900B32A89 /* FUActionSpec.m in Sources */,
 				63C2098D1552A49700B32A89 /* FUSequenceActionSpec.m in Sources */,
 				63C209931552A4FC00B32A89 /* FUSequenceAction.m in Sources */,
+				63CA5175155BF8DD0017E335 /* FUSpeedActionSpec.m in Sources */,
+				63CA517B155BF9570017E335 /* FUSpeedAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

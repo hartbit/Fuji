@@ -31,6 +31,7 @@
 
 #import "FUAction.h"
 #import "FUAnimator.h"
+#import "FUSpeedAction.h"
 #import "FUFiniteAction.h"
 #import "FUSequenceAction.h"
 #import "FUBlockAction.h"
