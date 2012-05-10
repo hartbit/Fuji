@@ -120,7 +120,7 @@ describe(@"A sequence action", ^{
 						[sequence updateWithDeltaTime:1];
 					});
 					
-					it(@"is not complete", ^{
+					it(@"is complete", ^{
 						expect([sequence isComplete]).to.beTruthy();
 					});
 					
