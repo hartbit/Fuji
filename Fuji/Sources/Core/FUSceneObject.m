@@ -35,8 +35,7 @@ static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 {
 	FUAssert([self isInitializing], FUCreationInvalidMessage);
 	
-	self = [super init];
-	return self;
+	return [super init];
 }
 
 - (id)initWithScene:(FUScene*)scene
