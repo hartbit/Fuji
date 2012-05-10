@@ -74,9 +74,9 @@ describe(@"A block action", ^{
 			});
 			
 			context(@"updating the action a second time", ^{
-				it(@"does not call the block again", ^{
+				it(@"calls the block again", ^{
 					[action updateWithDeltaTime:1];
-					expect(callCount).to.equal(1);
+					expect(callCount).to.equal(2);
 				});
 			});
 		});

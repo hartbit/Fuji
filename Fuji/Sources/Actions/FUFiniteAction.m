@@ -57,24 +57,11 @@
 
 - (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
-	if ([self isComplete])
-	{
-		return;
-	}
-	
 	NSTimeInterval duration = [self duration];
 	NSTimeInterval time = [self time] + deltaTime;
 	
-	if (time < 0.0)
-	{
-		time = 0.0;
-		[self setComplete:YES];
-	}
-	else if (time >= duration)
-	{
-		time = duration;
-		[self setComplete:YES];
-	}
+	[self setComplete:(time < 0.0) || (time >= duration)];
+	time = FUClamp(time, 0, duration);
 	
 	[self setTime:time];
 	[self updateWithFactor:time / duration];

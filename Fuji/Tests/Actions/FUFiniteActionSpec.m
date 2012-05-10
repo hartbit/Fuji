@@ -110,11 +110,11 @@ describe(@"A finite action", ^{
 					});
 					
 					it(@"has a time of 1.0", ^{
-						expect([action time]).to.equal(1.0);
+						expect([action time]).to.equal(0.5);
 					});
 					
-					it(@"is complete", ^{
-						expect([action isComplete]).to.beTruthy();
+					it(@"is not complete", ^{
+						expect([action isComplete]).to.beFalsy();
 					});
 				});
 			});
@@ -151,12 +151,12 @@ describe(@"A finite action", ^{
 						[action updateWithDeltaTime:0.5];
 					});
 					
-					it(@"has a time of 0.0", ^{
-						expect([action time]).to.equal(0.0);
+					it(@"has a time of 0.5", ^{
+						expect([action time]).to.equal(0.5);
 					});
 					
-					it(@"is complete", ^{
-						expect([action isComplete]).to.beTruthy();
+					it(@"is not complete", ^{
+						expect([action isComplete]).to.beFalsy();
 					});
 				});
 			});
