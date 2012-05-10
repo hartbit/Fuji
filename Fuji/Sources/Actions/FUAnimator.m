@@ -35,8 +35,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	
 	if ((copy = [[self class] new]))
 	{
-		NSMutableArray* actions = [[NSMutableArray alloc] initWithArray:[self actions] copyItems:YES];
-		[copy setActions:actions];
+		[copy setActions:[[NSMutableArray alloc] initWithArray:[self actions] copyItems:YES]];
 	}
 	
 	return copy;
