@@ -11,6 +11,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUFiniteAction-Internal.h"
 #import "FUTestSupport.h"
 
 
@@ -82,29 +83,53 @@ describe(@"A sequence action", ^{
 		});
 		
 		context(@"updating the sequence with 1 second", ^{
-			it(@"updates only the first action", ^{
+			beforeEach(^{
 				[sequence updateWithDeltaTime:1];
+			});
+			
+			it(@"is not complete", ^{
+				expect([sequence isComplete]).to.beFalsy();
+			});
+			
+			it(@"updates only the first action", ^{
 				[verify(action1) updateWithDeltaTime:1];
-				[[verifyCount(action2, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
-				[[verifyCount(action3, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
+				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
 			});
-		});
-		
-		context(@"updating the sequence with 2 seconds", ^{
-			it(@"updates the first and second action", ^{
-				[sequence updateWithDeltaTime:2];
-				[verify(action1) updateWithDeltaTime:2];
-				[[verify(action2) withMatcher:HC_closeTo(0.5, DBL_EPSILON) forArgument:0] updateWithDeltaTime:0.5];
-				[[verifyCount(action3, never()) withMatcher:HC_anything() forArgument:0] updateWithDeltaTime:0];
-			});
-		});
-		
-		context(@"updating the sequence with 3.6 seconds", ^{
-			it(@"updates the first and second and third action", ^{
-				[sequence updateWithDeltaTime:3.6];
-				[verify(action1) updateWithDeltaTime:3.6];
-				[[verify(action2) withMatcher:HC_closeTo(2.1, DBL_EPSILON) forArgument:0] updateWithDeltaTime:2.1];
-				[[verify(action3) withMatcher:HC_closeTo(0.1, DBL_EPSILON) forArgument:0] updateWithDeltaTime:0.1];
+			
+			context(@"updating the sequence with 2 seconds", ^{
+				beforeEach(^{
+					[given([action1 time]) willReturnDouble:1];
+					[sequence updateWithDeltaTime:2];
+				});
+				
+				it(@"is not complete", ^{
+					expect([sequence isComplete]).to.beFalsy();
+				});
+				
+				it(@"updates the first and second action", ^{
+					[verify(action1) updateWithDeltaTime:2];
+					[[verify(action2) withMatcher:HC_closeTo(1.5, DBL_EPSILON)] updateWithDeltaTime:1.5];
+					[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+				});
+				
+				context(@"updating the sequence with 1 seconds", ^{
+					beforeEach(^{
+						[given([action1 isComplete]) willReturnBool:YES];
+						[given([action2 time]) willReturnDouble:1.5];
+						[sequence updateWithDeltaTime:1];
+					});
+					
+					it(@"is not complete", ^{
+						expect([sequence isComplete]).to.beTruthy();
+					});
+					
+					it(@"updates the first and second action", ^{
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[verify(action2) updateWithDeltaTime:1];
+						[[verify(action3) withMatcher:HC_closeTo(0.5, DBL_EPSILON)] updateWithDeltaTime:0.5];
+					});
+				});
 			});
 		});
 	});
