@@ -10,7 +10,6 @@
 #import "FUSupport.h"
 
 
-static NSString* const FUCreationInvalidMessage = @"Can not create a speed action without a subaction";
 static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 
@@ -36,11 +35,6 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 + (FUSpeedAction*)actionWithAction:(id<FUAction>)action speed:(float)speed
 {
 	return [[self alloc] initWithAction:action speed:speed];	
-}
-
-- (id)init
-{
-	FUThrow(FUCreationInvalidMessage);
 }
 
 - (id)initWithAction:(id<FUAction>)action speed:(float)speed

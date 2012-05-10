@@ -14,7 +14,6 @@
 #import "FUTestSupport.h"
 
 
-static NSString* const FUCreationInvalidMessage = @"Can not create a speed action without a subaction";
 static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 
@@ -26,12 +25,6 @@ SPEC_BEGIN(FUSpeedAction)
 describe(@"A speed action", ^{
 	it(@"is an action", ^{
 		expect([[FUSpeedAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
-	});
-	
-	context(@"initializing with init", ^{
-		it(@"throws an exception", ^{
-			assertThrows([FUSpeedAction new], NSInternalInconsistencyException, FUCreationInvalidMessage);
-		});
 	});
 	
 	context(@"initializing with a nil action", ^{

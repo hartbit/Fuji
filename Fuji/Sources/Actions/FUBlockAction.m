@@ -29,20 +29,6 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 #pragma mark - Initialization
 
-- (id)copyWithZone:(NSZone*)zone
-{
-	id copy;
-	
-	if ((copy = [super copyWithZone:zone]))
-	{
-		[copy setBlock:[self block]];
-	}
-	
-	return copy;
-}
-
-#pragma mark - Initialization
-
 + (id)actionWithBlock:(void (^)())block
 {
 	return [[self alloc] initWithBlock:block];
@@ -58,6 +44,18 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 	}
 	
 	return self;
+}
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	id copy;
+	
+	if ((copy = [super copyWithZone:zone]))
+	{
+		[copy setBlock:[self block]];
+	}
+	
+	return copy;
 }
 
 #pragma mark - FUFiniteAction Methods
