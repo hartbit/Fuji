@@ -32,9 +32,9 @@ describe(@"A sequence action", ^{
 		});
 	});
 	
-	context(@"initilized with an empty nil-terminated list", ^{
+	context(@"initilized with an empty array", ^{
 		it(@"does not throw", ^{
-			assertNoThrow([[FUSequenceAction alloc] initWithActions:nil]);
+			assertNoThrow([[FUSequenceAction alloc] initWithArray:[NSArray array]]);
 		});
 	});
 	
@@ -43,6 +43,12 @@ describe(@"A sequence action", ^{
 			id object = [NSString string];
 			NSArray* array = [NSArray arrayWithObject:object];
 			assertThrows([[FUSequenceAction alloc] initWithArray:array], NSInvalidArgumentException, FUFiniteActionSubclassMessage, object);
+		});
+	});
+	
+	context(@"initializing via the macro with no actions", ^{
+		it(@"returns a FUSequenceAction", ^{
+			expect(FUSequence()).to.beKindOf([FUSequenceAction class]);
 		});
 	});
 	
@@ -68,6 +74,12 @@ describe(@"A sequence action", ^{
 			
 			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
 			sequence = [[FUSequenceAction alloc] initWithArray:actions];
+		});
+		
+		context(@"initializing via the macro with three actions", ^{
+			it(@"returns a FUSequenceAction", ^{
+				expect(FUSequence(action1, action2, action3)).to.beKindOf([FUSequenceAction class]);
+			});
 		});
 		
 		it(@"is not nil", ^{

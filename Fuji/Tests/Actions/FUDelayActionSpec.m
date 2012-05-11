@@ -36,6 +36,12 @@ describe(@"A dekay action", ^{
 		});
 	});
 	
+	context(@"initializing via the macro", ^{
+		it(@"returns a FUDelayAction", ^{
+			expect(FUDelay(1.0)).to.beKindOf([FUDelayAction class]);
+		});
+	});
+	
 	context(@"initialized with a postiive delay", ^{
 		__block FUDelayAction* action;
 		

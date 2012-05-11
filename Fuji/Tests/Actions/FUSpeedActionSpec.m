@@ -27,31 +27,9 @@ describe(@"A speed action", ^{
 		expect([[FUSpeedAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
 	
-	context(@"initializing with a nil action", ^{
+	context(@"initializing with a nil action and a speed of 1.0f", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUSpeedAction alloc] initWithAction:nil], NSInvalidArgumentException, FUActionNilMessage);
-		});
-	});
-
-	context(@"initialized with an action", ^{
-		__block FUSpeedAction* action;
-		__block NSObject<FUAction>* subaction;
-		
-		beforeEach(^{
-			subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
-			action = [[FUSpeedAction alloc] initWithAction:subaction speed:1.0];
-		});
-		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
-		it(@"has the subaction", ^{
-			expect([action action]).to.beIdenticalTo(subaction);
-		});
-		
-		it(@"has a speed of 1.0", ^{
-			expect([action speed]).to.equal(1.0);
+			assertThrows([[FUSpeedAction alloc] initWithAction:nil speed:1.0f], NSInvalidArgumentException, FUActionNilMessage);
 		});
 	});
 	
@@ -186,6 +164,15 @@ describe(@"A speed action", ^{
 				});
 			});
 		});
+	});
+	
+	context(@"initializing via the macro with a valid action and a speed of 1.0f", ^{
+		it(@"returns a FUSpeedAction", ^{
+			NSObject<FUAction>* subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
+			expect(FUSpeed(subaction, 1.0f)).to.beKindOf([FUSpeedAction class]);
+		});
+		
+		pending(@"test all other tests");
 	});
 });
 

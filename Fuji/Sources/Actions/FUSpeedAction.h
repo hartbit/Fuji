@@ -15,7 +15,9 @@
 @property (nonatomic, strong, readonly) id<FUAction> action;
 @property (nonatomic) float speed;
 
-- (id)initWithAction:(id<FUAction>)action;
 - (id)initWithAction:(id<FUAction>)action speed:(float)speed;
 
 @end
+
+
+#define FUSpeed(_action, _speed) [[FUSpeedAction alloc] initWithAction:(_action) speed:(_speed)]

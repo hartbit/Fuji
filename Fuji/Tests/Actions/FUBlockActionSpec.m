@@ -30,6 +30,12 @@ describe(@"A block action", ^{
 		});
 	});
 	
+	context(@"initializing via the macro with a block", ^{
+		it(@"returns a FUBlockAction", ^{
+			expect(FUBlock(^{})).to.beKindOf([FUBlockAction class]);
+		});
+	});
+	
 	context(@"initialized with a block", ^{
 		__block FUBlockAction* action;
 		__block NSUInteger callCount;

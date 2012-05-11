@@ -17,3 +17,6 @@
 - (id)initWithBlock:(void (^)())block;
 
 @end
+
+
+#define FUBlock(_block) [[FUBlockAction alloc] initWithBlock:(_block)]

@@ -33,23 +33,6 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 #pragma mark - Initialization
 
-- (id)initWithActions:(FUFiniteAction*)action1, ...
-{
-	NSMutableArray* actions = [NSMutableArray array];
-	
-	va_list args;
-	va_start(args, action1);
-	
-	for (FUFiniteAction* action = action1; action != nil; action = va_arg(args, FUFiniteAction*))
-    {
-        [actions addObject:action];
-    }
-	
-    va_end(args);
-
-	return [self initWithArray:actions];
-}
-
 - (id)initWithArray:(NSArray*)array
 {
 	FUCheck(array != nil, FUArrayNilMessage);

@@ -18,3 +18,6 @@
 - (id)initWithDelay:(NSTimeInterval)delay;
 
 @end
+
+
+#define FUDelay(_delay) [[FUDelayAction alloc] initWithDelay:(_delay)]

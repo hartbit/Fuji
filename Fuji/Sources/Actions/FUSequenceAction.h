@@ -15,7 +15,14 @@
 
 @interface FUSequenceAction : FUFiniteAction
 
-- (id)initWithActions:(FUFiniteAction*)actions, ... NS_REQUIRES_NIL_TERMINATION;
 - (id)initWithArray:(NSArray*)array;
 
 @end
+
+
+#define FUSequence(_actions...) ({ \
+	id __objects[] = { _actions }; \
+	NSUInteger __count = sizeof(__objects) / sizeof(id); \
+	NSArray* __array = [[NSArray alloc] initWithObjects:__objects count:__count]; \
+	[[FUSequenceAction alloc] initWithArray:__array]; \
+})
