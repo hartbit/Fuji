@@ -10,7 +10,7 @@
 //
 
 
-static inline BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
+static OBJC_INLINE BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
 {
 	return (left.m00 == right.m00) && (left.m01 == right.m01) && (left.m02 == right.m02) && (left.m03 == right.m03) &&
 	(left.m10 == right.m10) && (left.m11 == right.m11) && (left.m12 == right.m12) && (left.m13 == right.m13) &&
@@ -18,17 +18,17 @@ static inline BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
 	(left.m30 == right.m30) && (left.m31 == right.m31) && (left.m32 == right.m32) && (left.m33 == right.m33);
 }
 
-static inline BOOL FUAreCloseWithAccuracy(float a, float b, float epsilon)
+static OBJC_INLINE BOOL FUAreCloseWithAccuracy(float a, float b, float epsilon)
 {
     return fabs(a - b) < epsilon;
 }
 
-static inline BOOL FUAreClose(float a, float b)
+static OBJC_INLINE BOOL FUAreClose(float a, float b)
 {
     return FUAreCloseWithAccuracy(a, b, FLT_EPSILON);
 }
 
-static inline BOOL FUMatrix4AreClose(GLKMatrix4 left, GLKMatrix4 right)
+static OBJC_INLINE BOOL FUMatrix4AreClose(GLKMatrix4 left, GLKMatrix4 right)
 {
 	return FUAreClose(left.m00, right.m00) && FUAreClose(left.m01, right.m01) && FUAreClose(left.m02, right.m02) && FUAreClose(left.m03, right.m03) &&
 	FUAreClose(left.m10, right.m10) && FUAreClose(left.m11, right.m11) && FUAreClose(left.m12, right.m12) && FUAreClose(left.m13, right.m13) &&

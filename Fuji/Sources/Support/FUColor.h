@@ -308,17 +308,17 @@ OBJC_EXPORT const FUColor FUColorYellow;
 OBJC_EXPORT const FUColor FUColorYellowGreen;
 
 
-static inline FUColor FUColorMake(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
+static OBJC_INLINE FUColor FUColorMake(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
 {
 	return (FUColor){ red, green, blue, alpha };
 }
 
-static inline BOOL FUColorAreEqual(FUColor left, FUColor right)
+static OBJC_INLINE BOOL FUColorAreEqual(FUColor left, FUColor right)
 {
 	return (left.red == right.red) && (left.green == right.green) && (left.blue == right.blue) && (left.alpha == right.alpha);
 }
 
-static inline GLKVector4 FUVector4FromColor(FUColor color)
+static OBJC_INLINE GLKVector4 FUVector4FromColor(FUColor color)
 {
 	return GLKVector4Make(color.red / 255.0f, color.green / 255.0f, color.blue / 255.0f, color.alpha / 255.0f);
 }

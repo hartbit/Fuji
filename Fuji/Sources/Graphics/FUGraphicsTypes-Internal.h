@@ -24,7 +24,7 @@ typedef struct
 } FUVertex;
 
 
-static inline FUVertex FUVertexMake(GLKVector3 position, FUColor color, GLKVector2 texCoord)
+static OBJC_INLINE FUVertex FUVertexMake(GLKVector3 position, FUColor color, GLKVector2 texCoord)
 {
 	return (FUVertex){ position, color, texCoord };
 }

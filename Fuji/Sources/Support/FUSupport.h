@@ -69,7 +69,7 @@
 	return __singleton;
 
 
-static inline BOOL FUStringIsValid(NSString* string)
+static OBJC_INLINE BOOL FUStringIsValid(NSString* string)
 {
 	return (string != nil) && ([string length] != 0);
 }
