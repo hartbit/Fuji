@@ -28,13 +28,13 @@ describe(@"A sequence action", ^{
 	
 	context(@"initilized with a nil array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([FUSequenceAction sequenceWithArray:nil], NSInvalidArgumentException, FUArrayNilMessage);
+			assertThrows([[FUSequenceAction alloc] initWithArray:nil], NSInvalidArgumentException, FUArrayNilMessage);
 		});
 	});
 	
 	context(@"initilized with an empty nil-terminated list", ^{
 		it(@"does not throw", ^{
-			assertNoThrow([FUSequenceAction sequenceWithActions:nil]);
+			assertNoThrow([[FUSequenceAction alloc] initWithActions:nil]);
 		});
 	});
 	
@@ -42,7 +42,7 @@ describe(@"A sequence action", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
 			NSArray* array = [NSArray arrayWithObject:object];
-			assertThrows([FUSequenceAction sequenceWithArray:array], NSInvalidArgumentException, FUFiniteActionSubclassMessage, object);
+			assertThrows([[FUSequenceAction alloc] initWithArray:array], NSInvalidArgumentException, FUFiniteActionSubclassMessage, object);
 		});
 	});
 	
@@ -67,7 +67,7 @@ describe(@"A sequence action", ^{
 			[given([action3 duration]) willReturnDouble:0.3];
 			
 			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
-			sequence = [FUSequenceAction sequenceWithArray:actions];
+			sequence = [[FUSequenceAction alloc] initWithArray:actions];
 		});
 		
 		it(@"is not nil", ^{

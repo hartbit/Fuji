@@ -27,14 +27,9 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 #pragma mark - Initialization
 
-+ (FUSpeedAction*)actionWithAction:(id<FUAction>)action
+- (id)initWithAction:(id<FUAction>)action
 {
-	return [[self alloc] initWithAction:action speed:1.0];
-}
-
-+ (FUSpeedAction*)actionWithAction:(id<FUAction>)action speed:(float)speed
-{
-	return [[self alloc] initWithAction:action speed:speed];	
+	return [self initWithAction:action speed:1.0f];
 }
 
 - (id)initWithAction:(id<FUAction>)action speed:(float)speed

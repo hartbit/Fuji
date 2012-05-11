@@ -29,7 +29,7 @@ describe(@"A speed action", ^{
 	
 	context(@"initializing with a nil action", ^{
 		it(@"throws an exception", ^{
-			assertThrows([FUSpeedAction actionWithAction:nil], NSInvalidArgumentException, FUActionNilMessage);
+			assertThrows([[FUSpeedAction alloc] initWithAction:nil], NSInvalidArgumentException, FUActionNilMessage);
 		});
 	});
 
@@ -39,7 +39,7 @@ describe(@"A speed action", ^{
 		
 		beforeEach(^{
 			subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
-			action = [FUSpeedAction actionWithAction:subaction speed:1.0];
+			action = [[FUSpeedAction alloc] initWithAction:subaction speed:1.0];
 		});
 		
 		it(@"is not nil", ^{
@@ -61,7 +61,7 @@ describe(@"A speed action", ^{
 		
 		beforeEach(^{
 			subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
-			action = [FUSpeedAction actionWithAction:subaction speed:1.0];
+			action = [[FUSpeedAction alloc] initWithAction:subaction speed:1.0];
 		});
 		
 		it(@"is not nil", ^{

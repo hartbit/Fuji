@@ -15,8 +15,7 @@
 @property (nonatomic, strong, readonly) id<FUAction> action;
 @property (nonatomic) float speed;
 
-+ (FUSpeedAction*)actionWithAction:(id<FUAction>)action;
-+ (FUSpeedAction*)actionWithAction:(id<FUAction>)action speed:(float)speed;
+- (id)initWithAction:(id<FUAction>)action;
 - (id)initWithAction:(id<FUAction>)action speed:(float)speed;
 
 @end

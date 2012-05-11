@@ -29,11 +29,6 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 #pragma mark - Initialization
 
-+ (id)actionWithBlock:(void (^)())block
-{
-	return [[self alloc] initWithBlock:block];
-}
-
 - (id)initWithBlock:(void (^)())block
 {
 	FUCheck(block != NULL, FUBlockNullMessage);

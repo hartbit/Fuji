@@ -26,7 +26,7 @@ describe(@"A block action", ^{
 	
 	context(@"initizing with a NULL block", ^{
 		it(@"throws an exception", ^{
-			assertThrows([FUBlockAction actionWithBlock:NULL], NSInvalidArgumentException, FUBlockNullMessage, -0.1);
+			assertThrows([[FUBlockAction alloc] initWithBlock:NULL], NSInvalidArgumentException, FUBlockNullMessage, -0.1);
 		});
 	});
 	
@@ -36,7 +36,7 @@ describe(@"A block action", ^{
 		
 		beforeEach(^{
 			callCount = 0;
-			action = [FUBlockAction actionWithBlock:^{
+			action = [[FUBlockAction alloc] initWithBlock:^{
 				callCount++;
 			}];
 		});

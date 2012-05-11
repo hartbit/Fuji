@@ -15,8 +15,6 @@
 
 @interface FUSequenceAction : FUFiniteAction
 
-+ (FUSequenceAction*)sequenceWithActions:(FUFiniteAction*)actions, ... NS_REQUIRES_NIL_TERMINATION;
-+ (FUSequenceAction*)sequenceWithArray:(NSArray*)array;
 - (id)initWithActions:(FUFiniteAction*)actions, ... NS_REQUIRES_NIL_TERMINATION;
 - (id)initWithArray:(NSArray*)array;
 

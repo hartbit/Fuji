@@ -14,7 +14,6 @@
 
 @interface FUBlockAction : FUFiniteAction
 
-+ (FUBlockAction*)actionWithBlock:(void (^)())block;
 - (id)initWithBlock:(void (^)())block;
 
 @end
