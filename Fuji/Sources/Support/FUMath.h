@@ -17,8 +17,8 @@
 typedef float FUTime;
 
 
-extern const GLKVector2 GLKVector2Zero;
-extern const GLKVector2 GLKVector2One;
+OBJC_EXPORT const GLKVector2 GLKVector2Zero;
+OBJC_EXPORT const GLKVector2 GLKVector2One;
 
 #pragma mark - RNG Functions
 
