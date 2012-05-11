@@ -15,7 +15,7 @@
 
 @interface FUDelayAction : FUFiniteAction
 
-- (id)initWithDelay:(NSTimeInterval)delay;
+- (id)initWithDelay:(FUTime)delay;
 
 @end
 

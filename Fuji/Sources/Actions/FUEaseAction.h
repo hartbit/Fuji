@@ -15,6 +15,6 @@
 
 @interface FUEaseAction : FUFiniteAction
 
-- (id)initWithAction:(id<FUAction>)action function:(NSTimeInterval(^)(NSTimeInterval t))function;
+- (id)initWithAction:(id<FUAction>)action function:(FUTime(^)(FUTime t))function;
 
 @end

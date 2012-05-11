@@ -119,5 +119,5 @@ SPEC_END
 @implementation FUTestAction
 - (id)copyWithZone:(NSZone*)zone { return nil; }
 - (BOOL)isComplete { return NO; }
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime { }
+- (void)updateWithDeltaTime:(FUTime)deltaTime { }
 @end

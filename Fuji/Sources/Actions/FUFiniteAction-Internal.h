@@ -15,6 +15,6 @@
 
 @interface FUFiniteAction ()
 
-@property (nonatomic) NSTimeInterval time;
+@property (nonatomic) FUTime time;
 
 @end

@@ -10,12 +10,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUMath.h"
 
 
 @protocol FUAction <NSCopying>
 
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
+- (void)updateWithDeltaTime:(FUTime)deltaTime;
 
 @end

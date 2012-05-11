@@ -20,7 +20,7 @@ static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be posi
 
 #pragma mark - Initialization
 
-- (id)initWithDelay:(NSTimeInterval)delay
+- (id)initWithDelay:(FUTime)delay
 {
 	FUCheck(delay >= 0, FUDelayNegativeMessage, delay);
 	

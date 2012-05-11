@@ -15,12 +15,12 @@
 
 @interface FUFiniteAction : NSObject <FUAction>
 
-- (id)initWithDuration:(NSTimeInterval)duration;
+- (id)initWithDuration:(FUTime)duration;
 
-@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly) FUTime duration;
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
+- (void)updateWithDeltaTime:(FUTime)deltaTime;
 - (void)updateWithFactor:(float)factor;
 
 @end

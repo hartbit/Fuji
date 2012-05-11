@@ -15,7 +15,7 @@
 
 @interface FUFiniteAction ()
 
-@property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) FUTime duration;
 @property (nonatomic, getter=isComplete) BOOL complete;
 
 @end
@@ -29,7 +29,7 @@
 
 #pragma mark - Initialization
 
-- (id)initWithDuration:(NSTimeInterval)duration
+- (id)initWithDuration:(FUTime)duration
 {
 	if ((self = [super init]))
 	{
@@ -61,10 +61,10 @@
 
 #pragma mark - FUAction Methods
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (void)updateWithDeltaTime:(FUTime)deltaTime
 {
-	NSTimeInterval duration = [self duration];
-	NSTimeInterval time = [self time] + deltaTime;
+	FUTime duration = [self duration];
+	FUTime time = [self time] + deltaTime;
 	
 	[self setComplete:(time < 0.0) || (time >= duration)];
 	time = FUClamp(time, 0, duration);

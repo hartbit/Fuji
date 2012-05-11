@@ -27,7 +27,7 @@ describe(@"An ease action", ^{
 	
 	context(@"initializing with a nil action", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUEaseAction alloc] initWithAction:nil function:^(NSTimeInterval t){ return t; }], NSInvalidArgumentException, FUActionNilMessage);
+			assertThrows([[FUEaseAction alloc] initWithAction:nil function:^(FUTime t){ return t; }], NSInvalidArgumentException, FUActionNilMessage);
 		});
 	});
 	

@@ -21,7 +21,7 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 
 #pragma mark - Initialization
 
-- (id)initWithAction:(id<FUAction>)action function:(NSTimeInterval (^)(NSTimeInterval))function
+- (id)initWithAction:(id<FUAction>)action function:(FUTime (^)(FUTime))function
 {
 	FUCheck(action != nil, FUActionNilMessage);
 	FUCheck(function != NULL, FUFunctionNullMessage);

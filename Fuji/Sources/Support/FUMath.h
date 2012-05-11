@@ -14,6 +14,9 @@
 #import "FUColor.h"
 
 
+typedef float FUTime;
+
+
 extern const GLKVector2 GLKVector2Zero;
 extern const GLKVector2 GLKVector2One;
 
