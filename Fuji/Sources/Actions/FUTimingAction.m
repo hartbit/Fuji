@@ -1,5 +1,5 @@
 //
-//  FUEaseAction.m
+//  FUTimingAction.m
 //  Fuji
 //
 //  Created by David Hart
@@ -9,7 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUEaseAction.h"
+#import "FUTimingAction.h"
 #import "FUSupport.h"
 
 
@@ -17,7 +17,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be NULL";
 
 
-@implementation FUEaseAction
+@implementation FUTimingAction
 
 #pragma mark - Initialization
 

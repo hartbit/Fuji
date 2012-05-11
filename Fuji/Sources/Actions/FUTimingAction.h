@@ -1,5 +1,5 @@
 //
-//  FUEaseAction.h
+//  FUTimingAction.h
 //  Fuji
 //
 //  Created by David Hart
@@ -16,7 +16,7 @@
 typedef FUTime (^FUTimingFunction)(FUTime t);
 
 
-@interface FUEaseAction : FUFiniteAction
+@interface FUTimingAction : FUFiniteAction
 
 - (id)initWithAction:(id<FUAction>)action function:(FUTimingFunction)function;
 

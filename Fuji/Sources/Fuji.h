@@ -34,7 +34,7 @@
 #import "FUSpeedAction.h"
 #import "FUFiniteAction.h"
 #import "FUSequenceAction.h"
-#import "FUEaseAction.h"
+#import "FUTimingAction.h"
 #import "FUBlockAction.h"
 #import "FUDelayAction.h"
 
