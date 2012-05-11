@@ -13,8 +13,11 @@
 #import "FUAction.h"
 
 
+typedef FUTime (^FUTimingFunction)(FUTime t);
+
+
 @interface FUEaseAction : FUFiniteAction
 
-- (id)initWithAction:(id<FUAction>)action function:(FUTime(^)(FUTime t))function;
+- (id)initWithAction:(id<FUAction>)action function:(FUTimingFunction)function;
 
 @end
