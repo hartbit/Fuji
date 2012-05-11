@@ -13,6 +13,15 @@
 #import "FUSupport.h"
 
 
+#define FUTimingInOut(_inFunction, _outFunction, _t) do { \
+	if (_t < 0.5f) { \
+		return 0.5f * _inFunction(t * 2.0f); \
+	} else { \
+		return 0.5f * _outFunction((t - 0.5f) * 2.0f) + 0.5f; \
+	} \
+} while (0)
+
+
 static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be NULL";
 
@@ -21,124 +30,95 @@ const FUTimingFunction FUTimingLinear = ^(FUTime t) {
 	return t;
 };
 
-const FUTimingFunction FUTimingQuadIn = ^(FUTime t) {
-	return t;
+const FUTimingFunction FUTimingEaseIn = ^(FUTime t) {
+	return t * t * t;
 };
 
-const FUTimingFunction FUTimingQuadOut = ^(FUTime t) {
-	return t;
+const FUTimingFunction FUTimingEaseOut = ^(FUTime t) {
+	FUTime inverseT = t - 1.0f;
+    return inverseT * inverseT * inverseT + 1.0f;
 };
 
-const FUTimingFunction FUTimingQuadInOut = ^(FUTime t) {
-	return t;
+const FUTimingFunction FUTimingEaseInOut = ^(FUTime t) {
+	FUTimingInOut(FUTimingEaseIn, FUTimingEaseOut, t);
 };
 
-const FUTimingFunction FUTimingCubicIn = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingCubicOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingCubicInOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingQuartIn = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingQuartOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingQuartInOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingQuintIn = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingQuintOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingQuintInOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingSinIn = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingSinOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingSinInOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingExpoIn = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingExpoOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingExpoInOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingCircIn = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingCircOut = ^(FUTime t) {
-	return t;
-};
-
-const FUTimingFunction FUTimingCircInOut = ^(FUTime t) {
-	return t;
-};
+const float backS = 1.70158;
 
 const FUTimingFunction FUTimingBackIn = ^(FUTime t) {
-	return t;
+	return t * t * ((backS + 1) * t - backS);
 };
 
 const FUTimingFunction FUTimingBackOut = ^(FUTime t) {
-	return t;
+	float inverseT = t - 1.0f;
+    return inverseT * inverseT * ((backS + 1.0f) * inverseT + backS) + 1.0f;    
 };
 
 const FUTimingFunction FUTimingBackInOut = ^(FUTime t) {
-	return t;
+	FUTimingInOut(FUTimingBackIn, FUTimingBackOut, t);
 };
 
+const float elasticP = 0.3f;
+const float elasticS = elasticP * 0.25f;
+
 const FUTimingFunction FUTimingElasticIn = ^(FUTime t) {
-	return t;
+	if ((t == 0) || (t == 1)) {
+		return t;
+	}
+	
+	float inverseT = t - 1.0f;
+	return -1.0f * powf(2.0f, 10.0f * inverseT) * sin((inverseT - elasticS) * (2 * M_PI) / elasticP);
 };
 
 const FUTimingFunction FUTimingElasticOut = ^(FUTime t) {
-	return t;
+	return powf(2.0f, -10.0f * t) * sinf((t - elasticS) * (2 * M_PI) / elasticP) + 1.0f;
 };
 
 const FUTimingFunction FUTimingElasticInOut = ^(FUTime t) {
-	return t;
+	FUTimingInOut(FUTimingElasticIn, FUTimingElasticOut, t);
 };
 
+const float bounceS = 7.5625f;
+const float bounceP = 2.75f;
+
 const FUTimingFunction FUTimingBounceIn = ^(FUTime t) {
-	return t;
+	return 1.0f - FUTimingBounceOut(1.0f - t);
 };
 
 const FUTimingFunction FUTimingBounceOut = ^(FUTime t) {
-	return t;
+    float l;
+	
+    if (t < (1.0f / bounceP))
+    {
+        l = bounceS * t * t;
+    }
+    else
+    {    
+        if (t < (2.0f / bounceP))
+        {
+            t -= 1.5f / bounceP;
+            l = bounceS * t * t + 0.75f;
+        }
+        else
+        {
+            if (t < (2.5f / bounceP))
+            {
+                t -= 2.25f / bounceP;
+                l = bounceS * t * t + 0.9375f;
+            }
+            else
+            {
+                t -= 2.625f / bounceP;
+                l = bounceS * t * t + 0.984375f;
+            }
+        }
+    }
+	
+    return l;
 };
 
 const FUTimingFunction FUTimingBounceInOut = ^(FUTime t) {
-	return t;
+	FUTimingInOut(FUTimingBounceIn, FUTimingBounceOut, t);
 };
 
 
