@@ -10,8 +10,11 @@
 //
 
 #import "FUFiniteAction.h"
+#import "FUAction.h"
 
 
 @interface FUEaseAction : FUFiniteAction
+
+- (id)initWithAction:(id<FUAction>)action function:(NSTimeInterval(^)(NSTimeInterval t))function;
 
 @end

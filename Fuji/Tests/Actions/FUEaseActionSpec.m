@@ -15,6 +15,7 @@
 
 
 static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
+static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be NULL";
 
 
 SPEC_BEGIN(FUEaseAction)
@@ -22,6 +23,19 @@ SPEC_BEGIN(FUEaseAction)
 describe(@"An ease action", ^{
 	it(@"is a finite action", ^{
 		expect([FUEaseAction class]).to.beSubclassOf([FUFiniteAction class]);
+	});
+	
+	context(@"initializing with a nil action", ^{
+		it(@"throws an exception", ^{
+			assertThrows([[FUEaseAction alloc] initWithAction:nil function:^(NSTimeInterval t){ return t; }], NSInvalidArgumentException, FUActionNilMessage);
+		});
+	});
+	
+	context(@"initializing with a NULL function", ^{
+		it(@"throws an exception", ^{
+			FUFiniteAction* action = mock([FUFiniteAction class]);
+			assertThrows([[FUEaseAction alloc] initWithAction:action function:NULL], NSInvalidArgumentException, FUFunctionNullMessage);
+		});
 	});
 });
 

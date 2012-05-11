@@ -10,8 +10,27 @@
 //
 
 #import "FUEaseAction.h"
+#import "FUSupport.h"
+
+
+static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
+static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be NULL";
 
 
 @implementation FUEaseAction
+
+#pragma mark - Initialization
+
+- (id)initWithAction:(id<FUAction>)action function:(NSTimeInterval (^)(NSTimeInterval))function
+{
+	FUCheck(action != nil, FUActionNilMessage);
+	FUCheck(function != NULL, FUFunctionNullMessage);
+	
+	if ((self = [super init]))
+	{
+	}
+	
+	return self;
+}
 
 @end
