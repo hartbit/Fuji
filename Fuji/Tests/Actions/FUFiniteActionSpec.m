@@ -11,7 +11,11 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
 #import "FUFiniteAction-Internal.h"
+
+
+static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to be positive";
 
 
 SPEC_BEGIN(FUFiniteAction)
@@ -19,6 +23,12 @@ SPEC_BEGIN(FUFiniteAction)
 describe(@"A finite action", ^{
 	it(@"is an action", ^{
 		expect([[FUFiniteAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
+	});
+	
+	context(@"initializing with a negative duration", ^{
+		it(@"throws an exception", ^{
+			assertThrows([[FUFiniteAction alloc] initWithDuration:-1.0f], NSInvalidArgumentException, FUDurationNegativeMessage, -1.0f);
+		});
 	});
 	
 	context(@"initialized", ^{
@@ -32,69 +42,76 @@ describe(@"A finite action", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 0", ^{
-			expect([action duration]).to.equal(0.0);
+		it(@"has a duration of 0.0f", ^{
+			expect([action duration]).to.equal(0.0f);
 		});
 		
-		it(@"has a time of 0", ^{
-			expect([action time]).to.equal(0.0);
+		it(@"has a factor of 0.0f", ^{
+			expect([action factor]).to.equal(0.0f);
 		});
 		
 		it(@"is not complete", ^{
 			expect([action isComplete]).to.beFalsy();
 		});
 		
-		context(@"advancing time", ^{
-			it(@"makes it complete", ^{
-				[action updateWithDeltaTime:0];
+		context(@"advanced time", ^{
+			beforeEach(^{
+				[action updateWithDeltaTime:0.0f];
+			});
+			
+			it(@"has a factor of 1.0f", ^{
+				expect([action factor]).to.equal(1.0f);
+			});
+			
+			it(@"is complete", ^{
 				expect([action isComplete]).to.beTruthy();
 			});
 		});
 	});
 	
-	context(@"initialized a one second duration action", ^{
+	context(@"initialized a 2.0f duration action", ^{
 		__block FUFiniteAction* action;
 		
 		beforeEach(^{
-			action = [[FUFiniteAction alloc] initWithDuration:1];
+			action = [[FUFiniteAction alloc] initWithDuration:2.0f];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 1.0", ^{
-			expect([action duration]).to.equal(1.0);
+		it(@"has a duration of 2.0f", ^{
+			expect([action duration]).to.equal(2.0f);
 		});
 		
-		it(@"has a time of 0", ^{
-			expect([action time]).to.equal(0.0);
+		it(@"has a factor of 0.0f", ^{
+			expect([action factor]).to.equal(0.0f);
 		});
 		
 		it(@"is not complete", ^{
 			expect([action isComplete]).to.beFalsy();
 		});
 		
-		context(@"advanced time of 0.5 seconds", ^{
+		context(@"advanced time of 1.0f seconds", ^{
 			beforeEach(^{
-				[action updateWithDeltaTime:0.5];
+				[action updateWithDeltaTime:1.0f];
 			});
 			
-			it(@"has a time of 0.5", ^{
-				expect([action time]).to.equal(0.5);
+			it(@"has a factor of 0.5f", ^{
+				expect([action factor]).to.beCloseTo(0.5f);
 			});
 			
 			it(@"is not complete", ^{
 				expect([action isComplete]).to.beFalsy();
 			});
 			
-			context(@"advanced time of 0.5 seconds", ^{
+			context(@"advanced time of 1.0f seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:0.5];
+					[action updateWithDeltaTime:1.0f];
 				});
 				
-				it(@"has a time of 1.0", ^{
-					expect([action time]).to.equal(1.0);
+				it(@"has a factor of 1.0f", ^{
+					expect([action factor]).to.equal(1.0f);
 				});
 				
 				it(@"is complete", ^{
@@ -116,12 +133,12 @@ describe(@"A finite action", ^{
 						expect(copy).toNot.beIdenticalTo(action);
 					});
 					
-					it(@"has a duration of 1.0", ^{
-						expect([copy duration]).to.equal(1.0);
+					it(@"has a duration of 2.0f", ^{
+						expect([copy duration]).to.equal(2.0f);
 					});
 					
-					it(@"has a time of 1.0", ^{
-						expect([copy time]).to.equal(1.0);
+					it(@"has a factor of 1.0f", ^{
+						expect([action factor]).to.equal(1.0f);
 					});
 					
 					it(@"is complete", ^{
@@ -129,13 +146,13 @@ describe(@"A finite action", ^{
 					});
 				});
 				
-				context(@"advanced time of -0.5 seconds", ^{
+				context(@"advanced time of -1.0f seconds", ^{
 					beforeEach(^{
-						[action updateWithDeltaTime:-0.5];
+						[action updateWithDeltaTime:-1.0f];
 					});
 					
-					it(@"has a time of 1.0", ^{
-						expect([action time]).to.equal(0.5);
+					it(@"has a factor of 0.5f", ^{
+						expect([action factor]).to.beCloseTo(0.5f);
 					});
 					
 					it(@"is not complete", ^{
@@ -144,45 +161,59 @@ describe(@"A finite action", ^{
 				});
 			});
 			
-			context(@"advanced time of -0.5 seconds", ^{
+			context(@"advanced time of 2.0f seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:-0.5];
+					[action updateWithDeltaTime:2.0f];
 				});
 				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.equal(0.0);
+				it(@"has a factor of 1.0f", ^{
+					expect([action factor]).to.equal(1.0f);
 				});
 				
-				it(@"is not complete", ^{
-					expect([action isComplete]).to.beFalsy();
+				it(@"is complete", ^{
+					expect([action isComplete]).to.beTruthy();
 				});
 			});
 			
-			context(@"advanced time of -0.51 seconds", ^{
+			context(@"advanced time of -1.0f seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:-0.51];
+					[action updateWithDeltaTime:-1.0f];
 				});
 				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.equal(0.0);
+				it(@"has a factor of 0.0f", ^{
+					expect([action factor]).to.equal(0.0f);
 				});
 				
 				it(@"is complete", ^{
 					expect([action isComplete]).to.beTruthy();
 				});
 				
-				context(@"advanced time of 0.5 seconds", ^{
+				context(@"advanced time of 1.0f seconds", ^{
 					beforeEach(^{
-						[action updateWithDeltaTime:0.5];
+						[action updateWithDeltaTime:1.0f];
 					});
 					
-					it(@"has a time of 0.5", ^{
-						expect([action time]).to.equal(0.5);
+					it(@"has a factor of 0.5f", ^{
+						expect([action factor]).to.beCloseTo(0.5f);
 					});
 					
 					it(@"is not complete", ^{
 						expect([action isComplete]).to.beFalsy();
 					});
+				});
+			});
+			
+			context(@"advanced time of -2.0f seconds", ^{
+				beforeEach(^{
+					[action updateWithDeltaTime:-2.0f];
+				});
+				
+				it(@"has a factor of 0.0f", ^{
+					expect([action factor]).to.equal(0.0f);
+				});
+				
+				it(@"is complete", ^{
+					expect([action isComplete]).to.beTruthy();
 				});
 			});
 		});

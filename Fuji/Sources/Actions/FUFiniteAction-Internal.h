@@ -15,6 +15,6 @@
 
 @interface FUFiniteAction ()
 
-@property (nonatomic) FUTime time;
+//@property (nonatomic) float factor;
 
 @end

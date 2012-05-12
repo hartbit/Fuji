@@ -70,7 +70,7 @@ describe(@"A sequence action", ^{
 			
 			action3 = mock([FUFiniteAction class]);
 			[given([action3 isKindOfClass:[FUFiniteAction class]]) willReturnBool:YES];
-			[given([action3 duration]) willReturnFloat:0.3f];
+			[given([action3 duration]) willReturnFloat:0.5f];
 			
 			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
 			sequence = [[FUSequenceAction alloc] initWithArray:actions];
@@ -91,12 +91,12 @@ describe(@"A sequence action", ^{
 		});
 		
 		it(@"has it's duration as the sum of the action's durations", ^{
-			expect([sequence duration]).to.equal(3.8f);
+			expect([sequence duration]).to.equal(4.0f);
 		});
 		
-		context(@"updating the sequence with 1.0f seconds", ^{
+		context(@"updating the sequence with 1.2f seconds", ^{
 			beforeEach(^{
-				[sequence updateWithDeltaTime:1.0f];
+				[sequence updateWithDeltaTime:1.2f];
 			});
 			
 			it(@"is not complete", ^{
@@ -104,15 +104,14 @@ describe(@"A sequence action", ^{
 			});
 			
 			it(@"updates only the first action", ^{
-				[verify(action1) updateWithDeltaTime:1.0f];
-				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
-				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
+				[[verify(action1) withMatcher:HC_closeTo(0.8f, FLT_EPSILON)] updateWithFactor:0.8f];
+				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
 			});
 			
-			context(@"updating the sequence with 2.0f seconds", ^{
+			context(@"updating the sequence with 0.8f seconds", ^{
 				beforeEach(^{
-					[given([action1 time]) willReturnFloat:1.0f];
-					[sequence updateWithDeltaTime:2.0f];
+					[sequence updateWithDeltaTime:0.8f];
 				});
 				
 				it(@"is not complete", ^{
@@ -120,16 +119,14 @@ describe(@"A sequence action", ^{
 				});
 				
 				it(@"updates the first and second action", ^{
-					[verify(action1) updateWithDeltaTime:2.0f];
-					[[verify(action2) withMatcher:HC_closeTo(1.5f, FLT_EPSILON)] updateWithDeltaTime:1.5f];
-					[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
+					[verify(action1) updateWithFactor:1.0f];
+					[[verify(action2) withMatcher:HC_closeTo(0.25f, FLT_EPSILON)] updateWithFactor:0.25f];
+					[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
 				});
 				
-				context(@"updating the sequence with 1.0f seconds", ^{
+				context(@"updating the sequence with 3.0f seconds", ^{
 					beforeEach(^{
-						[given([action1 isComplete]) willReturnBool:YES];
-						[given([action2 time]) willReturnFloat:1.5f];
-						[sequence updateWithDeltaTime:1.0f];
+						[sequence updateWithDeltaTime:3.0f];
 					});
 					
 					it(@"is complete", ^{
@@ -137,13 +134,13 @@ describe(@"A sequence action", ^{
 					});
 					
 					it(@"updates the second and third actions", ^{
-						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
-						[verify(action2) updateWithDeltaTime:1.0f];
-						[[verify(action3) withMatcher:HC_closeTo(0.5f, FLT_EPSILON)] updateWithDeltaTime:0.5f];
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[verify(action2) updateWithFactor:1.0f];
+						[verify(action3) updateWithFactor:1.0f];
 					});
 				});
 				
-				context(@"updating a copy of the sequence with 1.0f seconds", ^{
+				context(@"updating a copy of the sequence with 3.0f seconds", ^{
 					__block FUSequenceAction* sequenceCopy;
 					__block FUFiniteAction* action1Copy;
 					__block FUFiniteAction* action2Copy;
@@ -152,18 +149,18 @@ describe(@"A sequence action", ^{
 					beforeEach(^{
 						action1Copy = mock([FUFiniteAction class]);
 						[given([action1 copy]) willReturn:action1Copy];
-						[given([action1Copy isComplete]) willReturnBool:YES];
+						[given([action1Copy duration]) willReturnFloat:1.5f];
 						
 						action2Copy = mock([FUFiniteAction class]);
 						[given([action2 copy]) willReturn:action2Copy];
 						[given([action2Copy duration]) willReturnDouble:2.0f];
-						[given([action2Copy time]) willReturnDouble:1.5f];
 						
 						action3Copy = mock([FUFiniteAction class]);
 						[given([action3 copy]) willReturn:action3Copy];
+						[given([action3Copy duration]) willReturnFloat:0.3f];
 						
 						sequenceCopy = [sequence copy];
-						[sequenceCopy updateWithDeltaTime:1.0f];
+						[sequenceCopy updateWithDeltaTime:3.0f];
 					});
 
 					it(@"is not nil", ^{
@@ -183,22 +180,20 @@ describe(@"A sequence action", ^{
 					});
 					
 					it(@"does not update the original actions", ^{
-						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
-						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
-						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
 					});
 					
 					it(@"updates the second and third copied actions", ^{
-						[[verifyCount(action1Copy, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
-						[verify(action2Copy) updateWithDeltaTime:1.0f];
-						[[verify(action3Copy) withMatcher:HC_closeTo(0.5f, FLT_EPSILON)] updateWithDeltaTime:0.5f];
+						[[verifyCount(action1Copy, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[verify(action2Copy) updateWithFactor:1.0f];
+						[verify(action3Copy) updateWithFactor:1.0f];
 					});
 				});
 				
 				context(@"updating the sequence with -5.0f seconds", ^{
 					beforeEach(^{
-						[given([action1 isComplete]) willReturnBool:YES];
-						[given([action2 time]) willReturnFloat:1.5f];
 						[sequence updateWithDeltaTime:-5.0f];
 					});
 					
@@ -207,9 +202,25 @@ describe(@"A sequence action", ^{
 					});
 					
 					it(@"updates the first and second action backwards", ^{
-						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0f];
-						[verify(action2) updateWithDeltaTime:-5.0f];
-						[[verify(action1) withMatcher:HC_closeTo(-3.5f, FLT_EPSILON)] updateWithDeltaTime:-3.5f];
+						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[verify(action2) updateWithFactor:0.0f];
+						[verify(action1) updateWithFactor:0.0f];
+					});
+				});
+				
+				context(@"updating the sequence with a factor of -0.075f", ^{
+					beforeEach(^{
+						[sequence updateWithFactor:-0.075f];
+					});
+					
+					it(@"is complete", ^{
+						expect([sequence isComplete]).to.beFalsy();
+					});
+					
+					it(@"updates the first and second action backwards", ^{
+						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[verify(action2) updateWithFactor:0.0f];
+						[verify(action1) updateWithFactor:-0.2f];
 					});
 				});
 			});

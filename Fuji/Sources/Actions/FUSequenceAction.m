@@ -63,35 +63,92 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 #pragma mark - FUAction Methods
 
-- (void)updateWithDeltaTime:(FUTime)deltaTime
+- (void)updateWithFactor:(float)factor
 {
-	[super updateWithDeltaTime:deltaTime];
+	[super updateWithFactor:factor];
 	
 	NSArray* actions = [self actions];
 	NSUInteger actionCount = [actions count];
-	NSInteger actionIndex = [self actionIndex];
-	BOOL isDeltaTimePositive = deltaTime >= 0.0;
-	NSInteger deltaIndex = isDeltaTimePositive ? 1 : -1;
+	FUTime duration = [self duration];
+	
+	float minFactor = 0.0f;
+	float maxFactor = 0.0f;
+	NSUInteger currentIndex = 0;
+	FUFiniteAction* currentAction = nil;
 	
 	while (YES)
 	{
-		FUFiniteAction* action = [actions objectAtIndex:actionIndex];
-		FUTime targetTime = isDeltaTimePositive ? [action duration] : 0.0f;
-		FUTime timeToCompletion = targetTime - [action time];
+		currentAction = [actions objectAtIndex:currentIndex];
+		maxFactor += [currentAction duration] / duration;
 		
-		[action updateWithDeltaTime:deltaTime];
-		
-		if ((ABS(timeToCompletion) > ABS(deltaTime)) ||
-			(!isDeltaTimePositive && ([self actionIndex] == 0)) ||
-			(isDeltaTimePositive && ([self actionIndex] == actionCount - 1)))
+		if ((maxFactor > factor) || (currentIndex == actionCount - 1))
 		{
-			return;
+			break;
 		}
 		
-		deltaTime -= timeToCompletion;
-		actionIndex += deltaIndex;
-		[self setActionIndex:actionIndex];
+		currentIndex++;
+		minFactor = maxFactor;
+	}
+	
+	NSInteger actionIndex = [self actionIndex];
+	
+	if (currentIndex > actionIndex)
+	{
+		for (; actionIndex < currentIndex; actionIndex++)
+		{
+			[[actions objectAtIndex:actionIndex] updateWithFactor:1.0f];
+		}
+	}
+	else if (currentIndex < actionIndex)
+	{
+		for (; actionIndex > currentIndex; actionIndex--)
+		{
+			[[actions objectAtIndex:actionIndex] updateWithFactor:0.0f];
+		}
+	}
+	
+	[self setActionIndex:actionIndex];
+	
+	if ((factor == 0.0f) || (factor == 1.0f))
+	{
+		[currentAction updateWithFactor:factor];
+	}
+	else
+	{
+		float actionFactor = (factor - minFactor) / (maxFactor - minFactor);
+		[currentAction updateWithFactor:actionFactor];
 	}
 }
+
+//- (void)updateWithDeltaTime:(FUTime)deltaTime
+//{
+//	[super updateWithDeltaTime:deltaTime];
+//	
+//	NSArray* actions = [self actions];
+//	NSUInteger actionCount = [actions count];
+//	NSInteger actionIndex = [self actionIndex];
+//	BOOL isDeltaTimePositive = deltaTime >= 0.0;
+//	NSInteger deltaIndex = isDeltaTimePositive ? 1 : -1;
+//	
+//	while (YES)
+//	{
+//		FUFiniteAction* action = [actions objectAtIndex:actionIndex];
+//		FUTime targetTime = isDeltaTimePositive ? [action duration] : 0.0f;
+//		FUTime timeToCompletion = targetTime - [action time];
+//		
+//		[action updateWithDeltaTime:deltaTime];
+//		
+//		if ((ABS(timeToCompletion) > ABS(deltaTime)) ||
+//			(!isDeltaTimePositive && ([self actionIndex] == 0)) ||
+//			(isDeltaTimePositive && ([self actionIndex] == actionCount - 1)))
+//		{
+//			return;
+//		}
+//		
+//		deltaTime -= timeToCompletion;
+//		actionIndex += deltaIndex;
+//		[self setActionIndex:actionIndex];
+//	}
+//}
 
 @end

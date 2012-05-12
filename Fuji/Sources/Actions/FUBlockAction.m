@@ -52,6 +52,7 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 - (void)updateWithFactor:(float)factor
 {
+	[super updateWithFactor:factor];
 	[self block]();
 }
 
