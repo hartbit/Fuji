@@ -26,19 +26,19 @@ describe(@"A dekay action", ^{
 	
 	context(@"initizing with a negative delay", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUDelayAction alloc] initWithDelay:-0.1], NSInvalidArgumentException, FUDelayNegativeMessage, -0.1);
+			assertThrows([[FUDelayAction alloc] initWithDelay:-0.1f], NSInvalidArgumentException, FUDelayNegativeMessage, -0.1f);
 		});
 	});
 	
 	context(@"initizing with a null delay", ^{
 		it(@"is valid", ^{
-			assertNoThrow([[FUDelayAction alloc] initWithDelay:0]);
+			assertNoThrow([[FUDelayAction alloc] initWithDelay:0.0f]);
 		});
 	});
 	
 	context(@"initializing via the macro", ^{
 		it(@"returns a FUDelayAction", ^{
-			expect(FUDelay(1.0)).to.beKindOf([FUDelayAction class]);
+			expect(FUDelay(1.0f)).to.beKindOf([FUDelayAction class]);
 		});
 	});
 	
@@ -46,15 +46,15 @@ describe(@"A dekay action", ^{
 		__block FUDelayAction* action;
 		
 		beforeEach(^{
-			action = [[FUDelayAction alloc] initWithDelay:2.5];
+			action = [[FUDelayAction alloc] initWithDelay:2.5f];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 2.5", ^{
-			expect([action duration]).to.equal(2.5);
+		it(@"has a duration of 2.5f", ^{
+			expect([action duration]).to.equal(2.5f);
 		});
 	});
 });

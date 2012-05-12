@@ -12,5 +12,5 @@
 #import "FUMath.h"
 
 
-const GLKVector2 GLKVector2Zero = { 0, 0 };
-const GLKVector2 GLKVector2One = { 1, 1 };
+const GLKVector2 GLKVector2Zero = { 0.0f, 0.0f };
+const GLKVector2 GLKVector2One = { 1.0f, 1.0f };

@@ -37,7 +37,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 {
 	FUCheck(array != nil, FUArrayNilMessage);
 	
-	FUTime duration = 0.0;
+	FUTime duration = 0.0f;
 	
 	for (FUFiniteAction* action in array)
 	{
@@ -81,7 +81,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	while (YES)
 	{
 		FUFiniteAction* action = [actions objectAtIndex:actionIndex];
-		FUTime targetTime = isDeltaTimePositive ? [action duration] : 0.0;
+		FUTime targetTime = isDeltaTimePositive ? [action duration] : 0.0f;
 		FUTime timeToCompletion = targetTime - [action time];
 		
 		[action updateWithDeltaTime:deltaTime];

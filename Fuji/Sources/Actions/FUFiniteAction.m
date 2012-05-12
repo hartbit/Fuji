@@ -66,8 +66,8 @@
 	FUTime duration = [self duration];
 	FUTime time = [self time] + deltaTime;
 	
-	[self setComplete:(time < 0.0) || (time >= duration)];
-	time = FUClamp(time, 0, duration);
+	[self setComplete:(time < 0.0f) || (time >= duration)];
+	time = FUClamp(time, 0.0f, duration);
 	
 	[self setTime:time];
 	[self updateWithFactor:time / duration];

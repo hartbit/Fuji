@@ -22,9 +22,9 @@ OBJC_EXPORT const GLKVector2 GLKVector2One;
 
 #pragma mark - RNG Functions
 
-static OBJC_INLINE double FURandomUnit()
+static OBJC_INLINE float FURandomUnit()
 {
-	return (double)arc4random() / 0x100000000;
+	return (float)arc4random() / 0x100000000;
 }
 
 static OBJC_INLINE GLubyte FURandomByte()
@@ -32,7 +32,7 @@ static OBJC_INLINE GLubyte FURandomByte()
 	return arc4random() / 256;
 }
 
-static OBJC_INLINE double FURandomDouble(float min, float max)
+static OBJC_INLINE double FURandomFloat(float min, float max)
 {
 	return min + (FURandomUnit() * (max - min));
 }
@@ -49,7 +49,7 @@ static OBJC_INLINE FUColor FURandomColor()
 
 #pragma mark - General Math Functions
 
-static OBJC_INLINE double FUClamp(double value, double min, double max)
+static OBJC_INLINE float FUClamp(float value, float min, float max)
 {
 	FUCheck(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
 	return MIN(MAX(value, min), max);

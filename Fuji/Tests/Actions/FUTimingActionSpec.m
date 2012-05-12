@@ -16,12 +16,12 @@
 
 #define FUTestTimingFunction(_function) \
 	context(@#_function, ^{ \
-		it(@"has a min value of 0", ^{ \
-			expect(_function(0)).to.equal(0); \
+		it(@"has a min value of 0.0f", ^{ \
+			expect(_function(0.0f)).to.equal(0.0f); \
 		}); \
 		\
-		it(@"has a max value of 1", ^{ \
-			expect(_function(1)).to.equal(1); \
+		it(@"has a max value of 1.0f", ^{ \
+			expect(_function(1.0f)).to.equal(1.0f); \
 		}); \
 	});
 
@@ -55,7 +55,7 @@ describe(@"A timing action", ^{
 	
 	context(@"initializing with a nil action", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUTimingAction alloc] initWithAction:nil function:^(FUTime t){ return t; }], NSInvalidArgumentException, FUActionNilMessage);
+			assertThrows([[FUTimingAction alloc] initWithAction:nil function:FUTimingLinear], NSInvalidArgumentException, FUActionNilMessage);
 		});
 	});
 	
@@ -63,6 +63,20 @@ describe(@"A timing action", ^{
 		it(@"throws an exception", ^{
 			FUFiniteAction* action = mock([FUFiniteAction class]);
 			assertThrows([[FUTimingAction alloc] initWithAction:action function:NULL], NSInvalidArgumentException, FUFunctionNullMessage);
+		});
+	});
+	
+	context(@"initializing with an action and a function", ^{
+		__block FUTimingAction* action;
+		__block id<FUAction> subaction;
+		
+		beforeEach(^{
+			subaction = mockProtocol(@protocol(FUAction));
+			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseInOut];
+		});
+		
+		it(@"is not nil", ^{
+			expect(action).toNot.beNil();
 		});
 	});
 });
