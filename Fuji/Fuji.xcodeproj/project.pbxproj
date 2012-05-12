@@ -161,7 +161,6 @@
 		631DD3F315418573008AA626 /* FUAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAsset.m; sourceTree = "<group>"; };
 		631DD3F715419931008AA626 /* FUAutoContentAccessingProxy-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUAutoContentAccessingProxy-Internal.h"; sourceTree = "<group>"; };
 		631DD3F815419931008AA626 /* FUAutoContentAccessingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAutoContentAccessingProxy.m; sourceTree = "<group>"; };
-		632F16BD15591DA100DCAA0C /* FUFiniteAction-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUFiniteAction-Internal.h"; sourceTree = "<group>"; };
 		6335C57A153ADB3F00022A4F /* FUMathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUMathSpec.m; sourceTree = "<group>"; };
 		6335C57D153ADDD800022A4F /* FUAssetStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAssetStoreSpec.m; sourceTree = "<group>"; };
 		6335C57F153ADDE100022A4F /* Invalid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Invalid.txt; sourceTree = "<group>"; };
@@ -292,7 +291,6 @@
 		632F16BB15591D8500DCAA0C /* Internal Headers */ = {
 			isa = PBXGroup;
 			children = (
-				632F16BD15591DA100DCAA0C /* FUFiniteAction-Internal.h */,
 			);
 			name = "Internal Headers";
 			sourceTree = "<group>";

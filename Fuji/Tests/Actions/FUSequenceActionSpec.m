@@ -11,7 +11,6 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
-#import "FUFiniteAction-Internal.h"
 #import "FUTestSupport.h"
 
 

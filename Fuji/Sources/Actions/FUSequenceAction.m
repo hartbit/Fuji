@@ -10,7 +10,6 @@
 //
 
 #import "FUSequenceAction.h"
-#import "FUFiniteAction-Internal.h"
 #import "FUSupport.h"
 
 
