@@ -14,11 +14,39 @@
 #import "FUTestSupport.h"
 
 
+#define FUTestTimingFunction(_function) \
+	context(@#_function, ^{ \
+		it(@"has a min value of 0", ^{ \
+			expect(_function(0)).to.equal(0); \
+		}); \
+		\
+		it(@"has a max value of 1", ^{ \
+			expect(_function(1)).to.equal(1); \
+		}); \
+	});
+
+
 static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be NULL";
 
 
 SPEC_BEGIN(FUTimingAction)
+
+describe(@"Timing functions", ^{
+	FUTestTimingFunction(FUTimingLinear);
+	FUTestTimingFunction(FUTimingEaseIn);
+	FUTestTimingFunction(FUTimingEaseOut);
+	FUTestTimingFunction(FUTimingEaseInOut);
+	FUTestTimingFunction(FUTimingBackIn);
+	FUTestTimingFunction(FUTimingBackOut);
+	FUTestTimingFunction(FUTimingBackInOut);
+	FUTestTimingFunction(FUTimingElasticIn);
+	FUTestTimingFunction(FUTimingElasticOut);
+	FUTestTimingFunction(FUTimingElasticInOut);
+	FUTestTimingFunction(FUTimingBounceIn);
+	FUTestTimingFunction(FUTimingBounceOut);
+	FUTestTimingFunction(FUTimingBounceInOut);
+});
 
 describe(@"A timing action", ^{
 	it(@"is a finite action", ^{
