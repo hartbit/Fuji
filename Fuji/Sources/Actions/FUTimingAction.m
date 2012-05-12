@@ -71,6 +71,10 @@ const FUTimingFunction FUTimingElasticIn = ^(FUTime t) {
 };
 
 const FUTimingFunction FUTimingElasticOut = ^(FUTime t) {
+	if ((t == 0) || (t == 1)) {
+		return t;
+	}
+
 	return powf(2.0f, -10.0f * t) * sinf((t - elasticS) * (2 * M_PI) / elasticP) + 1.0f;
 };
 
