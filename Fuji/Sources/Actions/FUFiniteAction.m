@@ -41,15 +41,10 @@
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	id copy;
-	
-	if ((copy = [[self class] new]))
-	{
-		[copy setTime:[self time]];
-		[copy setDuration:[self duration]];
-		[copy setComplete:[self isComplete]];
-	}
-	
+	FUFiniteAction* copy = [[self class] new];
+	[copy setTime:[self time]];
+	[copy setDuration:[self duration]];
+	[copy setComplete:[self isComplete]];
 	return copy;
 }
 

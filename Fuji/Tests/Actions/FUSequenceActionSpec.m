@@ -166,6 +166,14 @@ describe(@"A sequence action", ^{
 						[sequenceCopy updateWithDeltaTime:1.0f];
 					});
 
+					it(@"is not nil", ^{
+						expect(sequenceCopy).toNot.beNil();
+					});
+					
+					it(@"is not the same instance", ^{
+						expect(sequenceCopy).toNot.beIdenticalTo(sequence);
+					});
+					
 					it(@"has the original not complete", ^{
 						expect([sequence isComplete]).to.beFalsy();
 					});

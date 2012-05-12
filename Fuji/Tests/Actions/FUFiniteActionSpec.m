@@ -102,22 +102,30 @@ describe(@"A finite action", ^{
 				});
 				
 				context(@"created a copy", ^{
-					__block FUFiniteAction* actionCopy;
+					__block FUFiniteAction* copy;
 					
 					beforeEach(^{
-						actionCopy = [action copy];
+						copy = [action copy];
+					});
+					
+					it(@"is not nil", ^{
+						expect(copy).toNot.beNil();
+					});
+					
+					it(@"is not the same instance", ^{
+						expect(copy).toNot.beIdenticalTo(action);
 					});
 					
 					it(@"has a duration of 1.0", ^{
-						expect([actionCopy duration]).to.equal(1.0);
+						expect([copy duration]).to.equal(1.0);
 					});
 					
 					it(@"has a time of 1.0", ^{
-						expect([action time]).to.equal(1.0);
+						expect([copy time]).to.equal(1.0);
 					});
 					
 					it(@"is complete", ^{
-						expect([action isComplete]).to.beTruthy();
+						expect([copy isComplete]).to.beTruthy();
 					});
 				});
 				

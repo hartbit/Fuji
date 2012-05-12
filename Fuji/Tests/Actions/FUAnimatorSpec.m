@@ -95,7 +95,11 @@ describe(@"An animator", ^{
 					animatorCopy = [animator copy];
 				});
 				
-				it(@"is different", ^{
+				it(@"is not nil", ^{
+					expect(animatorCopy).toNot.beNil();
+				});
+				
+				it(@"is not the same instance", ^{
 					expect(animatorCopy).toNot.beIdenticalTo(animator);
 				});
 				

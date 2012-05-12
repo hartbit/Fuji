@@ -43,13 +43,8 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	id copy;
-	
-	if ((copy = [super copyWithZone:zone]))
-	{
-		[copy setBlock:[self block]];
-	}
-	
+	FUBlockAction* copy = [super copyWithZone:zone];
+	[copy setBlock:[self block]];
 	return copy;
 }
 

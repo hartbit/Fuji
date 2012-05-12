@@ -55,14 +55,9 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	id copy;
-	
-	if ((copy = [super copyWithZone:zone]))
-	{
-		[copy setActions:[[NSArray alloc] initWithArray:[self actions] copyItems:YES]];
-		[copy setActionIndex:[self actionIndex]];
-	}
-	
+	FUSequenceAction* copy = [super copyWithZone:zone];
+	[copy setActions:[[NSArray alloc] initWithArray:[self actions] copyItems:YES]];
+	[copy setActionIndex:[self actionIndex]];
 	return copy;
 }
 

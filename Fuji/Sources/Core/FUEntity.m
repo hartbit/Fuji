@@ -113,10 +113,11 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (id)initWithScene:(FUScene*)scene
 {
-	self = [super initWithScene:scene];
-	if (self == nil) return nil;
+	if ((self = [super initWithScene:scene]))
+	{
+		[self addComponentWithClass:[FUTransform class] andRegister:NO];
+	}
 	
-	[self addComponentWithClass:[FUTransform class] andRegister:NO];
 	return self;
 }
 

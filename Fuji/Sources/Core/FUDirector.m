@@ -53,11 +53,12 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
 {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self == nil) return nil;
-
-	[EAGLContext setCurrentContext:[self context]];
-	[self addEngine:[FUGraphicsEngine new]];
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
+		[EAGLContext setCurrentContext:[self context]];
+		[self addEngine:[FUGraphicsEngine new]];
+	}
+	
 	return self;
 }
 
@@ -65,9 +66,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	FUCheck(assetStore != nil, FUAssetStoreNilMessage);
 	
-	[self setAssetStore:assetStore];
+	if ((self = [self initWithNibName:nil bundle:nil]))
+	{
+		[self setAssetStore:assetStore];
+	}
 	
-	self = [self initWithNibName:nil bundle:nil];
 	return self;
 }
 

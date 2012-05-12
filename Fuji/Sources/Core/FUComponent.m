@@ -64,10 +64,11 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 {
 	FUCheck(entity != nil, FUEntityNilMessage);
 	
-	self = [self initWithScene:[entity scene]];
-	if (self == nil) return nil;
+	if ((self = [self initWithScene:[entity scene]]))
+	{
+		[self setEntity:entity];
+	}
 	
-	[self setEntity:entity];
 	return self;
 }
 

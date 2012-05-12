@@ -54,11 +54,12 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 - (id)initWithScene:(FUScene*)scene
 {
-	self = [super initWithScene:scene];
-	if (self == nil) return nil;
+	if ((self = [super initWithScene:scene]))
+	{
+		[self removeComponent:[self transform]];
+		[self addComponentWithClass:[FUGraphicsSettings class]];
+	}
 	
-	[self removeComponent:[self transform]];
-	[self addComponentWithClass:[FUGraphicsSettings class]];
 	return self;
 }
 

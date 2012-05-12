@@ -123,6 +123,10 @@ describe(@"A speed action", ^{
 					expect(actionCopy).toNot.beNil();
 				});
 				
+				it(@"is not the same instance", ^{
+					expect(actionCopy).toNot.beIdenticalTo(action);
+				});
+				
 				it(@"has a speed of 1.5", ^{
 					expect([actionCopy speed]).to.equal(1.5);
 				});

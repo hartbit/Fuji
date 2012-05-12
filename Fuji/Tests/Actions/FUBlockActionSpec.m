@@ -73,8 +73,21 @@ describe(@"A block action", ^{
 			});
 			
 			context(@"creating a copy", ^{
+				__block FUBlockAction* copy;
+				
+				beforeEach(^{
+					copy = [action copy];
+				});
+				
+				it(@"is not nil", ^{
+					expect(copy).toNot.beNil();
+				});
+				
+				it(@"is not the same instance", ^{
+					expect(copy).toNot.beIdenticalTo(action);
+				});
+				
 				it(@"is complete", ^{
-					FUBlockAction* copy = [action copy];
 					expect([copy isComplete]).to.beTruthy();
 				});
 			});
@@ -92,6 +105,14 @@ describe(@"A block action", ^{
 			
 			beforeEach(^{
 				copy = [action copy];
+			});
+			
+			it(@"is not nil", ^{
+				expect(copy).toNot.beNil();
+			});
+			
+			it(@"is not the same instance", ^{
+				expect(copy).toNot.beIdenticalTo(action);
 			});
 			
 			it(@"is not complete", ^{

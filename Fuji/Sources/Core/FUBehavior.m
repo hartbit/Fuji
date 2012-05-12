@@ -20,9 +20,11 @@
 
 - (id)init
 {
-	self = [super init];
+	if ((self = [super init]))
+	{
+		[self setEnabled:YES];
+	}
 	
-	[self setEnabled:YES];
 	return self;
 }
 
