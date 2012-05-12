@@ -156,7 +156,7 @@ describe(@"A sequence action", ^{
 						
 						action3Copy = mock([FUFiniteAction class]);
 						[given([action3 copy]) willReturn:action3Copy];
-						[given([action3Copy duration]) willReturnFloat:0.3f];
+						[given([action3Copy duration]) willReturnFloat:0.5f];
 						
 						sequenceCopy = [sequence copy];
 						[sequenceCopy updateWithDeltaTime:3.0f];
@@ -212,7 +212,7 @@ describe(@"A sequence action", ^{
 						[sequence updateWithFactor:-0.075f];
 					});
 					
-					it(@"is complete", ^{
+					it(@"is not complete", ^{
 						expect([sequence isComplete]).to.beFalsy();
 					});
 					
@@ -220,6 +220,22 @@ describe(@"A sequence action", ^{
 						[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
 						[verify(action2) updateWithFactor:0.0f];
 						[verify(action1) updateWithFactor:-0.2f];
+					});
+				});
+				
+				context(@"updating the sequence with a factor of 1.125f", ^{
+					beforeEach(^{
+						[sequence updateWithFactor:1.125f];
+					});
+					
+					it(@"is not complete", ^{
+						expect([sequence isComplete]).to.beFalsy();
+					});
+					
+					it(@"updates the second and third action forwards", ^{
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithFactor:0.0f];
+						[verify(action2) updateWithFactor:1.0f];
+						[[verify(action3) withMatcher:HC_closeTo(2.0f, FLT_EPSILON)] updateWithFactor:2.0f];
 					});
 				});
 			});
