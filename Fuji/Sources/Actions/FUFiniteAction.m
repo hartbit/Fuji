@@ -46,10 +46,10 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	FUFiniteAction* copy = [[self class] new];
+	FUFiniteAction* copy = [[[self class] allocWithZone:zone] init];
 	[copy setDuration:[self duration]];
-	[copy setComplete:[self isComplete]];
 	[copy setFactor:[self factor]];
+	[copy setComplete:[self isComplete]];
 	return copy;
 }
 

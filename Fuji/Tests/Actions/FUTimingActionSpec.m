@@ -85,6 +85,30 @@ describe(@"A timing action", ^{
 				[verify(subaction) updateWithFactor:FUTimingEaseIn(1.0f)];
 			});
 		});
+		
+		context(@"created a copy of the action", ^{
+			__block FUTimingAction* actionCopy;
+			__block FUFiniteAction* subactionCopy;
+			
+			beforeEach(^{
+				subactionCopy = mock([FUFiniteAction class]);
+				[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
+				
+				actionCopy = [action copy];
+			});
+			
+			it(@"is not nil", ^{
+				expect(actionCopy).toNot.beNil();
+			});
+			
+			context(@"updating the copied action", ^{
+				it(@"updates the copied subaction", ^{
+					[actionCopy updateWithFactor:0.5f];
+					[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+					[verify(subactionCopy) updateWithFactor:FUTimingEaseIn(0.5f)];
+				});
+			});
+		});
 	});
 });
 

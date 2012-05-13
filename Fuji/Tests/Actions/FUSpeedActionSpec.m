@@ -46,10 +46,6 @@ describe(@"A speed action", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has the subaction", ^{
-			expect([action action]).to.beIdenticalTo(subaction);
-		});
-		
 		it(@"has a speed of 1.0", ^{
 			expect([action speed]).to.equal(1.0);
 		});
@@ -129,10 +125,6 @@ describe(@"A speed action", ^{
 				
 				it(@"has a speed of 1.5", ^{
 					expect([actionCopy speed]).to.equal(1.5);
-				});
-				
-				it(@"has the copied subaction", ^{
-					expect([actionCopy action]).to.beIdenticalTo(subactionCopy);
 				});
 				
 				context(@"updating the copied action", ^{

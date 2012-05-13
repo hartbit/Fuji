@@ -31,7 +31,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	FUAnimator* copy = [[self class] new];
+	FUAnimator* copy = [[[self class] allocWithZone:zone] init];
 	[copy setActions:[[NSMutableArray alloc] initWithArray:[self actions] copyItems:YES]];
 	return copy;
 }

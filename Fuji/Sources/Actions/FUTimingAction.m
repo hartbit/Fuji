@@ -45,6 +45,14 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 	return self;
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+	FUTimingAction* copy = [super copyWithZone:zone];
+	[copy setAction:[[self action] copyWithZone:zone]];
+	[copy setFunction:[self function]];
+	return copy;
+}
+
 #pragma mark - FUFiniteAction Methods
 
 - (void)updateWithFactor:(float)factor

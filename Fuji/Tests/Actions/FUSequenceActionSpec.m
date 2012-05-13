@@ -170,6 +170,10 @@ describe(@"A sequence action", ^{
 						expect(sequenceCopy).toNot.beIdenticalTo(sequence);
 					});
 					
+					it(@"has the same duration", ^{
+						expect([sequenceCopy duration]).to.equal([sequence duration]);
+					});
+					
 					it(@"has the original not complete", ^{
 						expect([sequence isComplete]).to.beFalsy();
 					});

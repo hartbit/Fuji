@@ -44,7 +44,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	FUSpeedAction* copy = [[self class] new];
+	FUSpeedAction* copy = [[[self class] allocWithZone:zone] init];
 	[copy setAction:[[self action] copyWithZone:zone]];
 	[copy setSpeed:[self speed]];
 	return copy;
