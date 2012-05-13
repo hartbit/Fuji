@@ -44,17 +44,45 @@ describe(@"A timing action", ^{
 		
 		beforeEach(^{
 			subaction = mock([FUFiniteAction class]);
-			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseInOut];
+			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseIn];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
 		});
 		
+		context(@"updating with a factor of -0.5f", ^{
+			it(@"updates the subaction with a factor of 0.0f", ^{
+				[action updateWithFactor:-0.5f];
+				[verify(subaction) updateWithFactor:0.0f];
+			});
+		});
+		
 		context(@"updating with a factor of 0.0f", ^{
 			it(@"updates the subaction with a factor of 0.0f", ^{
 				[action updateWithFactor:0.0f];
 				[verify(subaction) updateWithFactor:0.0f];
+			});
+		});
+		
+		context(@"updating with a factor of 0.5f", ^{
+			it(@"updates the subaction with a factor of 0.5f on the ease in curve", ^{
+				[action updateWithFactor:0.5f];
+				[verify(subaction) updateWithFactor:FUTimingEaseIn(0.5f)];
+			});
+		});
+		
+		context(@"updating with a factor of 1.0f", ^{
+			it(@"updates the subaction with a factor of 1.0f", ^{
+				[action updateWithFactor:1.0f];
+				[verify(subaction) updateWithFactor:FUTimingEaseIn(1.0f)];
+			});
+		});
+		
+		context(@"updating with a factor of 1.5f", ^{
+			it(@"updates the subaction with a factor of 1.0f", ^{
+				[action updateWithFactor:1.5f];
+				[verify(subaction) updateWithFactor:FUTimingEaseIn(1.0f)];
 			});
 		});
 	});
