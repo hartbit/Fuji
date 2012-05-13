@@ -32,8 +32,7 @@ static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or emp
 
 - (NSCache*)cache
 {
-	if (_cache == nil)
-	{
+	if (_cache == nil) {
 		[self setCache:[NSCache new]];
 	}
 	
@@ -48,8 +47,7 @@ static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or emp
 	
 	FUTexture* texture = [[self cache] objectForKey:name];
 	
-	if (texture == nil)
-	{
+	if (texture == nil) {
 		texture = [[FUTexture alloc] initWithName:name];
 		[texture endContentAccess];
 		

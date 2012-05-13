@@ -54,8 +54,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 - (id)initWithScene:(FUScene*)scene
 {
-	if ((self = [super initWithScene:scene]))
-	{
+	if ((self = [super initWithScene:scene])) {
 		[self removeComponent:[self transform]];
 		[self addComponentWithClass:[FUGraphicsSettings class]];
 	}
@@ -67,8 +66,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 - (NSMutableArray*)entities
 {
-	if (_entities == nil)
-	{
+	if (_entities == nil) {
 		[self setEntities:[NSMutableArray array]];
 	}
 	
@@ -106,8 +104,7 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 {
 	[super acceptVisitor:visitor];
 	
-	for (FUEntity* entity in [self entities])
-	{
+	for (FUEntity* entity in [self entities]) {
 		[entity acceptVisitor:visitor];
 	}
 }
@@ -116,24 +113,21 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	for (FUEntity* entity in [self entities])
-	{
+	for (FUEntity* entity in [self entities]) {
 		[entity willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	}
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
-	for (FUEntity* entity in [self entities])
-	{
+	for (FUEntity* entity in [self entities]) {
 		[entity willAnimateRotationToInterfaceOrientation:interfaceOrientation duration:duration];
 	}
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	for (FUEntity* entity in [self entities])
-	{
+	for (FUEntity* entity in [self entities]) {
 		[entity didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 	}
 }

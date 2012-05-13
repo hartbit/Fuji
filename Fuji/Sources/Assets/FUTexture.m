@@ -37,16 +37,14 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 {
 	static NSMutableDictionary* sTextureLoaders;
 	
-	if (sTextureLoaders == nil)
-	{
+	if (sTextureLoaders == nil) {
 		sTextureLoaders = [NSMutableDictionary dictionary];
 	}
 	
 	EAGLSharegroup* sharegroup = [[EAGLContext currentContext] sharegroup];
 	GLKTextureLoader* loader = [sTextureLoaders objectForKey:sharegroup];
 	
-	if (loader == nil)
-	{
+	if (loader == nil) {
 		loader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];
 	}
 	
@@ -87,10 +85,9 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 
 - (id)initWithTextureInfo:(GLKTextureInfo*)textureInfo
 {
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self setInfo:textureInfo];
+	if ((self = [super init])) {
+		[self setInfo:textureInfo];
+	}
 	
 	return self;
 }
@@ -132,8 +129,7 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 
 static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error)
 {
-	switch (error)
-	{
+	switch (error) {
 		case GLKTextureLoaderErrorFileOrURLNotFound: return @"GLKTextureLoaderErrorFileOrURLNotFound";
 		case GLKTextureLoaderErrorInvalidNSData: return @"GLKTextureLoaderErrorInvalidNSData";
 		case GLKTextureLoaderErrorInvalidCGImage: return @"GLKTextureLoaderErrorInvalidCGImage";

@@ -18,12 +18,9 @@
 
 - (NSString*)scaleSuffix
 {
-	if ([self scale] != 1)
-	{
+	if ([self scale] != 1) {
 		return [NSString stringWithFormat:@"@%ix", (NSUInteger)[self scale]];
-	}
-	else
-	{
+	} else {
 		return @"";
 	}
 }

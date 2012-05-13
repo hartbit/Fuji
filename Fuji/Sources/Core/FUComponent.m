@@ -37,19 +37,16 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 {
 	static NSMutableDictionary* sComponents;
 	
-	if (sComponents == nil)
-	{
+	if (sComponents == nil) {
 		sComponents = [NSMutableDictionary dictionary];
 	}
 	
 	NSMutableSet* classComponents = [sComponents objectForKey:self];
 	
-	if (classComponents == nil)
-	{
+	if (classComponents == nil) {
 		classComponents = [NSMutableSet setWithSet:[self requiredComponents]];
 		
-		if (self != [FUComponent class])
-		{
+		if (self != [FUComponent class]) {
 			NSSet* allSuperclassComponents = [[self superclass] allRequiredComponents];
 			[classComponents unionSet:allSuperclassComponents];		
 		}
@@ -64,8 +61,7 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 {
 	FUCheck(entity != nil, FUEntityNilMessage);
 	
-	if ((self = [self initWithScene:[entity scene]]))
-	{
+	if ((self = [self initWithScene:[entity scene]])) {
 		[self setEntity:entity];
 	}
 	

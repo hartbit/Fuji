@@ -34,8 +34,7 @@
 
 - (id)init
 {
-	if ((self = [super init]))
-	{
+	if ((self = [super init])) {
 		[self setScale:GLKVector2One];
 	}
 	
@@ -118,8 +117,7 @@
 
 - (GLKMatrix4)matrix
 {
-	if ([self matrixNeedsUpdate])
-	{
+	if ([self matrixNeedsUpdate]) {
 		GLKVector2 t = [self position];
 		float z = [self depth];
 		float r = [self rotation];

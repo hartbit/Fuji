@@ -32,10 +32,10 @@ static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior 
 
 - (id)init
 {
-	self = [super init];
-	if (self == nil) return nil;
+	if ((self = [super init])) {
+		[self setAccessCount:1];
+	}
 	
-	[self setAccessCount:1];
 	return self;
 }
 
@@ -43,8 +43,7 @@ static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior 
 
 - (BOOL)beginContentAccess
 {
-	if ([self isContentDiscarded])
-	{
+	if ([self isContentDiscarded]) {
 		return NO;
 	}
 	
@@ -54,8 +53,7 @@ static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior 
 
 - (void)endContentAccess
 {
-	if ([self accessCount] < 1)
-	{
+	if ([self accessCount] < 1) {
 		FUThrow(FUAccessMatchingMessage, self);
 	}
 
@@ -64,8 +62,7 @@ static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior 
 
 - (void)discardContentIfPossible
 {
-	if ([self accessCount] == 0)
-	{
+	if ([self accessCount] == 0) {
 		[self discardContent];
 		[self setAccessCount:-1];
 	}
@@ -85,15 +82,13 @@ static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior 
 
 - (void)verifyAccessibility
 {
-	if ([self accessCount] < 1)
-	{
+	if ([self accessCount] < 1) {
 		FUThrow(FUAccessMessage, self);
 	}
 }
 
 - (void)discardContent
 {
-	
 }
 
 @end

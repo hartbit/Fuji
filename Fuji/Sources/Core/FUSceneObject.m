@@ -44,8 +44,7 @@ static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 	
 	[self setInitializing:YES];
 	
-	if ((self = [self init]))
-	{
+	if ((self = [self init])) {
 		[self setInitializing:NO];
 		[self setScene:scene];
 	}

@@ -25,8 +25,7 @@
 {
 	static NSBundle* sCurrentBundle;
 	
-	if (sCurrentBundle == nil)
-	{
+	if (sCurrentBundle == nil) {
 		sCurrentBundle = [NSBundle bundleForClass:[FUDirector class]];
 	}
 	
@@ -44,22 +43,30 @@
 	NSString* nameWithSuffix;
 	NSString* path;
 	
-	if (hasScaleSuffix)
-	{
+	if (hasScaleSuffix) {
 		nameWithSuffix = [NSString stringWithFormat:@"%@%@%@", name, scaleSuffix, platformSuffix];
 		path = [self pathForResource:nameWithSuffix ofType:extension];
-		if (path != nil) return path;
+		
+		if (path != nil) {
+			return path;
+		}
 	}
 	
 	nameWithSuffix = [NSString stringWithFormat:@"%@%@", name, platformSuffix];
 	path = [self pathForResource:nameWithSuffix ofType:extension];
-	if (path != nil) return path;
+	
+	if (path != nil) {
+		return path;
+	}
 	
 	if (hasScaleSuffix)
 	{
 		nameWithSuffix = [NSString stringWithFormat:@"%@%@", name, scaleSuffix];
 		path = [self pathForResource:nameWithSuffix ofType:extension];
-		if (path != nil) return path;
+		
+		if (path != nil) {
+			return path;
+		}
 	}
 	
 	return [self pathForResource:name ofType:extension];

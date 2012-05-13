@@ -30,10 +30,9 @@
 
 - (id)init
 {
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self setColor:FUColorWhite];
+	if ((self = [super init])) {
+		[self setColor:FUColorWhite];
+	}
 	
 	return self;
 }

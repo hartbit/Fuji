@@ -45,8 +45,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 - (NSMutableArray*)actions
 {
-	if (_actions == nil)
-	{
+	if (_actions == nil) {
 		[self setActions:[NSMutableArray array]];
 	}
 	
@@ -59,8 +58,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 {
 	FUCheck(action != nil, FUActionNilMessage);
 	
-	if ([action isComplete])
-	{
+	if ([action isComplete]) {
 		return;
 	}
 	
@@ -75,23 +73,18 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	__block NSMutableIndexSet* completeIndices;
 	
 	[[self actions] enumerateObjectsUsingBlock:^(id<FUAction> action, NSUInteger index, BOOL* stop) {
-		if ([action isComplete])
-		{
-			if (completeIndices == nil)
-			{
+		if ([action isComplete]) {
+			if (completeIndices == nil) {
 				completeIndices = [NSMutableIndexSet indexSet];
 			}
 			
 			[completeIndices addIndex:index];
-		}
-		else
-		{
+		} else {
 			[action updateWithDeltaTime:deltaTime];
 		}
 	}];
 	
-	if (completeIndices != nil)
-	{
+	if (completeIndices != nil) {
 		[[self actions] removeObjectsAtIndexes:completeIndices];
 	}
 }

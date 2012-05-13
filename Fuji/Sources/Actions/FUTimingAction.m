@@ -90,35 +90,22 @@ const FUTimingFunction FUTimingBounceIn = ^(FUTime t) {
 };
 
 const FUTimingFunction FUTimingBounceOut = ^(FUTime t) {
-    float l;
+	float l;
 	
-    if (t < (1.0f / bounceP))
-    {
-        l = bounceS * t * t;
-    }
-    else
-    {    
-        if (t < (2.0f / bounceP))
-        {
-            t -= 1.5f / bounceP;
-            l = bounceS * t * t + 0.75f;
-        }
-        else
-        {
-            if (t < (2.5f / bounceP))
-            {
-                t -= 2.25f / bounceP;
-                l = bounceS * t * t + 0.9375f;
-            }
-            else
-            {
-                t -= 2.625f / bounceP;
-                l = bounceS * t * t + 0.984375f;
-            }
-        }
-    }
+	if (t < (1.0f / bounceP)) {
+		l = bounceS * t * t;
+	} else if (t < (2.0f / bounceP)) {
+		t -= 1.5f / bounceP;
+		l = bounceS * t * t + 0.75f;
+	} else if (t < (2.5f / bounceP)) {
+		t -= 2.25f / bounceP;
+		l = bounceS * t * t + 0.9375f;
+	} else {
+		t -= 2.625f / bounceP;
+		l = bounceS * t * t + 0.984375f;
+	}
 	
-    return l;
+	return l;
 };
 
 const FUTimingFunction FUTimingBounceInOut = ^(FUTime t) {
@@ -136,8 +123,7 @@ const FUTimingFunction FUTimingBounceInOut = ^(FUTime t) {
 	FUCheck(action != nil, FUActionNilMessage);
 	FUCheck(function != NULL, FUFunctionNullMessage);
 	
-	if ((self = [super init]))
-	{
+	if ((self = [super init])) {
 	}
 	
 	return self;

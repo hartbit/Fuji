@@ -34,8 +34,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 {
 	FUCheck(action != nil, FUActionNilMessage);
 	
-	if ((self = [super init]))
-	{
+	if ((self = [super init])) {
 		[self setAction:action];
 		[self setSpeed:speed];
 	}

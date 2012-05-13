@@ -33,8 +33,7 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 {
 	FUCheck(block != NULL, FUBlockNullMessage);
 	
-	if ((self = [super init]))
-	{
+	if ((self = [super init])) {
 		[self setBlock:block];
 	}
 	

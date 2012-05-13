@@ -21,8 +21,7 @@ static NSString* const kPadSuffix = @"~iphone";
 {
 	static NSSet* kPlatformSuffixes;
 	
-	if (kPlatformSuffixes == nil)
-	{
+	if (kPlatformSuffixes == nil) {
 		kPlatformSuffixes = [NSSet setWithObjects:kPhoneSuffix, kPadSuffix, nil];
 	}
 	
@@ -33,12 +32,9 @@ static NSString* const kPadSuffix = @"~iphone";
 
 - (NSString*)platformSuffix
 {
-	if ([self userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-	{
+	if ([self userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 		return kPhoneSuffix;
-	}
-	else
-	{
+	} else {
 		return kPadSuffix;
 	}
 }

@@ -56,17 +56,16 @@
 
 - (id)init
 {
-	self = [super init];
-	if (self == nil) return nil;
-	
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDepthFunc(GL_LEQUAL);
-	glClearDepthf(1.0f);
-	
-	FU_CHECK_OPENGL_ERROR();
+	if ((self = [super init])) {
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDepthFunc(GL_LEQUAL);
+		glClearDepthf(1.0f);
+		
+		FU_CHECK_OPENGL_ERROR();
+	}
 	
 	return self;
 }
@@ -75,8 +74,7 @@
 
 - (FUVisitor*)registrationVisitor
 {
-	if (_registrationVisitor == nil)
-	{
+	if (_registrationVisitor == nil) {
 		FUGraphicsRegistrationVisitor* visitor = [FUGraphicsRegistrationVisitor new];
 		[self setRegistrationVisitor:visitor];
 		
@@ -88,8 +86,7 @@
 
 - (FUVisitor*)unregistrationVisitor
 {
-	if (_unregistrationVisitor == nil)
-	{
+	if (_unregistrationVisitor == nil) {
 		FUGraphicsUnregistrationVisitor* visitor = [FUGraphicsUnregistrationVisitor new];
 		[self setUnregistrationVisitor:visitor];
 		
@@ -101,8 +98,7 @@
 
 - (GLKBaseEffect*)effect
 {
-	if (_effect == nil)
-	{
+	if (_effect == nil) {
 		GLKBaseEffect* effect = [GLKBaseEffect new];
 		[self setEffect:effect];
 		
@@ -118,8 +114,7 @@
 
 - (FUSpriteBuffer*)spriteBuffer
 {
-	if (_spriteBuffer == nil)
-	{
+	if (_spriteBuffer == nil) {
 		FUSpriteBuffer* spriteBuffer = [[FUSpriteBuffer alloc] initWithAssetStore:[[self director] assetStore]];
 		[self setSpriteBuffer:spriteBuffer];
 	}

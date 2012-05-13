@@ -53,8 +53,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
 {
-	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
-	{
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		[EAGLContext setCurrentContext:[self context]];
 		[self addEngine:[FUGraphicsEngine new]];
 	}
@@ -66,8 +65,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	FUCheck(assetStore != nil, FUAssetStoreNilMessage);
 	
-	if ((self = [self initWithNibName:nil bundle:nil]))
-	{
+	if ((self = [self initWithNibName:nil bundle:nil])) {
 		[self setAssetStore:assetStore];
 	}
 	
@@ -78,8 +76,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (FUAssetStore*)assetStore
 {
-	if (_assetStore == nil)
-	{
+	if (_assetStore == nil) {
 		[self setAssetStore:[FUAssetStore new]];
 	}
 	
@@ -88,8 +85,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (EAGLContext*)context
 {
-	if (_context == nil)
-	{
+	if (_context == nil) {
 		EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 		[self setContext:context];
 	}
@@ -99,16 +95,14 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)setContext:(EAGLContext*)context
 {
-	if (_context != context)
-	{
+	if (_context != context) {
 		_context = context;
 	}
 }
 
 - (NSMutableArray*)engines
 {
-	if (_engines == nil)
-	{
+	if (_engines == nil) {
 		[self setEngines:[NSMutableArray array]];
 	}
 	
@@ -117,8 +111,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (FUProxyVisitor*)registrationVisitor
 {
-	if (_registrationVisitor == nil)
-	{
+	if (_registrationVisitor == nil) {
 		[self setRegistrationVisitor:[FUProxyVisitor new]];
 	}
 	
@@ -127,8 +120,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (FUProxyVisitor*)unregistrationVisitor
 {
-	if (_unregistrationVisitor == nil)
-	{
+	if (_unregistrationVisitor == nil) {
 		[self setUnregistrationVisitor:[FUProxyVisitor new]];
 	}
 	
@@ -148,15 +140,13 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	
 	FUVisitor* registrationVisitor = [engine registrationVisitor];
 	
-	if (registrationVisitor != nil)
-	{
+	if (registrationVisitor != nil) {
 		[[[self registrationVisitor] visitors] addObject:registrationVisitor];
 	}
 	
 	FUVisitor* unregistrationVisitor = [engine unregistrationVisitor];
 	
-	if (unregistrationVisitor != nil)
-	{
+	if (unregistrationVisitor != nil) {
 		[[[self unregistrationVisitor] visitors] addObject:unregistrationVisitor];
 	}
 }
@@ -203,8 +193,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	for (FUEngine* engine in [self engines])
-	{
+	for (FUEngine* engine in [self engines]) {
 		[engine willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	}
 	
@@ -213,8 +202,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	for (FUEngine* engine in [self engines])
-	{
+	for (FUEngine* engine in [self engines]) {
 		[engine willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	}
 	
@@ -223,8 +211,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	for (FUEngine* engine in [self engines])
-	{
+	for (FUEngine* engine in [self engines]) {
 		[engine didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 	}
 	
@@ -237,8 +224,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	[EAGLContext setCurrentContext:[self context]];
 	
-	for (FUEngine* engine in [self engines])
-	{
+	for (FUEngine* engine in [self engines]) {
 		[engine update];
 	}
 }
@@ -247,8 +233,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	[EAGLContext setCurrentContext:[self context]];
 	
-	for (FUEngine* engine in [self engines])
-	{
+	for (FUEngine* engine in [self engines]) {
 		[engine draw];
 	}
 }
@@ -269,8 +254,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (void)unregisterAll
 {
-	for (FUEngine* engine in [self engines])
-	{
+	for (FUEngine* engine in [self engines]) {
 		[engine unregisterAll];
 	}
 }

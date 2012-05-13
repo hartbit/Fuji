@@ -33,13 +33,11 @@ static id autoContentAccessingProxy(id self, SEL _cmd)
 
 + (FUAutoContentAccessingProxy*)proxyWithTarget:(id)target
 {
-	if (![target conformsToProtocol:@protocol(NSDiscardableContent)])
-	{
+	if (![target conformsToProtocol:@protocol(NSDiscardableContent)]) {
 		return nil;
 	}
 	
-	if (![target beginContentAccess])
-	{
+	if (![target beginContentAccess]) {
 		return nil;
 	}
 	

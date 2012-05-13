@@ -24,8 +24,7 @@ static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be posi
 {
 	FUCheck(delay >= 0, FUDelayNegativeMessage, delay);
 	
-	if ((self = [super initWithDuration:delay]))
-	{
+	if ((self = [super initWithDuration:delay])) {
 	}
 	
 	return self;

@@ -38,14 +38,12 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	
 	FUTime duration = 0.0f;
 	
-	for (FUFiniteAction* action in array)
-	{
+	for (FUFiniteAction* action in array) {
 		FUCheck([action isKindOfClass:[FUFiniteAction class]], FUFiniteActionSubclassMessage, action);
 		duration += [action duration];
 	}
 
-	if ((self = [super initWithDuration:duration]))
-	{
+	if ((self = [super initWithDuration:duration])) {
 		[self setActions:array];
 	}
 	
@@ -75,13 +73,11 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	NSUInteger currentIndex = 0;
 	FUFiniteAction* currentAction = nil;
 	
-	while (YES)
-	{
+	while (YES) {
 		currentAction = [actions objectAtIndex:currentIndex];
 		maxFactor += [currentAction duration] / duration;
 		
-		if ((maxFactor > factor) || (currentIndex == actionCount - 1))
-		{
+		if ((maxFactor > factor) || (currentIndex == actionCount - 1)) {
 			break;
 		}
 		
@@ -91,29 +87,21 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	
 	NSInteger actionIndex = [self actionIndex];
 	
-	if (currentIndex > actionIndex)
-	{
-		for (; actionIndex < currentIndex; actionIndex++)
-		{
+	if (currentIndex > actionIndex) {
+		for (; actionIndex < currentIndex; actionIndex++) {
 			[[actions objectAtIndex:actionIndex] updateWithFactor:1.0f];
 		}
-	}
-	else if (currentIndex < actionIndex)
-	{
-		for (; actionIndex > currentIndex; actionIndex--)
-		{
+	} else if (currentIndex < actionIndex) {
+		for (; actionIndex > currentIndex; actionIndex--) {
 			[[actions objectAtIndex:actionIndex] updateWithFactor:0.0f];
 		}
 	}
 	
 	[self setActionIndex:actionIndex];
 	
-	if ((factor == 0.0f) || (factor == 1.0f))
-	{
+	if ((factor == 0.0f) || (factor == 1.0f)) {
 		[currentAction updateWithFactor:factor];
-	}
-	else
-	{
+	} else {
 		float actionFactor = (factor - minFactor) / (maxFactor - minFactor);
 		[currentAction updateWithFactor:actionFactor];
 	}

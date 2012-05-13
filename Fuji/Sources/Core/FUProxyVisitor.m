@@ -28,8 +28,7 @@
 
 - (NSMutableArray*)visitors
 {
-	if (_visitors == nil)
-	{
+	if (_visitors == nil) {
 		[self setVisitors:[NSMutableArray array]];
 	}
 	
@@ -40,8 +39,7 @@
 
 - (void)visitSceneObject:(FUSceneObject*)sceneObject
 {
-	for (FUVisitor* visitor in [self visitors])
-	{
+	for (FUVisitor* visitor in [self visitors]) {
 		[visitor visitSceneObject:sceneObject];
 	}
 }

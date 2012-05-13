@@ -32,10 +32,9 @@
 
 - (id)initWithTexture:(FUTexture*)texture
 {
-	self = [super init];
-	if (self == nil) return nil;
-	
-	[self setTexture:texture];
+	if ((self = [super init])) {
+		[self setTexture:texture];
+	}
 	
 	return self;
 }
@@ -49,8 +48,7 @@
 
 - (NSMutableArray*)sprites
 {
-	if (_sprites == nil)
-	{
+	if (_sprites == nil) {
 		[self setSprites:[NSMutableArray array]];
 	}
 	

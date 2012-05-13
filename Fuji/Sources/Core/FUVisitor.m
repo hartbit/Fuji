@@ -19,22 +19,19 @@
 
 + (SEL)visitSelectorForClass:(Class)sceneObjectClass
 {
-	if (![sceneObjectClass isSubclassOfClass:[FUSceneObject class]])
-	{
+	if (![sceneObjectClass isSubclassOfClass:[FUSceneObject class]]) {
 		return NULL;
 	}
 	
 	static NSMutableDictionary* sSelectors;
 	
-	if (sSelectors == nil)
-	{
+	if (sSelectors == nil) {
 		sSelectors = [NSMutableDictionary dictionary];
 	}
 	
 	NSMutableDictionary* classSelectors = [sSelectors objectForKey:self];
 	
-	if (classSelectors == nil)
-	{
+	if (classSelectors == nil) {
 		classSelectors = [NSMutableDictionary dictionary];
 		[sSelectors setObject:classSelectors forKey:self];
 	}
@@ -42,21 +39,18 @@
 	NSString* selectorString = [classSelectors objectForKey:sceneObjectClass];
 	SEL selector = NULL;
 	
-	if (selectorString == nil)
-	{ 
+	if (selectorString == nil) {
 		selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(sceneObjectClass)];
 		selector = NSSelectorFromString(selectorString);
 		
-		if (![self instancesRespondToSelector:selector])
-		{
+		if (![self instancesRespondToSelector:selector]) {
 			selector = [self visitSelectorForClass:[sceneObjectClass superclass]];
 			selectorString = (selector != NULL) ? NSStringFromSelector(selector) : [NSString string];
 		}
 		
 		[classSelectors setObject:selectorString forKey:sceneObjectClass];
 	}
-	else if ([selectorString length] != 0)
-	{
+	else if ([selectorString length] != 0) {
 		selector = NSSelectorFromString(selectorString);
 	}
 	
@@ -65,20 +59,17 @@
 
 + (NSString*)selectorForClass:(Class)sceneObjectClass inDictionary:(NSMutableDictionary*)dictionary
 {	
-	if (![sceneObjectClass isSubclassOfClass:[FUSceneObject class]])
-	{
+	if (![sceneObjectClass isSubclassOfClass:[FUSceneObject class]]) {
 		return [NSString string];
 	}
 	
 	NSString* selectorString = [dictionary objectForKey:sceneObjectClass];
 	
-	if (selectorString == nil)
-	{ 
+	if (selectorString == nil) {
 		selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(sceneObjectClass)];
 		SEL selector = NSSelectorFromString(selectorString);
 		
-		if (![self instancesRespondToSelector:selector])
-		{
+		if (![self instancesRespondToSelector:selector]) {
 			selectorString = [self selectorForClass:[sceneObjectClass superclass] inDictionary:dictionary];
 		}
 		
@@ -94,8 +85,7 @@
 {
 	SEL selector = [[self class] visitSelectorForClass:[sceneObject class]];
 	
-	if (selector != NULL)
-	{
+	if (selector != NULL) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		[self performSelector:selector withObject:sceneObject];

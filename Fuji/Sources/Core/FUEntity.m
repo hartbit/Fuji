@@ -44,16 +44,13 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	Class currentAncestor = componentClass;
 	Class oldestUniqueAncestor = componentClass;
 	
-	do
-	{
+	do {
 		Class parentClass = [currentAncestor superclass];
 		
-		if (![currentAncestor isUnique] && [parentClass isUnique])
-		{
+		if (![currentAncestor isUnique] && [parentClass isUnique]) {
 			_FUThrow(NSInvalidArgumentException, FUComponentAncestoryInvalidMessage, NSStringFromClass(currentAncestor), NSStringFromClass(parentClass));
 		}
-		else if ([currentAncestor isUnique] && ![parentClass isUnique])
-		{
+		else if ([currentAncestor isUnique] && ![parentClass isUnique]) {
 			oldestUniqueAncestor = currentAncestor;
 		}
 		
@@ -88,19 +85,16 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	static NSMutableDictionary* sProperties;
 	
-	if (sProperties == nil)
-	{
+	if (sProperties == nil) {
 		sProperties = [NSMutableDictionary dictionary];
 	}
 	
 	NSMutableDictionary* classProperties = [sProperties objectForKey:self];
 	
-	if (classProperties == nil)
-	{
+	if (classProperties == nil) {
 		classProperties = [NSMutableDictionary dictionaryWithDictionary:[self componentProperties]];
 		
-		if (self != [FUEntity class])
-		{
+		if (self != [FUEntity class]) {
 			NSDictionary* allSuperclassProperties = [[self superclass] allComponentProperties];
 			[classProperties addEntriesFromDictionary:allSuperclassProperties];			
 		}
@@ -113,8 +107,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (id)initWithScene:(FUScene*)scene
 {
-	if ((self = [super initWithScene:scene]))
-	{
+	if ((self = [super initWithScene:scene])) {
 		[self addComponentWithClass:[FUTransform class] andRegister:NO];
 	}
 	
@@ -125,8 +118,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (NSMutableArray*)components
 {
-	if (_components == nil)
-	{
+	if (_components == nil) {
 		[self setComponents:[NSMutableArray array]];
 	}
 	
@@ -149,10 +141,8 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	FUCheck(FUIsValidComponentClass(componentClass), FUComponentClassInvalidMessage, NSStringFromClass(componentClass));
 	
-	for (FUComponent* component in [self components])
-	{
-		if ([[component class] isSubclassOfClass:componentClass])
-		{
+	for (FUComponent* component in [self components]) {
+		if ([[component class] isSubclassOfClass:componentClass]) {
 			return component;
 		}
 	}
@@ -166,10 +156,8 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	NSMutableArray* components = [NSMutableArray array];
 	
-	for (FUComponent* component in [self components])
-	{
-		if ([[component class] isSubclassOfClass:componentClass])
-		{
+	for (FUComponent* component in [self components]) {
+		if ([[component class] isSubclassOfClass:componentClass]) {
 			[components addObject:component];
 		}
 	}
@@ -188,8 +176,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	[super acceptVisitor:visitor];
 	
-	for (FUComponent* component in [self components])
-	{
+	for (FUComponent* component in [self components]) {
 		[component acceptVisitor:visitor];
 	}	
 }
@@ -198,24 +185,21 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	for (FUComponent* component in [self components])
-	{
+	for (FUComponent* component in [self components]) {
 		[component willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	}
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
-	for (FUComponent* component in [self components])
-	{
+	for (FUComponent* component in [self components]) {
 		[component willAnimateRotationToInterfaceOrientation:interfaceOrientation duration:duration];
 	}
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	for (FUComponent* component in [self components])
-	{
+	for (FUComponent* component in [self components]) {
 		[component didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 	}
 }
@@ -233,8 +217,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	[[self components] addObject:component];
 	[self updatePropertiesAfterAdditionOfComponent:component];
 	
-	if (registering)
-	{
+	if (registering) {
 		[[[self scene] director] didAddSceneObject:component];
 	}
 	
@@ -248,8 +231,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 	
 	[self validateRemovalOfComponent:component];
 	
-	if (registering)
-	{
+	if (registering) {
 		[[[self scene] director] willRemoveSceneObject:component];
 	}
 	
@@ -262,8 +244,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	Class oldestUniqueAncestor = FUGetOldestUniqueAncestorClass(componentClass);
 	
-	if ([componentClass isUnique] && ([self componentWithClass:oldestUniqueAncestor] != nil))
-	{
+	if ([componentClass isUnique] && ([self componentWithClass:oldestUniqueAncestor] != nil)) {
 		_FUThrow(NSInvalidArgumentException, FUComponentUniqueAndExistsMessage, NSStringFromClass(componentClass));
 	}
 }
@@ -272,25 +253,20 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	NSSet* requiredComponents = [componentClass allRequiredComponents];
 	
-	for (id requiredClass in requiredComponents)
-	{
+	for (id requiredClass in requiredComponents) {
 		FUCheck(FUIsClass(requiredClass), FURequiredComponentTypeMessage, requiredClass);
 		
-		if ([componentClass isSubclassOfClass:requiredClass])
-		{
+		if ([componentClass isSubclassOfClass:requiredClass]) {
 			_FUThrow(NSInvalidArgumentException, FURequiredComponentSuperclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
 		}
 		
-		for (id otherRequiredClass in requiredComponents)
-		{
-			if ((otherRequiredClass != requiredClass) && [requiredClass isSubclassOfClass:otherRequiredClass])
-			{
+		for (id otherRequiredClass in requiredComponents) {
+			if ((otherRequiredClass != requiredClass) && [requiredClass isSubclassOfClass:otherRequiredClass]) {
 				_FUThrow(NSInvalidArgumentException, FURequiredComponentSubclassMessage, NSStringFromClass(requiredClass), NSStringFromClass(componentClass));
 			}
 		}
 		
-		if ([self componentWithClass:requiredClass] == nil)
-		{
+		if ([self componentWithClass:requiredClass] == nil) {
 			[self addComponentWithClass:requiredClass];
 		}
 	}
@@ -300,12 +276,9 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 {
 	Class currentAncestor = [component class];
 	
-	while (FUIsValidComponentClass(currentAncestor) && ([[self allComponentsWithClass:currentAncestor] count] == 1))
-	{
-		for (FUComponent* otherComponent in [self components])
-		{
-			if ((otherComponent != component) && [[[otherComponent class] allRequiredComponents] containsObject:currentAncestor])
-			{
+	while (FUIsValidComponentClass(currentAncestor) && ([[self allComponentsWithClass:currentAncestor] count] == 1)) {
+		for (FUComponent* otherComponent in [self components]) {
+			if ((otherComponent != component) && [[[otherComponent class] allRequiredComponents] containsObject:currentAncestor]) {
 				FUThrow(FUComponentRequiredMessage, component, otherComponent);
 			}
 		}
@@ -317,8 +290,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 - (void)updatePropertiesAfterAdditionOfComponent:(FUComponent*)component
 {
 	[[[self class] allComponentProperties] enumerateKeysAndObjectsUsingBlock:^(NSString* key, Class componentClass, BOOL* stop) {
-		if ([component isKindOfClass:componentClass] && ([self valueForKey:key] == nil))
-		{
+		if ([component isKindOfClass:componentClass] && ([self valueForKey:key] == nil)) {
 			[self setValue:component forKey:key];
 		}
 	}];
@@ -327,8 +299,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 - (void)updatePropertiesAfterRemovalOfComponent:(FUComponent*)component
 {
 	[[[self class] allComponentProperties] enumerateKeysAndObjectsUsingBlock:^(NSString* key, Class componentClass, BOOL* stop) {
-		if (component == [self valueForKey:key])
-		{
+		if (component == [self valueForKey:key]) {
 			id nextComponent = [self componentWithClass:componentClass];
 			[self setValue:nextComponent forKey:key];
 		}

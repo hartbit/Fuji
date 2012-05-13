@@ -37,8 +37,7 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 {
 	FUCheck(duration >= 0.0f, FUDurationNegativeMessage, duration);
 	
-	if ((self = [super init]))
-	{
+	if ((self = [super init])) {
 		[self setDuration:duration];
 	}
 	
@@ -68,12 +67,9 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 {
 	FUTime duration = [self duration];
 	
-	if (duration == 0.0f)
-	{
+	if (duration == 0.0f) {
 		[self updateWithFactor:1.0f];
-	}
-	else
-	{
+	} else {
 		FUTime time = FUClamp([self factor] * duration + deltaTime, 0.0f, duration);
 		[self updateWithFactor:time / duration];
 	}
