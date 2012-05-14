@@ -14,3 +14,19 @@
 - (id)initWithObject:(id)object key:(NSString*)key value:(BOOL)value;
 
 @end
+
+
+static OBJC_INLINE FUBooleanAction* FUToggle(id object, NSString* key)
+{
+	return [[FUBooleanAction alloc] initWithObject:object key:key];
+}
+
+static OBJC_INLINE FUBooleanAction* FUEnable(id object, NSString* key)
+{
+	return [[FUBooleanAction alloc] initWithObject:object key:key value:YES];
+}
+
+static OBJC_INLINE FUBooleanAction* FUDisable(id object, NSString* key)
+{
+	return [[FUBooleanAction alloc] initWithObject:object key:key value:NO];
+}

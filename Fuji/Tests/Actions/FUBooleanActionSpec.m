@@ -204,6 +204,123 @@ describe(@"A boolean action", ^{
 			});
 		});
 	});
+	
+	context(@"initialized with the FUEnable function", ^{
+		__block FUTestObject* object;
+		__block NSMutableString* key;
+		__block FUBooleanAction* action;
+		
+		beforeEach(^{
+			object = [FUTestObject new];
+			key = [NSMutableString stringWithString:@"enabled"];
+			action = FUEnable(object, key);
+		});
+		
+		it(@"is not nil", ^{
+			expect(action).toNot.beNil();
+		});
+		
+		context(@"updated the action", ^{
+			beforeEach(^{
+				[action updateWithFactor:0.0f];
+			});
+			
+			it(@"sets the value to YES", ^{
+				expect([object isEnabled]).to.beTruthy();
+			});
+			
+			context(@"updated the action", ^{
+				beforeEach(^{
+					[action updateWithFactor:0.0f];
+				});
+				
+				it(@"still has the value to YES", ^{
+					expect([object isEnabled]).to.beTruthy();
+				});
+			});
+		});
+	});
+	
+	context(@"initialized with the FUDisable function", ^{
+		__block FUTestObject* object;
+		__block NSMutableString* key;
+		__block FUBooleanAction* action;
+		
+		beforeEach(^{
+			object = [FUTestObject new];
+			[object setEnabled:YES];
+			key = [NSMutableString stringWithString:@"enabled"];
+			action = FUDisable(object, key);
+		});
+		
+		it(@"is not nil", ^{
+			expect(action).toNot.beNil();
+		});
+		
+		context(@"updated the action", ^{
+			beforeEach(^{
+				[action updateWithFactor:0.0f];
+			});
+			
+			it(@"sets the value to NO", ^{
+				expect([object isEnabled]).to.beFalsy();
+			});
+			
+			context(@"updated the action", ^{
+				beforeEach(^{
+					[action updateWithFactor:0.0f];
+				});
+				
+				it(@"still has the value to NO", ^{
+					expect([object isEnabled]).to.beFalsy();
+				});
+			});
+		});
+	});
+	
+	context(@"initialized with the FUToggle function", ^{
+		__block FUTestObject* object;
+		__block NSMutableString* key;
+		__block FUBooleanAction* action;
+		
+		beforeEach(^{
+			object = [FUTestObject new];
+			key = [NSMutableString stringWithString:@"enabled"];
+			action = FUToggle(object, key);
+		});
+		
+		it(@"is not nil", ^{
+			expect(action).toNot.beNil();
+		});
+		
+		context(@"updated the action", ^{
+			beforeEach(^{
+				[action updateWithFactor:0.0f];
+			});
+			
+			it(@"sets the value to YES", ^{
+				expect([object isEnabled]).to.beTruthy();
+			});
+			
+			context(@"updated the action", ^{
+				beforeEach(^{
+					[action updateWithFactor:0.0f];
+				});
+				
+				it(@"sets the value to NO", ^{
+					expect([object isEnabled]).to.beFalsy();
+				});
+			});
+		});
+		
+		context(@"updating the action after modifiying the original key", ^{
+			it(@"sets the value to YES", ^{
+				[key setString:@"undefined"];
+				[action updateWithFactor:0.0f];
+				expect([object isEnabled]).to.beTruthy();
+			});
+		});
+	});
 });
 
 SPEC_END
