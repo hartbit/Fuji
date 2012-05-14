@@ -42,6 +42,8 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	return self;
 }
 
+#pragma mark - NSCopying Methods
+
 - (id)copyWithZone:(NSZone*)zone
 {
 	FUSpeedAction* copy = [[[self class] allocWithZone:zone] init];

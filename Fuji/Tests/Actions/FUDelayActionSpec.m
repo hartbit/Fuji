@@ -42,7 +42,7 @@ describe(@"A dekay action", ^{
 		});
 	});
 	
-	context(@"initialized with a postiive delay", ^{
+	context(@"initialized with a postive delay", ^{
 		__block FUDelayAction* action;
 		
 		beforeEach(^{

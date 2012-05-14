@@ -44,6 +44,8 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 	return self;
 }
 
+#pragma mark - NSCopying Methods
+
 - (id)copyWithZone:(NSZone*)zone
 {
 	FUFiniteAction* copy = [[[self class] allocWithZone:zone] init];

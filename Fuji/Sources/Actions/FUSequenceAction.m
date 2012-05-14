@@ -50,6 +50,8 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	return self;
 }
 
+#pragma mark - NSCopying Methods
+
 - (id)copyWithZone:(NSZone*)zone
 {
 	FUSequenceAction* copy = [super copyWithZone:zone];
