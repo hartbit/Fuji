@@ -10,6 +10,7 @@
 
 @interface FUBooleanAction : FUFiniteAction
 
+- (id)initWithObject:(id)object key:(NSString*)key;
 - (id)initWithObject:(id)object key:(NSString*)key value:(BOOL)value;
 
 @end
