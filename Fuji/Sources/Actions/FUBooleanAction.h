@@ -16,17 +16,6 @@
 @end
 
 
-static OBJC_INLINE FUBooleanAction* FUToggle(id object, NSString* key)
-{
-	return [[FUBooleanAction alloc] initWithObject:object key:key];
-}
-
-static OBJC_INLINE FUBooleanAction* FUEnable(id object, NSString* key)
-{
-	return [[FUBooleanAction alloc] initWithObject:object key:key value:YES];
-}
-
-static OBJC_INLINE FUBooleanAction* FUDisable(id object, NSString* key)
-{
-	return [[FUBooleanAction alloc] initWithObject:object key:key value:NO];
-}
+#define FUToggle(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key)]
+#define FUEnable(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key) value:YES]
+#define FUDisable(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key) value:NO]

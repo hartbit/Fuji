@@ -205,7 +205,7 @@ describe(@"A boolean action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUEnable function", ^{
+	context(@"initialized with the FUEnable macro", ^{
 		__block FUTestObject* object;
 		__block NSMutableString* key;
 		__block FUBooleanAction* action;
@@ -241,7 +241,7 @@ describe(@"A boolean action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUDisable function", ^{
+	context(@"initialized with the FUDisable macro", ^{
 		__block FUTestObject* object;
 		__block NSMutableString* key;
 		__block FUBooleanAction* action;
@@ -278,7 +278,7 @@ describe(@"A boolean action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUToggle function", ^{
+	context(@"initialized with the FUToggle macro", ^{
 		__block FUTestObject* object;
 		__block NSMutableString* key;
 		__block FUBooleanAction* action;
