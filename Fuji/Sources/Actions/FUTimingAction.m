@@ -37,7 +37,7 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 	FUCheck(action != nil, FUActionNilMessage);
 	FUCheck(function != NULL, FUFunctionNullMessage);
 	
-	if ((self = [super init])) {
+	if ((self = [super initWithDuration:[action duration]])) {
 		[self setAction:action];
 		[self setFunction:function];
 	}

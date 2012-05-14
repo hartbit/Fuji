@@ -51,11 +51,17 @@ describe(@"A timing action", ^{
 		
 		beforeEach(^{
 			subaction = mock([FUFiniteAction class]);
+			[given([subaction duration]) willReturnFloat:2.0f];
+			
 			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseIn];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
+		});
+		
+		it(@"has the same duration as it's subaction", ^{
+			expect([action duration]).to.equal(2.0f);
 		});
 		
 		context(@"updating with a factor of -0.5f", ^{
