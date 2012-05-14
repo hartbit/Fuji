@@ -33,10 +33,11 @@
 #import "FUAnimator.h"
 #import "FUSpeedAction.h"
 #import "FUFiniteAction.h"
+#import "FUBlockAction.h"
+#import "FUBooleanAction.h"
 #import "FUSequenceAction.h"
 #import "FUTimingAction.h"
 #import "FUTimingFunctions.h"
-#import "FUBlockAction.h"
 #import "FUDelayAction.h"
 
 // Assets
