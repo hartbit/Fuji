@@ -26,8 +26,8 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 
 @property (nonatomic, WEAK) id object;
 @property (nonatomic, copy) NSString* key;
-@property (nonatomic) BOOL value;
 @property (nonatomic, getter=isToggleEnabled) BOOL toggleEnabled;
+@property (nonatomic) BOOL value;
 
 @end
 
@@ -36,8 +36,8 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 
 @synthesize object = _object;
 @synthesize key = _key;
-@synthesize value = _value;
 @synthesize toggleEnabled = _toggleEnabled;
+@synthesize value = _value;
 
 #pragma mark - Class Methods
 
@@ -97,7 +97,12 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	return self;
+	FUBooleanAction* copy = [super copyWithZone:zone];
+	[copy setObject:[self object]];
+	[copy setKey:[self key]];
+	[copy setToggleEnabled:[self isToggleEnabled]];
+	[copy setValue:[self value]];
+	return copy;
 }
 
 #pragma mark - FUFiniteAction Methods

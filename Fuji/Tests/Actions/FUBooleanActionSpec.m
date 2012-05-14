@@ -152,10 +152,22 @@ describe(@"A boolean action", ^{
 			});
 		});
 		
-		context(@"updating a copy of the action", ^{
-			it(@"sets the value to YES", ^{
-				[[action copy] updateWithFactor:0.0f];
-				expect([object isEnabled]).to.beTruthy();
+		context(@"created a copy of the action", ^{
+			__block FUBooleanAction* actionCopy;
+			
+			beforeEach(^{
+				actionCopy = [action copy];
+			});
+			
+			it(@"is not identical to the original action", ^{
+				expect(actionCopy).toNot.beIdenticalTo(action);
+			});
+			
+			context(@"updating the copied action", ^{
+				it(@"sets the value to YES", ^{
+					[actionCopy updateWithFactor:0.0f];
+					expect([object isEnabled]).to.beTruthy();
+				});
 			});
 		});
 		
@@ -202,10 +214,22 @@ describe(@"A boolean action", ^{
 				});
 			});
 			
-			context(@"updating a copy of the action", ^{
-				it(@"sets the value to NO", ^{
-					[[action copy] updateWithFactor:0.0f];
-					expect([object isEnabled]).to.beFalsy();
+			context(@"created a copy of the action", ^{
+				__block FUBooleanAction* actionCopy;
+				
+				beforeEach(^{
+					actionCopy = [action copy];
+				});
+				
+				it(@"is not identical to the original action", ^{
+					expect(actionCopy).toNot.beIdenticalTo(action);
+				});
+				
+				context(@"updating the copied action", ^{
+					it(@"sets the value to NO", ^{
+						[actionCopy updateWithFactor:0.0f];
+						expect([object isEnabled]).to.beFalsy();
+					});
 				});
 			});
 		});
