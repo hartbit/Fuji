@@ -93,6 +93,13 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 	return self;
 }
 
+#pragma mark - NSCopying Methods
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	return self;
+}
+
 #pragma mark - FUFiniteAction Methods
 
 - (void)updateWithFactor:(float)factor

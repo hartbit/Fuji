@@ -152,6 +152,13 @@ describe(@"A boolean action", ^{
 			});
 		});
 		
+		context(@"updating a copy of the action", ^{
+			it(@"sets the value to YES", ^{
+				[[action copy] updateWithFactor:0.0f];
+				expect([object isEnabled]).to.beTruthy();
+			});
+		});
+		
 		context(@"updating the action after modifiying the original key", ^{
 			it(@"sets the value to YES", ^{
 				[key setString:@"undefined"];
@@ -191,6 +198,13 @@ describe(@"A boolean action", ^{
 				});
 				
 				it(@"sets the value to NO", ^{
+					expect([object isEnabled]).to.beFalsy();
+				});
+			});
+			
+			context(@"updating a copy of the action", ^{
+				it(@"sets the value to NO", ^{
+					[[action copy] updateWithFactor:0.0f];
 					expect([object isEnabled]).to.beFalsy();
 				});
 			});
