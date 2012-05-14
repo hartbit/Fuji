@@ -38,6 +38,13 @@ describe(@"A timing action", ^{
 		});
 	});
 	
+	context(@"initializing via the macro", ^{
+		it(@"returns a FUTimingAction", ^{
+			FUFiniteAction* subaction = mock([FUFiniteAction class]);
+			expect(FUTiming(subaction, FUTimingEaseIn)).to.beKindOf([FUTimingAction class]);
+		});
+	});
+	
 	context(@"initializing with an action and a function", ^{
 		__block FUTimingAction* action;
 		__block FUFiniteAction* subaction;

@@ -18,3 +18,6 @@
 - (id)initWithAction:(FUFiniteAction*)action function:(FUTimingFunction)function;
 
 @end
+
+
+#define FUTiming(_action, _function) [[FUTimingAction alloc] initWithAction:(_action) function:(_function)]
