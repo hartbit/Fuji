@@ -17,5 +17,5 @@
 
 
 #define FUToggle(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key)]
-#define FUEnable(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key) value:YES]
-#define FUDisable(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key) value:NO]
+#define FUSwitchOn(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key) value:YES]
+#define FUSwitchOff(_object, _key) [[FUBooleanAction alloc] initWithObject:(_object) key:(_key) value:NO]

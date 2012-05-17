@@ -251,7 +251,7 @@ describe(@"A boolean action", ^{
 		beforeEach(^{
 			object = [FUTestObject new];
 			key = [NSMutableString stringWithString:@"enabled"];
-			action = FUEnable(object, key);
+			action = FUSwitchOn(object, key);
 		});
 		
 		it(@"is not nil", ^{
@@ -288,7 +288,7 @@ describe(@"A boolean action", ^{
 			object = [FUTestObject new];
 			[object setEnabled:YES];
 			key = [NSMutableString stringWithString:@"enabled"];
-			action = FUDisable(object, key);
+			action = FUSwitchOff(object, key);
 		});
 		
 		it(@"is not nil", ^{
