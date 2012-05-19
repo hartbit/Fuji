@@ -243,7 +243,7 @@ describe(@"A boolean action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUEnable macro", ^{
+	context(@"initialized with the FUSwitchOn macro", ^{
 		__block FUTestObject* object;
 		__block NSMutableString* key;
 		__block FUBooleanAction* action;
@@ -279,7 +279,7 @@ describe(@"A boolean action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUDisable macro", ^{
+	context(@"initialized with the FUSwitchOff macro", ^{
 		__block FUTestObject* object;
 		__block NSMutableString* key;
 		__block FUBooleanAction* action;
