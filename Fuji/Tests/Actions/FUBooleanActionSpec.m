@@ -113,7 +113,7 @@ describe(@"A boolean action", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
 			NSString* key = @"isAbsolutePath";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key value:NO], NSInvalidArgumentException, FUKeyReadonlyMessage, key, object);
+			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key], NSInvalidArgumentException, FUKeyReadonlyMessage, key, object);
 		});
 	});
 
