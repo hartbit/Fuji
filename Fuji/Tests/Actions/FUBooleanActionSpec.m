@@ -15,25 +15,25 @@
 
 
 static NSString* const FUObjectNilMessage = @"Expected 'object' to not be nil";
-static NSString* const FUKeyEmptyMessage = @"Expected 'key' to not be nil or empty";
-static NSString* const FUKeyNonexistantMessage = @"The 'key=%@' does not exist on the 'object=%@'";
-static NSString* const FUKeyWrongTypeMessage = @"Expected 'key=%@' on 'object=%@' to be of a numerical type";
-static NSString* const FUKeyReadonlyMessage = @"The 'key=%@' on 'object=%@' is readonly";
+static NSString* const FUPropEmptyMessage = @"Expected 'property' to not be nil or empty";
+static NSString* const FUPropNonexistantMessage = @"The 'property=%@' does not exist on the 'object=%@'";
+static NSString* const FUPropWrongTypeMessage = @"Expected 'property=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUPropReadonlyMessage = @"The 'property=%@' on 'object=%@' is readonly";
 
 
-#define FUTestBoolSetsValue(key, value) \
+#define FUTestBoolSetsValue(prop, value) \
 	it(@"is not nil", ^{ \
 		expect(action).toNot.beNil(); \
 	}); \
 	\
 	context(@"updated the action", ^{ \
 		beforeEach(^{ \
-			[object setValue:[NSNumber numberWithBool:!value] forKey:key]; \
+			[object setValue:[NSNumber numberWithBool:!value] forKey:prop]; \
 			[action updateWithFactor:0.0f]; \
 		}); \
 		\
-		it([NSString stringWithFormat:@"sets %@ to %@", key, FUStringFromBool(value)], ^{ \
-			expect([object valueForKey:key]).to.equal(value); \
+		it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
+			expect([object valueForKey:prop]).to.equal(value); \
 		}); \
 		\
 		context(@"updated the action", ^{ \
@@ -41,31 +41,31 @@ static NSString* const FUKeyReadonlyMessage = @"The 'key=%@' on 'object=%@' is r
 				[action updateWithFactor:0.0f]; \
 			}); \
 			\
-			it([NSString stringWithFormat:@"still has %@ to %@", key, FUStringFromBool(value)], ^{ \
-				expect([object valueForKey:key]).to.equal(value); \
+			it([NSString stringWithFormat:@"still has %@ to %@", prop, FUStringFromBool(value)], ^{ \
+				expect([object valueForKey:prop]).to.equal(value); \
 			}); \
 		}); \
 	});
 
-#define FUTestBoolTogglesValue(key) \
+#define FUTestBoolTogglesValue(prop) \
 	it(@"is not nil", ^{ \
 		expect(action).toNot.beNil(); \
 	}); \
 	\
 	context(@"updated the action", ^{ \
 		beforeEach(^{ \
-			[object setValue:[NSNumber numberWithBool:NO] forKey:key]; \
+			[object setValue:[NSNumber numberWithBool:NO] forKey:prop]; \
 			[action updateWithFactor:0.0f]; \
 		}); \
 		\
-		it([NSString stringWithFormat:@"sets %@ to YES", key], ^{ \
-			expect([object valueForKey:key]).to.beTruthy(); \
+		it([NSString stringWithFormat:@"sets %@ to YES", prop], ^{ \
+			expect([object valueForKey:prop]).to.beTruthy(); \
 		}); \
 		\
 		context(@"updating the action", ^{ \
-			it([NSString stringWithFormat:@"sets %@ to NO", key], ^{ \
+			it([NSString stringWithFormat:@"sets %@ to NO", prop], ^{ \
 				[action updateWithFactor:0.0f]; \
-				expect([object valueForKey:key]).to.beFalsy(); \
+				expect([object valueForKey:prop]).to.beFalsy(); \
 			}); \
 		}); \
 	});
@@ -82,99 +82,99 @@ describe(@"A boolean action", ^{
 		expect([FUBooleanAction class]).to.beSubclassOf([FUFiniteAction class]);
 	});
 	
-	context(@"initializing with a nil object, valid key and value", ^{
+	context(@"initializing with a nil object, valid property and value", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBooleanAction alloc] initWithObject:nil key:@"key" value:NO], NSInvalidArgumentException, FUObjectNilMessage);
+			assertThrows([[FUBooleanAction alloc] initWithObject:nil property:@"property" value:NO], NSInvalidArgumentException, FUObjectNilMessage);
 		});
 	});
 	
-	context(@"initializing with a nil object and valid key", ^{
+	context(@"initializing with a nil object and valid property", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBooleanAction alloc] initWithObject:nil key:@"key"], NSInvalidArgumentException, FUObjectNilMessage);
+			assertThrows([[FUBooleanAction alloc] initWithObject:nil property:@"property"], NSInvalidArgumentException, FUObjectNilMessage);
 		});
 	});
 
-	context(@"initializing with a valid object, nil key and value", ^{
+	context(@"initializing with a valid object, nil property and value", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] key:nil value:NO], NSInvalidArgumentException, FUKeyEmptyMessage);
+			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] property:nil value:NO], NSInvalidArgumentException, FUPropEmptyMessage);
 		});
 	});
 	
-	context(@"initializing with a valid object and nil key", ^{
+	context(@"initializing with a valid object and nil property", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] key:nil], NSInvalidArgumentException, FUKeyEmptyMessage);
+			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] property:nil], NSInvalidArgumentException, FUPropEmptyMessage);
 		});
 	});
 
-	context(@"initializing with a valid object, empty key and value", ^{
+	context(@"initializing with a valid object, empty property and value", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] key:@"" value:NO], NSInvalidArgumentException, FUKeyEmptyMessage);
+			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] property:@"" value:NO], NSInvalidArgumentException, FUPropEmptyMessage);
 		});
 	});
 	
-	context(@"initializing with a valid object and empty key", ^{
+	context(@"initializing with a valid object and empty property", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] key:@""], NSInvalidArgumentException, FUKeyEmptyMessage);
+			assertThrows([[FUBooleanAction alloc] initWithObject:[NSString string] property:@""], NSInvalidArgumentException, FUPropEmptyMessage);
 		});
 	});
 
-	context(@"initializing with a key that does exist on the object, and value", ^{
+	context(@"initializing with a property that does exist on the object, and value", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSString* key = @"undefined";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key value:NO], NSInvalidArgumentException, FUKeyNonexistantMessage, key, object);
+			NSString* property = @"undefined";
+			assertThrows([[FUBooleanAction alloc] initWithObject:object property:property value:NO], NSInvalidArgumentException, FUPropNonexistantMessage, property, object);
 		});
 	});
 	
-	context(@"initializing with a key that does exist on the object", ^{
+	context(@"initializing with a property that does exist on the object", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSString* key = @"undefined";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key], NSInvalidArgumentException, FUKeyNonexistantMessage, key, object);
+			NSString* property = @"undefined";
+			assertThrows([[FUBooleanAction alloc] initWithObject:object property:property], NSInvalidArgumentException, FUPropNonexistantMessage, property, object);
 		});
 	});
 
-	context(@"initializing with a key that is not a numerical type, and value", ^{
+	context(@"initializing with a property that is not a numerical type, and value", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSString* key = @"pathComponents";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key value:NO], NSInvalidArgumentException, FUKeyWrongTypeMessage, key, object);
+			NSString* property = @"pathComponents";
+			assertThrows([[FUBooleanAction alloc] initWithObject:object property:property value:NO], NSInvalidArgumentException, FUPropWrongTypeMessage, property, object);
 		});
 	});
 	
-	context(@"initializing with a key that is not a numerical type", ^{
+	context(@"initializing with a property that is not a numerical type", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSString* key = @"pathComponents";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key], NSInvalidArgumentException, FUKeyWrongTypeMessage, key, object);
+			NSString* property = @"pathComponents";
+			assertThrows([[FUBooleanAction alloc] initWithObject:object property:property], NSInvalidArgumentException, FUPropWrongTypeMessage, property, object);
 		});
 	});
 
-	context(@"initializing with a valid object, key that is readonly and value", ^{
+	context(@"initializing with a valid object, property that is readonly and value", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSString* key = @"isAbsolutePath";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key value:NO], NSInvalidArgumentException, FUKeyReadonlyMessage, key, object);
+			NSString* property = @"isAbsolutePath";
+			assertThrows([[FUBooleanAction alloc] initWithObject:object property:property value:NO], NSInvalidArgumentException, FUPropReadonlyMessage, property, object);
 		});
 	});
 	
-	context(@"initializing with a valid object, key that is readonly", ^{
+	context(@"initializing with a valid object, property that is readonly", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSString* key = @"isAbsolutePath";
-			assertThrows([[FUBooleanAction alloc] initWithObject:object key:key], NSInvalidArgumentException, FUKeyReadonlyMessage, key, object);
+			NSString* property = @"isAbsolutePath";
+			assertThrows([[FUBooleanAction alloc] initWithObject:object property:property], NSInvalidArgumentException, FUPropReadonlyMessage, property, object);
 		});
 	});
 
-	context(@"initialized with a valid object, key and value", ^{
+	context(@"initialized with a valid object, property and value", ^{
 		__block FUTestObject* object;
-		__block NSMutableString* key;
+		__block NSMutableString* property;
 		__block FUBooleanAction* action;
 		
 		beforeEach(^{
 			object = [FUTestObject new];
-			key = [NSMutableString stringWithString:@"enabled"];
-			action = [[FUBooleanAction alloc] initWithObject:object key:key value:YES];
+			property = [NSMutableString stringWithString:@"enabled"];
+			action = [[FUBooleanAction alloc] initWithObject:object property:property value:YES];
 		});
 		
 		it(@"is not nil", ^{
@@ -220,24 +220,24 @@ describe(@"A boolean action", ^{
 			});
 		});
 		
-		context(@"updating the action after modifiying the original key", ^{
+		context(@"updating the action after modifiying the original property", ^{
 			it(@"sets the value to YES", ^{
-				[key setString:@"undefined"];
+				[property setString:@"undefined"];
 				[action updateWithFactor:0.0f];
 				expect([object isEnabled]).to.beTruthy();
 			});
 		});
 	});
 	
-	context(@"initialized with a valid object and key", ^{
+	context(@"initialized with a valid object and property", ^{
 		__block FUTestObject* object;
-		__block NSMutableString* key;
+		__block NSMutableString* property;
 		__block FUBooleanAction* action;
 		
 		beforeEach(^{
 			object = [FUTestObject new];
-			key = [NSMutableString stringWithString:@"enabled"];
-			action = [[FUBooleanAction alloc] initWithObject:object key:key];
+			property = [NSMutableString stringWithString:@"enabled"];
+			action = [[FUBooleanAction alloc] initWithObject:object property:property];
 		});
 		
 		it(@"is not nil", ^{
@@ -283,9 +283,9 @@ describe(@"A boolean action", ^{
 			});
 		});
 		
-		context(@"updating the action after modifiying the original key", ^{
+		context(@"updating the action after modifiying the original property", ^{
 			it(@"sets the value to YES", ^{
-				[key setString:@"undefined"];
+				[property setString:@"undefined"];
 				[action updateWithFactor:0.0f];
 				expect([object isEnabled]).to.beTruthy();
 			});

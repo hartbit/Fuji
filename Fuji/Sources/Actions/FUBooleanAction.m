@@ -10,22 +10,16 @@
 
 
 static NSString* const FUObjectNilMessage = @"Expected 'object' to not be nil";
-static NSString* const FUKeyEmptyMessage = @"Expected 'key' to not be nil or empty";
-static NSString* const FUKeyNonexistantMessage = @"The 'key=%@' does not exist on the 'object=%@'";
-static NSString* const FUKeyWrongTypeMessage = @"Expected 'key=%@' on 'object=%@' to be of a numerical type";
-static NSString* const FUKeyReadonlyMessage = @"The 'key=%@' on 'object=%@' is readonly";
-
-
-static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
-{
-	
-}
+static NSString* const FUPropEmptyMessage = @"Expected 'property' to not be nil or empty";
+static NSString* const FUPropNonexistantMessage = @"The 'property=%@' does not exist on the 'object=%@'";
+static NSString* const FUPropWrongTypeMessage = @"Expected 'property=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUPropReadonlyMessage = @"The 'property=%@' on 'object=%@' is readonly";
 
 
 @interface FUBooleanAction ()
 
 @property (nonatomic, WEAK) id object;
-@property (nonatomic, copy) NSString* key;
+@property (nonatomic, copy) NSString* property;
 @property (nonatomic, getter=isToggleEnabled) BOOL toggleEnabled;
 @property (nonatomic) BOOL value;
 
@@ -35,58 +29,58 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 @implementation FUBooleanAction
 
 @synthesize object = _object;
-@synthesize key = _key;
+@synthesize property = _property;
 @synthesize toggleEnabled = _toggleEnabled;
 @synthesize value = _value;
 
 #pragma mark - Class Methods
 
-+ (void)validateObject:(id)object key:(NSString*)key
++ (void)validateObject:(id)object property:(NSString*)property
 {
 	FUCheck(object != nil, FUObjectNilMessage);
-	FUCheck(FUStringIsValid(key), FUKeyEmptyMessage);
+	FUCheck(FUStringIsValid(property), FUPropEmptyMessage);
 	
 	id currentValue;
 	
 	@try {
-		currentValue = [object valueForKey:key];
+		currentValue = [object valueForKey:property];
 	}
 	@catch (NSException *exception) {
-		_FUThrow(NSInvalidArgumentException, FUKeyNonexistantMessage, key, object);
+		_FUThrow(NSInvalidArgumentException, FUPropNonexistantMessage, property, object);
 	}
 	
-	FUCheck([currentValue isKindOfClass:[NSNumber class]], FUKeyWrongTypeMessage, key, object);
+	FUCheck([currentValue isKindOfClass:[NSNumber class]], FUPropWrongTypeMessage, property, object);
 	
 	@try {
-		[object setValue:currentValue forKey:key];
+		[object setValue:currentValue forKey:property];
 	}
 	@catch (NSException *exception) {
-		_FUThrow(NSInvalidArgumentException, FUKeyReadonlyMessage, key, object);
+		_FUThrow(NSInvalidArgumentException, FUPropReadonlyMessage, property, object);
 	}
 }
 
 #pragma mark - Initialization
 
-- (id)initWithObject:(id)object key:(NSString*)key
+- (id)initWithObject:(id)object property:(NSString*)property
 {
-	[[self class] validateObject:object key:key];
+	[[self class] validateObject:object property:property];
 	
 	if ((self = [super initWithDuration:0.0f])) {
 		[self setObject:object];
-		[self setKey:key];
+		[self setProperty:property];
 		[self setToggleEnabled:YES];
 	}
 	
 	return self;
 }
 
-- (id)initWithObject:(id)object key:(NSString*)key value:(BOOL)value
+- (id)initWithObject:(id)object property:(NSString*)property value:(BOOL)value
 {
-	[[self class] validateObject:object key:key];
+	[[self class] validateObject:object property:property];
 	
 	if ((self = [super initWithDuration:0.0f])) {
 		[self setObject:object];
-		[self setKey:key];
+		[self setProperty:property];
 		[self setValue:value];
 	}
 	
@@ -99,7 +93,7 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 {
 	FUBooleanAction* copy = [super copyWithZone:zone];
 	[copy setObject:[self object]];
-	[copy setKey:[self key]];
+	[copy setProperty:[self property]];
 	[copy setToggleEnabled:[self isToggleEnabled]];
 	[copy setValue:[self value]];
 	return copy;
@@ -110,17 +104,17 @@ static OBJC_INLINE void FUValidateObjectAndKey(id object, NSString* key)
 - (void)updateWithFactor:(float)factor
 {
 	id object = [self object];
-	NSString* key = [self key];
+	NSString* property = [self property];
 	NSNumber* newValue = nil;
 	
 	if ([self isToggleEnabled]) {
-		NSNumber* oldValue = [object valueForKey:key];
+		NSNumber* oldValue = [object valueForKey:property];
 		newValue = [NSNumber numberWithBool:![oldValue boolValue]];
 	} else {
 		newValue = [NSNumber numberWithBool:[self value]];
 	}
 	
-	[object setValue:newValue forKey:key];
+	[object setValue:newValue forKey:property];
 }
 
 @end

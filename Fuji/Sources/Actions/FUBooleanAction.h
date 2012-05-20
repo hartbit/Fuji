@@ -10,15 +10,15 @@
 
 @interface FUBooleanAction : FUFiniteAction
 
-- (id)initWithObject:(id)object key:(NSString*)key;
-- (id)initWithObject:(id)object key:(NSString*)key value:(BOOL)value;
+- (id)initWithObject:(id)object property:(NSString*)property;
+- (id)initWithObject:(id)object property:(NSString*)property value:(BOOL)value;
 
 @end
 
 
-#define FUToggle(object, property) [[FUBooleanAction alloc] initWithObject:(object) key:(property)]
-#define FUSwitchOn(object, property) [[FUBooleanAction alloc] initWithObject:(object) key:(property) value:YES]
-#define FUSwitchOff(object, property) [[FUBooleanAction alloc] initWithObject:(object) key:(property) value:NO]
+#define FUToggle(object, prop) [[FUBooleanAction alloc] initWithObject:(object) property:(prop)]
+#define FUSwitchOn(object, prop) [[FUBooleanAction alloc] initWithObject:(object) property:(prop) value:YES]
+#define FUSwitchOff(object, prop) [[FUBooleanAction alloc] initWithObject:(object) property:(prop) value:NO]
 
 #define FUToggleEnabled(object) FUToggle(object, @"enabled")
 #define FUEnable(object) FUSwitchOn(object, @"enabled")
