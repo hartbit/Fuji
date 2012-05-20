@@ -73,3 +73,8 @@ static OBJC_INLINE BOOL FUStringIsValid(NSString* string)
 {
 	return (string != nil) && ([string length] != 0);
 }
+
+static OBJC_INLINE NSString* FUStringFromBool(BOOL value)
+{
+	return value ? @"YES" : @"NO";
+}

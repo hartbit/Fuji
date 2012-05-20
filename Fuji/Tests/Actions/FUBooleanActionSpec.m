@@ -21,6 +21,55 @@ static NSString* const FUKeyWrongTypeMessage = @"Expected 'key=%@' on 'object=%@
 static NSString* const FUKeyReadonlyMessage = @"The 'key=%@' on 'object=%@' is readonly";
 
 
+#define FUTestBoolSetsValue(key, value) \
+	it(@"is not nil", ^{ \
+		expect(action).toNot.beNil(); \
+	}); \
+	\
+	context(@"updated the action", ^{ \
+		beforeEach(^{ \
+			[object setValue:[NSNumber numberWithBool:!value] forKey:key]; \
+			[action updateWithFactor:0.0f]; \
+		}); \
+		\
+		it([NSString stringWithFormat:@"sets %@ to %@", key, FUStringFromBool(value)], ^{ \
+			expect([object valueForKey:key]).to.equal(value); \
+		}); \
+		\
+		context(@"updated the action", ^{ \
+			beforeEach(^{ \
+				[action updateWithFactor:0.0f]; \
+			}); \
+			\
+			it([NSString stringWithFormat:@"still has %@ to %@", key, FUStringFromBool(value)], ^{ \
+				expect([object valueForKey:key]).to.equal(value); \
+			}); \
+		}); \
+	});
+
+#define FUTestBoolTogglesValue(key) \
+	it(@"is not nil", ^{ \
+		expect(action).toNot.beNil(); \
+	}); \
+	\
+	context(@"updated the action", ^{ \
+		beforeEach(^{ \
+			[object setValue:[NSNumber numberWithBool:NO] forKey:key]; \
+			[action updateWithFactor:0.0f]; \
+		}); \
+		\
+		it([NSString stringWithFormat:@"sets %@ to YES", key], ^{ \
+			expect([object valueForKey:key]).to.beTruthy(); \
+		}); \
+		\
+		context(@"updating the action", ^{ \
+			it([NSString stringWithFormat:@"sets %@ to NO", key], ^{ \
+				[action updateWithFactor:0.0f]; \
+				expect([object valueForKey:key]).to.beFalsy(); \
+			}); \
+		}); \
+	});
+
 @interface FUTestObject : NSObject
 @property (nonatomic, getter=isEnabled) BOOL enabled;
 @end
@@ -245,119 +294,75 @@ describe(@"A boolean action", ^{
 	
 	context(@"initialized with the FUSwitchOn macro", ^{
 		__block FUTestObject* object;
-		__block NSMutableString* key;
 		__block FUBooleanAction* action;
 		
 		beforeEach(^{
 			object = [FUTestObject new];
-			key = [NSMutableString stringWithString:@"enabled"];
-			action = FUSwitchOn(object, key);
+			action = FUSwitchOn(object, @"enabled");
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
-		context(@"updated the action", ^{
-			beforeEach(^{
-				[action updateWithFactor:0.0f];
-			});
-			
-			it(@"sets the value to YES", ^{
-				expect([object isEnabled]).to.beTruthy();
-			});
-			
-			context(@"updated the action", ^{
-				beforeEach(^{
-					[action updateWithFactor:0.0f];
-				});
-				
-				it(@"still has the value to YES", ^{
-					expect([object isEnabled]).to.beTruthy();
-				});
-			});
-		});
+		FUTestBoolSetsValue(@"enabled", YES);
 	});
 	
 	context(@"initialized with the FUSwitchOff macro", ^{
 		__block FUTestObject* object;
-		__block NSMutableString* key;
 		__block FUBooleanAction* action;
 		
 		beforeEach(^{
 			object = [FUTestObject new];
 			[object setEnabled:YES];
-			key = [NSMutableString stringWithString:@"enabled"];
-			action = FUSwitchOff(object, key);
+			action = FUSwitchOff(object, @"enabled");
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
-		context(@"updated the action", ^{
-			beforeEach(^{
-				[action updateWithFactor:0.0f];
-			});
-			
-			it(@"sets the value to NO", ^{
-				expect([object isEnabled]).to.beFalsy();
-			});
-			
-			context(@"updated the action", ^{
-				beforeEach(^{
-					[action updateWithFactor:0.0f];
-				});
-				
-				it(@"still has the value to NO", ^{
-					expect([object isEnabled]).to.beFalsy();
-				});
-			});
-		});
+		FUTestBoolSetsValue(@"enabled", NO);
 	});
 	
 	context(@"initialized with the FUToggle macro", ^{
 		__block FUTestObject* object;
-		__block NSMutableString* key;
 		__block FUBooleanAction* action;
 		
 		beforeEach(^{
 			object = [FUTestObject new];
-			key = [NSMutableString stringWithString:@"enabled"];
-			action = FUToggle(object, key);
+			action = FUToggle(object, @"enabled");
+		});
+	
+		FUTestBoolTogglesValue(@"enabled");
+	});
+	
+	context(@"initialized with the FUEnable macro", ^{
+		__block FUTestObject* object;
+		__block FUBooleanAction* action;
+		
+		beforeEach(^{
+			object = [FUTestObject new];
+			action = FUEnable(object);
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
+		FUTestBoolSetsValue(@"enabled", YES);
+	});
+	
+	context(@"initialized with the FUDisable macro", ^{
+		__block FUTestObject* object;
+		__block FUBooleanAction* action;
+		
+		beforeEach(^{
+			object = [FUTestObject new];
+			action = FUDisable(object);
 		});
 		
-		context(@"updated the action", ^{
-			beforeEach(^{
-				[action updateWithFactor:0.0f];
-			});
-			
-			it(@"sets the value to YES", ^{
-				expect([object isEnabled]).to.beTruthy();
-			});
-			
-			context(@"updated the action", ^{
-				beforeEach(^{
-					[action updateWithFactor:0.0f];
-				});
-				
-				it(@"sets the value to NO", ^{
-					expect([object isEnabled]).to.beFalsy();
-				});
-			});
+		FUTestBoolSetsValue(@"enabled", NO);
+	});
+	
+	context(@"initialized with the FUToggleEnabled macro", ^{
+		__block FUTestObject* object;
+		__block FUBooleanAction* action;
+		
+		beforeEach(^{
+			object = [FUTestObject new];
+			action = FUToggleEnabled(object);
 		});
 		
-		context(@"updating the action after modifiying the original key", ^{
-			it(@"sets the value to YES", ^{
-				[key setString:@"undefined"];
-				[action updateWithFactor:0.0f];
-				expect([object isEnabled]).to.beTruthy();
-			});
-		});
+		FUTestBoolTogglesValue(@"enabled");
 	});
 });
 
