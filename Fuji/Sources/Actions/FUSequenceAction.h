@@ -20,8 +20,8 @@
 @end
 
 
-#define FUSequence(_actions...) ({ \
-	id __objects[] = { _actions }; \
+#define FUSequence(actions...) ({ \
+	id __objects[] = { actions }; \
 	NSUInteger __count = sizeof(__objects) / sizeof(id); \
 	NSArray* __array = [[NSArray alloc] initWithObjects:__objects count:__count]; \
 	[[FUSequenceAction alloc] initWithArray:__array]; \

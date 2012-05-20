@@ -20,4 +20,4 @@
 @end
 
 
-#define FUTiming(_action, _function) [[FUTimingAction alloc] initWithAction:(_action) function:(_function)]
+#define FUTiming(action, func) [[FUTimingAction alloc] initWithAction:(action) function:(func)]

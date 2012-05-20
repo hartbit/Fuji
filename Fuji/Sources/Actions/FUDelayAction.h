@@ -20,4 +20,4 @@
 @end
 
 
-#define FUDelay(_delay) [[FUDelayAction alloc] initWithDelay:(_delay)]
+#define FUDelay(delay) [[FUDelayAction alloc] initWithDelay:(delay)]

@@ -19,4 +19,4 @@
 @end
 
 
-#define FUBlock(_block) [[FUBlockAction alloc] initWithBlock:(_block)]
+#define FUBlock(block) [[FUBlockAction alloc] initWithBlock:(block)]

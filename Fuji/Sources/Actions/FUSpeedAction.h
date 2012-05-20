@@ -22,4 +22,4 @@
 @end
 
 
-#define FUSpeed(_action, _speed) [[FUSpeedAction alloc] initWithAction:(_action) speed:(_speed)]
+#define FUSpeed(action, rate) [[FUSpeedAction alloc] initWithAction:(action) speed:(rate)]
