@@ -22,4 +22,7 @@
 @end
 
 
-#define FUSpeed(action, rate) [[FUSpeedAction alloc] initWithAction:(action) speed:(rate)]
+static OBJC_INLINE FUSpeedAction* FUSpeed(id<FUAction> action, float speed)
+{
+	return [[FUSpeedAction alloc] initWithAction:action speed:speed];
+}

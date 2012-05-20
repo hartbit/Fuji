@@ -162,7 +162,7 @@ describe(@"A speed action", ^{
 		});
 	});
 	
-	context(@"initializing via the macro with a valid action and a speed of 1.0f", ^{
+	context(@"initializing via the function with a valid action and a speed of 1.0f", ^{
 		it(@"returns a FUSpeedAction", ^{
 			NSObject<FUAction>* subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			expect(FUSpeed(subaction, 1.0f)).to.beKindOf([FUSpeedAction class]);

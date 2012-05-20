@@ -16,10 +16,32 @@
 @end
 
 
-#define FUToggle(object, prop) [[FUBooleanAction alloc] initWithObject:(object) property:(prop)]
-#define FUSwitchOn(object, prop) [[FUBooleanAction alloc] initWithObject:(object) property:(prop) value:YES]
-#define FUSwitchOff(object, prop) [[FUBooleanAction alloc] initWithObject:(object) property:(prop) value:NO]
+static OBJC_INLINE FUBooleanAction* FUToggle(id object, NSString* property)
+{
+	return [[FUBooleanAction alloc] initWithObject:object property:property];
+}
 
-#define FUToggleEnabled(object) FUToggle(object, @"enabled")
-#define FUEnable(object) FUSwitchOn(object, @"enabled")
-#define FUDisable(object) FUSwitchOff(object, @"enabled")
+static OBJC_INLINE FUBooleanAction* FUSwitchOn(id object, NSString* property)
+{
+	return [[FUBooleanAction alloc] initWithObject:object property:property value:YES];
+}
+
+static OBJC_INLINE FUBooleanAction* FUSwitchOff(id object, NSString* property)
+{
+	return [[FUBooleanAction alloc] initWithObject:object property:property value:NO];
+}
+
+static OBJC_INLINE FUBooleanAction* FUToggleEnabled(id object)
+{
+	return FUToggle(object, @"enabled");
+}
+
+static OBJC_INLINE FUBooleanAction* FUEnable(id object)
+{
+	return FUSwitchOn(object, @"enabled");
+}
+
+static OBJC_INLINE FUBooleanAction* FUDisable(id object)
+{
+	return FUSwitchOff(object, @"enabled");
+}

@@ -19,4 +19,7 @@
 @end
 
 
-#define FUBlock(block) [[FUBlockAction alloc] initWithBlock:(block)]
+static OBJC_INLINE FUBlockAction* FUBlock(void (^block)())
+{
+	return [[FUBlockAction alloc] initWithBlock:block];
+}

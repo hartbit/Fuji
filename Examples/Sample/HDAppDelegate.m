@@ -43,9 +43,9 @@
 			[renderer setColor:FURandomColor()];
 			
 			FUTransform* transform = [entity transform];
-			[transform setPosition:GLKVector2Make(floorf(FURandomDouble(0, 320)), floorf(FURandomDouble(0, 480)))];
+			[transform setPosition:GLKVector2Make(floorf(FURandomFloat(0, 320)), floorf(FURandomFloat(0, 480)))];
 		}
-		
+	
 		[director loadScene:scene];
 	}
 	

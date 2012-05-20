@@ -13,9 +13,9 @@
 		63AFB6B61529AB8F00D103FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6B51529AB8F00D103FE /* CoreGraphics.framework */; };
 		63AFB6BE1529AB8F00D103FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AFB6BD1529AB8F00D103FE /* main.m */; };
 		63AFB6C21529AB8F00D103FE /* HDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AFB6C11529AB8F00D103FE /* HDAppDelegate.m */; };
-		63AFB6DE1529AD0C00D103FE /* libFuji.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6DD1529AD0C00D103FE /* libFuji.a */; };
 		63AFB6E11529ADBD00D103FE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6E01529ADBD00D103FE /* OpenGLES.framework */; };
 		63AFB6E31529ADC800D103FE /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AFB6E21529ADC800D103FE /* GLKit.framework */; };
+		63EC356B156950D500C24B92 /* libFuji.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EC356A156950D500C24B92 /* libFuji.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +29,9 @@
 		63AFB6BF1529AB8F00D103FE /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		63AFB6C01529AB8F00D103FE /* HDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HDAppDelegate.h; sourceTree = "<group>"; };
 		63AFB6C11529AB8F00D103FE /* HDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HDAppDelegate.m; sourceTree = "<group>"; };
-		63AFB6DD1529AD0C00D103FE /* libFuji.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFuji.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AFB6E01529ADBD00D103FE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		63AFB6E21529ADC800D103FE /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		63EC356A156950D500C24B92 /* libFuji.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libFuji.a; path = "../Fuji/build/Release-iphoneos/libFuji.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,10 +39,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63EC356B156950D500C24B92 /* libFuji.a in Frameworks */,
 				63AFB6B61529AB8F00D103FE /* CoreGraphics.framework in Frameworks */,
 				63AFB6E31529ADC800D103FE /* GLKit.framework in Frameworks */,
 				63AFB6E11529ADBD00D103FE /* OpenGLES.framework in Frameworks */,
-				63AFB6DE1529AD0C00D103FE /* libFuji.a in Frameworks */,
 				63AFB6B21529AB8F00D103FE /* UIKit.framework in Frameworks */,
 				63AFB6B41529AB8F00D103FE /* Foundation.framework in Frameworks */,
 			);
@@ -81,7 +81,7 @@
 		63AFB6B01529AB8F00D103FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				63AFB6DD1529AD0C00D103FE /* libFuji.a */,
+				63EC356A156950D500C24B92 /* libFuji.a */,
 				63AFB6E01529ADBD00D103FE /* OpenGLES.framework */,
 				63AFB6E21529ADC800D103FE /* GLKit.framework */,
 				63AFB6B11529AB8F00D103FE /* UIKit.framework */,
@@ -235,7 +235,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../Sources/**";
+				USER_HEADER_SEARCH_PATHS = "../Fuji/Sources/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -249,7 +249,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../Sources/**";
+				USER_HEADER_SEARCH_PATHS = "../Fuji/Sources/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -45,7 +45,7 @@ describe(@"A sequence action", ^{
 		});
 	});
 	
-	context(@"initializing via the macro with no actions", ^{
+	context(@"initializing via the function with no actions", ^{
 		it(@"returns a FUSequenceAction", ^{
 			expect(FUSequence()).to.beKindOf([FUSequenceAction class]);
 		});
@@ -75,7 +75,7 @@ describe(@"A sequence action", ^{
 			sequence = [[FUSequenceAction alloc] initWithArray:actions];
 		});
 		
-		context(@"initializing via the macro with three actions", ^{
+		context(@"initializing via the function with three actions", ^{
 			it(@"returns a FUSequenceAction", ^{
 				expect(FUSequence(action1, action2, action3)).to.beKindOf([FUSequenceAction class]);
 			});

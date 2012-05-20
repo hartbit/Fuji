@@ -38,7 +38,7 @@ describe(@"A timing action", ^{
 		});
 	});
 	
-	context(@"initializing via the macro", ^{
+	context(@"initializing via the function", ^{
 		it(@"returns a FUTimingAction", ^{
 			FUFiniteAction* subaction = mock([FUFiniteAction class]);
 			expect(FUTiming(subaction, FUTimingEaseIn)).to.beKindOf([FUTimingAction class]);

@@ -20,4 +20,7 @@
 @end
 
 
-#define FUDelay(delay) [[FUDelayAction alloc] initWithDelay:(delay)]
+static OBJC_INLINE FUDelayAction* FUDelay(FUTime delay)
+{
+	return [[FUDelayAction alloc] initWithDelay:delay];
+}

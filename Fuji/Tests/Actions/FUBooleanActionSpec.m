@@ -292,7 +292,7 @@ describe(@"A boolean action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUSwitchOn macro", ^{
+	context(@"initialized with the FUSwitchOn function", ^{
 		__block FUTestObject* object;
 		__block FUBooleanAction* action;
 		
@@ -304,7 +304,7 @@ describe(@"A boolean action", ^{
 		FUTestBoolSetsValue(@"enabled", YES);
 	});
 	
-	context(@"initialized with the FUSwitchOff macro", ^{
+	context(@"initialized with the FUSwitchOff function", ^{
 		__block FUTestObject* object;
 		__block FUBooleanAction* action;
 		
@@ -317,7 +317,7 @@ describe(@"A boolean action", ^{
 		FUTestBoolSetsValue(@"enabled", NO);
 	});
 	
-	context(@"initialized with the FUToggle macro", ^{
+	context(@"initialized with the FUToggle function", ^{
 		__block FUTestObject* object;
 		__block FUBooleanAction* action;
 		
@@ -329,7 +329,7 @@ describe(@"A boolean action", ^{
 		FUTestBoolTogglesValue(@"enabled");
 	});
 	
-	context(@"initialized with the FUEnable macro", ^{
+	context(@"initialized with the FUEnable function", ^{
 		__block FUTestObject* object;
 		__block FUBooleanAction* action;
 		
@@ -341,7 +341,7 @@ describe(@"A boolean action", ^{
 		FUTestBoolSetsValue(@"enabled", YES);
 	});
 	
-	context(@"initialized with the FUDisable macro", ^{
+	context(@"initialized with the FUDisable function", ^{
 		__block FUTestObject* object;
 		__block FUBooleanAction* action;
 		
@@ -353,7 +353,7 @@ describe(@"A boolean action", ^{
 		FUTestBoolSetsValue(@"enabled", NO);
 	});
 	
-	context(@"initialized with the FUToggleEnabled macro", ^{
+	context(@"initialized with the FUToggleEnabled function", ^{
 		__block FUTestObject* object;
 		__block FUBooleanAction* action;
 		
