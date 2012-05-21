@@ -15,12 +15,12 @@
 
 @interface FUDelayAction : FUFiniteAction
 
-- (id)initWithDelay:(FUTime)delay;
+- (id)initWithDelay:(NSTimeInterval)delay;
 
 @end
 
 
-static OBJC_INLINE FUDelayAction* FUDelay(FUTime delay)
+static OBJC_INLINE FUDelayAction* FUDelay(NSTimeInterval delay)
 {
 	return [[FUDelayAction alloc] initWithDelay:delay];
 }

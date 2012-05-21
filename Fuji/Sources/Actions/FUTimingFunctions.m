@@ -21,42 +21,42 @@
 	}
 
 
-const FUTimingFunction FUTimingLinear = ^(FUTime t) {
+const FUTimingFunction FUTimingLinear = ^(float t) {
 	return t;
 };
 
-const FUTimingFunction FUTimingEaseIn = ^(FUTime t) {
+const FUTimingFunction FUTimingEaseIn = ^(float t) {
 	return t * t * t;
 };
 
-const FUTimingFunction FUTimingEaseOut = ^(FUTime t) {
-	FUTime inverseT = t - 1.0f;
+const FUTimingFunction FUTimingEaseOut = ^(float t) {
+	float inverseT = t - 1.0f;
     return inverseT * inverseT * inverseT + 1.0f;
 };
 
-const FUTimingFunction FUTimingEaseInOut = ^(FUTime t) {
+const FUTimingFunction FUTimingEaseInOut = ^(float t) {
 	FUTimingInOut(FUTimingEaseIn, FUTimingEaseOut, t);
 };
 
 const float backS = 1.70158;
 
-const FUTimingFunction FUTimingBackIn = ^(FUTime t) {
+const FUTimingFunction FUTimingBackIn = ^(float t) {
 	return t * t * ((backS + 1) * t - backS);
 };
 
-const FUTimingFunction FUTimingBackOut = ^(FUTime t) {
+const FUTimingFunction FUTimingBackOut = ^(float t) {
 	float inverseT = t - 1.0f;
     return inverseT * inverseT * ((backS + 1.0f) * inverseT + backS) + 1.0f;    
 };
 
-const FUTimingFunction FUTimingBackInOut = ^(FUTime t) {
+const FUTimingFunction FUTimingBackInOut = ^(float t) {
 	FUTimingInOut(FUTimingBackIn, FUTimingBackOut, t);
 };
 
 const float elasticP = 0.3f;
 const float elasticS = elasticP * 0.25f;
 
-const FUTimingFunction FUTimingElasticIn = ^(FUTime t) {
+const FUTimingFunction FUTimingElasticIn = ^(float t) {
 	if ((t == 0) || (t == 1)) {
 		return t;
 	}
@@ -65,7 +65,7 @@ const FUTimingFunction FUTimingElasticIn = ^(FUTime t) {
 	return -1.0f * powf(2.0f, 10.0f * inverseT) * sin((inverseT - elasticS) * (2 * M_PI) / elasticP);
 };
 
-const FUTimingFunction FUTimingElasticOut = ^(FUTime t) {
+const FUTimingFunction FUTimingElasticOut = ^(float t) {
 	if ((t == 0) || (t == 1)) {
 		return t;
 	}
@@ -73,18 +73,18 @@ const FUTimingFunction FUTimingElasticOut = ^(FUTime t) {
 	return powf(2.0f, -10.0f * t) * sinf((t - elasticS) * (2 * M_PI) / elasticP) + 1.0f;
 };
 
-const FUTimingFunction FUTimingElasticInOut = ^(FUTime t) {
+const FUTimingFunction FUTimingElasticInOut = ^(float t) {
 	FUTimingInOut(FUTimingElasticIn, FUTimingElasticOut, t);
 };
 
 const float bounceS = 7.5625f;
 const float bounceP = 2.75f;
 
-const FUTimingFunction FUTimingBounceIn = ^(FUTime t) {
+const FUTimingFunction FUTimingBounceIn = ^(float t) {
 	return 1.0f - FUTimingBounceOut(1.0f - t);
 };
 
-const FUTimingFunction FUTimingBounceOut = ^(FUTime t) {
+const FUTimingFunction FUTimingBounceOut = ^(float t) {
 	float l;
 	
 	if (t < (1.0f / bounceP)) {
@@ -103,6 +103,6 @@ const FUTimingFunction FUTimingBounceOut = ^(FUTime t) {
 	return l;
 };
 
-const FUTimingFunction FUTimingBounceInOut = ^(FUTime t) {
+const FUTimingFunction FUTimingBounceInOut = ^(float t) {
 	FUTimingInOut(FUTimingBounceIn, FUTimingBounceOut, t);
 };

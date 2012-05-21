@@ -134,7 +134,7 @@
 
 - (void)update
 {
-//	FUTime speed = [[self director] timeSinceFirstResume] * 5;
+//	NSTimeInterval speed = [[self director] timeSinceFirstResume] * 5;
 //	
 //	[[self drawBatches] enumerateKeysAndObjectsUsingBlock:^(id key, FUDrawBatch* batch, BOOL* stop) {
 //		[[batch	renderers] enumerateObjectsUsingBlock:^(FUSpriteRenderer* renderer, NSUInteger idx, BOOL* stop) {

@@ -51,7 +51,7 @@ describe(@"A timing action", ^{
 		
 		beforeEach(^{
 			subaction = mock([FUFiniteAction class]);
-			[given([subaction duration]) willReturnFloat:2.0f];
+			[given([subaction duration]) willReturnDouble:2.0];
 			
 			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseIn];
 		});

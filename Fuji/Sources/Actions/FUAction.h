@@ -17,6 +17,6 @@
 
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
-- (void)updateWithDeltaTime:(FUTime)deltaTime;
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 
 @end

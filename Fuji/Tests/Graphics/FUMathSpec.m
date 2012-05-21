@@ -27,25 +27,47 @@ describe(@"FUMath", ^{
 		expect(GLKVector2AllEqualToVector2(GLKVector2One, one)).to.beTruthy();
 	});
 	
-	context(@"FUClamp", ^{
+	context(@"FUClampFloat", ^{
 		it(@"throws an exception when the min value is greater than the max value", ^{
-			assertThrows(FUClamp(0, 1, -1), NSInvalidArgumentException, @"Expected 'min=1' to be less than or equal to 'max=-1'");
+			assertThrows(FUClampFloat(0.0f, 1.0f, -1.0f), NSInvalidArgumentException, @"Expected 'min=1' to be less than or equal to 'max=-1'");
 		});
 		
 		it(@"does not throw an exception when min = max", ^{
-			assertNoThrow(FUClamp(0, 0, 0));
+			assertNoThrow(FUClampFloat(0.0f, 0.0f, 0.0f));
 		});
 		
 		it(@"returns the same value if within the range", ^{
-			expect(FUClamp(1.0, 0.1, 4.5)).to.equal(1.0);
+			expect(FUClampFloat(1.0f, 0.1f, 4.5f)).to.equal(1.0f);
 		});
 		
 		it(@"returns the min value if less than min", ^{
-			expect(FUClamp(3.5, 4.1, 8.7)).to.equal(4.1);
+			expect(FUClampFloat(3.5f, 4.1f, 8.7f)).to.equal(4.1f);
 		});
 		
 		it(@"returns the max value if greater than max", ^{
-			expect(FUClamp(2.5, -2.0, 1.3)).to.equal(1.3);
+			expect(FUClampFloat(2.5f, -2.0f, 1.3f)).to.equal(1.3f);
+		});
+	});
+	
+	context(@"FUClampDouble", ^{
+		it(@"throws an exception when the min value is greater than the max value", ^{
+			assertThrows(FUClampDouble(0.0, 1.0, -1.0), NSInvalidArgumentException, @"Expected 'min=1' to be less than or equal to 'max=-1'");
+		});
+		
+		it(@"does not throw an exception when min = max", ^{
+			assertNoThrow(FUClampDouble(0.0, 0.0, 0.0));
+		});
+		
+		it(@"returns the same value if within the range", ^{
+			expect(FUClampDouble(1.0, 0.1, 4.5)).to.equal(1.0);
+		});
+		
+		it(@"returns the min value if less than min", ^{
+			expect(FUClampDouble(3.5, 4.1, 8.7)).to.equal(4.1);
+		});
+		
+		it(@"returns the max value if greater than max", ^{
+			expect(FUClampDouble(2.5, -2.0, 1.3)).to.equal(1.3);
 		});
 	});
 });

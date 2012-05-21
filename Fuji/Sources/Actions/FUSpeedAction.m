@@ -59,7 +59,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	return NO;
 }
 
-- (void)updateWithDeltaTime:(FUTime)deltaTime
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	[[self action] updateWithDeltaTime:deltaTime * [self speed]];
 }

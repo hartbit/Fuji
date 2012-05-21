@@ -61,15 +61,15 @@ describe(@"A sequence action", ^{
 		beforeEach(^{
 			action1 = mock([FUFiniteAction class]);
 			[given([action1 isKindOfClass:[FUFiniteAction class]]) willReturnBool:YES];
-			[given([action1 duration]) willReturnFloat:1.5f];
+			[given([action1 duration]) willReturnDouble:1.5];
 			
 			action2 = mock([FUFiniteAction class]);
 			[given([action2 isKindOfClass:[FUFiniteAction class]]) willReturnBool:YES];
-			[given([action2 duration]) willReturnFloat:2.0f];
+			[given([action2 duration]) willReturnDouble:2.0];
 			
 			action3 = mock([FUFiniteAction class]);
 			[given([action3 isKindOfClass:[FUFiniteAction class]]) willReturnBool:YES];
-			[given([action3 duration]) willReturnFloat:0.5f];
+			[given([action3 duration]) willReturnDouble:0.5];
 			
 			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
 			sequence = [[FUSequenceAction alloc] initWithArray:actions];
@@ -93,9 +93,9 @@ describe(@"A sequence action", ^{
 			expect([sequence duration]).to.equal(4.0f);
 		});
 		
-		context(@"updating the sequence with 1.2f seconds", ^{
+		context(@"updating the sequence with 1.2 seconds", ^{
 			beforeEach(^{
-				[sequence updateWithDeltaTime:1.2f];
+				[sequence updateWithDeltaTime:1.2];
 			});
 			
 			it(@"is not complete", ^{
@@ -108,9 +108,9 @@ describe(@"A sequence action", ^{
 				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
 			});
 			
-			context(@"updating the sequence with 0.8f seconds", ^{
+			context(@"updating the sequence with 0.8 seconds", ^{
 				beforeEach(^{
-					[sequence updateWithDeltaTime:0.8f];
+					[sequence updateWithDeltaTime:0.8];
 				});
 				
 				it(@"is not complete", ^{
@@ -123,9 +123,9 @@ describe(@"A sequence action", ^{
 					[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
 				});
 				
-				context(@"updating the sequence with 3.0f seconds", ^{
+				context(@"updating the sequence with 3.0 seconds", ^{
 					beforeEach(^{
-						[sequence updateWithDeltaTime:3.0f];
+						[sequence updateWithDeltaTime:3.0];
 					});
 					
 					it(@"is complete", ^{
@@ -139,7 +139,7 @@ describe(@"A sequence action", ^{
 					});
 				});
 				
-				context(@"updating a copy of the sequence with 3.0f seconds", ^{
+				context(@"updating a copy of the sequence with 3.0 seconds", ^{
 					__block FUSequenceAction* sequenceCopy;
 					__block FUFiniteAction* action1Copy;
 					__block FUFiniteAction* action2Copy;
@@ -148,18 +148,18 @@ describe(@"A sequence action", ^{
 					beforeEach(^{
 						action1Copy = mock([FUFiniteAction class]);
 						[given([action1 copy]) willReturn:action1Copy];
-						[given([action1Copy duration]) willReturnFloat:1.5f];
+						[given([action1Copy duration]) willReturnDouble:1.5];
 						
 						action2Copy = mock([FUFiniteAction class]);
 						[given([action2 copy]) willReturn:action2Copy];
-						[given([action2Copy duration]) willReturnDouble:2.0f];
+						[given([action2Copy duration]) willReturnDouble:2.0];
 						
 						action3Copy = mock([FUFiniteAction class]);
 						[given([action3 copy]) willReturn:action3Copy];
-						[given([action3Copy duration]) willReturnFloat:0.5f];
+						[given([action3Copy duration]) willReturnDouble:0.5];
 						
 						sequenceCopy = [sequence copy];
-						[sequenceCopy updateWithDeltaTime:3.0f];
+						[sequenceCopy updateWithDeltaTime:3.0];
 					});
 
 					it(@"is not nil", ^{
@@ -195,9 +195,9 @@ describe(@"A sequence action", ^{
 					});
 				});
 				
-				context(@"updating the sequence with -5.0f seconds", ^{
+				context(@"updating the sequence with -5.0 seconds", ^{
 					beforeEach(^{
-						[sequence updateWithDeltaTime:-5.0f];
+						[sequence updateWithDeltaTime:-5.0];
 					});
 					
 					it(@"is complete", ^{

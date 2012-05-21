@@ -130,7 +130,7 @@ describe(@"A speed action", ^{
 				context(@"updating the copied action", ^{
 					it(@"updates the copied subaction", ^{
 						[actionCopy updateWithDeltaTime:1.0];
-						[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0];
+						[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
 						[verify(subactionCopy) updateWithDeltaTime:1.5];
 					});
 				});

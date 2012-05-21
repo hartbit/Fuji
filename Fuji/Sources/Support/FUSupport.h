@@ -43,11 +43,11 @@
 #endif
 
 
-#define FUTimerStart() \
+#define NSTimeIntervalrStart() \
 	static uint64_t __totalTime = 0; \
 	static uint64_t __sampleCount = 0; \
 	uint64_t __startTime = mach_absolute_time();
-#define FUTimerEnd() \
+#define NSTimeIntervalrEnd() \
 	uint64_t __endTime = mach_absolute_time(); \
 	__totalTime += __endTime - __startTime; \
 	__sampleCount++; \

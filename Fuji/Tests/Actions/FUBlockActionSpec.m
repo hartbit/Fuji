@@ -61,7 +61,7 @@ describe(@"A block action", ^{
 		
 		context(@"updated the action", ^{
 			beforeEach(^{
-				[action updateWithDeltaTime:0];
+				[action updateWithDeltaTime:0.0];
 			});
 			
 			it(@"is complete", ^{
@@ -94,7 +94,7 @@ describe(@"A block action", ^{
 			
 			context(@"updating the action a second time", ^{
 				it(@"calls the block again", ^{
-					[action updateWithDeltaTime:1];
+					[action updateWithDeltaTime:1.0];
 					expect(callCount).to.equal(2);
 				});
 			});
@@ -121,7 +121,7 @@ describe(@"A block action", ^{
 			
 			context(@"updated the copy", ^{
 				beforeEach(^{
-					[copy updateWithDeltaTime:0];
+					[copy updateWithDeltaTime:0.0];
 				});
 				
 				it(@"is complete", ^{

@@ -41,8 +41,8 @@ describe(@"A finite action", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 0.0f", ^{
-			expect([action duration]).to.equal(0.0f);
+		it(@"has a duration of 0.0", ^{
+			expect([action duration]).to.equal(0.0);
 		});
 		
 		it(@"has a factor of 0.0f", ^{
@@ -55,7 +55,7 @@ describe(@"A finite action", ^{
 		
 		context(@"advanced time", ^{
 			beforeEach(^{
-				[action updateWithDeltaTime:0.0f];
+				[action updateWithDeltaTime:0.0];
 			});
 			
 			it(@"has a factor of 1.0f", ^{
@@ -79,8 +79,8 @@ describe(@"A finite action", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 2.0f", ^{
-			expect([action duration]).to.equal(2.0f);
+		it(@"has a duration of 2.0", ^{
+			expect([action duration]).to.equal(2.0);
 		});
 		
 		it(@"has a factor of 0.0f", ^{
@@ -161,9 +161,9 @@ describe(@"A finite action", ^{
 			});
 		});
 		
-		context(@"updated with a delta time of 1.0f seconds", ^{
+		context(@"updated with a delta time of 1.0 seconds", ^{
 			beforeEach(^{
-				[action updateWithDeltaTime:1.0f];
+				[action updateWithDeltaTime:1.0];
 			});
 			
 			it(@"has a factor of 0.5f", ^{
@@ -174,9 +174,9 @@ describe(@"A finite action", ^{
 				expect([action isComplete]).to.beFalsy();
 			});
 			
-			context(@"updated with a delta time of 1.0f seconds", ^{
+			context(@"updated with a delta time of 1.0 seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:1.0f];
+					[action updateWithDeltaTime:1.0];
 				});
 				
 				it(@"has a factor of 1.0f", ^{
@@ -202,8 +202,8 @@ describe(@"A finite action", ^{
 						expect(copy).toNot.beIdenticalTo(action);
 					});
 					
-					it(@"has a duration of 2.0f", ^{
-						expect([copy duration]).to.equal(2.0f);
+					it(@"has a duration of 2.0", ^{
+						expect([copy duration]).to.equal(2.0);
 					});
 					
 					it(@"has a factor of 1.0f", ^{
@@ -215,9 +215,9 @@ describe(@"A finite action", ^{
 					});
 				});
 				
-				context(@"updated with a delta time of -1.0f seconds", ^{
+				context(@"updated with a delta time of -1.0 seconds", ^{
 					beforeEach(^{
-						[action updateWithDeltaTime:-1.0f];
+						[action updateWithDeltaTime:-1.0];
 					});
 					
 					it(@"has a factor of 0.5f", ^{
@@ -230,9 +230,9 @@ describe(@"A finite action", ^{
 				});
 			});
 			
-			context(@"updated with a delta time of 2.0f seconds", ^{
+			context(@"updated with a delta time of 2.0 seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:2.0f];
+					[action updateWithDeltaTime:2.0];
 				});
 				
 				it(@"has a factor of 1.0f", ^{
@@ -244,9 +244,9 @@ describe(@"A finite action", ^{
 				});
 			});
 			
-			context(@"updated with a delta time of -1.0f seconds", ^{
+			context(@"updated with a delta time of -1.0 seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:-1.0f];
+					[action updateWithDeltaTime:-1.0];
 				});
 				
 				it(@"has a factor of 0.0f", ^{
@@ -257,9 +257,9 @@ describe(@"A finite action", ^{
 					expect([action isComplete]).to.beTruthy();
 				});
 				
-				context(@"updated with a delta time of 1.0f seconds", ^{
+				context(@"updated with a delta time of 1.0 seconds", ^{
 					beforeEach(^{
-						[action updateWithDeltaTime:1.0f];
+						[action updateWithDeltaTime:1.0];
 					});
 					
 					it(@"has a factor of 0.5f", ^{
@@ -272,9 +272,9 @@ describe(@"A finite action", ^{
 				});
 			});
 			
-			context(@"updated with a delta time of -2.0f seconds", ^{
+			context(@"updated with a delta time of -2.0 seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:-2.0f];
+					[action updateWithDeltaTime:-2.0];
 				});
 				
 				it(@"has a factor of 0.0f", ^{

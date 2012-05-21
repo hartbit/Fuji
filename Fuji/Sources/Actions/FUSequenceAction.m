@@ -36,7 +36,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 {
 	FUCheck(array != nil, FUArrayNilMessage);
 	
-	FUTime duration = 0.0f;
+	NSTimeInterval duration = 0.0f;
 	
 	for (FUFiniteAction* action in array) {
 		FUCheck([action isKindOfClass:[FUFiniteAction class]], FUFiniteActionSubclassMessage, action);
@@ -68,7 +68,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	
 	NSArray* actions = [self actions];
 	NSUInteger actionCount = [actions count];
-	FUTime duration = [self duration];
+	NSTimeInterval duration = [self duration];
 	
 	float minFactor = 0.0f;
 	float maxFactor = 0.0f;
@@ -108,36 +108,5 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 		[currentAction updateWithFactor:actionFactor];
 	}
 }
-
-//- (void)updateWithDeltaTime:(FUTime)deltaTime
-//{
-//	[super updateWithDeltaTime:deltaTime];
-//	
-//	NSArray* actions = [self actions];
-//	NSUInteger actionCount = [actions count];
-//	NSInteger actionIndex = [self actionIndex];
-//	BOOL isDeltaTimePositive = deltaTime >= 0.0;
-//	NSInteger deltaIndex = isDeltaTimePositive ? 1 : -1;
-//	
-//	while (YES)
-//	{
-//		FUFiniteAction* action = [actions objectAtIndex:actionIndex];
-//		FUTime targetTime = isDeltaTimePositive ? [action duration] : 0.0f;
-//		FUTime timeToCompletion = targetTime - [action time];
-//		
-//		[action updateWithDeltaTime:deltaTime];
-//		
-//		if ((ABS(timeToCompletion) > ABS(deltaTime)) ||
-//			(!isDeltaTimePositive && ([self actionIndex] == 0)) ||
-//			(isDeltaTimePositive && ([self actionIndex] == actionCount - 1)))
-//		{
-//			return;
-//		}
-//		
-//		deltaTime -= timeToCompletion;
-//		actionIndex += deltaIndex;
-//		[self setActionIndex:actionIndex];
-//	}
-//}
 
 @end

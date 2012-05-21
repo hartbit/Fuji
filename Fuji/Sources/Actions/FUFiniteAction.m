@@ -18,7 +18,7 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 @interface FUFiniteAction ()
 
-@property (nonatomic) FUTime duration;
+@property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) float factor;
 @property (nonatomic, getter=isComplete) BOOL complete;
 
@@ -33,7 +33,7 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 #pragma mark - Initialization
 
-- (id)initWithDuration:(FUTime)duration
+- (id)initWithDuration:(NSTimeInterval)duration
 {
 	FUCheck(duration >= 0.0f, FUDurationNegativeMessage, duration);
 	
@@ -65,15 +65,16 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 #pragma mark - FUAction Methods
 
-- (void)updateWithDeltaTime:(FUTime)deltaTime
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
-	FUTime duration = [self duration];
+	NSTimeInterval duration = [self duration];
 	
 	if (duration == 0.0f) {
 		[self updateWithFactor:1.0f];
 	} else {
-		FUTime time = FUClamp([self factor] * duration + deltaTime, 0.0f, duration);
-		[self updateWithFactor:time / duration];
+		float deltaFactor = deltaTime / duration;
+		float newFactor = FUClampFloat([self factor] + deltaFactor, 0.0f, 1.0f);
+		[self updateWithFactor:newFactor];
 	}
 }
 

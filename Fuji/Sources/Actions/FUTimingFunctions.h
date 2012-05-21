@@ -9,7 +9,7 @@
 #import "FUMath.h"
 
 
-typedef FUTime (^FUTimingFunction)(FUTime t);
+typedef float (^FUTimingFunction)(float t);
 
 
 OBJC_EXPORT const FUTimingFunction FUTimingLinear;
