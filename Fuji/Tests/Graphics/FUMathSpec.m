@@ -70,6 +70,38 @@ describe(@"FUMath", ^{
 			expect(FUClampDouble(2.5, -2.0, 1.3)).to.equal(1.3);
 		});
 	});
+	
+	context(@"FUAreCloseFloat", ^{
+		it(@"1.0f and 1.1f are not close", ^{
+			expect(FUAreCloseFloat(1.0f, 1.1f)).to.beFalsy();
+		});
+		
+		it(@"1.0f and (1.0f+FLT_EPSILON) are close", ^{
+			expect(FUAreCloseFloat(1.0f, 1.0f+FLT_EPSILON)).to.beTruthy();
+		});
+		
+		it(@"0.0f and FLT_EPSILON are not close", ^{
+			expect(FUAreCloseFloat(0.0f, FLT_EPSILON)).to.beFalsy();
+		});
+	});
+	
+	context(@"FUAreCloseDouble", ^{
+		it(@"1.0 and 1.1 are not close", ^{
+			expect(FUAreCloseFloat(1.0, 1.1)).to.beFalsy();
+		});
+		
+		it(@"1.0 and (1.0+FLT_EPSILON) are close", ^{
+			expect(FUAreCloseFloat(1.0, 1.0+FLT_EPSILON)).to.beTruthy();
+		});
+		
+		it(@"1.0 and (1.0+DBL_EPSILON) are close", ^{
+			expect(FUAreCloseFloat(1.0, 1.0+DBL_EPSILON)).to.beTruthy();
+		});
+		
+		it(@"0.0 and DBL_EPSILON are not close", ^{
+			expect(FUAreCloseFloat(0.0, DBL_EPSILON)).to.beFalsy();
+		});
+	});
 });
 
 SPEC_END

@@ -62,3 +62,23 @@ static OBJC_INLINE double FUClampDouble(double value, double min, double max)
 	FUCheck(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
 	return MIN(MAX(value, min), max);
 }
+
+// Comparison functions from http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+
+static OBJC_INLINE BOOL FUAreCloseFloat(float a, float b)
+{
+	float diff = fabsf(a - b);
+	float absA = fabsf(a);
+	float absB = fabsf(b);
+	float largest = (absB > absA) ? absB : absA;
+	return (diff <= largest * FLT_EPSILON);
+}
+
+static OBJC_INLINE BOOL FUAreCloseDouble(double a, double b)
+{
+	double diff = fabs(a - b);
+	double absA = fabs(a);
+	double absB = fabs(b);
+	double largest = (absB > absA) ? absB : absA;
+	return (diff <= largest * DBL_EPSILON);
+}

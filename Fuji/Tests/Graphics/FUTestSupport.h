@@ -1,5 +1,5 @@
 //
-//  FUTestFunctions.h
+//  FUTestSupport.h
 //  Fuji
 //
 //  Created by David Hart
@@ -8,6 +8,8 @@
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the Simplified BSD License.
 //
+
+#import	"Fuji.h"
 
 
 static OBJC_INLINE BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
@@ -18,22 +20,12 @@ static OBJC_INLINE BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
 	(left.m30 == right.m30) && (left.m31 == right.m31) && (left.m32 == right.m32) && (left.m33 == right.m33);
 }
 
-static OBJC_INLINE BOOL FUAreCloseWithAccuracy(float a, float b, float epsilon)
-{
-    return fabs(a - b) < epsilon;
-}
-
-static OBJC_INLINE BOOL FUAreClose(float a, float b)
-{
-    return FUAreCloseWithAccuracy(a, b, FLT_EPSILON);
-}
-
 static OBJC_INLINE BOOL FUMatrix4AreClose(GLKMatrix4 left, GLKMatrix4 right)
 {
-	return FUAreClose(left.m00, right.m00) && FUAreClose(left.m01, right.m01) && FUAreClose(left.m02, right.m02) && FUAreClose(left.m03, right.m03) &&
-	FUAreClose(left.m10, right.m10) && FUAreClose(left.m11, right.m11) && FUAreClose(left.m12, right.m12) && FUAreClose(left.m13, right.m13) &&
-	FUAreClose(left.m20, right.m20) && FUAreClose(left.m21, right.m21) && FUAreClose(left.m22, right.m22) && FUAreClose(left.m23, right.m23) &&
-	FUAreClose(left.m30, right.m30) && FUAreClose(left.m31, right.m31) && FUAreClose(left.m32, right.m32) && FUAreClose(left.m33, right.m33);
+	return FUAreCloseFloat(left.m00, right.m00) && FUAreCloseFloat(left.m01, right.m01) && FUAreCloseFloat(left.m02, right.m02) && FUAreCloseFloat(left.m03, right.m03) &&
+	FUAreCloseFloat(left.m10, right.m10) && FUAreCloseFloat(left.m11, right.m11) && FUAreCloseFloat(left.m12, right.m12) && FUAreCloseFloat(left.m13, right.m13) &&
+	FUAreCloseFloat(left.m20, right.m20) && FUAreCloseFloat(left.m21, right.m21) && FUAreCloseFloat(left.m22, right.m22) && FUAreCloseFloat(left.m23, right.m23) &&
+	FUAreCloseFloat(left.m30, right.m30) && FUAreCloseFloat(left.m31, right.m31) && FUAreCloseFloat(left.m32, right.m32) && FUAreCloseFloat(left.m33, right.m33);
 }
 
 

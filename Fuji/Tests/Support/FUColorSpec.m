@@ -75,10 +75,10 @@ describe(@"The color data type", ^{
 		context(@"converting to a GLKVector4", ^{
 			it(@"returns a vector 4 with values in the range (0, 1)", ^{
 				GLKVector4 vectorColor = FUVector4FromColor(color);
-				expect(vectorColor.r).to.beCloseToWithin(255 / 255.0f, FLT_EPSILON);
-				expect(vectorColor.g).to.beCloseToWithin(89 / 255.0f, FLT_EPSILON);
-				expect(vectorColor.b).to.beCloseToWithin(187 / 255.0f, FLT_EPSILON);
-				expect(vectorColor.a).to.beCloseToWithin(145 / 255.0f, FLT_EPSILON);
+				expect(vectorColor.r).to.beCloseTo(255 / 255.0f);
+				expect(vectorColor.g).to.beCloseTo(89 / 255.0f);
+				expect(vectorColor.b).to.beCloseTo(187 / 255.0f);
+				expect(vectorColor.a).to.beCloseTo(145 / 255.0f);
 			});
 		});
 	});
