@@ -2,7 +2,7 @@
 //  FUTimingFunctions.m
 //  Fuji
 //
-//  Created by David Hart
+//  Created by David Hart.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify
