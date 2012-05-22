@@ -44,7 +44,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 	}
 
 	if ((self = [super initWithDuration:duration])) {
-		[self setActions:actions];
+		[self setActions:[actions copy]];
 	}
 	
 	return self;

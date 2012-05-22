@@ -244,9 +244,19 @@ describe(@"A sequence action", ^{
 				});
 			});
 		});
+		
+		context(@"updating the sequence with an action added to the actions array", ^{
+			it(@"does not update the extra action", ^{
+				FUFiniteAction*	extraAction = mock([FUFiniteAction class]);
+				[given([extraAction isKindOfClass:[FUFiniteAction class]]) willReturnBool:YES];
+				[given([extraAction duration]) willReturnDouble:0.6];
+				[actions addObject:extraAction];
+				
+				[sequence updateWithDeltaTime:10.0f];
+				[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+			});
+		});
 	});
-	
-	pending(@"test that adding actions to an NSMutableArray does not add extra actions to the sequence");
 });
 
 SPEC_END
