@@ -2,7 +2,7 @@
 //  FUSequenceActionSpec.m
 //  Fuji
 //
-//  Created by David Hart
+//  Created by David Hart.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 
 
 static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
-static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to not be a subclass of FUFiniteAction";
+static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to be a subclass of FUFiniteAction";
 
 
 SPEC_BEGIN(FUSequenceAction)
@@ -27,13 +27,13 @@ describe(@"A sequence action", ^{
 	
 	context(@"initilized with a nil array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUSequenceAction alloc] initWithArray:nil], NSInvalidArgumentException, FUArrayNilMessage);
+			assertThrows([[FUSequenceAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilMessage);
 		});
 	});
 	
 	context(@"initilized with an empty array", ^{
 		it(@"does not throw", ^{
-			assertNoThrow([[FUSequenceAction alloc] initWithArray:[NSArray array]]);
+			assertNoThrow([[FUSequenceAction alloc] initWithActions:[NSArray array]]);
 		});
 	});
 	
@@ -41,7 +41,7 @@ describe(@"A sequence action", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
 			NSArray* array = [NSArray arrayWithObject:object];
-			assertThrows([[FUSequenceAction alloc] initWithArray:array], NSInvalidArgumentException, FUFiniteActionSubclassMessage, object);
+			assertThrows([[FUSequenceAction alloc] initWithActions:array], NSInvalidArgumentException, FUFiniteActionSubclassMessage, object);
 		});
 	});
 	
@@ -72,7 +72,7 @@ describe(@"A sequence action", ^{
 			[given([action3 duration]) willReturnDouble:0.5];
 			
 			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
-			sequence = [[FUSequenceAction alloc] initWithArray:actions];
+			sequence = [[FUSequenceAction alloc] initWithActions:actions];
 		});
 		
 		context(@"initializing via the function with three actions", ^{

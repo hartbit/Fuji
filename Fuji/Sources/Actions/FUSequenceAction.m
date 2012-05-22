@@ -2,7 +2,7 @@
 //  FUSequenceAction.m
 //  Fuji
 //
-//  Created by David Hart
+//  Created by David Hart.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify
@@ -14,7 +14,7 @@
 
 
 static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
-static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to not be a subclass of FUFiniteAction";
+static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to be a subclass of FUFiniteAction";
 
 
 @interface FUSequenceAction ()
@@ -32,19 +32,19 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 #pragma mark - Initialization
 
-- (id)initWithArray:(NSArray*)array
+- (id)initWithActions:(NSArray*)actions
 {
-	FUCheck(array != nil, FUArrayNilMessage);
+	FUCheck(actions != nil, FUArrayNilMessage);
 	
 	NSTimeInterval duration = 0.0f;
 	
-	for (FUFiniteAction* action in array) {
+	for (FUFiniteAction* action in actions) {
 		FUCheck([action isKindOfClass:[FUFiniteAction class]], FUFiniteActionSubclassMessage, action);
 		duration += [action duration];
 	}
 
 	if ((self = [super initWithDuration:duration])) {
-		[self setActions:array];
+		[self setActions:actions];
 	}
 	
 	return self;

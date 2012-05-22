@@ -2,7 +2,7 @@
 //  FujiCore.h
 //  Fuji
 //
-//  Created by David Hart
+//  Created by David Hart.
 //  Copyright (c) 2012 hart[dev]. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify
@@ -35,6 +35,7 @@
 #import "FUFiniteAction.h"
 #import "FUBlockAction.h"
 #import "FUBooleanAction.h"
+#import	"FUGroupAction.h"
 #import "FUSequenceAction.h"
 #import "FUTimingAction.h"
 #import "FUTimingFunctions.h"
