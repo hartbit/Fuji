@@ -13,7 +13,7 @@
 #import "FUAction.h"
 
 
-@interface FUSpeedAction : NSObject <FUAction>
+@interface FUSpeedAction : NSObject<FUAction>
 
 @property (nonatomic) float speed;
 

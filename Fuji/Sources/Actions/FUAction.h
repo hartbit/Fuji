@@ -13,7 +13,7 @@
 #import "FUMath.h"
 
 
-@protocol FUAction <NSCopying>
+@protocol FUAction<NSCopying>
 
 - (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 

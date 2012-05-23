@@ -17,7 +17,7 @@
 @class FUScene;
 @class FUEngine;
 
-@interface FUDirector : GLKViewController <GLKViewDelegate>
+@interface FUDirector : GLKViewController<GLKViewDelegate>
 
 @property (nonatomic, strong, readonly) FUAssetStore* assetStore;
 @property (nonatomic, strong, readonly) FUScene* scene;

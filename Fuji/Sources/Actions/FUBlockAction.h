@@ -12,7 +12,7 @@
 #import "FUFiniteAction.h"
 
 
-@interface FUBlockAction : FUFiniteAction
+@interface FUBlockAction : NSObject<FUAction>
 
 - (id)initWithBlock:(void (^)())block;
 

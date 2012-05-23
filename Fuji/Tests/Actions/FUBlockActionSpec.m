@@ -20,8 +20,8 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 SPEC_BEGIN(FUBlockAction)
 
 describe(@"A block action", ^{
-	it(@"is a finite action", ^{
-		expect([FUBlockAction class]).to.beSubclassOf([FUFiniteAction class]);
+	it(@"is as action", ^{
+		expect([[FUBlockAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
 	
 	context(@"initizing with a NULL block", ^{
@@ -51,85 +51,112 @@ describe(@"A block action", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"is not complete", ^{
-			expect([action isComplete]).to.beFalsy();
-		});
-		
 		it(@"was not called", ^{
 			expect(callCount).to.equal(0);
 		});
 		
-		context(@"updated the action", ^{
+		context(@"updating the action with 0.0", ^{
+			__block NSTimeInterval timeLeft1;
+			
 			beforeEach(^{
-				[action updateWithDeltaTime:0.0];
+				timeLeft1 = [action updateWithDeltaTime:0.0];
 			});
 			
-			it(@"is complete", ^{
-				expect([action isComplete]).to.beTruthy();
+			it(@"returned no time", ^{
+				expect(timeLeft1).to.equal(0.0);
 			});
 			
-			it(@"called the block", ^{
+			it(@"does not call the block", ^{
+				expect(callCount).to.equal(0);
+			});
+		});
+			
+		context(@"updating the action with a positive time", ^{
+			__block NSTimeInterval timeLeft2;
+			
+			beforeEach(^{
+				timeLeft2 = [action updateWithDeltaTime:1.0];
+			});
+			
+			it(@"returned all the time", ^{
+				expect(timeLeft2).to.equal(1.0);
+			});
+			
+			it(@"calls the block", ^{
 				expect(callCount).to.equal(1);
 			});
 			
-			context(@"creating a copy", ^{
-				__block FUBlockAction* copy;
+			context(@"updating the action a second time", ^{
+				__block NSTimeInterval timeLeft3;
 				
 				beforeEach(^{
-					copy = [action copy];
+					timeLeft3 = [action updateWithDeltaTime:2.0];
+				});
+				
+				it(@"returned all the time", ^{
+					expect(timeLeft3).to.equal(2.0);
+				});
+				
+				it(@"does not call the block again", ^{
+					expect(callCount).to.equal(1);
+				});
+			});
+			
+			context(@"updating a copy of the action", ^{
+				__block FUBlockAction* actionCopy;
+				__block NSTimeInterval timeLeft4;
+				
+				beforeEach(^{
+					actionCopy = [action copy];
+					timeLeft4 = [actionCopy updateWithDeltaTime:2.0];
 				});
 				
 				it(@"is not nil", ^{
-					expect(copy).toNot.beNil();
+					expect(actionCopy).toNot.beNil();
 				});
 				
 				it(@"is not the same instance", ^{
-					expect(copy).toNot.beIdenticalTo(action);
+					expect(actionCopy).toNot.beIdenticalTo(action);
 				});
 				
-				it(@"is complete", ^{
-					expect([copy isComplete]).to.beTruthy();
+				it(@"returned all the time", ^{
+					expect(timeLeft4).to.equal(2.0);
+				});
+				
+				it(@"does not call the block again", ^{
+					expect(callCount).to.equal(1);
 				});
 			});
 			
-			context(@"updating the action a second time", ^{
-				it(@"calls the block again", ^{
-					[action updateWithDeltaTime:1.0];
+			context(@"updating the action with a negative time", ^{
+				__block NSTimeInterval timeLeft5;
+				
+				beforeEach(^{
+					timeLeft5 = [action updateWithDeltaTime:-2.0];
+				});
+				
+				it(@"returned all the time", ^{
+					expect(timeLeft5).to.equal(-2.0);
+				});
+				
+				it(@"calls the block", ^{
 					expect(callCount).to.equal(2);
 				});
-			});
-		});
-		
-		context(@"created a copy", ^{
-			__block FUBlockAction* copy;
-			
-			beforeEach(^{
-				copy = [action copy];
-			});
-			
-			it(@"is not nil", ^{
-				expect(copy).toNot.beNil();
-			});
-			
-			it(@"is not the same instance", ^{
-				expect(copy).toNot.beIdenticalTo(action);
-			});
-			
-			it(@"is not complete", ^{
-				expect([copy isComplete]).to.beFalsy();
-			});
-			
-			context(@"updated the copy", ^{
-				beforeEach(^{
-					[copy updateWithDeltaTime:0.0];
-				});
 				
-				it(@"is complete", ^{
-					expect([copy isComplete]).to.beTruthy();
-				});
-				
-				it(@"called the block", ^{
-					expect(callCount).to.equal(1);
+				context(@"updating the action a second time with a negative time", ^{
+					__block NSTimeInterval timeLeft6;
+					
+					beforeEach(^{
+						timeLeft6 = [action updateWithDeltaTime:-3.0];
+					});
+					
+					it(@"returned all the time", ^{
+						expect(timeLeft6).to.equal(-3.0);
+					});
+					
+					it(@"does not call the block again", ^{
+						expect(callCount).to.equal(2);
+					});
 				});
 			});
 		});

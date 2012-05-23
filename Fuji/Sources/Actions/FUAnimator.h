@@ -13,7 +13,7 @@
 #import "FUAction.h"
 
 
-@interface FUAnimator : NSObject <FUAction>
+@interface FUAnimator : NSObject<FUAction>
 
 - (void)runAction:(id<FUAction>)action;
 - (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;

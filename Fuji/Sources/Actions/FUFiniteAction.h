@@ -13,7 +13,7 @@
 #import "FUAction.h"
 
 
-@interface FUFiniteAction : NSObject <FUAction>
+@interface FUFiniteAction : NSObject<FUAction>
 
 - (id)initWithDuration:(NSTimeInterval)duration;
 

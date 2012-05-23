@@ -17,7 +17,7 @@
 @class FUDirector;
 @class FUVisitor;
 
-@interface FUEngine : NSObject <FUInterfaceRotating>
+@interface FUEngine : NSObject<FUInterfaceRotating>
 
 @property (nonatomic, WEAK, readonly) FUDirector* director;
 

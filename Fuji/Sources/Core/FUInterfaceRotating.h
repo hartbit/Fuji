@@ -15,7 +15,7 @@
 
 @class FUDirector;
 
-@protocol FUInterfaceRotating <NSObject>
+@protocol FUInterfaceRotating<NSObject>
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration;
