@@ -33,12 +33,12 @@ describe(@"A speed action", ^{
 		});
 	});
 	
-	context(@"initialized with an action and a speed of 1.0", ^{
+	context(@"initialized with an action and a speed of 1.0f", ^{
+		__block id<FUAction> subaction;
 		__block FUSpeedAction* action;
-		__block NSObject<FUAction>* subaction;
 		
 		beforeEach(^{
-			subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
+			subaction = mockProtocol(@protocol(FUAction));
 			action = [[FUSpeedAction alloc] initWithAction:subaction speed:1.0];
 		});
 		
@@ -67,7 +67,7 @@ describe(@"A speed action", ^{
 			});
 			
 			context(@"updating with 2.0 seconds", ^{
-				it(@"updates the subaction with 0.0 seconds", ^{
+				it(@"does not update the subaction", ^{
 					[action updateWithDeltaTime:2.0];
 					[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
 				});
@@ -104,12 +104,19 @@ describe(@"A speed action", ^{
 				});
 			});
 			
+			context(@"updating with -2.0 seconds and the subaction completing with -1.5 seconds left", ^{
+				it(@"completes with -1.0 seconds left", ^{
+					[given([subaction updateWithDeltaTime:-3.0]) willReturnDouble:-1.5];
+					expect([action updateWithDeltaTime:-2.0]).to.beCloseTo(-1.0);
+				});
+			});
+			
 			context(@"created a copy", ^{
+				__block id<FUAction> subactionCopy;
 				__block FUSpeedAction* actionCopy;
-				__block NSObject<FUAction>* subactionCopy;
 				
 				beforeEach(^{
-					subactionCopy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
+					subactionCopy = mockProtocol(@protocol(FUAction));
 					[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
 					
 					actionCopy = [action copy];

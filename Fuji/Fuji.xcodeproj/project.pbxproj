@@ -10,6 +10,7 @@
 		6301B2C21545938200DA9994 /* FUSpriteBuffer-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6301B2C01545938200DA9994 /* FUSpriteBuffer-Internal.h */; };
 		6301B2C31545938200DA9994 /* FUSpriteBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301B2C11545938200DA9994 /* FUSpriteBuffer.m */; };
 		6306BA61156D4A4000DD83EF /* FUGroupActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E58DA9156BBEB900E148BD /* FUGroupActionSpec.m */; };
+		6306BA63156D4F6A00DD83EF /* FUSpeedActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */; };
 		63093F8C153FF94E00AC8CA8 /* FUTexture-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63093F89153FF94E00AC8CA8 /* FUTexture-Internal.h */; };
 		63093F8E153FF94E00AC8CA8 /* FUTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63093F8B153FF94E00AC8CA8 /* FUTexture.m */; };
 		63093F8F153FF94E00AC8CA8 /* FUTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 63093F8B153FF94E00AC8CA8 /* FUTexture.m */; };
@@ -926,6 +927,7 @@
 				634B7DA4156D17D2009A5E42 /* FUTestAction.m in Sources */,
 				634B7DA5156D2755009A5E42 /* FUSequenceActionSpec.m in Sources */,
 				6306BA61156D4A4000DD83EF /* FUGroupActionSpec.m in Sources */,
+				6306BA63156D4F6A00DD83EF /* FUSpeedActionSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
