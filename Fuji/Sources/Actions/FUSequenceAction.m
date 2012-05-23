@@ -14,11 +14,12 @@
 
 
 static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
-static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to be a subclass of FUFiniteAction";
+static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to conform to the FUAction protocol";
 
 
 @interface FUSequenceAction ()
 
+@property (nonatomic, getter=isComplete) BOOL complete;
 @property (nonatomic, strong) NSArray* actions;
 @property (nonatomic) NSUInteger actionIndex;
 
@@ -27,6 +28,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 @implementation FUSequenceAction
 
+@synthesize complete = _complete;
 @synthesize actions = _actions;
 @synthesize actionIndex = _actionIndex;
 
@@ -36,14 +38,11 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 {
 	FUCheck(actions != nil, FUArrayNilMessage);
 	
-	NSTimeInterval duration = 0.0f;
-	
 	for (FUFiniteAction* action in actions) {
-		FUCheck([action isKindOfClass:[FUFiniteAction class]], FUFiniteActionSubclassMessage, action);
-		duration += [action duration];
+		FUCheck([action conformsToProtocol:@protocol(FUAction)], FUActionProtocolMessage, action);
 	}
 
-	if ((self = [super initWithDuration:duration])) {
+	if ((self = [super init])) {
 		[self setActions:[actions copy]];
 	}
 	
@@ -54,7 +53,7 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	FUSequenceAction* copy = [super copyWithZone:zone];
+	FUSequenceAction* copy = [[self class] allocWithZone:zone];
 	[copy setActions:[[NSArray alloc] initWithArray:[self actions] copyItems:YES]];
 	[copy setActionIndex:[self actionIndex]];
 	return copy;
@@ -62,51 +61,43 @@ static NSString* const FUFiniteActionSubclassMessage = @"Expected 'action=%@' to
 
 #pragma mark - FUAction Methods
 
-- (void)updateWithFactor:(float)factor
+- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
-	[super updateWithFactor:factor];
+	if (deltaTime == 0.0) {
+		return 0.0;
+	}
 	
 	NSArray* actions = [self actions];
 	NSUInteger actionCount = [actions count];
-	NSTimeInterval duration = [self duration];
+	NSUInteger actionIndex = [self actionIndex];
+
+	__block NSTimeInterval timeLeft = deltaTime;
 	
-	float minFactor = 0.0f;
-	float maxFactor = 0.0f;
-	NSUInteger currentIndex = 0;
-	FUFiniteAction* currentAction = nil;
-	
-	while (YES) {
-		currentAction = [actions objectAtIndex:currentIndex];
-		maxFactor += [currentAction duration] / duration;
+	BOOL (^updateActionAtIndex)(NSInteger index) = ^(NSInteger index) {
+		id<FUAction> action = [actions objectAtIndex:index];
+		timeLeft = [action updateWithDeltaTime:timeLeft];
 		
-		if ((maxFactor > factor) || (currentIndex == actionCount - 1)) {
-			break;
+		if (timeLeft == 0.0) {
+			[self setActionIndex:index];
+			return YES;
+		} else {
+			return NO;
 		}
-		
-		currentIndex++;
-		minFactor = maxFactor;
-	}
+	};
 	
-	NSInteger actionIndex = [self actionIndex];
-	
-	if (currentIndex > actionIndex) {
-		for (; actionIndex < currentIndex; actionIndex++) {
-			[[actions objectAtIndex:actionIndex] updateWithFactor:1.0f];
+	if (deltaTime < 0.0) {
+		for (NSInteger index = actionIndex; index >= 0; index--) {
+			BOOL shouldStop = updateActionAtIndex(index);
+			if (shouldStop) break;
 		}
-	} else if (currentIndex < actionIndex) {
-		for (; actionIndex > currentIndex; actionIndex--) {
-			[[actions objectAtIndex:actionIndex] updateWithFactor:0.0f];
-		}
-	}
-	
-	[self setActionIndex:actionIndex];
-	
-	if ((factor == 0.0f) || (factor == 1.0f)) {
-		[currentAction updateWithFactor:factor];
 	} else {
-		float actionFactor = (factor - minFactor) / (maxFactor - minFactor);
-		[currentAction updateWithFactor:actionFactor];
+		for (NSInteger index = actionIndex; index < actionCount; index++) {
+			BOOL shouldStop = updateActionAtIndex(index);
+			if (shouldStop) break;
+		}
 	}
+	
+	return timeLeft;
 }
 
 @end

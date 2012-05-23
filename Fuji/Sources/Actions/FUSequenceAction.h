@@ -13,7 +13,7 @@
 #import "FUFiniteAction.h"
 
 
-@interface FUSequenceAction : FUFiniteAction
+@interface FUSequenceAction : NSObject <FUAction>
 
 - (id)initWithActions:(NSArray*)actions;
 

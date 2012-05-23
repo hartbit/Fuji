@@ -15,8 +15,6 @@
 
 @interface FUAnimator : NSObject <FUAction>
 
-@property (nonatomic, readonly, getter=isComplete) BOOL complete;
-
 - (void)runAction:(id<FUAction>)action;
 - (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 

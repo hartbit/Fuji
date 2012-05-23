@@ -15,8 +15,6 @@
 
 @protocol FUAction <NSCopying>
 
-@property (nonatomic, readonly, getter=isComplete) BOOL complete;
-
 - (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 
 @end

@@ -54,15 +54,15 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 #pragma mark - FUAction Methods
 
-- (BOOL)isComplete
-{
-	return NO;
-}
-
 - (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
-	[[self action] updateWithDeltaTime:deltaTime * [self speed]];
-	return 0.0;
+	float speed = [self speed];
+	
+	if (speed == 0.0f) {
+		return 0.0;
+	}
+	
+	return [[self action] updateWithDeltaTime:deltaTime * [self speed]] / [self speed];
 }
 
 @end

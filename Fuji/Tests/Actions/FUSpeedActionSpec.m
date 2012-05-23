@@ -69,14 +69,7 @@ describe(@"A speed action", ^{
 			context(@"updating with 2.0 seconds", ^{
 				it(@"updates the subaction with 0.0 seconds", ^{
 					[action updateWithDeltaTime:2.0];
-					[verify(subaction) updateWithDeltaTime:0.0];
-				});
-			});
-			
-			context(@"updating with -1.0 seconds", ^{
-				it(@"updates the subaction with 0.0 seconds", ^{
-					[action updateWithDeltaTime:-1.0];
-					[verify(subaction) updateWithDeltaTime:0.0];
+					[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
 				});
 			});
 		});
@@ -101,6 +94,13 @@ describe(@"A speed action", ^{
 				it(@"updates the subaction with -1.5 seconds", ^{
 					[action updateWithDeltaTime:-1.0];
 					[verify(subaction) updateWithDeltaTime:-1.5];
+				});
+			});
+			
+			context(@"updating with 2.0 seconds and the subaction completing with 1.5 seconds left", ^{
+				it(@"completes with 1.0 seconds left", ^{
+					[given([subaction updateWithDeltaTime:3.0]) willReturnDouble:1.5];
+					expect([action updateWithDeltaTime:2.0]).to.beCloseTo(1.0);
 				});
 			});
 			
