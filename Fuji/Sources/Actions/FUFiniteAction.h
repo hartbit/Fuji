@@ -21,7 +21,6 @@
 @property (nonatomic, readonly) float factor;
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 - (void)updateWithFactor:(float)factor;
 
 @end

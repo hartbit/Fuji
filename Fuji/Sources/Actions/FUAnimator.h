@@ -18,6 +18,6 @@
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
 - (void)runAction:(id<FUAction>)action;
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
+- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 
 @end

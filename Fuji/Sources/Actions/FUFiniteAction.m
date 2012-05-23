@@ -65,7 +65,7 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 #pragma mark - FUAction Methods
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	NSTimeInterval duration = [self duration];
 	
@@ -76,6 +76,8 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 		float newFactor = FUClampFloat([self factor] + deltaFactor, 0.0f, 1.0f);
 		[self updateWithFactor:newFactor];
 	}
+	
+	return 0.0;
 }
 
 @end

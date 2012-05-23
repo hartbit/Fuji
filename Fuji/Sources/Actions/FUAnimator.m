@@ -68,7 +68,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 #pragma mark - FUAction Methods
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	__block NSMutableIndexSet* completeIndices;
 	
@@ -87,6 +87,8 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	if (completeIndices != nil) {
 		[[self actions] removeObjectsAtIndexes:completeIndices];
 	}
+	
+	return 0.0;
 }
 
 @end
