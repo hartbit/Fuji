@@ -1,5 +1,5 @@
 //
-//  FUFiniteAction.h
+//  FUTimedAction.h
 //  Fuji
 //
 //  Created by David Hart.
@@ -13,12 +13,12 @@
 #import "FUAction.h"
 
 
-@interface FUFiniteAction : NSObject<FUAction>
+@interface FUTimedAction : NSObject<FUAction>
 
 - (id)initWithDuration:(NSTimeInterval)duration;
 
 @property (nonatomic, readonly) NSTimeInterval duration;
-@property (nonatomic, readonly) float factor;
+@property (nonatomic, readonly) NSTimeInterval time;
 
 - (void)updateWithFactor:(float)factor;
 

@@ -67,8 +67,8 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 SPEC_BEGIN(FUBlockAction)
 
 describe(@"A block action", ^{
-	it(@"is as action", ^{
-		expect([[FUBlockAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
+	it(@"is a timed action", ^{
+		expect([FUBlockAction class]).to.beSubclassOf([FUTimedAction class]);
 	});
 	
 	context(@"initizing with a NULL block", ^{
@@ -86,6 +86,7 @@ describe(@"A block action", ^{
 	context(@"initialized with a block", ^{
 		__block FUBlockAction* action;
 		__block NSUInteger callCount;
+		__block NSTimeInterval timeLeft;
 		
 		beforeEach(^{
 			callCount = 0;
@@ -103,14 +104,12 @@ describe(@"A block action", ^{
 		});
 		
 		context(@"calling consumeDeltaTime: with 0.0 seconds", ^{
-			__block NSTimeInterval timeLeft1;
-			
 			beforeEach(^{
-				timeLeft1 = [action consumeDeltaTime:0.0];
+				timeLeft = [action consumeDeltaTime:0.0];
 			});
 			
 			it(@"returns no time", ^{
-				expect(timeLeft1).to.equal(0.0);
+				expect(timeLeft).to.equal(0.0);
 			});
 			
 			it(@"does not call the block", ^{
@@ -119,14 +118,12 @@ describe(@"A block action", ^{
 		});
 			
 		context(@"called consumeDeltaTime: with a positive time", ^{
-			__block NSTimeInterval timeLeft2;
-			
 			beforeEach(^{
-				timeLeft2 = [action consumeDeltaTime:1.0];
+				timeLeft = [action consumeDeltaTime:1.0];
 			});
 			
 			it(@"returns all the time", ^{
-				expect(timeLeft2).to.equal(1.0);
+				expect(timeLeft).to.equal(1.0);
 			});
 			
 			it(@"calls the block", ^{
@@ -134,14 +131,12 @@ describe(@"A block action", ^{
 			});
 			
 			context(@"called consumeDeltaTime: a second time", ^{
-				__block NSTimeInterval timeLeft3;
-				
 				beforeEach(^{
-					timeLeft3 = [action consumeDeltaTime:2.0];
+					timeLeft = [action consumeDeltaTime:2.0];
 				});
 				
 				it(@"returns all the time", ^{
-					expect(timeLeft3).to.equal(2.0);
+					expect(timeLeft).to.equal(2.0);
 				});
 				
 				it(@"does not call the block again", ^{
@@ -165,14 +160,12 @@ describe(@"A block action", ^{
 				});
 				
 				context(@"called consumeDeltaTime: on the copied action", ^{
-					__block NSTimeInterval timeLeft4;
-					
 					beforeEach(^{
-						timeLeft4 = [actionCopy consumeDeltaTime:2.0];
+						timeLeft = [actionCopy consumeDeltaTime:2.0];
 					});
 					
 					it(@"returns all the time", ^{
-						expect(timeLeft4).to.equal(2.0);
+						expect(timeLeft).to.equal(2.0);
 					});
 					
 					it(@"does not call the block again", ^{
@@ -182,14 +175,12 @@ describe(@"A block action", ^{
 			});
 			
 			context(@"called consumeDeltaTime: with a negative time", ^{
-				__block NSTimeInterval timeLeft5;
-				
 				beforeEach(^{
-					timeLeft5 = [action consumeDeltaTime:-2.0];
+					timeLeft = [action consumeDeltaTime:-2.0];
 				});
 				
 				it(@"returned all the time", ^{
-					expect(timeLeft5).to.equal(-2.0);
+					expect(timeLeft).to.equal(-2.0);
 				});
 				
 				it(@"calls the block", ^{
@@ -197,14 +188,12 @@ describe(@"A block action", ^{
 				});
 				
 				context(@"called consumeDeltaTime: a second time with a negative time", ^{
-					__block NSTimeInterval timeLeft6;
-					
 					beforeEach(^{
-						timeLeft6 = [action consumeDeltaTime:-3.0];
+						timeLeft = [action consumeDeltaTime:-3.0];
 					});
 					
 					it(@"returned all the time", ^{
-						expect(timeLeft6).to.equal(-3.0);
+						expect(timeLeft).to.equal(-3.0);
 					});
 					
 					it(@"does not call the block again", ^{

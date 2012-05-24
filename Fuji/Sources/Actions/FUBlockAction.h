@@ -9,10 +9,10 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUAction.h"
+#import "FUTimedAction.h"
 
 
-@interface FUBlockAction : NSObject<FUAction>
+@interface FUBlockAction : FUTimedAction
 
 - (id)initWithBlock:(void (^)())block;
 

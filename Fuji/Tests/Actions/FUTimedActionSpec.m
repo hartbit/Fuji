@@ -17,24 +17,32 @@
 static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to be positive";
 
 
+@interface FUTestTimedAction : FUTimedAction
+@property (nonatomic) NSUInteger callCount;
+@property (nonatomic) float lastCallFactor;
+@end
+
+
 SPEC_BEGIN(FUTimedAction)
 
-describe(@"A finite action", ^{
+describe(@"A timed action", ^{
+	__block NSTimeInterval timeLeft;
+	
 	it(@"is an action", ^{
-		expect([[FUFiniteAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
+		expect([[FUTimedAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
 	
 	context(@"initializing with a negative duration", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUFiniteAction alloc] initWithDuration:-1.0f], NSInvalidArgumentException, FUDurationNegativeMessage, -1.0f);
+			assertThrows([[FUTimedAction alloc] initWithDuration:-1.0], NSInvalidArgumentException, FUDurationNegativeMessage, -1.0f);
 		});
 	});
 	
 	context(@"initialized", ^{
-		__block FUFiniteAction* action;
+		__block FUTestTimedAction* action;
 		
 		beforeEach(^{
-			action = [FUFiniteAction new];
+			action = [FUTestTimedAction new];
 		});
 		
 		it(@"is not nil", ^{
@@ -45,26 +53,146 @@ describe(@"A finite action", ^{
 			expect([action duration]).to.equal(0.0);
 		});
 		
-		it(@"has a factor of 0.0f", ^{
-			expect([action factor]).to.equal(0.0f);
+		it(@"has a time of 0.0", ^{
+			expect([action time]).to.equal(0.0);
 		});
 		
-		context(@"advanced time", ^{
+		context(@"called consumeDeltaTime: with a 0.0 time", ^{
 			beforeEach(^{
-				[action updateWithDeltaTime:0.0];
+				timeLeft = [action consumeDeltaTime:0.0];
 			});
 			
-			it(@"has a factor of 1.0f", ^{
-				expect([action factor]).to.equal(1.0f);
+			it(@"does not call udpateWithFactor:", ^{
+				expect([action callCount]).to.equal(0);
+			});
+			
+			it(@"returns all/no time", ^{
+				expect(timeLeft).to.equal(0.0);
+			});
+			
+			it(@"has a time of 0.0", ^{
+				expect([action time]).to.equal(0.0);
+			});
+		});
+		
+		context(@"called consumeDeltaTime: with a positive time", ^{
+			beforeEach(^{
+				timeLeft = [action consumeDeltaTime:1.0];
+			});
+			
+			it(@"calls udpateWithFactor: with 1.0f", ^{
+				expect([action callCount]).to.equal(1);
+				expect([action lastCallFactor]).to.equal(1.0f);
+			});
+			
+			it(@"returns all of the time", ^{
+				expect(timeLeft).to.equal(1.0);
+			});
+			
+			it(@"has a time of 0.0", ^{
+				expect([action time]).to.equal(0.0);
+			});
+			
+			context(@"called consumeDeltaTime: again with a positive time", ^{				
+				beforeEach(^{
+					timeLeft = [action consumeDeltaTime:2.0];
+				});
+				
+				it(@"does not call udpateWithFactor: again", ^{
+					expect([action callCount]).to.equal(1);
+				});
+				
+				it(@"returns all of the time", ^{
+					expect(timeLeft).to.equal(2.0);
+				});
+				
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.equal(0.0);
+				});
+			});
+			
+			context(@"called consumeDeltaTime: again with a negative time", ^{				
+				beforeEach(^{
+					timeLeft = [action consumeDeltaTime:-1.0];
+				});
+				
+				it(@"calls udpateWithFactor: with 0.0f", ^{
+					expect([action callCount]).to.equal(2);
+					expect([action lastCallFactor]).to.equal(0.0f);
+				});
+				
+				it(@"returns all of the time", ^{
+					expect(timeLeft).to.equal(-1.0);
+				});
+				
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.equal(0.0);
+				});
+			});
+		});
+		
+		context(@"called consumeDeltaTime: with a negative time", ^{
+			beforeEach(^{
+				timeLeft = [action consumeDeltaTime:-1.0];
+			});
+			
+			it(@"calls udpateWithFactor: with 0.0f", ^{
+				expect([action callCount]).to.equal(1);
+				expect([action lastCallFactor]).to.equal(0.0f);
+			});
+			
+			it(@"returns all of the time", ^{
+				expect(timeLeft).to.equal(-1.0);
+			});
+			
+			it(@"has a time of 0.0", ^{
+				expect([action time]).to.equal(0.0);
+			});
+			
+			context(@"called consumeDeltaTime: again with a negative time", ^{
+				beforeEach(^{
+					timeLeft = [action consumeDeltaTime:-2.0];
+				});
+				
+				it(@"does not call udpateWithFactor: again", ^{
+					expect([action callCount]).to.equal(1);
+				});
+				
+				it(@"returns all of the time", ^{
+					expect(timeLeft).to.equal(-2.0);
+				});
+				
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.equal(0.0);
+				});
+			});
+			
+			context(@"called consumeDeltaTime: again with a positive time", ^{
+				beforeEach(^{
+					timeLeft = [action consumeDeltaTime:1.0];
+				});
+				
+				it(@"calls udpateWithFactor: with 1.0f", ^{
+					expect([action callCount]).to.equal(2);
+					expect([action lastCallFactor]).to.equal(1.0f);
+				});
+				
+				it(@"returns all of the time", ^{
+					expect(timeLeft).to.equal(1.0);
+				});
+				
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.equal(0.0);
+				});
 			});
 		});
 	});
 	
-	context(@"initialized a 2.0f duration action", ^{
-		__block FUFiniteAction* action;
+	context(@"initialized with a duration of 2.0", ^{
+		__block FUTestTimedAction* action;
 		
 		beforeEach(^{
-			action = [[FUFiniteAction alloc] initWithDuration:2.0f];
+			action = [[FUTestTimedAction alloc] initWithDuration:2.0];
 		});
 		
 		it(@"is not nil", ^{
@@ -75,150 +203,139 @@ describe(@"A finite action", ^{
 			expect([action duration]).to.equal(2.0);
 		});
 		
-		it(@"has a factor of 0.0f", ^{
-			expect([action factor]).to.equal(0.0f);
+		it(@"has a time of 0.0", ^{
+			expect([action time]).to.equal(0.0);
 		});
 		
-		context(@"updated with a factor of -0.3f", ^{
+		context(@"called consumeDeltaTime: with 1.0 seconds", ^{
 			beforeEach(^{
-				[action updateWithFactor:-0.3f];
+				timeLeft = [action consumeDeltaTime:1.0];
 			});
 			
-			it(@"has a factor of -0.3f", ^{
-				expect([action factor]).to.equal(-0.3f);
-			});
-		});
-		
-		context(@"updated with a factor of 0.0f", ^{
-			beforeEach(^{
-				[action updateWithFactor:0.0f];
+			it(@"calls updateWithFactor: with 0.5f", ^{
+				expect([action callCount]).to.equal(1);
+				expect([action lastCallFactor]).to.beCloseTo(0.5f);
 			});
 			
-			it(@"has a factor of 0.0f", ^{
-				expect([action factor]).to.equal(0.0f);
-			});
-		});
-		
-		context(@"updated with a factor of 0.4f", ^{
-			beforeEach(^{
-				[action updateWithFactor:0.4f];
+			it(@"returns no time left", ^{
+				expect(timeLeft).to.equal(0.0);
 			});
 			
-			it(@"has a factor of 0.4f", ^{
-				expect([action factor]).to.equal(0.4f);
-			});
-		});
-		
-		context(@"updated with a factor of 1.0f", ^{
-			beforeEach(^{
-				[action updateWithFactor:1.0f];
+			it(@"has a time of 1.0", ^{
+				expect([action time]).to.beCloseTo(1.0);
 			});
 			
-			it(@"has a factor of 1.0f", ^{
-				expect([action factor]).to.equal(1.0f);
-			});
-		});
-		
-		context(@"updated with a factor of 1.2f", ^{
-			beforeEach(^{
-				[action updateWithFactor:1.2f];
-			});
-			
-			it(@"has a factor of 1.2f", ^{
-				expect([action factor]).to.equal(1.2f);
-			});
-		});
-		
-		context(@"updated with a delta time of 1.0 seconds", ^{
-			beforeEach(^{
-				[action updateWithDeltaTime:1.0];
-			});
-			
-			it(@"has a factor of 0.5f", ^{
-				expect([action factor]).to.beCloseTo(0.5f);
-			});
-			
-			context(@"updated with a delta time of 1.0 seconds", ^{
+			context(@"called consumeDeltaTime: with 1.5 seconds", ^{
 				beforeEach(^{
-					[action updateWithDeltaTime:1.0];
+					timeLeft = [action consumeDeltaTime:1.5];
 				});
 				
-				it(@"has a factor of 1.0f", ^{
-					expect([action factor]).to.equal(1.0f);
+				it(@"calls updateWithFactor: with 1.0f", ^{
+					expect([action callCount]).to.equal(2);
+					expect([action lastCallFactor]).to.equal(1.0f);
 				});
 				
+				it(@"returns 0.5 seconds left", ^{
+					expect(timeLeft).to.beCloseTo(0.5);
+				});
+				
+				it(@"has a time of 2.0", ^{
+					expect([action time]).to.beCloseTo(2.0);
+				});
+				
+				context(@"called consumeDeltaTime: with -1.0 seconds", ^{
+					beforeEach(^{
+						timeLeft = [action consumeDeltaTime:-1.0];
+					});
+					
+					it(@"calls updateWithFactor: with 0.5f", ^{
+						expect([action callCount]).to.equal(3);
+						expect([action lastCallFactor]).to.equal(0.5f);
+					});
+					
+					it(@"returns no time left", ^{
+						expect(timeLeft).to.equal(0.0);
+					});
+					
+					it(@"has a time of 1.0", ^{
+						expect([action time]).to.beCloseTo(1.0);
+					});
+				});
+
 				context(@"created a copy", ^{
-					__block FUFiniteAction* copy;
+					__block FUTestTimedAction* actionCopy;
 					
 					beforeEach(^{
-						copy = [action copy];
+						actionCopy = [action copy];
 					});
 					
 					it(@"is not nil", ^{
-						expect(copy).toNot.beNil();
+						expect(actionCopy).toNot.beNil();
 					});
 					
 					it(@"is not the same instance", ^{
-						expect(copy).toNot.beIdenticalTo(action);
+						expect(actionCopy).toNot.beIdenticalTo(action);
 					});
 					
 					it(@"has a duration of 2.0", ^{
-						expect([copy duration]).to.equal(2.0);
+						expect([actionCopy duration]).to.equal(2.0);
 					});
 					
-					it(@"has a factor of 1.0f", ^{
-						expect([action factor]).to.equal(1.0f);
+					it(@"has a time of 2.0", ^{
+						expect([action time]).to.beCloseTo(2.0);
+					});
+					
+					context(@"called consumeDeltaTime: on the copy", ^{
+						beforeEach(^{
+							timeLeft = [actionCopy consumeDeltaTime:1.0];
+						});
+						
+						it(@"does not call updateWithFactor:", ^{
+							expect([actionCopy callCount]).to.equal(0);
+						});
+						
+						it(@"returns all the time left", ^{
+							expect(timeLeft).to.beCloseTo(1.0);
+						});
 					});
 				});
+			});
+			
+			context(@"called consumeDeltaTime: with -1.5 seconds", ^{
+				beforeEach(^{
+					timeLeft = [action consumeDeltaTime:-1.5];
+				});
 				
-				context(@"updated with a delta time of -1.0 seconds", ^{
+				it(@"calls updateWithFactor: with 0.0f", ^{
+					expect([action callCount]).to.equal(2);
+					expect([action lastCallFactor]).to.equal(0.0f);
+				});
+				
+				it(@"returns -0.5 seconds left", ^{
+					expect(timeLeft).to.beCloseTo(-0.5);
+				});
+				
+				it(@"has a time of 0.0", ^{
+					expect([action time]).to.beCloseTo(0.0);
+				});
+				
+				context(@"called consumeDeltaTime: with 1.0 seconds", ^{
 					beforeEach(^{
-						[action updateWithDeltaTime:-1.0];
+						timeLeft = [action consumeDeltaTime:1.0];
 					});
 					
-					it(@"has a factor of 0.5f", ^{
-						expect([action factor]).to.beCloseTo(0.5f);
-					});
-				});
-			});
-			
-			context(@"updated with a delta time of 2.0 seconds", ^{
-				beforeEach(^{
-					[action updateWithDeltaTime:2.0];
-				});
-				
-				it(@"has a factor of 1.0f", ^{
-					expect([action factor]).to.equal(1.0f);
-				});
-			});
-			
-			context(@"updated with a delta time of -1.0 seconds", ^{
-				beforeEach(^{
-					[action updateWithDeltaTime:-1.0];
-				});
-				
-				it(@"has a factor of 0.0f", ^{
-					expect([action factor]).to.equal(0.0f);
-				});
-				
-				context(@"updated with a delta time of 1.0 seconds", ^{
-					beforeEach(^{
-						[action updateWithDeltaTime:1.0];
+					it(@"calls updateWithFactor: with 0.5f", ^{
+						expect([action callCount]).to.equal(3);
+						expect([action lastCallFactor]).to.equal(0.5f);
 					});
 					
-					it(@"has a factor of 0.5f", ^{
-						expect([action factor]).to.beCloseTo(0.5f);
+					it(@"returns no time left", ^{
+						expect(timeLeft).to.equal(0.0);
 					});
-				});
-			});
-			
-			context(@"updated with a delta time of -2.0 seconds", ^{
-				beforeEach(^{
-					[action updateWithDeltaTime:-2.0];
-				});
-				
-				it(@"has a factor of 0.0f", ^{
-					expect([action factor]).to.equal(0.0f);
+					
+					it(@"has a time of 1.0", ^{
+						expect([action time]).to.beCloseTo(1.0);
+					});
 				});
 			});
 		});
@@ -226,3 +343,17 @@ describe(@"A finite action", ^{
 });
 
 SPEC_END
+
+
+@implementation FUTestTimedAction
+
+@synthesize callCount = _callCount;
+@synthesize lastCallFactor = _lastCallFactor;
+
+- (void)updateWithFactor:(float)factor
+{
+	[self setCallCount:[self callCount] + 1];
+	[self setLastCallFactor:factor];
+}
+
+@end

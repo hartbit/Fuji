@@ -19,7 +19,7 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 
 @interface FUTimingAction ()
 
-@property (nonatomic, strong) FUFiniteAction* action;
+@property (nonatomic, strong) FUTimedAction* action;
 @property (nonatomic, copy) FUTimingFunction function;
 
 @end
@@ -32,7 +32,7 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 
 #pragma mark - Initialization
 
-- (id)initWithAction:(FUFiniteAction*)action function:(FUTimingFunction)function
+- (id)initWithAction:(FUTimedAction*)action function:(FUTimingFunction)function
 {
 	FUCheck(action != nil, FUActionNilMessage);
 	FUCheck(function != NULL, FUFunctionNullMessage);

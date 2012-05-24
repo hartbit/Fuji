@@ -20,8 +20,8 @@ static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be posi
 SPEC_BEGIN(FUDelayAction)
 
 describe(@"A dekay action", ^{
-	it(@"is a finite action", ^{
-		expect([FUDelayAction class]).to.beSubclassOf([FUFiniteAction class]);
+	it(@"is a timed action", ^{
+		expect([FUDelayAction class]).to.beSubclassOf([FUTimedAction class]);
 	});
 	
 	context(@"initizing with a negative delay", ^{
@@ -46,15 +46,15 @@ describe(@"A dekay action", ^{
 		__block FUDelayAction* action;
 		
 		beforeEach(^{
-			action = [[FUDelayAction alloc] initWithDelay:2.5f];
+			action = [[FUDelayAction alloc] initWithDelay:2.5];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
 		});
 		
-		it(@"has a duration of 2.5f", ^{
-			expect([action duration]).to.equal(2.5f);
+		it(@"has a duration of 2.5", ^{
+			expect([action duration]).to.equal(2.5);
 		});
 	});
 });

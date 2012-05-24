@@ -9,18 +9,18 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUFiniteAction.h"
+#import "FUTimedAction.h"
 #import "FUTimingFunctions.h"
 
 
-@interface FUTimingAction : FUFiniteAction
+@interface FUTimingAction : FUTimedAction
 
-- (id)initWithAction:(FUFiniteAction*)action function:(FUTimingFunction)function;
+- (id)initWithAction:(FUTimedAction*)action function:(FUTimingFunction)function;
 
 @end
 
 
-static OBJC_INLINE FUTimingAction* FUTiming(FUFiniteAction* action, FUTimingFunction function)
+static OBJC_INLINE FUTimingAction* FUTiming(FUTimedAction* action, FUTimingFunction function)
 {
 	return [[FUTimingAction alloc] initWithAction:action function:function];
 }

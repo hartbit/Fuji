@@ -67,18 +67,18 @@ static OBJC_INLINE double FUClampDouble(double value, double min, double max)
 
 static OBJC_INLINE BOOL FUAreCloseFloat(float a, float b)
 {
-	float diff = fabsf(a - b);
-	float absA = fabsf(a);
-	float absB = fabsf(b);
+	float diff = ABS(a - b);
+	float absA = ABS(a);
+	float absB = ABS(b);
 	float largest = (absB > absA) ? absB : absA;
 	return (diff <= largest * FLT_EPSILON);
 }
 
 static OBJC_INLINE BOOL FUAreCloseDouble(double a, double b)
 {
-	double diff = fabs(a - b);
-	double absA = fabs(a);
-	double absB = fabs(b);
+	double diff = ABS(a - b);
+	double absA = ABS(a);
+	double absB = ABS(b);
 	double largest = (absB > absA) ? absB : absA;
 	return (diff <= largest * DBL_EPSILON);
 }

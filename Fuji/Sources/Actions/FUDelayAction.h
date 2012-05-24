@@ -10,10 +10,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUFiniteAction.h"
+#import "FUTimedAction.h"
 
 
-@interface FUDelayAction : FUFiniteAction
+@interface FUDelayAction : FUTimedAction
 
 - (id)initWithDelay:(NSTimeInterval)delay;
 
