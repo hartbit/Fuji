@@ -95,6 +95,8 @@
 		639CE44915402C15000D4A48 /* FUAssetStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE44615402C15000D4A48 /* FUAssetStore.m */; };
 		63A159A514FD1DB500364D24 /* FUScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 63A159A314FD1DB500364D24 /* FUScene.h */; };
 		63A159A614FD1DB500364D24 /* FUScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A159A414FD1DB500364D24 /* FUScene.m */; };
+		63B13928156EEDB6002FDD79 /* FUTimingActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6310288D155D465500453E4D /* FUTimingActionSpec.m */; };
+		63B13929156EEDB9002FDD79 /* FUTimingFunctionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BF89D0155FD6D900DA3229 /* FUTimingFunctionsSpec.m */; };
 		63B5738C14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
 		63B5739A14F4D38000451E2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5739914F4D38000451E2E /* SenTestingKit.framework */; };
 		63B5739D14F4D38000451E2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B5738B14F4D38000451E2E /* Foundation.framework */; };
@@ -922,6 +924,8 @@
 				6306BA66156D525300DD83EF /* FUTimedAction.m in Sources */,
 				63FA60B2156EDB0E00E8FD78 /* FUTimedActionSpec.m in Sources */,
 				630636AB156EECE0001EBC24 /* FUDelayActionSpec.m in Sources */,
+				63B13928156EEDB6002FDD79 /* FUTimingActionSpec.m in Sources */,
+				63B13929156EEDB9002FDD79 /* FUTimingFunctionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@ SPEC_BEGIN(FUTimingAction)
 
 describe(@"A timing action", ^{
 	it(@"is a finite action", ^{
-		expect([FUTimingAction class]).to.beSubclassOf([FUFiniteAction class]);
+		expect([FUTimingAction class]).to.beSubclassOf([FUTimedAction class]);
 	});
 	
 	context(@"initializing with a nil action", ^{
@@ -33,24 +33,24 @@ describe(@"A timing action", ^{
 	
 	context(@"initializing with a NULL function", ^{
 		it(@"throws an exception", ^{
-			FUFiniteAction* action = mock([FUFiniteAction class]);
+			FUTimedAction* action = mock([FUTimedAction class]);
 			assertThrows([[FUTimingAction alloc] initWithAction:action function:NULL], NSInvalidArgumentException, FUFunctionNullMessage);
 		});
 	});
 	
 	context(@"initializing via the function", ^{
 		it(@"returns a FUTimingAction", ^{
-			FUFiniteAction* subaction = mock([FUFiniteAction class]);
+			FUTimedAction* subaction = mock([FUTimedAction class]);
 			expect(FUTiming(subaction, FUTimingEaseIn)).to.beKindOf([FUTimingAction class]);
 		});
 	});
 	
 	context(@"initializing with an action and a function", ^{
 		__block FUTimingAction* action;
-		__block FUFiniteAction* subaction;
+		__block FUTimedAction* subaction;
 		
 		beforeEach(^{
-			subaction = mock([FUFiniteAction class]);
+			subaction = mock([FUTimedAction class]);
 			[given([subaction duration]) willReturnDouble:2.0];
 			
 			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseIn];
@@ -61,7 +61,7 @@ describe(@"A timing action", ^{
 		});
 		
 		it(@"has the same duration as it's subaction", ^{
-			expect([action duration]).to.equal(2.0f);
+			expect([action duration]).to.equal(2.0);
 		});
 		
 		context(@"updating with a factor of -0.5f", ^{
@@ -101,10 +101,10 @@ describe(@"A timing action", ^{
 		
 		context(@"created a copy of the action", ^{
 			__block FUTimingAction* actionCopy;
-			__block FUFiniteAction* subactionCopy;
+			__block FUTimedAction* subactionCopy;
 			
 			beforeEach(^{
-				subactionCopy = mock([FUFiniteAction class]);
+				subactionCopy = mock([FUTimedAction class]);
 				[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
 				
 				actionCopy = [action copy];
@@ -114,10 +114,16 @@ describe(@"A timing action", ^{
 				expect(actionCopy).toNot.beNil();
 			});
 			
-			context(@"updating the copied action", ^{
-				it(@"updates the copied subaction", ^{
+			context(@"updated the copied action", ^{
+				beforeEach(^{
 					[actionCopy updateWithFactor:0.5f];
+				});
+				
+				it(@"does not update the original subaction", ^{
 					[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+				});
+				
+				it(@"updates the copied subaction", ^{
 					[verify(subactionCopy) updateWithFactor:FUTimingEaseIn(0.5f)];
 				});
 			});
