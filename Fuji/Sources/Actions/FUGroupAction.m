@@ -56,7 +56,7 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 #pragma mark - FUAction Methods
 
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)consumeDeltaTime:(NSTimeInterval)deltaTime
 {
 	if (deltaTime == 0.0) {
 		return 0.0;
@@ -66,7 +66,7 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 	NSTimeInterval lessTimeLeft = isForward ? DBL_MAX : -DBL_MAX;
 	
 	for (id<FUAction> action in [self actions]) {
-		NSTimeInterval timeLeft = [action updateWithDeltaTime:deltaTime];
+		NSTimeInterval timeLeft = [action consumeDeltaTime:deltaTime];
 		lessTimeLeft = isForward ? MIN(lessTimeLeft, timeLeft) : MAX(lessTimeLeft, timeLeft);
 	}
 	

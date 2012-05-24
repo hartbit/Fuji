@@ -20,7 +20,6 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) float factor;
-@property (nonatomic, getter=isComplete) BOOL complete;
 
 @end
 
@@ -29,7 +28,6 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 @synthesize duration = _duration;
 @synthesize factor = _factor;
-@synthesize complete = _complete;
 
 #pragma mark - Initialization
 
@@ -51,7 +49,6 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 	FUFiniteAction* copy = [[[self class] allocWithZone:zone] init];
 	[copy setDuration:[self duration]];
 	[copy setFactor:[self factor]];
-	[copy setComplete:[self isComplete]];
 	return copy;
 }
 
@@ -60,12 +57,11 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 - (void)updateWithFactor:(float)factor
 {
 	[self setFactor:factor];
-	[self setComplete:((factor == 0.0f) || (factor == 1.0f))];
 }
 
 #pragma mark - FUAction Methods
 
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)consumeDeltaTime:(NSTimeInterval)deltaTime
 {
 	NSTimeInterval duration = [self duration];
 	

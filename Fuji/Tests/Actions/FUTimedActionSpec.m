@@ -1,5 +1,5 @@
 //
-//  FUFiniteActionSpec.m
+//  FUTimedActionSpec.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -17,7 +17,7 @@
 static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to be positive";
 
 
-SPEC_BEGIN(FUFiniteAction)
+SPEC_BEGIN(FUTimedAction)
 
 describe(@"A finite action", ^{
 	it(@"is an action", ^{
@@ -49,10 +49,6 @@ describe(@"A finite action", ^{
 			expect([action factor]).to.equal(0.0f);
 		});
 		
-		it(@"is not complete", ^{
-			expect([action isComplete]).to.beFalsy();
-		});
-		
 		context(@"advanced time", ^{
 			beforeEach(^{
 				[action updateWithDeltaTime:0.0];
@@ -60,10 +56,6 @@ describe(@"A finite action", ^{
 			
 			it(@"has a factor of 1.0f", ^{
 				expect([action factor]).to.equal(1.0f);
-			});
-			
-			it(@"is complete", ^{
-				expect([action isComplete]).to.beTruthy();
 			});
 		});
 	});
@@ -87,10 +79,6 @@ describe(@"A finite action", ^{
 			expect([action factor]).to.equal(0.0f);
 		});
 		
-		it(@"is not complete", ^{
-			expect([action isComplete]).to.beFalsy();
-		});
-		
 		context(@"updated with a factor of -0.3f", ^{
 			beforeEach(^{
 				[action updateWithFactor:-0.3f];
@@ -98,10 +86,6 @@ describe(@"A finite action", ^{
 			
 			it(@"has a factor of -0.3f", ^{
 				expect([action factor]).to.equal(-0.3f);
-			});
-			
-			it(@"is not complete", ^{
-				expect([action isComplete]).to.beFalsy();
 			});
 		});
 		
@@ -113,10 +97,6 @@ describe(@"A finite action", ^{
 			it(@"has a factor of 0.0f", ^{
 				expect([action factor]).to.equal(0.0f);
 			});
-			
-			it(@"is complete", ^{
-				expect([action isComplete]).to.beTruthy();
-			});
 		});
 		
 		context(@"updated with a factor of 0.4f", ^{
@@ -126,10 +106,6 @@ describe(@"A finite action", ^{
 			
 			it(@"has a factor of 0.4f", ^{
 				expect([action factor]).to.equal(0.4f);
-			});
-			
-			it(@"is not complete", ^{
-				expect([action isComplete]).to.beFalsy();
 			});
 		});
 		
@@ -141,10 +117,6 @@ describe(@"A finite action", ^{
 			it(@"has a factor of 1.0f", ^{
 				expect([action factor]).to.equal(1.0f);
 			});
-			
-			it(@"is complete", ^{
-				expect([action isComplete]).to.beTruthy();
-			});
 		});
 		
 		context(@"updated with a factor of 1.2f", ^{
@@ -154,10 +126,6 @@ describe(@"A finite action", ^{
 			
 			it(@"has a factor of 1.2f", ^{
 				expect([action factor]).to.equal(1.2f);
-			});
-			
-			it(@"is not complete", ^{
-				expect([action isComplete]).to.beFalsy();
 			});
 		});
 		
@@ -170,10 +138,6 @@ describe(@"A finite action", ^{
 				expect([action factor]).to.beCloseTo(0.5f);
 			});
 			
-			it(@"is not complete", ^{
-				expect([action isComplete]).to.beFalsy();
-			});
-			
 			context(@"updated with a delta time of 1.0 seconds", ^{
 				beforeEach(^{
 					[action updateWithDeltaTime:1.0];
@@ -181,10 +145,6 @@ describe(@"A finite action", ^{
 				
 				it(@"has a factor of 1.0f", ^{
 					expect([action factor]).to.equal(1.0f);
-				});
-				
-				it(@"is complete", ^{
-					expect([action isComplete]).to.beTruthy();
 				});
 				
 				context(@"created a copy", ^{
@@ -209,10 +169,6 @@ describe(@"A finite action", ^{
 					it(@"has a factor of 1.0f", ^{
 						expect([action factor]).to.equal(1.0f);
 					});
-					
-					it(@"is complete", ^{
-						expect([copy isComplete]).to.beTruthy();
-					});
 				});
 				
 				context(@"updated with a delta time of -1.0 seconds", ^{
@@ -222,10 +178,6 @@ describe(@"A finite action", ^{
 					
 					it(@"has a factor of 0.5f", ^{
 						expect([action factor]).to.beCloseTo(0.5f);
-					});
-					
-					it(@"is not complete", ^{
-						expect([action isComplete]).to.beFalsy();
 					});
 				});
 			});
@@ -238,10 +190,6 @@ describe(@"A finite action", ^{
 				it(@"has a factor of 1.0f", ^{
 					expect([action factor]).to.equal(1.0f);
 				});
-				
-				it(@"is complete", ^{
-					expect([action isComplete]).to.beTruthy();
-				});
 			});
 			
 			context(@"updated with a delta time of -1.0 seconds", ^{
@@ -253,10 +201,6 @@ describe(@"A finite action", ^{
 					expect([action factor]).to.equal(0.0f);
 				});
 				
-				it(@"is complete", ^{
-					expect([action isComplete]).to.beTruthy();
-				});
-				
 				context(@"updated with a delta time of 1.0 seconds", ^{
 					beforeEach(^{
 						[action updateWithDeltaTime:1.0];
@@ -264,10 +208,6 @@ describe(@"A finite action", ^{
 					
 					it(@"has a factor of 0.5f", ^{
 						expect([action factor]).to.beCloseTo(0.5f);
-					});
-					
-					it(@"is not complete", ^{
-						expect([action isComplete]).to.beFalsy();
 					});
 				});
 			});
@@ -279,10 +219,6 @@ describe(@"A finite action", ^{
 				
 				it(@"has a factor of 0.0f", ^{
 					expect([action factor]).to.equal(0.0f);
-				});
-				
-				it(@"is complete", ^{
-					expect([action isComplete]).to.beTruthy();
 				});
 			});
 		});

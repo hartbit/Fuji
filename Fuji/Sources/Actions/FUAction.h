@@ -15,6 +15,6 @@
 
 @protocol FUAction<NSCopying>
 
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;
+- (NSTimeInterval)consumeDeltaTime:(NSTimeInterval)deltaTime;
 
 @end

@@ -84,93 +84,93 @@ describe(@"A group action", ^{
 			expect(actionsArray).to.contain(action3);
 		});
 		
-		context(@"updating the group with 0.0 seconds", ^{
-			it(@"updates no action", ^{
-				[group updateWithDeltaTime:0.0];
-				[[verifyCount(action1, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+		context(@"calling consumeDeltaTime: on the group with 0.0 seconds", ^{
+			it(@"does not call consumeDeltaTime: on any actions", ^{
+				[group consumeDeltaTime:0.0];
+				[[verifyCount(action1, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+				[[verifyCount(action2, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+				[[verifyCount(action3, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 			});
 		});
 		
-		context(@"updated the group", ^{
+		context(@"called consumeDeltaTime: with a positive time on the group", ^{
 			__block NSTimeInterval timeLeft1;
 			
 			beforeEach(^{
-				timeLeft1 = [group updateWithDeltaTime:1.0];
+				timeLeft1 = [group consumeDeltaTime:1.0];
 			});
 			
 			it(@"returns no time left", ^{
 				expect(timeLeft1).to.equal(0.0);
 			});
 			
-			it(@"updates all actions", ^{
-				[verify(action1) updateWithDeltaTime:1.0];
-				[verify(action2) updateWithDeltaTime:1.0];
-				[verify(action3) updateWithDeltaTime:1.0];
+			it(@"calls consumeDeltaTime: with the same time on all actions", ^{
+				[verify(action1) consumeDeltaTime:1.0];
+				[verify(action2) consumeDeltaTime:1.0];
+				[verify(action3) consumeDeltaTime:1.0];
 			});
 			
-			context(@"updated the group and made one action return some time left", ^{
+			context(@"called consumeDeltaTime: on the group with one action returning some time left", ^{
 				__block NSTimeInterval timeLeft2;
 				
 				beforeEach(^{
-					[given([action3 updateWithDeltaTime:2.0]) willReturnDouble:0.5];
-					timeLeft2 = [group updateWithDeltaTime:2.0];
+					[given([action3 consumeDeltaTime:2.0]) willReturnDouble:0.5];
+					timeLeft2 = [group consumeDeltaTime:2.0];
 				});
 				
 				it(@"returns no time left", ^{
 					expect(timeLeft2).to.equal(0.0);
 				});
 				
-				it(@"updates all actions", ^{
-					[verify(action1) updateWithDeltaTime:2.0];
-					[verify(action2) updateWithDeltaTime:2.0];
-					[verify(action3) updateWithDeltaTime:2.0];
+				it(@"calls consumeDeltaTime: with the same time on all actions", ^{
+					[verify(action1) consumeDeltaTime:2.0];
+					[verify(action2) consumeDeltaTime:2.0];
+					[verify(action3) consumeDeltaTime:2.0];
 				});
 				
-				context(@"updated the group and made all actions return some time left", ^{
+				context(@"called consumeDeltaTime: on the group with all actions returning some time left", ^{
 					__block NSTimeInterval timeLeft3;
 					
 					beforeEach(^{
-						[given([action1 updateWithDeltaTime:3.0]) willReturnDouble:0.8];
-						[given([action2 updateWithDeltaTime:3.0]) willReturnDouble:0.2];
-						[given([action3 updateWithDeltaTime:3.0]) willReturnDouble:0.5];
-						timeLeft3 = [group updateWithDeltaTime:3.0];
+						[given([action1 consumeDeltaTime:3.0]) willReturnDouble:0.8];
+						[given([action2 consumeDeltaTime:3.0]) willReturnDouble:0.2];
+						[given([action3 consumeDeltaTime:3.0]) willReturnDouble:0.5];
+						timeLeft3 = [group consumeDeltaTime:3.0];
 					});
 					
 					it(@"returns the smallest time left", ^{
 						expect(timeLeft3).to.equal(0.2);
 					});
 					
-					it(@"updates all actions", ^{
-						[verify(action1) updateWithDeltaTime:3.0];
-						[verify(action2) updateWithDeltaTime:3.0];
-						[verify(action3) updateWithDeltaTime:3.0];
+					it(@"calls consumeDeltaTime: with the same time all actions", ^{
+						[verify(action1) consumeDeltaTime:3.0];
+						[verify(action2) consumeDeltaTime:3.0];
+						[verify(action3) consumeDeltaTime:3.0];
 					});
 				});
 				
-				context(@"updated the group with -5.0 seconds and made all actions return time left", ^{
+				context(@"called consumeDeltaTime with a negative time on the group and with all actions returing some time left", ^{
 					__block NSTimeInterval timeLeft5;
 					
 					beforeEach(^{
-						[given([action1 updateWithDeltaTime:-5.0]) willReturnDouble:-0.8];
-						[given([action2 updateWithDeltaTime:-5.0]) willReturnDouble:-1.2];
-						[given([action3 updateWithDeltaTime:-5.0]) willReturnDouble:-2.0];
-						timeLeft5 = [group updateWithDeltaTime:-5.0];
+						[given([action1 consumeDeltaTime:-5.0]) willReturnDouble:-0.8];
+						[given([action2 consumeDeltaTime:-5.0]) willReturnDouble:-1.2];
+						[given([action3 consumeDeltaTime:-5.0]) willReturnDouble:-2.0];
+						timeLeft5 = [group consumeDeltaTime:-5.0];
 					});
 					
-					it(@"returned -0.8 seconds left", ^{
+					it(@"returns -0.8 seconds left", ^{
 						expect(timeLeft5).to.equal(-0.8);
 					});
 					
-					it(@"updates all actions", ^{
-						[verify(action3) updateWithDeltaTime:-5.0];
-						[verify(action2) updateWithDeltaTime:-5.0];
-						[verify(action1) updateWithDeltaTime:-5.0];
+					it(@"calls consumeDeltaTime: with the same time on all actions", ^{
+						[verify(action3) consumeDeltaTime:-5.0];
+						[verify(action2) consumeDeltaTime:-5.0];
+						[verify(action1) consumeDeltaTime:-5.0];
 					});
 				});
 				
-				context(@"updated a copy of the group", ^{
+				context(@"called consumeDeltaTime on a copy of the group", ^{
 					__block FUGroupAction* groupCopy;
 					__block NSObject<FUAction>* action1Copy;
 					__block NSObject<FUAction>* action2Copy;
@@ -187,7 +187,7 @@ describe(@"A group action", ^{
 						[given([action3 copy]) willReturn:action3Copy];
 						
 						groupCopy = [group copy];
-						[groupCopy updateWithDeltaTime:4.0];
+						[groupCopy consumeDeltaTime:4.0];
 					});
 					
 					it(@"is not nil", ^{
@@ -206,16 +206,16 @@ describe(@"A group action", ^{
 						expect(actionsArray).to.contain(action3Copy);
 					});
 					
-					it(@"does not update the original actions", ^{
-						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[[verifyCount(action2, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[[verifyCount(action3, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+					it(@"does not call consumeDeltaTime: on the original actions", ^{
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+						[[verifyCount(action2, times(2)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+						[[verifyCount(action3, times(2)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 					});
 					
-					it(@"updates the copied actions", ^{
-						[verify(action1Copy) updateWithDeltaTime:4.0];
-						[verify(action2Copy) updateWithDeltaTime:4.0];
-						[verify(action3Copy) updateWithDeltaTime:4.0];
+					it(@"calls consumeDeltaTime: with the same time on the copied actions", ^{
+						[verify(action1Copy) consumeDeltaTime:4.0];
+						[verify(action2Copy) consumeDeltaTime:4.0];
+						[verify(action3Copy) consumeDeltaTime:4.0];
 					});
 				});
 			});
@@ -233,10 +233,10 @@ describe(@"A group action", ^{
 				expect([group actions]).toNot.contain(extraAction);
 			});
 			
-			context(@"updating the group", ^{
-				it(@"does not update the extra action", ^{
-					[group updateWithDeltaTime:10.0];
-					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+			context(@"calling consumeDeltaTime: on the group", ^{
+				it(@"does not call consumeDeltaTime: on the extra action", ^{
+					[group consumeDeltaTime:10.0];
+					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				});
 			});
 		});

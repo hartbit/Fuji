@@ -61,7 +61,7 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 #pragma mark - FUAction Methods
 
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)consumeDeltaTime:(NSTimeInterval)deltaTime
 {
 	if (deltaTime == 0.0) {
 		return 0.0;
@@ -75,7 +75,7 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 	
 	BOOL (^updateActionAtIndex)(NSInteger index) = ^(NSInteger index) {
 		id<FUAction> action = [actions objectAtIndex:index];
-		timeLeft = [action updateWithDeltaTime:timeLeft];
+		timeLeft = [action consumeDeltaTime:timeLeft];
 		
 		if (timeLeft == 0.0) {
 			[self setActionIndex:index];

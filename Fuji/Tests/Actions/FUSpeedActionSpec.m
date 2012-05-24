@@ -50,14 +50,14 @@ describe(@"A speed action", ^{
 			expect([action speed]).to.equal(1.0);
 		});
 		
-		context(@"updating with 1.3 seconds", ^{
-			it(@"updates the subaction with 1.3 seconds", ^{
-				[action updateWithDeltaTime:1.3];
-				[verify(subaction) updateWithDeltaTime:1.3];
+		context(@"calling consumeDeltaTime: with a positive time", ^{
+			it(@"calls consumeDeltaTime: with the same time on the subaction", ^{
+				[action consumeDeltaTime:1.3];
+				[verify(subaction) consumeDeltaTime:1.3];
 			});
 		});
 		
-		context(@"set the speed at 0.0", ^{
+		context(@"set the speed to 0.0", ^{
 			beforeEach(^{
 				[action setSpeed:0.0];
 			});
@@ -66,48 +66,48 @@ describe(@"A speed action", ^{
 				expect([action speed]).to.equal(0.0);
 			});
 			
-			context(@"updating with 2.0 seconds", ^{
-				it(@"does not update the subaction", ^{
-					[action updateWithDeltaTime:2.0];
-					[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+			context(@"calling consumeDeltaTime: with a positive time", ^{
+				it(@"does not call consumeDeltaTime: on the subaction", ^{
+					[action consumeDeltaTime:2.0];
+					[[verifyCount(subaction, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				});
 			});
 		});
 		
-		context(@"set the speed at 1.5", ^{
+		context(@"set the speed to a positive value", ^{
 			beforeEach(^{
 				[action setSpeed:1.5];
 			});
 			
-			it(@"has a speed of 1.5", ^{
+			it(@"has a speed the speed set", ^{
 				expect([action speed]).to.equal(1.5);
 			});
 			
-			context(@"updating with 2.0 seconds", ^{
-				it(@"updates the subaction with 3.0 seconds", ^{
-					[action updateWithDeltaTime:2.0];
-					[verify(subaction) updateWithDeltaTime:3.0];
+			context(@"calling consumeDeltaTime: with a positive time", ^{
+				it(@"calls consumeDeltaTime: with a time multiplied by the speed on the subaction", ^{
+					[action consumeDeltaTime:2.0];
+					[verify(subaction) consumeDeltaTime:3.0];
 				});
 			});
 			
-			context(@"updating with -1.0 seconds", ^{
-				it(@"updates the subaction with -1.5 seconds", ^{
-					[action updateWithDeltaTime:-1.0];
-					[verify(subaction) updateWithDeltaTime:-1.5];
+			context(@"calling consumeDeltaTime: with a negative time", ^{
+				it(@"calls consumeDeltaTime: with a negative time multiplied by the speed on the subaction", ^{
+					[action consumeDeltaTime:-1.0];
+					[verify(subaction) consumeDeltaTime:-1.5];
 				});
 			});
 			
-			context(@"updating with 2.0 seconds and the subaction completing with 1.5 seconds left", ^{
-				it(@"completes with 1.0 seconds left", ^{
-					[given([subaction updateWithDeltaTime:3.0]) willReturnDouble:1.5];
-					expect([action updateWithDeltaTime:2.0]).to.beCloseTo(1.0);
+			context(@"calling consumeDeltaTime: with a positive time and with the subaction returning some time left", ^{
+				it(@"returns the time left divided by the speed", ^{
+					[given([subaction consumeDeltaTime:3.0]) willReturnDouble:1.5];
+					expect([action consumeDeltaTime:2.0]).to.beCloseTo(1.0);
 				});
 			});
 			
-			context(@"updating with -2.0 seconds and the subaction completing with -1.5 seconds left", ^{
-				it(@"completes with -1.0 seconds left", ^{
-					[given([subaction updateWithDeltaTime:-3.0]) willReturnDouble:-1.5];
-					expect([action updateWithDeltaTime:-2.0]).to.beCloseTo(-1.0);
+			context(@"calling consumeDeltaTime: with a negative time and with the subaction returning some time left", ^{
+				it(@"returns the negative time left divided by the speed", ^{
+					[given([subaction consumeDeltaTime:-3.0]) willReturnDouble:-1.5];
+					expect([action consumeDeltaTime:-2.0]).to.beCloseTo(-1.0);
 				});
 			});
 			
@@ -130,40 +130,42 @@ describe(@"A speed action", ^{
 					expect(actionCopy).toNot.beIdenticalTo(action);
 				});
 				
-				it(@"has a speed of 1.5", ^{
+				it(@"has the same speed", ^{
 					expect([actionCopy speed]).to.equal(1.5);
 				});
 				
-				context(@"updating the copied action", ^{
-					it(@"updates the copied subaction", ^{
-						[actionCopy updateWithDeltaTime:1.0];
-						[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[verify(subactionCopy) updateWithDeltaTime:1.5];
+#warning ADD A PROPERTY WITH THE SUBACTION
+				
+				context(@"calling consumeDeltaTime: on the copied action", ^{
+					it(@"calls consumeDeltaTime: on the copied subaction", ^{
+						[actionCopy consumeDeltaTime:1.0];
+						[[verifyCount(subaction, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+						[verify(subactionCopy) consumeDeltaTime:1.5];
 					});
 				});
 			});
 		});
 		
-		context(@"set the speed at -2.0", ^{
+		context(@"set the speed to a negative value", ^{
 			beforeEach(^{
 				[action setSpeed:-2.0];
 			});
 			
-			it(@"has a speed of -2.0", ^{
+			it(@"has the same speed", ^{
 				expect([action speed]).to.equal(-2.0);
 			});
 			
-			context(@"updating with 2.0 seconds", ^{
-				it(@"updates the subaction with -4.0 seconds", ^{
-					[action updateWithDeltaTime:2.0];
-					[verify(subaction) updateWithDeltaTime:-4.0];
+			context(@"calling consumeDeltaTime: with a positive time", ^{
+				it(@"calls consumeDeltaTime: with a negative time from multiplying by the speed on the subaction", ^{
+					[action consumeDeltaTime:2.0];
+					[verify(subaction) consumeDeltaTime:-4.0];
 				});
 			});
 			
-			context(@"updating with -1.0 seconds", ^{
-				it(@"updates the subaction with 2.0 seconds", ^{
-					[action updateWithDeltaTime:-1.0];
-					[verify(subaction) updateWithDeltaTime:2.0];
+			context(@"calling consumeDeltaTime: with a negative time", ^{
+				it(@"calls consumeDeltaTime: with a positive time from multiplying by the speed on the subaction", ^{
+					[action consumeDeltaTime:-1.0];
+					[verify(subaction) consumeDeltaTime:2.0];
 				});
 			});
 		});

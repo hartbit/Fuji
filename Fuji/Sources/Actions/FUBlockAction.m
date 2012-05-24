@@ -61,7 +61,7 @@ typedef enum {
 
 #pragma mark - FUAction Methods
 
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)consumeDeltaTime:(NSTimeInterval)deltaTime
 {
 	if (deltaTime == 0.0) {
 		return 0.0;

@@ -20,11 +20,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 SPEC_BEGIN(FUAnimator)
 
-describe(@"An animator", ^{
-	it(@"is an action", ^{
-		expect([[FUAnimator class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
-	});
-	
+describe(@"An animator", ^{	
 	context(@"initialized", ^{
 		__block FUAnimator* animator;
 		
@@ -54,30 +50,30 @@ describe(@"An animator", ^{
 				[animator runAction:action2];
 			});
 			
-			context(@"updating with a delta time of 0.0", ^{
-				it(@"does not update any actions", ^{
+			context(@"called consumeDeltaTime: with 0.0 seconds", ^{
+				it(@"does not call consumeDeltaTime: on the actions", ^{
 					[animator updateWithDeltaTime:0.0];
-					[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-					[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+					[[verifyCount(action1, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+					[[verifyCount(action2, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				});
 			});
 			
 			context(@"updated with the second action returning some time left", ^{
 				beforeEach(^{
-					[given([action2 updateWithDeltaTime:1.0]) willReturnDouble:0.5];
+					[given([action2 consumeDeltaTime:1.0]) willReturnDouble:0.5];
 					[animator updateWithDeltaTime:1.0];
 				});
 				
-				it(@"updates both actions", ^{
-					[verify(action1) updateWithDeltaTime:1.0];
-					[verify(action2) updateWithDeltaTime:1.0];
+				it(@"calls consumeDeltaTime: with the same time on both actions", ^{
+					[verify(action1) consumeDeltaTime:1.0];
+					[verify(action2) consumeDeltaTime:1.0];
 				});
 				
 				context(@"updating again", ^{
-					it(@"only updates the first action", ^{
+					it(@"only calls consumeDeltaTime: on the first action", ^{
 						[animator updateWithDeltaTime:2.0];
-						[verify(action1) updateWithDeltaTime:2.0];
-						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+						[verify(action1) consumeDeltaTime:2.0];
+						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 					});
 				});
 				
@@ -105,12 +101,12 @@ describe(@"An animator", ^{
 					});
 					
 					context(@"updating", ^{
-						it(@"updates only the first copied action", ^{
+						it(@"calls consumeDeltaTime: only on the first copied action", ^{
 							[animatorCopy updateWithDeltaTime:2.0];
-							[[verifyCount(action1, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-							[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-							[verify(action1Copy) updateWithDeltaTime:2.0];
-							[[verifyCount(action2Copy, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+							[[verifyCount(action1, times(1)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+							[[verifyCount(action2, times(1)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+							[verify(action1Copy) consumeDeltaTime:2.0];
+							[[verifyCount(action2Copy, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 						});
 					});
 				});

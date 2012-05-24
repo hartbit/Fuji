@@ -19,7 +19,6 @@
 
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly) float factor;
-@property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
 - (void)updateWithFactor:(float)factor;
 

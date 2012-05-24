@@ -85,92 +85,92 @@ describe(@"A sequence action", ^{
 			expect(actionsArray).to.contain(action3);
 		});
 		
-		context(@"updating the sequence with 0.0 seconds", ^{
-			it(@"updates no action", ^{
-				[sequence updateWithDeltaTime:0.0];
-				[[verifyCount(action1, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+		context(@"calling consumeDeltaTime: with 0.0 seconds", ^{
+			it(@"does not call consumeDeltaTime: on the subactions", ^{
+				[sequence consumeDeltaTime:0.0];
+				[[verifyCount(action1, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+				[[verifyCount(action2, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+				[[verifyCount(action3, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 			});
 		});
 		
-		context(@"updated the sequence", ^{
+		context(@"calling consumeDeltaTime: with a positive time", ^{
 			__block NSTimeInterval timeLeft1;
 			
 			beforeEach(^{
-				timeLeft1 = [sequence updateWithDeltaTime:1.0];
+				timeLeft1 = [sequence consumeDeltaTime:1.0];
 			});
 			
-			it(@"returned no time left", ^{
+			it(@"returns no time left", ^{
 				expect(timeLeft1).to.equal(0.0);
 			});
 			
-			it(@"updates only the first action", ^{
-				[verify(action1) updateWithDeltaTime:1.0];
-				[[verifyCount(action2, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-				[[verifyCount(action3, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+			it(@"calls consumeDeltaTime: only on the first action", ^{
+				[verify(action1) consumeDeltaTime:1.0];
+				[[verifyCount(action2, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+				[[verifyCount(action3, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 			});
 
-			context(@"updated the sequence and had the first and second action return time left", ^{
+			context(@"called consumeDeltaTime: with the first and second action returning some time left", ^{
 				__block NSTimeInterval timeLeft2;
 				
 				beforeEach(^{
-					[given([action1 updateWithDeltaTime:2.0]) willReturnDouble:1.5];
-					[given([action2 updateWithDeltaTime:1.5]) willReturnDouble:0.5];
-					timeLeft2 = [sequence updateWithDeltaTime:2.0];
+					[given([action1 consumeDeltaTime:2.0]) willReturnDouble:1.5];
+					[given([action2 consumeDeltaTime:1.5]) willReturnDouble:0.5];
+					timeLeft2 = [sequence consumeDeltaTime:2.0];
 				});
 				
-				it(@"returned 0.0 seconds left", ^{
+				it(@"returns no time left", ^{
 					expect(timeLeft2).to.equal(0.0);
 				});
 				
-				it(@"updates the first and second action", ^{
-					[verify(action1) updateWithDeltaTime:2.0];
-					[verify(action2) updateWithDeltaTime:1.5];
-					[verify(action3) updateWithDeltaTime:0.5];
+				it(@"calls consumeDeltaTime: on the first and second action", ^{
+					[verify(action1) consumeDeltaTime:2.0];
+					[verify(action2) consumeDeltaTime:1.5];
+					[verify(action3) consumeDeltaTime:0.5];
 				});
 				
-				context(@"updated the sequence and had the last action return time left", ^{
+				context(@"called consumeDeltaTime: with the last action returning some time left", ^{
 					__block NSTimeInterval timeLeft3;
 					
 					beforeEach(^{
-						[given([action3 updateWithDeltaTime:1.0]) willReturnDouble:0.7];
-						timeLeft3 = [sequence updateWithDeltaTime:1.0];
+						[given([action3 consumeDeltaTime:1.0]) willReturnDouble:0.7];
+						timeLeft3 = [sequence consumeDeltaTime:1.0];
 					});
 					
-					it(@"returned 0.7 seconds left", ^{
+					it(@"returns the time left from the last action", ^{
 						expect(timeLeft3).to.equal(0.7);
 					});
 					
-					it(@"updates the last action", ^{
-						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[verify(action3) updateWithDeltaTime:1.0];
+					it(@"calls consumeDeltaTime: on the last action", ^{
+						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+						[verify(action3) consumeDeltaTime:1.0];
 					});
 				});
 				
-				context(@"updated the sequence with -5.0 seconds and have all actions return time left", ^{
+				context(@"called consumeDeltaTime: with a negative time and with all actions returning some time left", ^{
 					__block NSTimeInterval timeLeft4;
 					
 					beforeEach(^{
-						[given([action3 updateWithDeltaTime:-5.0]) willReturnDouble:-4.5];
-						[given([action2 updateWithDeltaTime:-4.5]) willReturnDouble:-3.5];
-						[given([action1 updateWithDeltaTime:-3.5]) willReturnDouble:-2.0];
-						timeLeft4 = [sequence updateWithDeltaTime:-5.0];
+						[given([action3 consumeDeltaTime:-5.0]) willReturnDouble:-4.5];
+						[given([action2 consumeDeltaTime:-4.5]) willReturnDouble:-3.5];
+						[given([action1 consumeDeltaTime:-3.5]) willReturnDouble:-2.0];
+						timeLeft4 = [sequence consumeDeltaTime:-5.0];
 					});
 					
-					it(@"returned -2.0 seconds left", ^{
+					it(@"returns the time left from the first action", ^{
 						expect(timeLeft4).to.equal(-2.0);
 					});
 					
-					it(@"updates all actions backwards", ^{
-						[verify(action3) updateWithDeltaTime:-5.0];
-						[verify(action2) updateWithDeltaTime:-4.5];
-						[verify(action1) updateWithDeltaTime:-3.5];
+					it(@"calls consumeDeltaTime: on all actions from last to first", ^{
+						[verify(action3) consumeDeltaTime:-5.0];
+						[verify(action2) consumeDeltaTime:-4.5];
+						[verify(action1) consumeDeltaTime:-3.5];
 					});
 				});
 				
-				context(@"updated a copy of the sequence with 3.0 seconds", ^{
+				context(@"created a copy of the sequence", ^{
 					__block FUSequenceAction* sequenceCopy;
 					__block NSObject<FUAction>* action1Copy;
 					__block NSObject<FUAction>* action2Copy;
@@ -187,7 +187,6 @@ describe(@"A sequence action", ^{
 						[given([action3 copy]) willReturn:action3Copy];
 						
 						sequenceCopy = [sequence copy];
-						[sequenceCopy updateWithDeltaTime:3.0];
 					});
 					
 					it(@"is not nil", ^{
@@ -206,34 +205,27 @@ describe(@"A sequence action", ^{
 						expect(actionsArray).to.contain(action3Copy);
 					});
 					
-					it(@"does not update the original actions", ^{
-						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[[verifyCount(action2, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[[verifyCount(action3, times(1)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-					});
-					
-					it(@"updates the last copied actions", ^{
-						[[verifyCount(action1Copy, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[[verifyCount(action2Copy, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-						[verify(action3Copy) updateWithDeltaTime:3.0];
+					context(@"called consumeDeltaTime: on the copied sequence", ^{
+						beforeEach(^{
+							[sequenceCopy consumeDeltaTime:3.0];
+						});
+						
+						it(@"does not call consumeDeltaTime: on the original actions", ^{
+							[[verifyCount(action1, times(2)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+							[[verifyCount(action2, times(1)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+							[[verifyCount(action3, times(1)) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+						});
+						
+						it(@"calls consumeDeltaTime: on the last copied actions", ^{
+							[[verifyCount(action1Copy, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+							[[verifyCount(action2Copy, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
+							[verify(action3Copy) consumeDeltaTime:3.0];
+						});
 					});
 				});
 			});
 		});
 		
-		context(@"updating the sequence with an action added to the actions array", ^{
-			it(@"does not update the extra action", ^{
-				id<FUAction> extraAction = mockProtocol(@protocol(FUAction));
-				[actions addObject:extraAction];
-				
-				[given([action1 updateWithDeltaTime:10.0]) willReturnDouble:10.0];
-				[given([action2 updateWithDeltaTime:10.0]) willReturnDouble:10.0];
-				[given([action3 updateWithDeltaTime:10.0]) willReturnDouble:10.0];
-				[sequence updateWithDeltaTime:10.0];
-
-				[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
-			});
-		});
 		context(@"added an action to the actions array", ^{
 			__block NSObject<FUAction>* extraAction;
 			
@@ -246,10 +238,10 @@ describe(@"A sequence action", ^{
 				expect([sequence actions]).toNot.contain(extraAction);
 			});
 			
-			context(@"updating the sequence", ^{
-				it(@"does not update the extra action", ^{
-					[sequence updateWithDeltaTime:10.0];
-					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+			context(@"calling consumeDeltaTime: on the sequence", ^{
+				it(@"does not call consumeDeltaTime: on the extra action", ^{
+					[sequence consumeDeltaTime:10.0];
+					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				});
 			});
 		});

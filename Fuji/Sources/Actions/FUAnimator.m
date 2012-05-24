@@ -10,6 +10,7 @@
 //
 
 #import "FUAnimator.h"
+#import "FUAction.h"
 #import "FUSupport.h"
 
 
@@ -55,18 +56,16 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	[[self actions] addObject:action];
 }
 
-#pragma mark - FUAction Methods
-
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	if (deltaTime == 0.0) {
-		return 0.0;
+		return;
 	}
 	
 	__block NSMutableIndexSet* completeIndices;
 	
 	[[self actions] enumerateObjectsUsingBlock:^(id<FUAction> action, NSUInteger index, BOOL* stop) {
-		NSTimeInterval timeLeft = [action updateWithDeltaTime:deltaTime];
+		NSTimeInterval timeLeft = [action consumeDeltaTime:deltaTime];
 		
 		if (timeLeft > 0.0) {
 			if (completeIndices == nil) {
@@ -80,8 +79,6 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	if (completeIndices != nil) {
 		[[self actions] removeObjectsAtIndexes:completeIndices];
 	}
-	
-	return 0.0;
 }
 
 @end

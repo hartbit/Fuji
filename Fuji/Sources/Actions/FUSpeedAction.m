@@ -54,7 +54,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 #pragma mark - FUAction Methods
 
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (NSTimeInterval)consumeDeltaTime:(NSTimeInterval)deltaTime
 {
 	float speed = [self speed];
 	
@@ -62,7 +62,7 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 		return 0.0;
 	}
 	
-	return [[self action] updateWithDeltaTime:deltaTime * [self speed]] / [self speed];
+	return [[self action] consumeDeltaTime:deltaTime * [self speed]] / [self speed];
 }
 
 @end

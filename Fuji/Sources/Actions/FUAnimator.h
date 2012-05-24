@@ -10,12 +10,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUAction.h"
 
 
-@interface FUAnimator : NSObject<FUAction>
+@protocol FUAction;
+
+@interface FUAnimator : NSObject
 
 - (void)runAction:(id<FUAction>)action;
-- (NSTimeInterval)updateWithDeltaTime:(NSTimeInterval)deltaTime;
+- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime;
 
 @end
