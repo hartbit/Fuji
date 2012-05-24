@@ -10,10 +10,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FUFiniteAction.h"
+#import "FUAction.h"
 
 
-@interface FUGroupAction : FUFiniteAction
+@interface FUGroupAction : NSObject<FUAction>
+
+@property (nonatomic, copy, readonly) NSArray* actions;
 
 - (id)initWithActions:(NSArray*)actions;
 

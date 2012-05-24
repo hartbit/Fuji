@@ -51,7 +51,7 @@ describe(@"A group action", ^{
 		});
 	});
 	
-	context(@"initilizing with three actions", ^{
+	context(@"initializing with three actions", ^{
 		__block NSObject<FUAction>* action1;
 		__block NSObject<FUAction>* action2;
 		__block NSObject<FUAction>* action3;
@@ -74,6 +74,14 @@ describe(@"A group action", ^{
 		
 		it(@"is not nil", ^{
 			expect(group).toNot.beNil();
+		});
+		
+		it(@"contains all three actions", ^{
+			NSArray* actionsArray = [group actions];
+			expect(actionsArray).to.haveCountOf(3);
+			expect(actionsArray).to.contain(action1);
+			expect(actionsArray).to.contain(action2);
+			expect(actionsArray).to.contain(action3);
 		});
 		
 		context(@"updating the group with 0.0 seconds", ^{
@@ -164,18 +172,18 @@ describe(@"A group action", ^{
 				
 				context(@"updated a copy of the group", ^{
 					__block FUGroupAction* groupCopy;
-					__block id<FUAction> action1Copy;
-					__block id<FUAction> action2Copy;
-					__block id<FUAction> action3Copy;
+					__block NSObject<FUAction>* action1Copy;
+					__block NSObject<FUAction>* action2Copy;
+					__block NSObject<FUAction>* action3Copy;
 					
 					beforeEach(^{
-						action1Copy = mock([FUFiniteAction class]);
+						action1Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action1 copy]) willReturn:action1Copy];
 						
-						action2Copy = mock([FUFiniteAction class]);
+						action2Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action2 copy]) willReturn:action2Copy];
 						
-						action3Copy = mock([FUFiniteAction class]);
+						action3Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action3 copy]) willReturn:action3Copy];
 						
 						groupCopy = [group copy];
@@ -190,6 +198,14 @@ describe(@"A group action", ^{
 						expect(groupCopy).toNot.beIdenticalTo(group);
 					});
 					
+					it(@"contains all three copied actions", ^{
+						NSArray* actionsArray = [groupCopy actions];
+						expect(actionsArray).to.haveCountOf(3);
+						expect(actionsArray).to.contain(action1Copy);
+						expect(actionsArray).to.contain(action2Copy);
+						expect(actionsArray).to.contain(action3Copy);
+					});
+					
 					it(@"does not update the original actions", ^{
 						[[verifyCount(action1, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
 						[[verifyCount(action2, times(2)) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
@@ -201,6 +217,26 @@ describe(@"A group action", ^{
 						[verify(action2Copy) updateWithDeltaTime:4.0];
 						[verify(action3Copy) updateWithDeltaTime:4.0];
 					});
+				});
+			});
+		});
+		
+		context(@"added an action to the actions array", ^{
+			__block NSObject<FUAction>* extraAction;
+			
+			beforeEach(^{
+				extraAction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
+				[actions addObject:extraAction];
+			});
+			
+			it(@"does not contain the extra action", ^{
+				expect([group actions]).toNot.contain(extraAction);
+			});
+			
+			context(@"updating the group", ^{
+				it(@"does not update the extra action", ^{
+					[group updateWithDeltaTime:10.0];
+					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
 				});
 			});
 		});

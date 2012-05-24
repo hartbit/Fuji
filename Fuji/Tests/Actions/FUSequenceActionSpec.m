@@ -77,6 +77,14 @@ describe(@"A sequence action", ^{
 			expect(sequence).toNot.beNil();
 		});
 		
+		it(@"contains all three actions", ^{
+			NSArray* actionsArray = [sequence actions];
+			expect(actionsArray).to.haveCountOf(3);
+			expect(actionsArray).to.contain(action1);
+			expect(actionsArray).to.contain(action2);
+			expect(actionsArray).to.contain(action3);
+		});
+		
 		context(@"updating the sequence with 0.0 seconds", ^{
 			it(@"updates no action", ^{
 				[sequence updateWithDeltaTime:0.0];
@@ -164,18 +172,18 @@ describe(@"A sequence action", ^{
 				
 				context(@"updated a copy of the sequence with 3.0 seconds", ^{
 					__block FUSequenceAction* sequenceCopy;
-					__block id<FUAction> action1Copy;
-					__block id<FUAction> action2Copy;
-					__block id<FUAction> action3Copy;
+					__block NSObject<FUAction>* action1Copy;
+					__block NSObject<FUAction>* action2Copy;
+					__block NSObject<FUAction>* action3Copy;
 					
 					beforeEach(^{
-						action1Copy = mockProtocol(@protocol(FUAction));
+						action1Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action1 copy]) willReturn:action1Copy];
 						
-						action2Copy = mockProtocol(@protocol(FUAction));
+						action2Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action2 copy]) willReturn:action2Copy];
 						
-						action3Copy = mockProtocol(@protocol(FUAction));
+						action3Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action3 copy]) willReturn:action3Copy];
 						
 						sequenceCopy = [sequence copy];
@@ -188,6 +196,14 @@ describe(@"A sequence action", ^{
 					
 					it(@"is not the same instance", ^{
 						expect(sequenceCopy).toNot.beIdenticalTo(sequence);
+					});
+					
+					it(@"contains all three copied actions", ^{
+						NSArray* actionsArray = [sequenceCopy actions];
+						expect(actionsArray).to.haveCountOf(3);
+						expect(actionsArray).to.contain(action1Copy);
+						expect(actionsArray).to.contain(action2Copy);
+						expect(actionsArray).to.contain(action3Copy);
 					});
 					
 					it(@"does not update the original actions", ^{
@@ -216,6 +232,25 @@ describe(@"A sequence action", ^{
 				[sequence updateWithDeltaTime:10.0];
 
 				[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+			});
+		});
+		context(@"added an action to the actions array", ^{
+			__block NSObject<FUAction>* extraAction;
+			
+			beforeEach(^{
+				extraAction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
+				[actions addObject:extraAction];
+			});
+			
+			it(@"does not contain the extra action", ^{
+				expect([sequence actions]).toNot.contain(extraAction);
+			});
+			
+			context(@"updating the sequence", ^{
+				it(@"does not update the extra action", ^{
+					[sequence updateWithDeltaTime:10.0];
+					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] updateWithDeltaTime:0.0];
+				});
 			});
 		});
 	});

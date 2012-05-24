@@ -9,7 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUFiniteAction.h"
+#import "FUAction.h"
 
 
 @interface FUBlockAction : NSObject<FUAction>

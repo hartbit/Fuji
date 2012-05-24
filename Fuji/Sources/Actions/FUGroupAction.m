@@ -19,7 +19,7 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 @interface FUGroupAction ()
 
-@property (nonatomic, strong) NSArray* actions;
+@property (nonatomic, copy) NSArray* actions;
 
 @end
 
@@ -34,12 +34,12 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 {
 	FUCheck(actions != nil, FUArrayNilMessage);
 	
-	for (FUFiniteAction* action in actions) {
+	for (id action in actions) {
 		FUCheck([action conformsToProtocol:@protocol(FUAction)], FUActionProtocolMessage, action);
 	}
 	
 	if ((self = [super init])) {
-		[self setActions:[actions copy]];
+		[self setActions:actions];
 	}
 	
 	return self;
