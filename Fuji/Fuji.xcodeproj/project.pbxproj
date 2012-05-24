@@ -482,8 +482,8 @@
 				63E58DA9156BBEB900E148BD /* FUGroupActionSpec.m */,
 				63C2098C1552A49700B32A89 /* FUSequenceActionSpec.m */,
 				63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */,
-				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
 				634E2A9615501B820012C4FB /* FUTimedActionSpec.m */,
+				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
 				63C2097815526CB700B32A89 /* FUDelayActionSpec.m */,
 				6310288D155D465500453E4D /* FUTimingActionSpec.m */,
 				63BF89D0155FD6D900DA3229 /* FUTimingFunctionsSpec.m */,
@@ -501,11 +501,11 @@
 				63E58DAC156BC6A900E148BD /* FUGroupAction.h */,
 				63C2098F1552A4FC00B32A89 /* FUSequenceAction.h */,
 				63CA5177155BF9570017E335 /* FUSpeedAction.h */,
-				6384354E155189D300313BB2 /* FUBlockAction.h */,
 				634E2A9815501BC50012C4FB /* FUTimedAction.h */,
+				6384354E155189D300313BB2 /* FUBlockAction.h */,
+				63C2097B15526D6700B32A89 /* FUDelayAction.h */,
 				63102890155D46CF00453E4D /* FUTimingAction.h */,
 				63BF89D3155FD73400DA3229 /* FUTimingFunctions.h */,
-				63C2097B15526D6700B32A89 /* FUDelayAction.h */,
 			);
 			name = "Public Headers";
 			sourceTree = "<group>";
@@ -517,11 +517,11 @@
 				63E58DAD156BC6A900E148BD /* FUGroupAction.m */,
 				63C209901552A4FC00B32A89 /* FUSequenceAction.m */,
 				63CA5178155BF9570017E335 /* FUSpeedAction.m */,
-				6384354F155189D300313BB2 /* FUBlockAction.m */,
 				634E2A9915501BC50012C4FB /* FUTimedAction.m */,
+				6384354F155189D300313BB2 /* FUBlockAction.m */,
+				63C2097C15526D6700B32A89 /* FUDelayAction.m */,
 				63102891155D46CF00453E4D /* FUTimingAction.m */,
 				63BF89D4155FD73400DA3229 /* FUTimingFunctions.m */,
-				63C2097C15526D6700B32A89 /* FUDelayAction.m */,
 			);
 			name = "Implementation Files";
 			sourceTree = "<group>";

@@ -34,11 +34,11 @@
 #import	"FUGroupAction.h"
 #import "FUSequenceAction.h"
 #import "FUSpeedAction.h"
-#import "FUBlockAction.h"
 #import "FUTimedAction.h"
+#import "FUBlockAction.h"
+#import "FUDelayAction.h"
 #import "FUTimingAction.h"
 #import "FUTimingFunctions.h"
-#import "FUDelayAction.h"
 
 // Assets
 
