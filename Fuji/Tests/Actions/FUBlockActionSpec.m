@@ -17,6 +17,53 @@
 static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 
+#define FUTestBoolSetsValue(prop, value) \
+	it(@"is not nil", ^{ \
+		expect(action).toNot.beNil(); \
+	}); \
+	\
+	context(@"updated with a positive time", ^{ \
+		beforeEach(^{ \
+			[action updateWithDeltaTime:1.0]; \
+		}); \
+		\
+		it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
+			[verify(object) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
+		}); \
+		\
+		context(@"updating with a negative time", ^{ \
+			it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
+				[action updateWithDeltaTime:-1.0]; \
+				[verifyCount(object, times(2)) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
+			}); \
+		}); \
+	});
+
+#define FUTestBoolTogglesValue(prop) \
+	it(@"is not nil", ^{ \
+		expect(action).toNot.beNil(); \
+	}); \
+	\
+	context(@"updated with a positive time", ^{ \
+		beforeEach(^{ \
+			[given([object valueForKey:prop]) willReturn:[NSNumber numberWithBool:NO]]; \
+			[action updateWithDeltaTime:1.0]; \
+		}); \
+		\
+		it([NSString stringWithFormat:@"sets %@ to YES", prop], ^{ \
+			[verify(object) setValue:[NSNumber numberWithBool:YES] forKey:prop]; \
+		}); \
+		\
+		context(@"updating with a negative time", ^{ \
+			it([NSString stringWithFormat:@"sets %@ to NO", prop], ^{ \
+				[given([object valueForKey:prop]) willReturn:[NSNumber numberWithBool:YES]]; \
+				[action updateWithDeltaTime:-1.0]; \
+				[verify(object) setValue:[NSNumber numberWithBool:NO] forKey:prop]; \
+			}); \
+		}); \
+	});
+
+
 SPEC_BEGIN(FUBlockAction)
 
 describe(@"A block action", ^{
@@ -160,6 +207,78 @@ describe(@"A block action", ^{
 				});
 			});
 		});
+	});
+	
+	context(@"initialized with the FUSwitchOn function", ^{
+		__block FUBehavior* object;
+		__block FUBlockAction* action;
+		
+		beforeEach(^{
+			object = mock([FUBehavior class]);
+			action = FUSwitchOn(object, @"enabled");
+		});
+		
+		FUTestBoolSetsValue(@"enabled", YES);
+	});
+	
+	context(@"initialized with the FUSwitchOff function", ^{
+		__block FUBehavior* object;
+		__block FUBlockAction* action;
+		
+		beforeEach(^{
+			object = mock([FUBehavior class]);
+			action = FUSwitchOff(object, @"enabled");
+		});
+		
+		FUTestBoolSetsValue(@"enabled", NO);
+	});
+	
+	context(@"initialized with the FUToggle function", ^{
+		__block FUBehavior* object;
+		__block FUBlockAction* action;
+		
+		beforeEach(^{
+			object = mock([FUBehavior class]);
+			action = FUToggle(object, @"enabled");
+		});
+		
+		FUTestBoolTogglesValue(@"enabled");
+	});
+	
+	context(@"initialized with the FUEnable function", ^{
+		__block FUBehavior* object;
+		__block FUBlockAction* action;
+		
+		beforeEach(^{
+			object = mock([FUBehavior class]);
+			action = FUEnable(object);
+		});
+		
+		FUTestBoolSetsValue(@"enabled", YES);
+	});
+	
+	context(@"initialized with the FUDisable function", ^{
+		__block FUBehavior* object;
+		__block FUBlockAction* action;
+		
+		beforeEach(^{
+			object = mock([FUBehavior class]);
+			action = FUDisable(object);
+		});
+		
+		FUTestBoolSetsValue(@"enabled", NO);
+	});
+	
+	context(@"initialized with the FUToggleEnabled function", ^{
+		__block FUBehavior* object;
+		__block FUBlockAction* action;
+		
+		beforeEach(^{
+			object = mock([FUBehavior class]);
+			action = FUToggleEnabled(object);
+		});
+		
+		FUTestBoolTogglesValue(@"enabled");
 	});
 });
 

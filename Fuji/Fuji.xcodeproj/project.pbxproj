@@ -59,9 +59,6 @@
 		634E2A8D155018A70012C4FB /* FUAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8B155018A70012C4FB /* FUAnimator.m */; };
 		634E2A90155018BE0012C4FB /* FUAnimatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */; };
 		634E2A9A15501BC50012C4FB /* FUFiniteAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 634E2A9815501BC50012C4FB /* FUFiniteAction.h */; };
-		636579ED1560FCB500B8E58D /* FUBooleanAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 636579EB1560FCB500B8E58D /* FUBooleanAction.h */; };
-		636579EE1560FCB500B8E58D /* FUBooleanAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 636579EC1560FCB500B8E58D /* FUBooleanAction.m */; };
-		636579EF1560FCB500B8E58D /* FUBooleanAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 636579EC1560FCB500B8E58D /* FUBooleanAction.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63822774151A29960009D036 /* FUGraphicsSettingsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */; };
@@ -190,9 +187,6 @@
 		634E2A9615501B820012C4FB /* FUFiniteActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUFiniteActionSpec.m; sourceTree = "<group>"; };
 		634E2A9815501BC50012C4FB /* FUFiniteAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUFiniteAction.h; sourceTree = "<group>"; };
 		634E2A9915501BC50012C4FB /* FUFiniteAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUFiniteAction.m; sourceTree = "<group>"; };
-		636579E81560FBBA00B8E58D /* FUBooleanActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBooleanActionSpec.m; sourceTree = "<group>"; };
-		636579EB1560FCB500B8E58D /* FUBooleanAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUBooleanAction.h; sourceTree = "<group>"; };
-		636579EC1560FCB500B8E58D /* FUBooleanAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUBooleanAction.m; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		637F980E153D599D007E7053 /* FUAssetStore-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUAssetStore-Internal.h"; sourceTree = "<group>"; };
@@ -487,7 +481,6 @@
 				63C2098C1552A49700B32A89 /* FUSequenceActionSpec.m */,
 				63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */,
 				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
-				636579E81560FBBA00B8E58D /* FUBooleanActionSpec.m */,
 				6310288D155D465500453E4D /* FUTimingActionSpec.m */,
 				63BF89D0155FD6D900DA3229 /* FUTimingFunctionsSpec.m */,
 				63C2097815526CB700B32A89 /* FUDelayActionSpec.m */,
@@ -507,7 +500,6 @@
 				63C2098F1552A4FC00B32A89 /* FUSequenceAction.h */,
 				63CA5177155BF9570017E335 /* FUSpeedAction.h */,
 				6384354E155189D300313BB2 /* FUBlockAction.h */,
-				636579EB1560FCB500B8E58D /* FUBooleanAction.h */,
 				63102890155D46CF00453E4D /* FUTimingAction.h */,
 				63BF89D3155FD73400DA3229 /* FUTimingFunctions.h */,
 				63C2097B15526D6700B32A89 /* FUDelayAction.h */,
@@ -524,7 +516,6 @@
 				63C209901552A4FC00B32A89 /* FUSequenceAction.m */,
 				63CA5178155BF9570017E335 /* FUSpeedAction.m */,
 				6384354F155189D300313BB2 /* FUBlockAction.m */,
-				636579EC1560FCB500B8E58D /* FUBooleanAction.m */,
 				63102891155D46CF00453E4D /* FUTimingAction.m */,
 				63BF89D4155FD73400DA3229 /* FUTimingFunctions.m */,
 				63C2097C15526D6700B32A89 /* FUDelayAction.m */,
@@ -710,7 +701,6 @@
 				63CA5179155BF9570017E335 /* FUSpeedAction.h in Headers */,
 				63102892155D46CF00453E4D /* FUTimingAction.h in Headers */,
 				63BF89D5155FD73400DA3229 /* FUTimingFunctions.h in Headers */,
-				636579ED1560FCB500B8E58D /* FUBooleanAction.h in Headers */,
 				63E58DAE156BC6A900E148BD /* FUGroupAction.h in Headers */,
 				634B7DA2156D1688009A5E42 /* FUTestAction.h in Headers */,
 			);
@@ -862,7 +852,6 @@
 				63CA517A155BF9570017E335 /* FUSpeedAction.m in Sources */,
 				63102893155D46CF00453E4D /* FUTimingAction.m in Sources */,
 				63BF89D6155FD73400DA3229 /* FUTimingFunctions.m in Sources */,
-				636579EE1560FCB500B8E58D /* FUBooleanAction.m in Sources */,
 				63E58DAF156BC6A900E148BD /* FUGroupAction.m in Sources */,
 				6306BA65156D525300DD83EF /* FUFiniteAction.m in Sources */,
 			);
@@ -922,7 +911,6 @@
 				63CA517B155BF9570017E335 /* FUSpeedAction.m in Sources */,
 				63102894155D46CF00453E4D /* FUTimingAction.m in Sources */,
 				63BF89D7155FD73400DA3229 /* FUTimingFunctions.m in Sources */,
-				636579EF1560FCB500B8E58D /* FUBooleanAction.m in Sources */,
 				63E58DB0156BC6A900E148BD /* FUGroupAction.m in Sources */,
 				634B7DA4156D17D2009A5E42 /* FUTestAction.m in Sources */,
 				634B7DA5156D2755009A5E42 /* FUSequenceActionSpec.m in Sources */,
