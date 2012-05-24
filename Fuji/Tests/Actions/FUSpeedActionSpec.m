@@ -34,16 +34,20 @@ describe(@"A speed action", ^{
 	});
 	
 	context(@"initialized with an action and a speed of 1.0f", ^{
-		__block id<FUAction> subaction;
+		__block NSObject<FUAction>* subaction;
 		__block FUSpeedAction* action;
 		
 		beforeEach(^{
-			subaction = mockProtocol(@protocol(FUAction));
+			subaction = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			action = [[FUSpeedAction alloc] initWithAction:subaction speed:1.0];
 		});
 		
 		it(@"is not nil", ^{
 			expect(action).toNot.beNil();
+		});
+		
+		it(@"has the action", ^{
+			expect([action action]).to.beIdenticalTo(subaction);
 		});
 		
 		it(@"has a speed of 1.0", ^{
@@ -112,11 +116,11 @@ describe(@"A speed action", ^{
 			});
 			
 			context(@"created a copy", ^{
-				__block id<FUAction> subactionCopy;
+				__block NSObject<FUAction>* subactionCopy;
 				__block FUSpeedAction* actionCopy;
 				
 				beforeEach(^{
-					subactionCopy = mockProtocol(@protocol(FUAction));
+					subactionCopy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 					[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
 					
 					actionCopy = [action copy];
@@ -134,7 +138,9 @@ describe(@"A speed action", ^{
 					expect([actionCopy speed]).to.equal(1.5);
 				});
 				
-#warning ADD A PROPERTY WITH THE SUBACTION
+				it(@"has the copied action", ^{
+					expect([actionCopy action]).to.beIdenticalTo(subactionCopy);
+				});
 				
 				context(@"calling consumeDeltaTime: on the copied action", ^{
 					it(@"calls consumeDeltaTime: on the copied subaction", ^{

@@ -15,9 +15,9 @@
 
 @interface FUSequenceAction : NSObject<FUAction>
 
-@property (nonatomic, copy, readonly) NSArray* actions;
-
 - (id)initWithActions:(NSArray*)actions;
+
+@property (nonatomic, copy, readonly) NSArray* actions;
 
 @end
 

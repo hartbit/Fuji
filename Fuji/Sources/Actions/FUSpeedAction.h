@@ -15,9 +15,10 @@
 
 @interface FUSpeedAction : NSObject<FUAction>
 
-@property (nonatomic) float speed;
-
 - (id)initWithAction:(id<FUAction>)action speed:(float)speed;
+
+@property (nonatomic, strong, readonly) id<FUAction> action;
+@property (nonatomic) float speed;
 
 @end
 
