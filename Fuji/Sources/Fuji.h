@@ -37,6 +37,7 @@
 #import "FUTimedAction.h"
 #import "FUBlockAction.h"
 #import "FUDelayAction.h"
+#import "FUTweenAction.h"
 #import "FUTimingAction.h"
 #import "FUTimingFunctions.h"
 
