@@ -22,6 +22,5 @@
 @property (nonatomic, copy, readonly) NSString* property;
 @property (nonatomic, strong, readonly) NSNumber* fromValue;
 @property (nonatomic, strong, readonly) NSNumber* toValue;
-@property (nonatomic, strong, readonly) NSNumber* byValue;
 
 @end
