@@ -19,7 +19,7 @@ static NSString* const FUDelayNegativeMessage = @"Expected 'delay=%g' to be posi
 
 SPEC_BEGIN(FUDelayAction)
 
-describe(@"A dekay action", ^{
+describe(@"A delay action", ^{
 	it(@"is a timed action", ^{
 		expect([FUDelayAction class]).to.beSubclassOf([FUTimedAction class]);
 	});

@@ -18,7 +18,6 @@
 - (id)initWithDuration:(NSTimeInterval)duration;
 
 @property (nonatomic, readonly) NSTimeInterval duration;
-@property (nonatomic, readonly) NSTimeInterval time;
 
 - (void)updateWithFactor:(float)factor;
 

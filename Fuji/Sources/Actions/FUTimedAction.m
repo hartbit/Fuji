@@ -74,7 +74,7 @@ typedef enum {
 	NSTimeInterval frameTime = [self time] + deltaTime;
 	NSTimeInterval newTime = FUClampDouble(frameTime, 0.0, duration);
 	[self setTime:newTime];
-	[self updateWithDeltaTime:deltaTime];
+	[self updateStateWithDeltaTime:deltaTime];
 
 	if (deltaTime > 0) {
 		return MAX(frameTime - duration, 0.0);
@@ -91,7 +91,7 @@ typedef enum {
 
 #pragma mark - Private Methods
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
+- (void)updateStateWithDeltaTime:(NSTimeInterval)deltaTime
 {
 	NSTimeInterval duration = [self duration];
 	NSTimeInterval time = [self time];
@@ -110,18 +110,13 @@ typedef enum {
 		return;
 	}
 	
-	float factor;
-	
-	if (newState == FUTimedStateStart) {
-		factor = 0.0f;
-	} else if (newState == FUTimedStateEnd) {
-		factor = 1.0f;
-	} else {
-		factor = time / duration;
-	}
-	
 	[self setState:newState];
-	[self updateWithFactor:factor];
+	
+	switch (newState) {
+		case FUTimedStateStart: [self updateWithFactor:0.0f]; break;
+		case FUTimedStateEnd: [self updateWithFactor:1.0f]; break;
+		default: [self updateWithFactor:time / duration]; break;
+	}
 }
 
 @end

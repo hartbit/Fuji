@@ -53,10 +53,6 @@ describe(@"A timed action", ^{
 			expect([action duration]).to.equal(0.0);
 		});
 		
-		it(@"has a time of 0.0", ^{
-			expect([action time]).to.equal(0.0);
-		});
-		
 		context(@"called consumeDeltaTime: with a 0.0 time", ^{
 			beforeEach(^{
 				timeLeft = [action consumeDeltaTime:0.0];
@@ -68,10 +64,6 @@ describe(@"A timed action", ^{
 			
 			it(@"returns all/no time", ^{
 				expect(timeLeft).to.equal(0.0);
-			});
-			
-			it(@"has a time of 0.0", ^{
-				expect([action time]).to.equal(0.0);
 			});
 		});
 		
@@ -89,10 +81,6 @@ describe(@"A timed action", ^{
 				expect(timeLeft).to.equal(1.0);
 			});
 			
-			it(@"has a time of 0.0", ^{
-				expect([action time]).to.equal(0.0);
-			});
-			
 			context(@"called consumeDeltaTime: again with a positive time", ^{				
 				beforeEach(^{
 					timeLeft = [action consumeDeltaTime:2.0];
@@ -104,10 +92,6 @@ describe(@"A timed action", ^{
 				
 				it(@"returns all of the time", ^{
 					expect(timeLeft).to.equal(2.0);
-				});
-				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.equal(0.0);
 				});
 			});
 			
@@ -123,10 +107,6 @@ describe(@"A timed action", ^{
 				
 				it(@"returns all of the time", ^{
 					expect(timeLeft).to.equal(-1.0);
-				});
-				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.equal(0.0);
 				});
 			});
 		});
@@ -145,10 +125,6 @@ describe(@"A timed action", ^{
 				expect(timeLeft).to.equal(-1.0);
 			});
 			
-			it(@"has a time of 0.0", ^{
-				expect([action time]).to.equal(0.0);
-			});
-			
 			context(@"called consumeDeltaTime: again with a negative time", ^{
 				beforeEach(^{
 					timeLeft = [action consumeDeltaTime:-2.0];
@@ -160,10 +136,6 @@ describe(@"A timed action", ^{
 				
 				it(@"returns all of the time", ^{
 					expect(timeLeft).to.equal(-2.0);
-				});
-				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.equal(0.0);
 				});
 			});
 			
@@ -179,10 +151,6 @@ describe(@"A timed action", ^{
 				
 				it(@"returns all of the time", ^{
 					expect(timeLeft).to.equal(1.0);
-				});
-				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.equal(0.0);
 				});
 			});
 		});
@@ -203,10 +171,6 @@ describe(@"A timed action", ^{
 			expect([action duration]).to.equal(2.0);
 		});
 		
-		it(@"has a time of 0.0", ^{
-			expect([action time]).to.equal(0.0);
-		});
-		
 		context(@"called consumeDeltaTime: with 1.0 seconds", ^{
 			beforeEach(^{
 				timeLeft = [action consumeDeltaTime:1.0];
@@ -219,10 +183,6 @@ describe(@"A timed action", ^{
 			
 			it(@"returns no time left", ^{
 				expect(timeLeft).to.equal(0.0);
-			});
-			
-			it(@"has a time of 1.0", ^{
-				expect([action time]).to.beCloseTo(1.0);
 			});
 			
 			context(@"called consumeDeltaTime: with 1.5 seconds", ^{
@@ -239,10 +199,6 @@ describe(@"A timed action", ^{
 					expect(timeLeft).to.beCloseTo(0.5);
 				});
 				
-				it(@"has a time of 2.0", ^{
-					expect([action time]).to.beCloseTo(2.0);
-				});
-				
 				context(@"called consumeDeltaTime: with -1.0 seconds", ^{
 					beforeEach(^{
 						timeLeft = [action consumeDeltaTime:-1.0];
@@ -255,10 +211,6 @@ describe(@"A timed action", ^{
 					
 					it(@"returns no time left", ^{
 						expect(timeLeft).to.equal(0.0);
-					});
-					
-					it(@"has a time of 1.0", ^{
-						expect([action time]).to.beCloseTo(1.0);
 					});
 				});
 
@@ -279,10 +231,6 @@ describe(@"A timed action", ^{
 					
 					it(@"has a duration of 2.0", ^{
 						expect([actionCopy duration]).to.equal(2.0);
-					});
-					
-					it(@"has a time of 2.0", ^{
-						expect([action time]).to.beCloseTo(2.0);
 					});
 					
 					context(@"called consumeDeltaTime: on the copy", ^{
@@ -315,10 +263,6 @@ describe(@"A timed action", ^{
 					expect(timeLeft).to.beCloseTo(-0.5);
 				});
 				
-				it(@"has a time of 0.0", ^{
-					expect([action time]).to.beCloseTo(0.0);
-				});
-				
 				context(@"called consumeDeltaTime: with 1.0 seconds", ^{
 					beforeEach(^{
 						timeLeft = [action consumeDeltaTime:1.0];
@@ -331,10 +275,6 @@ describe(@"A timed action", ^{
 					
 					it(@"returns no time left", ^{
 						expect(timeLeft).to.equal(0.0);
-					});
-					
-					it(@"has a time of 1.0", ^{
-						expect([action time]).to.beCloseTo(1.0);
 					});
 				});
 			});
