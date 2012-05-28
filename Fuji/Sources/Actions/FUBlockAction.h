@@ -24,36 +24,36 @@ static OBJC_INLINE FUBlockAction* FUBlock(void (^block)())
 	return [[FUBlockAction alloc] initWithBlock:block];
 }
 
-static OBJC_INLINE FUBlockAction* FUToggle(id object, NSString* property)
+static OBJC_INLINE FUBlockAction* FUToggle(id target, NSString* property)
 {
 	return FUBlock(^{
-		NSNumber* oldValue = [object valueForKey:property];
+		NSNumber* oldValue = [target valueForKey:property];
 		NSNumber* newValue = [NSNumber numberWithBool:![oldValue boolValue]];
-		[object setValue:newValue forKey:property];
+		[target setValue:newValue forKey:property];
 	});
 }
 
-static OBJC_INLINE FUBlockAction* FUSwitchOn(id object, NSString* property)
+static OBJC_INLINE FUBlockAction* FUSwitchOn(id target, NSString* property)
 {
-	return FUBlock(^{ [object setValue:[NSNumber numberWithBool:YES] forKey:property]; });
+	return FUBlock(^{ [target setValue:[NSNumber numberWithBool:YES] forKey:property]; });
 }
 
-static OBJC_INLINE FUBlockAction* FUSwitchOff(id object, NSString* property)
+static OBJC_INLINE FUBlockAction* FUSwitchOff(id target, NSString* property)
 {
-	return FUBlock(^{ [object setValue:[NSNumber numberWithBool:NO] forKey:property]; });
+	return FUBlock(^{ [target setValue:[NSNumber numberWithBool:NO] forKey:property]; });
 }
 
-static OBJC_INLINE FUBlockAction* FUToggleEnabled(id object)
+static OBJC_INLINE FUBlockAction* FUToggleEnabled(id target)
 {
-	return FUToggle(object, @"enabled");
+	return FUToggle(target, @"enabled");
 }
 
-static OBJC_INLINE FUBlockAction* FUEnable(id object)
+static OBJC_INLINE FUBlockAction* FUEnable(id target)
 {
-	return FUSwitchOn(object, @"enabled");
+	return FUSwitchOn(target, @"enabled");
 }
 
-static OBJC_INLINE FUBlockAction* FUDisable(id object)
+static OBJC_INLINE FUBlockAction* FUDisable(id target)
 {
-	return FUSwitchOff(object, @"enabled");
+	return FUSwitchOff(target, @"enabled");
 }
