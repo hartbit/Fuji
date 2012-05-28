@@ -14,11 +14,11 @@
 
 @interface FUTweenAction : FUTimedAction
 
-- (id)initWithObject:(id)object property:(NSString*)property toValue:(NSNumber*)toValue;
-- (id)initWithObject:(id)object property:(NSString*)property fromValue:(NSNumber*)fromValue toValue:(NSNumber*)toValue;
-- (id)initWithObject:(id)object property:(NSString*)property byValue:(NSNumber*)byValue;
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration toValue:(NSNumber*)toValue;
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration fromValue:(NSNumber*)fromValue toValue:(NSNumber*)toValue;
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration byValue:(NSNumber*)byValue;
 
-@property (nonatomic, strong, readonly) id object;
+@property (nonatomic, strong, readonly) id target;
 @property (nonatomic, copy, readonly) NSString* property;
 @property (nonatomic, strong, readonly) NSNumber* fromValue;
 @property (nonatomic, strong, readonly) NSNumber* toValue;

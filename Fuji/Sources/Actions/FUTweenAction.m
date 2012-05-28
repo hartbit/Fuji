@@ -12,7 +12,7 @@
 #import "FUTweenAction.h"
 
 
-static NSString* const FUObjectNilMessage = @"Expected object to not be nil";
+static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
 static NSString* const FUFromValueNilMessage = @"Expected fromValue to not be nil";
 static NSString* const FUToValueNilMessage = @"Expected toValue to not be nil";
@@ -23,7 +23,7 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 
 @interface FUTweenAction ()
 
-@property (nonatomic, strong) id object;
+@property (nonatomic, strong) id target;
 @property (nonatomic, copy) NSString* property;
 @property (nonatomic, strong) NSNumber* fromValue;
 @property (nonatomic, strong) NSNumber* toValue;
@@ -35,7 +35,7 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 
 @implementation FUTweenAction
 
-@synthesize object = _object;
+@synthesize target = _target;
 @synthesize property = _property;
 @synthesize fromValue = _fromValue;
 @synthesize toValue = _toValue;
@@ -43,23 +43,23 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 
 #pragma mark - Initialization
 
-- (id)initWithObject:(id)object property:(NSString*)property toValue:(NSNumber*)toValue
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration toValue:(NSNumber*)toValue
 {
 	FUCheck(toValue != nil, FUToValueNilMessage);
 	
-	if ((self = [self initWithObject:object property:property])) {
+	if ((self = [self initWithTarget:target property:property duration:duration])) {
 		[self setToValue:toValue];
 	}
 	
 	return self;
 }
 
-- (id)initWithObject:(id)object property:(NSString*)property fromValue:(NSNumber*)fromValue toValue:(NSNumber*)toValue
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration fromValue:(NSNumber*)fromValue toValue:(NSNumber*)toValue
 {
 	FUCheck(fromValue != nil, FUFromValueNilMessage);
 	FUCheck(toValue != nil, FUToValueNilMessage);
 
-	if ((self = [self initWithObject:object property:property])) {
+	if ((self = [self initWithTarget:target property:property duration:duration])) {
 		[self setFromValue:fromValue];
 		[self setToValue:toValue];
 	}
@@ -67,45 +67,64 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 	return self;
 }
 
-- (id)initWithObject:(id)object property:(NSString*)property byValue:(NSNumber*)byValue
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration byValue:(NSNumber*)byValue
 {
 	FUCheck(byValue != nil, FUByValueNilMessage);
 	
-	if ((self = [self initWithObject:object property:property])) {
+	if ((self = [self initWithTarget:target property:property duration:duration])) {
 		[self setByValue:byValue];
 	}
 	
 	return self;
 }
 
-- (id)initWithObject:(id)object property:(NSString*)property
+- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration
 {
-	FUCheck(object != nil, FUObjectNilMessage);
+	FUCheck(target != nil, FUTargetNilMessage);
 	FUCheck(FUStringIsValid(property), FUPropertyNilMessage);
 
 #ifndef NS_BLOCK_ASSERTIONS
 	NSNumber* currentValue;
 	
 	@try {
-		currentValue = [object valueForKey:property];
+		currentValue = [target valueForKey:property];
 	} @catch (NSException*) {
-		_FUThrow(NSInvalidArgumentException, FUPropertyUndefinedMessage, property, object);
+		_FUThrow(NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
 	}
 	
 	@try {
-		[object setValue:currentValue forKey:property];
+		[target setValue:currentValue forKey:property];
 	}
-	@catch (NSException* exception) {
-		_FUThrow(NSInvalidArgumentException, FUPropertyReadonlyMessage, property, object);
+	@catch (NSException*) {
+		_FUThrow(NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
 	}
 #endif
 	
-	if ((self = [super init])) {
-		[self setObject:object];
+	if ((self = [super initWithDuration:duration])) {
+		[self setTarget:target];
 		[self setProperty:property];
 	}
 	
 	return self;
+}
+
+#pragma mark - FUTimedAction
+
+- (void)update
+{
+	id target = [self target];
+	NSString* property = [self property];
+	NSNumber* fromValue = [self fromValue];
+	
+	if (fromValue == nil) {
+		fromValue = [target valueForKey:property];
+		[self setFromValue:fromValue];
+	}
+	
+	double fromDouble = [fromValue doubleValue];
+	double toDouble = [[self toValue] doubleValue];
+	double currentDouble = fromDouble + [self factor] * (toDouble - fromDouble);
+	[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
 }
 
 @end
