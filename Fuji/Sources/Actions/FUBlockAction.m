@@ -51,7 +51,7 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 #pragma mark - FUTimedAction Methods
 
-- (void)updateWithFactor:(float)factor
+- (void)update
 {
 	[self block]();
 }

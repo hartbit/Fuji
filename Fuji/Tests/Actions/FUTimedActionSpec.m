@@ -58,7 +58,7 @@ describe(@"A timed action", ^{
 				timeLeft = [action consumeDeltaTime:0.0];
 			});
 			
-			it(@"does not call udpateWithFactor:", ^{
+			it(@"does not call update", ^{
 				expect([action callCount]).to.equal(0);
 			});
 			
@@ -72,7 +72,7 @@ describe(@"A timed action", ^{
 				timeLeft = [action consumeDeltaTime:1.0];
 			});
 			
-			it(@"calls udpateWithFactor: with 1.0f", ^{
+			it(@"calls update with a factor of 1.0f", ^{
 				expect([action callCount]).to.equal(1);
 				expect([action lastCallFactor]).to.equal(1.0f);
 			});
@@ -86,7 +86,7 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:2.0];
 				});
 				
-				it(@"does not call udpateWithFactor: again", ^{
+				it(@"does not call update again", ^{
 					expect([action callCount]).to.equal(1);
 				});
 				
@@ -100,7 +100,7 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:-1.0];
 				});
 				
-				it(@"calls udpateWithFactor: with 0.0f", ^{
+				it(@"calls update with a factor of 0.0f", ^{
 					expect([action callCount]).to.equal(2);
 					expect([action lastCallFactor]).to.equal(0.0f);
 				});
@@ -116,9 +116,8 @@ describe(@"A timed action", ^{
 				timeLeft = [action consumeDeltaTime:-1.0];
 			});
 			
-			it(@"calls udpateWithFactor: with 0.0f", ^{
-				expect([action callCount]).to.equal(1);
-				expect([action lastCallFactor]).to.equal(0.0f);
+			it(@"does not call update", ^{
+				expect([action callCount]).to.equal(0);
 			});
 			
 			it(@"returns all of the time", ^{
@@ -130,8 +129,8 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:-2.0];
 				});
 				
-				it(@"does not call udpateWithFactor: again", ^{
-					expect([action callCount]).to.equal(1);
+				it(@"does not call update", ^{
+					expect([action callCount]).to.equal(0);
 				});
 				
 				it(@"returns all of the time", ^{
@@ -144,8 +143,8 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:1.0];
 				});
 				
-				it(@"calls udpateWithFactor: with 1.0f", ^{
-					expect([action callCount]).to.equal(2);
+				it(@"calls update with a factor of 1.0f", ^{
+					expect([action callCount]).to.equal(1);
 					expect([action lastCallFactor]).to.equal(1.0f);
 				});
 				
@@ -176,7 +175,7 @@ describe(@"A timed action", ^{
 				timeLeft = [action consumeDeltaTime:1.0];
 			});
 			
-			it(@"calls updateWithFactor: with 0.5f", ^{
+			it(@"calls update with a factor of 0.5f", ^{
 				expect([action callCount]).to.equal(1);
 				expect([action lastCallFactor]).to.beCloseTo(0.5f);
 			});
@@ -190,7 +189,7 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:1.5];
 				});
 				
-				it(@"calls updateWithFactor: with 1.0f", ^{
+				it(@"calls update with a factor of 1.0f", ^{
 					expect([action callCount]).to.equal(2);
 					expect([action lastCallFactor]).to.equal(1.0f);
 				});
@@ -204,7 +203,7 @@ describe(@"A timed action", ^{
 						timeLeft = [action consumeDeltaTime:-1.0];
 					});
 					
-					it(@"calls updateWithFactor: with 0.5f", ^{
+					it(@"calls update with a factor of 0.5f", ^{
 						expect([action callCount]).to.equal(3);
 						expect([action lastCallFactor]).to.equal(0.5f);
 					});
@@ -238,7 +237,7 @@ describe(@"A timed action", ^{
 							timeLeft = [actionCopy consumeDeltaTime:1.0];
 						});
 						
-						it(@"does not call updateWithFactor:", ^{
+						it(@"does not call update", ^{
 							expect([actionCopy callCount]).to.equal(0);
 						});
 						
@@ -254,7 +253,7 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:-1.5];
 				});
 				
-				it(@"calls updateWithFactor: with 0.0f", ^{
+				it(@"calls update with a factor of 0.0f", ^{
 					expect([action callCount]).to.equal(2);
 					expect([action lastCallFactor]).to.equal(0.0f);
 				});
@@ -268,7 +267,7 @@ describe(@"A timed action", ^{
 						timeLeft = [action consumeDeltaTime:1.0];
 					});
 					
-					it(@"calls updateWithFactor: with 0.5f", ^{
+					it(@"calls update with a factor of 0.5f", ^{
 						expect([action callCount]).to.equal(3);
 						expect([action lastCallFactor]).to.equal(0.5f);
 					});
@@ -290,10 +289,10 @@ SPEC_END
 @synthesize callCount = _callCount;
 @synthesize lastCallFactor = _lastCallFactor;
 
-- (void)updateWithFactor:(float)factor
+- (void)update
 {
 	[self setCallCount:[self callCount] + 1];
-	[self setLastCallFactor:factor];
+	[self setLastCallFactor:[self factor]];
 }
 
 @end

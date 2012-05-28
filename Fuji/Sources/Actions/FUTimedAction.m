@@ -26,8 +26,6 @@ typedef enum {
 @interface FUTimedAction ()
 
 @property (nonatomic) NSTimeInterval duration;
-@property (nonatomic) NSTimeInterval time;
-@property (nonatomic) FUTimedState state;
 
 @end
 
@@ -35,8 +33,7 @@ typedef enum {
 @implementation FUTimedAction
 
 @synthesize duration = _duration;
-@synthesize time = _time;
-@synthesize state = _state;
+@synthesize factor = _factor;
 
 #pragma mark - Initialization
 
@@ -57,9 +54,18 @@ typedef enum {
 {
 	FUTimedAction* copy = [[self class] allocWithZone:zone];
 	[copy setDuration:[self duration]];
-	[copy setTime:[self time]];
-	[copy setState:[self state]];
+	copy->_factor = [self factor];
 	return copy;
+}
+
+#pragma mark - Properties
+
+- (void)setFactor:(float)factor
+{
+	if (factor != _factor) {
+		_factor = factor;
+		[self update];
+	}
 }
 
 #pragma mark - FUAction Methods
@@ -70,13 +76,24 @@ typedef enum {
 		return 0.0;
 	}
 	
+	BOOL isTimeForward = deltaTime > 0.0;
 	NSTimeInterval duration = [self duration];
-	NSTimeInterval frameTime = [self time] + deltaTime;
-	NSTimeInterval newTime = FUClampDouble(frameTime, 0.0, duration);
-	[self setTime:newTime];
-	[self updateStateWithDeltaTime:deltaTime];
+	float oldFactor = [self factor];
+	float newFactor;
+	
+	if (duration == 0.0) {
+		newFactor = isTimeForward ? 1.0f : 0.0f;
+	} else {
+		newFactor = FUClampFloat(oldFactor + (deltaTime / duration), 0.0f, 1.0f);
+	}
+	
+	[self setFactor:newFactor];
 
-	if (deltaTime > 0) {
+	// Return time left
+	
+	NSTimeInterval frameTime = (oldFactor * duration) + deltaTime;
+	
+	if (isTimeForward) {
 		return MAX(frameTime - duration, 0.0);
 	} else {
 		return MIN(frameTime, 0.0);
@@ -85,38 +102,8 @@ typedef enum {
 
 #pragma mark - Public Methods
 
-- (void)updateWithFactor:(float)factor
+- (void)update
 {
-}
-
-#pragma mark - Private Methods
-
-- (void)updateStateWithDeltaTime:(NSTimeInterval)deltaTime
-{
-	NSTimeInterval duration = [self duration];
-	NSTimeInterval time = [self time];
-	FUTimedState newState = FUTimedStateNone;
-	
-	if (duration == 0.0) {
-		newState = (FUTimedState)(deltaTime / ABS(deltaTime));
-	} else if (time == 0.0) {
-		newState = FUTimedStateStart;
-	} else if (time == duration) {
-		newState = FUTimedStateEnd;
-	}
-	
-	// If both the old and new state are on the same end of time
-	if (ABS([self state] + newState) == 2) {
-		return;
-	}
-	
-	[self setState:newState];
-	
-	switch (newState) {
-		case FUTimedStateStart: [self updateWithFactor:0.0f]; break;
-		case FUTimedStateEnd: [self updateWithFactor:1.0f]; break;
-		default: [self updateWithFactor:time / duration]; break;
-	}
 }
 
 @end

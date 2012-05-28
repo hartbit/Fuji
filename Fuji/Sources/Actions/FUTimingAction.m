@@ -57,10 +57,10 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 
 #pragma mark - FUFiniteAction Methods
 
-- (void)updateWithFactor:(float)factor
+- (void)update
 {
-	float newFactor = [self function](FUClampFloat(factor, 0.0f, 1.0f));
-	[[self action] updateWithFactor:newFactor];
+	float actionFactor = [self function](FUClampFloat([self factor], 0.0f, 1.0f));
+	[[self action] setFactor:actionFactor];
 }
 
 @end

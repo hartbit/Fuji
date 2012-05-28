@@ -54,6 +54,7 @@ describe(@"A timing action", ^{
 			[given([subaction duration]) willReturnDouble:2.0];
 			
 			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseIn];
+			[action setFactor:0.215f];
 		});
 		
 		it(@"is not nil", ^{
@@ -64,38 +65,38 @@ describe(@"A timing action", ^{
 			expect([action duration]).to.equal(2.0);
 		});
 		
-		context(@"updating with a factor of -0.5f", ^{
-			it(@"updates the subaction with a factor of 0.0f", ^{
-				[action updateWithFactor:-0.5f];
-				[verify(subaction) updateWithFactor:0.0f];
+		context(@"setting a factor of -0.5f", ^{
+			it(@"sets the subaction with a factor of 0.0f", ^{
+				[action setFactor:-0.5f];
+				[verify(subaction) setFactor:0.0f];
 			});
 		});
 		
-		context(@"updating with a factor of 0.0f", ^{
-			it(@"updates the subaction with a factor of 0.0f", ^{
-				[action updateWithFactor:0.0f];
-				[verify(subaction) updateWithFactor:0.0f];
+		context(@"setting a factor of 0.0f", ^{
+			it(@"sets the subaction with a factor of 0.0f", ^{
+				[action setFactor:0.0f];
+				[verify(subaction) setFactor:0.0f];
 			});
 		});
 		
-		context(@"updating with a factor of 0.5f", ^{
-			it(@"updates the subaction with a factor of 0.5f on the ease in curve", ^{
-				[action updateWithFactor:0.5f];
-				[verify(subaction) updateWithFactor:FUTimingEaseIn(0.5f)];
+		context(@"setting a factor of 0.5f", ^{
+			it(@"sets the subaction with a factor of 0.5f on the ease in curve", ^{
+				[action setFactor:0.5f];
+				[verify(subaction) setFactor:FUTimingEaseIn(0.5f)];
 			});
 		});
 		
-		context(@"updating with a factor of 1.0f", ^{
-			it(@"updates the subaction with a factor of 1.0f", ^{
-				[action updateWithFactor:1.0f];
-				[verify(subaction) updateWithFactor:FUTimingEaseIn(1.0f)];
+		context(@"setting a factor of 1.0f", ^{
+			it(@"sets the subaction with a factor of 1.0f", ^{
+				[action setFactor:1.0f];
+				[verify(subaction) setFactor:FUTimingEaseIn(1.0f)];
 			});
 		});
 		
-		context(@"updating with a factor of 1.5f", ^{
-			it(@"updates the subaction with a factor of 1.0f", ^{
-				[action updateWithFactor:1.5f];
-				[verify(subaction) updateWithFactor:FUTimingEaseIn(1.0f)];
+		context(@"setting a factor of 1.5f", ^{
+			it(@"sets the subaction with a factor of 1.0f", ^{
+				[action setFactor:1.5f];
+				[verify(subaction) setFactor:FUTimingEaseIn(1.0f)];
 			});
 		});
 		
@@ -114,17 +115,17 @@ describe(@"A timing action", ^{
 				expect(actionCopy).toNot.beNil();
 			});
 			
-			context(@"updated the copied action", ^{
+			context(@"set the factor of the copied action", ^{
 				beforeEach(^{
-					[actionCopy updateWithFactor:0.5f];
+					[actionCopy setFactor:0.5f];
 				});
 				
-				it(@"does not update the original subaction", ^{
-					[[verifyCount(subaction, never()) withMatcher:HC_anything()] updateWithFactor:0.0f];
+				it(@"does not call update on the original subaction", ^{
+					[[verifyCount(subaction, never()) withMatcher:HC_anything()] update];
 				});
 				
-				it(@"updates the copied subaction", ^{
-					[verify(subactionCopy) updateWithFactor:FUTimingEaseIn(0.5f)];
+				it(@"sets the factor of the copied subaction", ^{
+					[verify(subactionCopy) setFactor:FUTimingEaseIn(0.5f)];
 				});
 			});
 		});
