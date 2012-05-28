@@ -28,6 +28,82 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 @end
 
 
+#define FUTweenIsTo(prop, toValue) \
+	it(@"is a FUTweenAction", ^{ \
+		expect(tween).to.beKindOf([FUTweenAction class]); \
+	}); \
+	\
+	it(@"has the correct duration", ^{ \
+		expect([tween duration]).to.equal(2.0); \
+	}); \
+	\
+	it(@"has the correct target", ^{ \
+		expect([tween target]).to.beIdenticalTo(target); \
+	}); \
+	\
+	it(@"has the correct property", ^{ \
+		expect([tween property]).to.equal(prop); \
+	}); \
+	\
+	it(@"has no fromValue", ^{ \
+		expect([tween fromValue]).to.beNil(); \
+	}); \
+	\
+	it(@"has the current toValue", ^{ \
+		expect([tween toValue]).to.equal(toValue); \
+	});
+
+#define FUTweenIsFromTo(prop, fromValue, toValue) \
+	it(@"is a FUTweenAction", ^{ \
+		expect(tween).to.beKindOf([FUTweenAction class]); \
+	}); \
+	\
+	it(@"has the correct duration", ^{ \
+		expect([tween duration]).to.equal(2.0); \
+	}); \
+	\
+	it(@"has the correct target", ^{ \
+		expect([tween target]).to.beIdenticalTo(target); \
+	}); \
+	\
+	it(@"has the correct property", ^{ \
+		expect([tween property]).to.equal(prop); \
+	}); \
+	\
+	it(@"has the correct fromValue", ^{ \
+		expect([tween fromValue]).to.equal(fromValue); \
+	}); \
+	\
+	it(@"has the current toValue", ^{ \
+		expect([tween toValue]).to.equal(toValue); \
+	});
+
+#define FUTweenIsBy(prop) \
+	it(@"is a FUTweenAction", ^{ \
+		expect(tween).to.beKindOf([FUTweenAction class]); \
+	}); \
+	\
+	it(@"has the correct duration", ^{ \
+		expect([tween duration]).to.equal(2.0); \
+	}); \
+	\
+	it(@"has the correct target", ^{ \
+		expect([tween target]).to.beIdenticalTo(target); \
+	}); \
+	\
+	it(@"has the correct property", ^{ \
+		expect([tween property]).to.equal(prop); \
+	}); \
+	\
+	it(@"has no fromValue", ^{ \
+		expect([tween fromValue]).to.beNil(); \
+	}); \
+	\
+	it(@"has no toValue", ^{ \
+		expect([tween toValue]).to.beNil(); \
+	});
+
+
 SPEC_BEGIN(FUTweenAction)
 
 describe(@"A tween action", ^{
@@ -478,62 +554,32 @@ describe(@"A tween action", ^{
 	
 	context(@"initialized with the FUTweenTo function", ^{
 		__block FUDoubleObject* target;
+		__block NSNumber* toValue;
 		__block FUTweenAction* tween;
 		
 		beforeEach(^{
 			target = [FUDoubleObject new];
-			tween = FUTweenTo(target, @"doubleValue", 1.0, [NSNumber numberWithDouble:4.0]);
+			toValue = [NSNumber numberWithDouble:4.0];
+			tween = FUTweenTo(target, @"doubleValue", 2.0, toValue);
 		});
 		
-		it(@"is a FUTweenAction", ^{
-			expect(tween).to.beKindOf([FUTweenAction class]);
-		});
-		
-		it(@"has the correct target", ^{
-			expect([tween target]).to.beIdenticalTo(target);
-		});
-		
-		it(@"has the correct property", ^{
-			expect([tween property]).to.equal(@"doubleValue");
-		});
-		
-		it(@"has no fromValue", ^{
-			expect([tween fromValue]).to.beNil();
-		});
-		
-		it(@"has the current toValue", ^{
-			expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
-		});
+		FUTweenIsTo(@"doubleValue", toValue);
 	});
 	
 	context(@"initialized with the FUTweenFromTo function", ^{
 		__block FUDoubleObject* target;
+		__block NSNumber* fromValue;
+		__block NSNumber* toValue;
 		__block FUTweenAction* tween;
 		
 		beforeEach(^{
 			target = [FUDoubleObject new];
-			tween = FUTweenFromTo(target, @"doubleValue", 1.0, [NSNumber numberWithDouble:2.0], [NSNumber numberWithDouble:4.0]);
+			fromValue = [NSNumber numberWithDouble:2.0];
+			toValue = [NSNumber numberWithDouble:4.0];
+			tween = FUTweenFromTo(target, @"doubleValue", 2.0, fromValue, toValue);
 		});
 		
-		it(@"is a FUTweenAction", ^{
-			expect(tween).to.beKindOf([FUTweenAction class]);
-		});
-		
-		it(@"has the correct target", ^{
-			expect([tween target]).to.beIdenticalTo(target);
-		});
-		
-		it(@"has the correct property", ^{
-			expect([tween property]).to.equal(@"doubleValue");
-		});
-		
-		it(@"has the correct fromValue", ^{
-			expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
-		});
-		
-		it(@"has the current toValue", ^{
-			expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
-		});
+		FUTweenIsFromTo(@"doubleValue", fromValue, toValue);
 	});
 	
 	context(@"initialized with the FUTweenBy function", ^{
@@ -542,27 +588,312 @@ describe(@"A tween action", ^{
 		
 		beforeEach(^{
 			target = [FUDoubleObject new];
-			tween = FUTweenBy(target, @"doubleValue", 1.0, [NSNumber numberWithDouble:2.0]);
+			tween = FUTweenBy(target, @"doubleValue", 2.0, [NSNumber numberWithDouble:2.0]);
 		});
 		
-		it(@"is a FUTweenAction", ^{
-			expect(tween).to.beKindOf([FUTweenAction class]);
+		FUTweenIsBy(@"doubleValue");
+	});
+	
+	context(@"initialized with the FUMoveTo function", ^{
+		__block FUTransform* target;
+		__block FUGroupAction* group;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			group = FUMoveTo(target, 2.0, GLKVector2Make(1.5f, 2.5f));
 		});
 		
-		it(@"has the correct target", ^{
-			expect([tween target]).to.beIdenticalTo(target);
+		it(@"is a FUGroupAction", ^{
+			expect(group).to.beKindOf([FUGroupAction class]);
 		});
 		
-		it(@"has the correct property", ^{
-			expect([tween property]).to.equal(@"doubleValue");
+		it(@"has the correct duration", ^{
+			expect([group duration]).to.equal(2.0);
 		});
 		
-		it(@"has no fromValue", ^{
-			expect([tween fromValue]).to.beNil();
+		it(@"it has two actions", ^{
+			expect([group actions]).to.haveCountOf(2);
 		});
 		
-		it(@"has no toValue", ^{
-			expect([tween toValue]).to.beNil();
+		context(@"the first action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:0];
+			});
+			
+			NSNumber* toValue = [NSNumber numberWithFloat:1.5f];
+			FUTweenIsTo(@"positionX", toValue);
+		});
+		
+		context(@"the second action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:1];
+			});
+			
+			NSNumber* toValue = [NSNumber numberWithFloat:2.5f];
+			FUTweenIsTo(@"positionY", toValue);
+		});
+	});
+	
+	context(@"initialized with the FUMoveFromTo function", ^{
+		__block FUTransform* target;
+		__block FUGroupAction* group;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			group = FUMoveFromTo(target, 2.0, GLKVector2Make(1.5f, 2.5f), GLKVector2Make(3.5f, -1.0f));
+		});
+		
+		it(@"is a FUGroupAction", ^{
+			expect(group).to.beKindOf([FUGroupAction class]);
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([group duration]).to.equal(2.0);
+		});
+		
+		it(@"it has two actions", ^{
+			expect([group actions]).to.haveCountOf(2);
+		});
+		
+		context(@"the first action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:0];
+			});
+			
+			NSNumber* fromValue = [NSNumber numberWithFloat:1.5f];
+			NSNumber* toValue = [NSNumber numberWithFloat:3.5f];
+			FUTweenIsFromTo(@"positionX", fromValue, toValue);
+		});
+		
+		context(@"the second action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:1];
+			});
+			
+			NSNumber* fromValue = [NSNumber numberWithFloat:2.5f];
+			NSNumber* toValue = [NSNumber numberWithFloat:-1.0f];
+			FUTweenIsFromTo(@"positionY", fromValue, toValue);
+		});
+	});
+	
+	context(@"initialized with the FUMoveBy function", ^{
+		__block FUTransform* target;
+		__block FUGroupAction* group;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			group = FUMoveBy(target, 2.0, GLKVector2Make(1.5f, -2.5f));
+		});
+		
+		it(@"is a FUGroupAction", ^{
+			expect(group).to.beKindOf([FUGroupAction class]);
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([group duration]).to.equal(2.0);
+		});
+		
+		it(@"it has two actions", ^{
+			expect([group actions]).to.haveCountOf(2);
+		});
+		
+		context(@"the first action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:0];
+			});
+			
+			FUTweenIsBy(@"positionX");
+		});
+		
+		context(@"the second action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:1];
+			});
+			
+			FUTweenIsBy(@"positionY");
+		});
+	});
+	
+	context(@"initialized with the FURotateTo function", ^{
+		__block FUTransform* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			tween = FURotateTo(target, 2.0, M_PI);
+		});
+		
+		NSNumber* toValue = [NSNumber numberWithFloat:M_PI];
+		FUTweenIsTo(@"rotation", toValue);
+	});
+	
+	context(@"initialized with the FURotateFromTo function", ^{
+		__block FUTransform* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			tween = FURotateFromTo(target, 2.0, M_PI, 2*M_PI);
+		});
+		
+		NSNumber* fromValue = [NSNumber numberWithFloat:M_PI];
+		NSNumber* toValue = [NSNumber numberWithFloat:2*M_PI];
+		FUTweenIsFromTo(@"rotation", fromValue, toValue);
+	});
+	
+	context(@"initialized with the FURotateBy function", ^{
+		__block FUTransform* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			tween = FURotateBy(target, 2.0, M_PI);
+		});
+		
+		FUTweenIsBy(@"rotation");
+	});
+	
+	context(@"initialized with the FUScaleTo function", ^{
+		__block FUTransform* target;
+		__block FUGroupAction* group;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			group = FUScaleTo(target, 2.0, GLKVector2Make(1.5f, 2.5f));
+		});
+		
+		it(@"is a FUGroupAction", ^{
+			expect(group).to.beKindOf([FUGroupAction class]);
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([group duration]).to.equal(2.0);
+		});
+		
+		it(@"it has two actions", ^{
+			expect([group actions]).to.haveCountOf(2);
+		});
+		
+		context(@"the first action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:0];
+			});
+			
+			NSNumber* toValue = [NSNumber numberWithFloat:1.5f];
+			FUTweenIsTo(@"scaleX", toValue);
+		});
+		
+		context(@"the second action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:1];
+			});
+			
+			NSNumber* toValue = [NSNumber numberWithFloat:2.5f];
+			FUTweenIsTo(@"scaleY", toValue);
+		});
+	});
+	
+	context(@"initialized with the FUScaleFromTo function", ^{
+		__block FUTransform* target;
+		__block FUGroupAction* group;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			group = FUScaleFromTo(target, 2.0, GLKVector2Make(1.5f, 2.5f), GLKVector2Make(3.5f, -1.0f));
+		});
+		
+		it(@"is a FUGroupAction", ^{
+			expect(group).to.beKindOf([FUGroupAction class]);
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([group duration]).to.equal(2.0);
+		});
+		
+		it(@"it has two actions", ^{
+			expect([group actions]).to.haveCountOf(2);
+		});
+		
+		context(@"the first action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:0];
+			});
+			
+			NSNumber* fromValue = [NSNumber numberWithFloat:1.5f];
+			NSNumber* toValue = [NSNumber numberWithFloat:3.5f];
+			FUTweenIsFromTo(@"scaleX", fromValue, toValue);
+		});
+		
+		context(@"the second action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:1];
+			});
+			
+			NSNumber* fromValue = [NSNumber numberWithFloat:2.5f];
+			NSNumber* toValue = [NSNumber numberWithFloat:-1.0f];
+			FUTweenIsFromTo(@"scaleY", fromValue, toValue);
+		});
+	});
+	
+	context(@"initialized with the FUScaleBy function", ^{
+		__block FUTransform* target;
+		__block FUGroupAction* group;
+		
+		beforeEach(^{
+			target = mock([FUTransform class]);
+			group = FUScaleBy(target, 2.0, GLKVector2Make(1.5f, -2.5f));
+		});
+		
+		it(@"is a FUGroupAction", ^{
+			expect(group).to.beKindOf([FUGroupAction class]);
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([group duration]).to.equal(2.0);
+		});
+		
+		it(@"it has two actions", ^{
+			expect([group actions]).to.haveCountOf(2);
+		});
+		
+		context(@"the first action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:0];
+			});
+			
+			FUTweenIsBy(@"scaleX");
+		});
+		
+		context(@"the second action", ^{
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				tween = [[group actions] objectAtIndex:1];
+			});
+			
+			FUTweenIsBy(@"scaleY");
 		});
 	});
 	

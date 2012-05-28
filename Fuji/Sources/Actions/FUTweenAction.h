@@ -10,6 +10,7 @@
 //
 
 #import "FUTimedAction.h"
+#import "FUGroupAction.h"
 
 
 @interface FUTweenAction : FUTimedAction
@@ -39,4 +40,55 @@ static OBJC_INLINE FUTweenAction* FUTweenFromTo(id target, NSString* property, N
 static OBJC_INLINE FUTweenAction* FUTweenBy(id target, NSString* property, NSTimeInterval duration, NSNumber* byValue)
 {
 	return [[FUTweenAction alloc] initWithTarget:target property:property duration:duration byValue:byValue];
+}
+
+static OBJC_INLINE FUGroupAction* FUMoveTo(id target, NSTimeInterval duration, GLKVector2 toValue)
+{
+	return FUGroup(FUTweenTo(target, @"positionX", duration, [NSNumber numberWithFloat:toValue.x]),
+				   FUTweenTo(target, @"positionY", duration, [NSNumber numberWithFloat:toValue.y]));
+}
+
+static OBJC_INLINE FUGroupAction* FUMoveFromTo(id target, NSTimeInterval duration, GLKVector2 fromValue, GLKVector2 toValue)
+{
+	return FUGroup(FUTweenFromTo(target, @"positionX", duration, [NSNumber numberWithFloat:fromValue.x], [NSNumber numberWithFloat:toValue.x]),
+				   FUTweenFromTo(target, @"positionY", duration, [NSNumber numberWithFloat:fromValue.y], [NSNumber numberWithFloat:toValue.y]));
+}
+
+static OBJC_INLINE FUGroupAction* FUMoveBy(id target, NSTimeInterval duration, GLKVector2 byValue)
+{
+	return FUGroup(FUTweenBy(target, @"positionX", duration, [NSNumber numberWithFloat:byValue.x]),
+				   FUTweenBy(target, @"positionY", duration, [NSNumber numberWithFloat:byValue.y]));
+}
+
+static OBJC_INLINE FUTweenAction* FURotateTo(id target, NSTimeInterval duration, float toValue)
+{
+	return FUTweenTo(target, @"rotation", duration, [NSNumber numberWithFloat:toValue]);
+}
+
+static OBJC_INLINE FUTweenAction* FURotateFromTo(id target, NSTimeInterval duration, float fromValue, float toValue)
+{
+	return FUTweenFromTo(target, @"rotation", duration, [NSNumber numberWithFloat:fromValue], [NSNumber numberWithFloat:toValue]);
+}
+
+static OBJC_INLINE FUTweenAction* FURotateBy(id target, NSTimeInterval duration, float byValue)
+{
+	return FUTweenBy(target, @"rotation", duration, [NSNumber numberWithFloat:byValue]);
+}
+
+static OBJC_INLINE FUGroupAction* FUScaleTo(id target, NSTimeInterval duration, GLKVector2 toValue)
+{
+	return FUGroup(FUTweenTo(target, @"scaleX", duration, [NSNumber numberWithFloat:toValue.x]),
+				   FUTweenTo(target, @"scaleY", duration, [NSNumber numberWithFloat:toValue.y]));
+}
+
+static OBJC_INLINE FUGroupAction* FUScaleFromTo(id target, NSTimeInterval duration, GLKVector2 fromValue, GLKVector2 toValue)
+{
+	return FUGroup(FUTweenFromTo(target, @"scaleX", duration, [NSNumber numberWithFloat:fromValue.x], [NSNumber numberWithFloat:toValue.x]),
+				   FUTweenFromTo(target, @"scaleY", duration, [NSNumber numberWithFloat:fromValue.y], [NSNumber numberWithFloat:toValue.y]));
+}
+
+static OBJC_INLINE FUGroupAction* FUScaleBy(id target, NSTimeInterval duration, GLKVector2 byValue)
+{
+	return FUGroup(FUTweenBy(target, @"scaleX", duration, [NSNumber numberWithFloat:byValue.x]),
+				   FUTweenBy(target, @"scaleY", duration, [NSNumber numberWithFloat:byValue.y]));
 }
