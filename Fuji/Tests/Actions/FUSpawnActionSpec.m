@@ -14,7 +14,7 @@
 #import "FUTestSupport.h"
 
 
-static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
+static NSString* const FUArrayNilEmptyMessage = @"Expected array to not be nil or empty";
 static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to conform to the FUAction protocol";
 
 
@@ -27,13 +27,13 @@ describe(@"A spawn action", ^{
 	
 	context(@"initilized with a nil array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUSpawnAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilMessage);
+			assertThrows([[FUSpawnAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilEmptyMessage);
 		});
 	});
 	
 	context(@"initilized with an empty array", ^{
-		it(@"does not throw", ^{
-			assertNoThrow([[FUSpawnAction alloc] initWithActions:[NSArray array]]);
+		it(@"throws an exception", ^{
+			assertThrows([[FUSpawnAction alloc] initWithActions:[NSArray array]], NSInvalidArgumentException, FUArrayNilEmptyMessage);
 		});
 	});
 	
@@ -42,12 +42,6 @@ describe(@"A spawn action", ^{
 			id object = [NSString string];
 			NSArray* array = [NSArray arrayWithObject:object];
 			assertThrows([[FUSpawnAction alloc] initWithActions:array], NSInvalidArgumentException, FUActionProtocolMessage, object);
-		});
-	});
-	
-	context(@"initializing via the function with no actions", ^{
-		it(@"returns a FUSpawnAction", ^{
-			expect(FUSpawn()).to.beKindOf([FUSpawnAction class]);
 		});
 	});
 	

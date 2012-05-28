@@ -27,6 +27,10 @@
 		63117F2914FFB87A00A04563 /* FUComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2714FFB87A00A04563 /* FUComponent.h */; };
 		63117F2A14FFB87A00A04563 /* FUComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63117F2814FFB87A00A04563 /* FUComponent.m */; };
 		63117F2F14FFBBCB00A04563 /* FUComponent-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */; };
+		631BD7C51573BF32006D837E /* FUGroupActionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BD7C41573BF32006D837E /* FUGroupActionSpec.m */; };
+		631BD7C81573BF94006D837E /* FUGroupAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 631BD7C61573BF94006D837E /* FUGroupAction.h */; };
+		631BD7C91573BF94006D837E /* FUGroupAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BD7C71573BF94006D837E /* FUGroupAction.m */; };
+		631BD7CA1573BF94006D837E /* FUGroupAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BD7C71573BF94006D837E /* FUGroupAction.m */; };
 		631DD3EE15418314008AA626 /* Valid1.png in Resources */ = {isa = PBXBuildFile; fileRef = 631DD3EC15418314008AA626 /* Valid1.png */; };
 		631DD3EF15418314008AA626 /* Valid2.png in Resources */ = {isa = PBXBuildFile; fileRef = 631DD3ED15418314008AA626 /* Valid2.png */; };
 		631DD3F11541849C008AA626 /* FUAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 631DD3F01541849C008AA626 /* FUAssetSpec.m */; };
@@ -168,6 +172,9 @@
 		63117F2814FFB87A00A04563 /* FUComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUComponent.m; sourceTree = "<group>"; };
 		63117F2E14FFBBCB00A04563 /* FUComponent-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUComponent-Internal.h"; sourceTree = "<group>"; };
 		631241231529F1ED00E30DC6 /* FUInterfaceRotating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUInterfaceRotating.h; sourceTree = "<group>"; };
+		631BD7C41573BF32006D837E /* FUGroupActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGroupActionSpec.m; sourceTree = "<group>"; };
+		631BD7C61573BF94006D837E /* FUGroupAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUGroupAction.h; sourceTree = "<group>"; };
+		631BD7C71573BF94006D837E /* FUGroupAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGroupAction.m; sourceTree = "<group>"; };
 		631DD3EC15418314008AA626 /* Valid1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid1.png; sourceTree = "<group>"; };
 		631DD3ED15418314008AA626 /* Valid2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Valid2.png; sourceTree = "<group>"; };
 		631DD3F01541849C008AA626 /* FUAssetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUAssetSpec.m; sourceTree = "<group>"; };
@@ -492,6 +499,7 @@
 				63C2098C1552A49700B32A89 /* FUSequenceActionSpec.m */,
 				63CA5174155BF8DD0017E335 /* FUSpeedActionSpec.m */,
 				634E2A9615501B820012C4FB /* FUTimedActionSpec.m */,
+				631BD7C41573BF32006D837E /* FUGroupActionSpec.m */,
 				6384354B155188AC00313BB2 /* FUBlockActionSpec.m */,
 				63C2097815526CB700B32A89 /* FUDelayActionSpec.m */,
 				63CBA4CC156FA5AC002371D3 /* FUTweenActionSpec.m */,
@@ -512,6 +520,7 @@
 				63C2098F1552A4FC00B32A89 /* FUSequenceAction.h */,
 				63CA5177155BF9570017E335 /* FUSpeedAction.h */,
 				634E2A9815501BC50012C4FB /* FUTimedAction.h */,
+				631BD7C61573BF94006D837E /* FUGroupAction.h */,
 				6384354E155189D300313BB2 /* FUBlockAction.h */,
 				63C2097B15526D6700B32A89 /* FUDelayAction.h */,
 				63CBA4D0156FAC6A002371D3 /* FUTweenAction.h */,
@@ -529,6 +538,7 @@
 				63C209901552A4FC00B32A89 /* FUSequenceAction.m */,
 				63CA5178155BF9570017E335 /* FUSpeedAction.m */,
 				634E2A9915501BC50012C4FB /* FUTimedAction.m */,
+				631BD7C71573BF94006D837E /* FUGroupAction.m */,
 				6384354F155189D300313BB2 /* FUBlockAction.m */,
 				63C2097C15526D6700B32A89 /* FUDelayAction.m */,
 				63CBA4D1156FAC6A002371D3 /* FUTweenAction.m */,
@@ -718,6 +728,7 @@
 				63E58DAE156BC6A900E148BD /* FUSpawnAction.h in Headers */,
 				634B7DA2156D1688009A5E42 /* FUTestAction.h in Headers */,
 				63CBA4D2156FAC6A002371D3 /* FUTweenAction.h in Headers */,
+				631BD7C81573BF94006D837E /* FUGroupAction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +881,7 @@
 				63E58DAF156BC6A900E148BD /* FUSpawnAction.m in Sources */,
 				6306BA65156D525300DD83EF /* FUTimedAction.m in Sources */,
 				63CBA4D3156FAC6A002371D3 /* FUTweenAction.m in Sources */,
+				631BD7C91573BF94006D837E /* FUGroupAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,6 +952,8 @@
 				63B13929156EEDB9002FDD79 /* FUTimingFunctionsSpec.m in Sources */,
 				63CBA4CF156FA7F9002371D3 /* FUTweenActionSpec.m in Sources */,
 				63CBA4D4156FAC6A002371D3 /* FUTweenAction.m in Sources */,
+				631BD7C51573BF32006D837E /* FUGroupActionSpec.m in Sources */,
+				631BD7CA1573BF94006D837E /* FUGroupAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

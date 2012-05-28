@@ -13,7 +13,7 @@
 #import "FUSupport.h"
 
 
-static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
+static NSString* const FUArrayNilEmptyMessage = @"Expected array to not be nil or empty";
 static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to conform to the FUAction protocol";
 
 
@@ -32,11 +32,13 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 - (id)initWithActions:(NSArray*)actions
 {
-	FUCheck(actions != nil, FUArrayNilMessage);
+	FUCheck([actions count] > 0, FUArrayNilEmptyMessage);
 	
+#ifndef NS_BLOCK_ASSERTIONS
 	for (id action in actions) {
 		FUCheck([action conformsToProtocol:@protocol(FUAction)], FUActionProtocolMessage, action);
 	}
+#endif
 	
 	if ((self = [super init])) {
 		[self setActions:actions];

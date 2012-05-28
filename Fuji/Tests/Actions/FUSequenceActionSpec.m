@@ -15,7 +15,7 @@
 #import "FUTestAction.h"
 
 
-static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
+static NSString* const FUArrayNilEmptyMessage = @"Expected array to not be nil or empty";
 static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to conform to the FUAction protocol";
 
 
@@ -28,13 +28,13 @@ describe(@"A sequence action", ^{
 	
 	context(@"initilized with a nil array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUSequenceAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilMessage);
+			assertThrows([[FUSequenceAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilEmptyMessage);
 		});
 	});
 	
 	context(@"initilized with an empty array", ^{
-		it(@"does not throw", ^{
-			assertNoThrow([[FUSequenceAction alloc] initWithActions:[NSArray array]]);
+		it(@"throws an exception", ^{
+			assertThrows([[FUSequenceAction alloc] initWithActions:[NSArray array]], NSInvalidArgumentException, FUArrayNilEmptyMessage);
 		});
 	});
 	
@@ -43,12 +43,6 @@ describe(@"A sequence action", ^{
 			id object = [NSString string];
 			NSArray* array = [NSArray arrayWithObject:object];
 			assertThrows([[FUSequenceAction alloc] initWithActions:array], NSInvalidArgumentException, FUActionProtocolMessage, object);
-		});
-	});
-	
-	context(@"initializing via the function with no actions", ^{
-		it(@"returns a FUSequenceAction", ^{
-			expect(FUSequence()).to.beKindOf([FUSequenceAction class]);
 		});
 	});
 	
