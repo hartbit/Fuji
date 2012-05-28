@@ -108,6 +108,19 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 	return self;
 }
 
+#pragma mark - NSCopying Methods
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	FUTweenAction* copy = [super copyWithZone:zone];
+	[copy setTarget:[self target]];
+	[copy setProperty:[self property]];
+	[copy setFromValue:[self fromValue]];
+	[copy setToValue:[self toValue]];
+	[copy setByValue:[self byValue]];
+	return copy;
+}
+
 #pragma mark - FUTimedAction
 
 - (void)update

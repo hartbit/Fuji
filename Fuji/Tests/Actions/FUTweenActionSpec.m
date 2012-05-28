@@ -174,6 +174,10 @@ describe(@"A tween action", ^{
 			expect([tween target]).to.beIdenticalTo(target);
 		});
 		
+		it(@"has the correct property", ^{
+			expect([tween property]).to.equal(@"doubleValue");
+		});
+		
 		it(@"has no fromValue", ^{
 			expect([tween fromValue]).to.beNil();
 		});
@@ -196,47 +200,66 @@ describe(@"A tween action", ^{
 					expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
 				});
 				
-				it(@"set the value half-way through", ^{
+				it(@"sets the value half-way through", ^{
 					expect([target doubleValue]).to.equal(3.0);
 				});
 				
-				context(@"set a factor of 0.0f", ^{
-					beforeEach(^{
+				context(@"setting a factor of 0.0f", ^{
+					it(@"sets the value back to the fromValue", ^{
 						[tween setFactor:0.0f];
+						expect([target doubleValue]).to.equal(2.0);
+					});
+				});
+				
+				context(@"created a copy of the tween", ^{
+					__block FUTweenAction* tweenCopy;
+					
+					beforeEach(^{
+						tweenCopy = [tween copy];
 					});
 					
-					it(@"set the value back to the fromValue", ^{
-						expect([target doubleValue]).to.equal(2.0);
+					it(@"has the same target", ^{
+						expect([tweenCopy target]).to.beIdenticalTo(target);
+					});
+					
+					it(@"has the same property", ^{
+						expect([tweenCopy property]).to.equal(@"doubleValue");
+					});
+					
+					it(@"has the same fromValue", ^{
+						expect([tweenCopy fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+					});
+					
+					it(@"has the same toValue", ^{
+						expect([tweenCopy toValue]).to.equal([NSNumber numberWithDouble:4.0]);
+					});
+					
+					context(@"setting a factor of 0.0f", ^{
+						it(@"sets the value back to the fromValue", ^{
+							[tweenCopy setFactor:0.0f];
+							expect([target doubleValue]).to.equal(2.0);
+						});
 					});
 				});
 			});
 			
-			context(@"set a factor of 1.0f", ^{
-				beforeEach(^{
+			context(@"setting a factor of 1.0f", ^{
+				it(@"sets the value back to the toValue", ^{
 					[tween setFactor:1.0f];
-				});
-				
-				it(@"set the value back to the toValue", ^{
 					expect([target doubleValue]).to.equal(4.0);
 				});
 			});
 			
-			context(@"set a factor of -0.5f", ^{
-				beforeEach(^{
+			context(@"setting a factor of -0.5f", ^{
+				it(@"sets the value half-way before the fromValue", ^{
 					[tween setFactor:-0.5f];
-				});
-				
-				it(@"set the value half-way before the fromValue", ^{
 					expect([target doubleValue]).to.equal(1.0);
 				});
 			});
 			
-			context(@"set a factor of 1.5f", ^{
-				beforeEach(^{
+			context(@"setting a factor of 1.5f", ^{
+				it(@"sets the value half-way after the toValue", ^{
 					[tween setFactor:1.5f];
-				});
-				
-				it(@"set the value half-way after the toValue", ^{
 					expect([target doubleValue]).to.equal(5.0);
 				});
 			});
@@ -264,6 +287,10 @@ describe(@"A tween action", ^{
 			expect([tween target]).to.beIdenticalTo(target);
 		});
 		
+		it(@"has the correct property", ^{
+			expect([tween property]).to.equal(@"doubleValue");
+		});
+		
 		it(@"has the correct fromValue", ^{
 			expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
 		});
@@ -286,47 +313,35 @@ describe(@"A tween action", ^{
 					expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
 				});
 				
-				it(@"set the value half-way through", ^{
+				it(@"sets the value half-way through", ^{
 					expect([target doubleValue]).to.equal(3.0);
 				});
 				
-				context(@"set a factor of 0.0f", ^{
-					beforeEach(^{
+				context(@"setting a factor of 0.0f", ^{
+					it(@"sets the value back to the fromValue", ^{
 						[tween setFactor:0.0f];
-					});
-					
-					it(@"set the value back to the fromValue", ^{
 						expect([target doubleValue]).to.equal(2.0);
 					});
 				});
 			});
 			
-			context(@"set a factor of 1.0f", ^{
-				beforeEach(^{
+			context(@"setting a factor of 1.0f", ^{
+				it(@"sets the value back to the toValue", ^{
 					[tween setFactor:1.0f];
-				});
-				
-				it(@"set the value back to the toValue", ^{
 					expect([target doubleValue]).to.equal(4.0);
 				});
 			});
 			
-			context(@"set a factor of -0.5f", ^{
-				beforeEach(^{
+			context(@"setting a factor of -0.5f", ^{
+				it(@"sets the value half-way before the fromValue", ^{
 					[tween setFactor:-0.5f];
-				});
-				
-				it(@"set the value half-way before the fromValue", ^{
 					expect([target doubleValue]).to.equal(1.0);
 				});
 			});
 			
-			context(@"set a factor of 1.5f", ^{
-				beforeEach(^{
+			context(@"setting a factor of 1.5f", ^{
+				it(@"sets the value half-way after the toValue", ^{
 					[tween setFactor:1.5f];
-				});
-				
-				it(@"set the value half-way after the toValue", ^{
 					expect([target doubleValue]).to.equal(5.0);
 				});
 			});
@@ -352,6 +367,10 @@ describe(@"A tween action", ^{
 		
 		it(@"has the correct target", ^{
 			expect([tween target]).to.beIdenticalTo(target);
+		});
+		
+		it(@"has the correct property", ^{
+			expect([tween property]).to.equal(@"doubleValue");
 		});
 		
 		it(@"has no fromValue", ^{
@@ -384,46 +403,175 @@ describe(@"A tween action", ^{
 					expect([target doubleValue]).to.equal(3.0);
 				});
 				
-				context(@"set a factor of 0.0f", ^{
-					beforeEach(^{
-						[tween setFactor:0.0f];
-					});
-					
+				context(@"setting a factor of 0.0f", ^{
 					it(@"set the value back to the fromValue", ^{
+						[tween setFactor:0.0f];
 						expect([target doubleValue]).to.equal(2.0);
 					});
 				});
 			});
 			
-			context(@"set a factor of 1.0f", ^{
+			context(@"created a copy of the tween", ^{
+				__block FUTweenAction* tweenCopy;
+				
 				beforeEach(^{
-					[tween setFactor:1.0f];
+					tweenCopy = [tween copy];
 				});
 				
-				it(@"set the value back to the toValue", ^{
+				it(@"has the same target", ^{
+					expect([tweenCopy target]).to.beIdenticalTo(target);
+				});
+				
+				it(@"has the same property", ^{
+					expect([tweenCopy property]).to.equal(@"doubleValue");
+				});
+				
+				it(@"has no fromValue", ^{
+					expect([tweenCopy fromValue]).to.beNil();
+				});
+				
+				it(@"has no toValue", ^{
+					expect([tweenCopy toValue]).to.beNil();
+				});
+				
+				context(@"set a factor of 0.5f", ^{
+					beforeEach(^{
+						[tweenCopy setFactor:0.5f];
+					});
+					
+					it(@"has the fromValue of the property on update time", ^{
+						expect([tweenCopy fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+					});
+					
+					it(@"has the toValue of the difference", ^{
+						expect([tweenCopy toValue]).to.equal([NSNumber numberWithDouble:4.0]);
+					});
+					
+					it(@"set the value half-way through", ^{
+						expect([target doubleValue]).to.equal(3.0);
+					});
+				});
+			});
+			
+			context(@"setting a factor of 1.0f", ^{
+				it(@"sets the value back to the toValue", ^{
+					[tween setFactor:1.0f];
 					expect([target doubleValue]).to.equal(4.0);
 				});
 			});
 			
-			context(@"set a factor of -0.5f", ^{
-				beforeEach(^{
+			context(@"setting a factor of -0.5f", ^{
+				it(@"sets the value half-way before the fromValue", ^{
 					[tween setFactor:-0.5f];
-				});
-				
-				it(@"set the value half-way before the fromValue", ^{
 					expect([target doubleValue]).to.equal(1.0);
 				});
 			});
 			
-			context(@"set a factor of 1.5f", ^{
-				beforeEach(^{
+			context(@"setting a factor of 1.5f", ^{
+				it(@"sets the value half-way after the toValue", ^{
 					[tween setFactor:1.5f];
-				});
-				
-				it(@"set the value half-way after the toValue", ^{
 					expect([target doubleValue]).to.equal(5.0);
 				});
 			});
+		});
+	});
+	
+	context(@"initialized with the FUTweenTo function", ^{
+		__block FUDoubleObject* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = [FUDoubleObject new];
+			tween = FUTweenTo(target, @"doubleValue", 1.0, [NSNumber numberWithDouble:4.0]);
+		});
+		
+		it(@"is a FUTweenAction", ^{
+			expect(tween).to.beKindOf([FUTweenAction class]);
+		});
+		
+		it(@"has the correct target", ^{
+			expect([tween target]).to.beIdenticalTo(target);
+		});
+		
+		it(@"has the correct property", ^{
+			expect([tween property]).to.equal(@"doubleValue");
+		});
+		
+		it(@"has no fromValue", ^{
+			expect([tween fromValue]).to.beNil();
+		});
+		
+		it(@"has the current toValue", ^{
+			expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
+		});
+	});
+	
+	context(@"initialized with the FUTweenFromTo function", ^{
+		__block FUDoubleObject* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = [FUDoubleObject new];
+			tween = FUTweenFromTo(target, @"doubleValue", 1.0, [NSNumber numberWithDouble:2.0], [NSNumber numberWithDouble:4.0]);
+		});
+		
+		it(@"is a FUTweenAction", ^{
+			expect(tween).to.beKindOf([FUTweenAction class]);
+		});
+		
+		it(@"has the correct target", ^{
+			expect([tween target]).to.beIdenticalTo(target);
+		});
+		
+		it(@"has the correct property", ^{
+			expect([tween property]).to.equal(@"doubleValue");
+		});
+		
+		it(@"has the correct fromValue", ^{
+			expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+		});
+		
+		it(@"has the current toValue", ^{
+			expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
+		});
+	});
+	
+	context(@"initialized with the FUTweenBy function", ^{
+		__block FUDoubleObject* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = [FUDoubleObject new];
+			tween = FUTweenBy(target, @"doubleValue", 1.0, [NSNumber numberWithDouble:2.0]);
+		});
+		
+		it(@"is a FUTweenAction", ^{
+			expect(tween).to.beKindOf([FUTweenAction class]);
+		});
+		
+		it(@"has the correct target", ^{
+			expect([tween target]).to.beIdenticalTo(target);
+		});
+		
+		it(@"has the correct property", ^{
+			expect([tween property]).to.equal(@"doubleValue");
+		});
+		
+		it(@"has no fromValue", ^{
+			expect([tween fromValue]).to.beNil();
+		});
+		
+		it(@"has no toValue", ^{
+			expect([tween toValue]).to.beNil();
+		});
+	});
+	
+	context(@"initializing with a mutable property and changing it", ^{
+		it(@"does not change the property", ^{
+			NSMutableString* property = [NSMutableString stringWithString:@"doubleValue"];
+			FUTweenAction* tween = FUTweenTo([FUDoubleObject new], @"doubleValue", 1.0, [NSNumber numberWithDouble:4.0]);
+			[property setString:@"invalidProperty"];
+			expect([tween property]).to.equal(@"doubleValue");
 		});
 	});
 });

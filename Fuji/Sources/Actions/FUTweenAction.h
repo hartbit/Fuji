@@ -24,3 +24,19 @@
 @property (nonatomic, strong, readonly) NSNumber* toValue;
 
 @end
+
+
+static OBJC_INLINE FUTweenAction* FUTweenTo(id target, NSString* property, NSTimeInterval duration, NSNumber* toValue)
+{
+	return [[FUTweenAction alloc] initWithTarget:target property:property duration:duration toValue:toValue];
+}
+
+static OBJC_INLINE FUTweenAction* FUTweenFromTo(id target, NSString* property, NSTimeInterval duration, NSNumber* fromValue, NSNumber* toValue)
+{
+	return [[FUTweenAction alloc] initWithTarget:target property:property duration:duration fromValue:fromValue toValue:toValue];
+}
+
+static OBJC_INLINE FUTweenAction* FUTweenBy(id target, NSString* property, NSTimeInterval duration, NSNumber* byValue)
+{
+	return [[FUTweenAction alloc] initWithTarget:target property:property duration:duration byValue:byValue];
+}
