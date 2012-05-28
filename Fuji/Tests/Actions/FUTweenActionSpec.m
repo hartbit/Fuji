@@ -175,25 +175,254 @@ describe(@"A tween action", ^{
 		});
 		
 		it(@"has no fromValue", ^{
-			expect([tween fromValue]).to.equal(nil);
+			expect([tween fromValue]).to.beNil();
 		});
 		
 		it(@"has the correct toValue", ^{
 			expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
 		});
 		
-		context(@"updated with a delta time of 0.0", ^{
+		context(@"set the value on the target to 2.0", ^{
 			beforeEach(^{
 				[target setDoubleValue:2.0];
-				[tween consumeDeltaTime:0.5];
 			});
 			
-			it(@"has the fromValue of the property on update time", ^{
-				expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+			context(@"set a factor of 0.5f", ^{
+				beforeEach(^{
+					[tween setFactor:0.5f];
+				});
+				
+				it(@"has the fromValue of the property on update time", ^{
+					expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+				});
+				
+				it(@"set the value half-way through", ^{
+					expect([target doubleValue]).to.equal(3.0);
+				});
+				
+				context(@"set a factor of 0.0f", ^{
+					beforeEach(^{
+						[tween setFactor:0.0f];
+					});
+					
+					it(@"set the value back to the fromValue", ^{
+						expect([target doubleValue]).to.equal(2.0);
+					});
+				});
 			});
 			
-			it(@"set the value half-way through", ^{
-				expect([target doubleValue]).to.equal(3.0);
+			context(@"set a factor of 1.0f", ^{
+				beforeEach(^{
+					[tween setFactor:1.0f];
+				});
+				
+				it(@"set the value back to the toValue", ^{
+					expect([target doubleValue]).to.equal(4.0);
+				});
+			});
+			
+			context(@"set a factor of -0.5f", ^{
+				beforeEach(^{
+					[tween setFactor:-0.5f];
+				});
+				
+				it(@"set the value half-way before the fromValue", ^{
+					expect([target doubleValue]).to.equal(1.0);
+				});
+			});
+			
+			context(@"set a factor of 1.5f", ^{
+				beforeEach(^{
+					[tween setFactor:1.5f];
+				});
+				
+				it(@"set the value half-way after the toValue", ^{
+					expect([target doubleValue]).to.equal(5.0);
+				});
+			});
+		});
+	});
+	
+	context(@"initialized with the fromValue and toValue initialization method", ^{
+		__block FUDoubleObject* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = [FUDoubleObject new];
+			tween = [[FUTweenAction alloc] initWithTarget:target property:@"doubleValue" duration:1.0 fromValue:[NSNumber numberWithDouble:2.0] toValue:[NSNumber numberWithDouble:4.0]];
+		});
+		
+		it(@"is not nil", ^{
+			expect(tween).toNot.beNil();
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([tween duration]).to.equal(1.0);
+		});
+		
+		it(@"has the correct target", ^{
+			expect([tween target]).to.beIdenticalTo(target);
+		});
+		
+		it(@"has the correct fromValue", ^{
+			expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+		});
+		
+		it(@"has the correct toValue", ^{
+			expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
+		});
+		
+		context(@"set the value on the target to 1.0", ^{
+			beforeEach(^{
+				[target setDoubleValue:1.0];
+			});
+			
+			context(@"set a factor of 0.5f", ^{
+				beforeEach(^{
+					[tween setFactor:0.5f];
+				});
+				
+				it(@"has the fromValue of the property on update time", ^{
+					expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+				});
+				
+				it(@"set the value half-way through", ^{
+					expect([target doubleValue]).to.equal(3.0);
+				});
+				
+				context(@"set a factor of 0.0f", ^{
+					beforeEach(^{
+						[tween setFactor:0.0f];
+					});
+					
+					it(@"set the value back to the fromValue", ^{
+						expect([target doubleValue]).to.equal(2.0);
+					});
+				});
+			});
+			
+			context(@"set a factor of 1.0f", ^{
+				beforeEach(^{
+					[tween setFactor:1.0f];
+				});
+				
+				it(@"set the value back to the toValue", ^{
+					expect([target doubleValue]).to.equal(4.0);
+				});
+			});
+			
+			context(@"set a factor of -0.5f", ^{
+				beforeEach(^{
+					[tween setFactor:-0.5f];
+				});
+				
+				it(@"set the value half-way before the fromValue", ^{
+					expect([target doubleValue]).to.equal(1.0);
+				});
+			});
+			
+			context(@"set a factor of 1.5f", ^{
+				beforeEach(^{
+					[tween setFactor:1.5f];
+				});
+				
+				it(@"set the value half-way after the toValue", ^{
+					expect([target doubleValue]).to.equal(5.0);
+				});
+			});
+		});
+	});
+	
+	context(@"initialized with the byValue initialization method", ^{
+		__block FUDoubleObject* target;
+		__block FUTweenAction* tween;
+		
+		beforeEach(^{
+			target = [FUDoubleObject new];
+			tween = [[FUTweenAction alloc] initWithTarget:target property:@"doubleValue" duration:1.0 byValue:[NSNumber numberWithDouble:2.0]];
+		});
+		
+		it(@"is not nil", ^{
+			expect(tween).toNot.beNil();
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([tween duration]).to.equal(1.0);
+		});
+		
+		it(@"has the correct target", ^{
+			expect([tween target]).to.beIdenticalTo(target);
+		});
+		
+		it(@"has no fromValue", ^{
+			expect([tween fromValue]).to.beNil();
+		});
+		
+		it(@"has no toValue", ^{
+			expect([tween toValue]).to.beNil();
+		});
+		
+		context(@"set the value on the target to 2.0", ^{
+			beforeEach(^{
+				[target setDoubleValue:2.0];
+			});
+			
+			context(@"set a factor of 0.5f", ^{
+				beforeEach(^{
+					[tween setFactor:0.5f];
+				});
+				
+				it(@"has the fromValue of the property on update time", ^{
+					expect([tween fromValue]).to.equal([NSNumber numberWithDouble:2.0]);
+				});
+				
+				it(@"has the toValue of the difference", ^{
+					expect([tween toValue]).to.equal([NSNumber numberWithDouble:4.0]);
+				});
+				
+				it(@"set the value half-way through", ^{
+					expect([target doubleValue]).to.equal(3.0);
+				});
+				
+				context(@"set a factor of 0.0f", ^{
+					beforeEach(^{
+						[tween setFactor:0.0f];
+					});
+					
+					it(@"set the value back to the fromValue", ^{
+						expect([target doubleValue]).to.equal(2.0);
+					});
+				});
+			});
+			
+			context(@"set a factor of 1.0f", ^{
+				beforeEach(^{
+					[tween setFactor:1.0f];
+				});
+				
+				it(@"set the value back to the toValue", ^{
+					expect([target doubleValue]).to.equal(4.0);
+				});
+			});
+			
+			context(@"set a factor of -0.5f", ^{
+				beforeEach(^{
+					[tween setFactor:-0.5f];
+				});
+				
+				it(@"set the value half-way before the fromValue", ^{
+					expect([target doubleValue]).to.equal(1.0);
+				});
+			});
+			
+			context(@"set a factor of 1.5f", ^{
+				beforeEach(^{
+					[tween setFactor:1.5f];
+				});
+				
+				it(@"set the value half-way after the toValue", ^{
+					expect([target doubleValue]).to.equal(5.0);
+				});
 			});
 		});
 	});

@@ -115,6 +115,7 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 	id target = [self target];
 	NSString* property = [self property];
 	NSNumber* fromValue = [self fromValue];
+	NSNumber* toValue = [self toValue];
 	
 	if (fromValue == nil) {
 		fromValue = [target valueForKey:property];
@@ -122,7 +123,14 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 	}
 	
 	double fromDouble = [fromValue doubleValue];
-	double toDouble = [[self toValue] doubleValue];
+	
+	if (toValue == nil) {
+		double byDouble = [[self byValue] doubleValue];
+		toValue = [NSNumber numberWithDouble:fromDouble + byDouble];
+		[self setToValue:toValue];
+	}
+	
+	double toDouble = [toValue doubleValue];
 	double currentDouble = fromDouble + [self factor] * (toDouble - fromDouble);
 	[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
 }
