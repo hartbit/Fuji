@@ -28,13 +28,13 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 		}); \
 		\
 		it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
-			[verify(object) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
+			[verify(target) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
 		}); \
 		\
 		context(@"updating with a negative time", ^{ \
 			it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
 				[action consumeDeltaTime:-1.0]; \
-				[verifyCount(object, times(2)) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
+				[verifyCount(target, times(2)) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
 			}); \
 		}); \
 	});
@@ -46,19 +46,19 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 	\
 	context(@"updated with a positive time", ^{ \
 		beforeEach(^{ \
-			[given([object valueForKey:prop]) willReturn:[NSNumber numberWithBool:NO]]; \
+			[given([target valueForKey:prop]) willReturn:[NSNumber numberWithBool:NO]]; \
 			[action consumeDeltaTime:1.0]; \
 		}); \
 		\
 		it([NSString stringWithFormat:@"sets %@ to YES", prop], ^{ \
-			[verify(object) setValue:[NSNumber numberWithBool:YES] forKey:prop]; \
+			[verify(target) setValue:[NSNumber numberWithBool:YES] forKey:prop]; \
 		}); \
 		\
 		context(@"updating with a negative time", ^{ \
 			it([NSString stringWithFormat:@"sets %@ to NO", prop], ^{ \
-				[given([object valueForKey:prop]) willReturn:[NSNumber numberWithBool:YES]]; \
+				[given([target valueForKey:prop]) willReturn:[NSNumber numberWithBool:YES]]; \
 				[action consumeDeltaTime:-1.0]; \
-				[verify(object) setValue:[NSNumber numberWithBool:NO] forKey:prop]; \
+				[verify(target) setValue:[NSNumber numberWithBool:NO] forKey:prop]; \
 			}); \
 		}); \
 	});
@@ -205,72 +205,72 @@ describe(@"A block action", ^{
 	});
 	
 	context(@"initialized with the FUSwitchOn function", ^{
-		__block FUBehavior* object;
+		__block FUBehavior* target;
 		__block FUBlockAction* action;
 		
 		beforeEach(^{
-			object = mock([FUBehavior class]);
-			action = FUSwitchOn(object, @"enabled");
+			target = mock([FUBehavior class]);
+			action = FUSwitchOn(target, @"enabled");
 		});
 		
 		FUTestBoolSetsValue(@"enabled", YES);
 	});
 	
 	context(@"initialized with the FUSwitchOff function", ^{
-		__block FUBehavior* object;
+		__block FUBehavior* target;
 		__block FUBlockAction* action;
 		
 		beforeEach(^{
-			object = mock([FUBehavior class]);
-			action = FUSwitchOff(object, @"enabled");
+			target = mock([FUBehavior class]);
+			action = FUSwitchOff(target, @"enabled");
 		});
 		
 		FUTestBoolSetsValue(@"enabled", NO);
 	});
 	
 	context(@"initialized with the FUToggle function", ^{
-		__block FUBehavior* object;
+		__block FUBehavior* target;
 		__block FUBlockAction* action;
 		
 		beforeEach(^{
-			object = mock([FUBehavior class]);
-			action = FUToggle(object, @"enabled");
+			target = mock([FUBehavior class]);
+			action = FUToggle(target, @"enabled");
 		});
 		
 		FUTestBoolTogglesValue(@"enabled");
 	});
 	
 	context(@"initialized with the FUEnable function", ^{
-		__block FUBehavior* object;
+		__block FUBehavior* target;
 		__block FUBlockAction* action;
 		
 		beforeEach(^{
-			object = mock([FUBehavior class]);
-			action = FUEnable(object);
+			target = mock([FUBehavior class]);
+			action = FUEnable(target);
 		});
 		
 		FUTestBoolSetsValue(@"enabled", YES);
 	});
 	
 	context(@"initialized with the FUDisable function", ^{
-		__block FUBehavior* object;
+		__block FUBehavior* target;
 		__block FUBlockAction* action;
 		
 		beforeEach(^{
-			object = mock([FUBehavior class]);
-			action = FUDisable(object);
+			target = mock([FUBehavior class]);
+			action = FUDisable(target);
 		});
 		
 		FUTestBoolSetsValue(@"enabled", NO);
 	});
 	
 	context(@"initialized with the FUToggleEnabled function", ^{
-		__block FUBehavior* object;
+		__block FUBehavior* target;
 		__block FUBlockAction* action;
 		
 		beforeEach(^{
-			object = mock([FUBehavior class]);
-			action = FUToggleEnabled(object);
+			target = mock([FUBehavior class]);
+			action = FUToggleEnabled(target);
 		});
 		
 		FUTestBoolTogglesValue(@"enabled");

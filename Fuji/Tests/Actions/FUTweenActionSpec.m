@@ -35,7 +35,7 @@ describe(@"A tween action", ^{
 		expect([FUDelayAction class]).to.beSubclassOf([FUTimedAction class]);
 	});
 	
-	context(@"initializing with a nil object", ^{
+	context(@"initializing with a nil target", ^{
 		context(@"with the toValue initialization method", ^{
 			it(@"throws an exception", ^{
 				assertThrows([[FUTweenAction alloc] initWithTarget:nil property:@"property" duration:0.0 toValue:[NSNumber numberWithDouble:1.0]], NSInvalidArgumentException, FUTargetNilMessage);
