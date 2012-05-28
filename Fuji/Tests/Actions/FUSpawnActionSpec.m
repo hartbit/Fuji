@@ -1,5 +1,5 @@
 //
-//  FUGroupActionSpec.m
+//  FUSpawnActionSpec.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -18,22 +18,22 @@ static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
 static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to conform to the FUAction protocol";
 
 
-SPEC_BEGIN(FUGroupAction)
+SPEC_BEGIN(FUSpawnAction)
 
-describe(@"A group action", ^{
+describe(@"A spawn action", ^{
 	it(@"is an action", ^{
-		expect([[FUGroupAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
+		expect([[FUSpawnAction class] conformsToProtocol:@protocol(FUAction)]).to.beTruthy();
 	});
 	
 	context(@"initilized with a nil array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUGroupAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilMessage);
+			assertThrows([[FUSpawnAction alloc] initWithActions:nil], NSInvalidArgumentException, FUArrayNilMessage);
 		});
 	});
 	
 	context(@"initilized with an empty array", ^{
 		it(@"does not throw", ^{
-			assertNoThrow([[FUGroupAction alloc] initWithActions:[NSArray array]]);
+			assertNoThrow([[FUSpawnAction alloc] initWithActions:[NSArray array]]);
 		});
 	});
 	
@@ -41,13 +41,13 @@ describe(@"A group action", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
 			NSArray* array = [NSArray arrayWithObject:object];
-			assertThrows([[FUGroupAction alloc] initWithActions:array], NSInvalidArgumentException, FUActionProtocolMessage, object);
+			assertThrows([[FUSpawnAction alloc] initWithActions:array], NSInvalidArgumentException, FUActionProtocolMessage, object);
 		});
 	});
 	
 	context(@"initializing via the function with no actions", ^{
-		it(@"returns a FUGroupAction", ^{
-			expect(FUGroup()).to.beKindOf([FUGroupAction class]);
+		it(@"returns a FUSpawnAction", ^{
+			expect(FUSpawn()).to.beKindOf([FUSpawnAction class]);
 		});
 	});
 	
@@ -56,48 +56,48 @@ describe(@"A group action", ^{
 		__block NSObject<FUAction>* action2;
 		__block NSObject<FUAction>* action3;
 		__block NSMutableArray* actions;
-		__block FUGroupAction* group;
+		__block FUSpawnAction* spawn;
 		
 		beforeEach(^{
 			action1 = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			action2 = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			action3 = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
-			group = [[FUGroupAction alloc] initWithActions:actions];
+			spawn = [[FUSpawnAction alloc] initWithActions:actions];
 		});
 		
 		context(@"initializing via the function with three actions", ^{
-			it(@"returns a FUGroupAction", ^{
-				expect(FUGroup(action1, action2, action3)).to.beKindOf([FUGroupAction class]);
+			it(@"returns a FUSpawnAction", ^{
+				expect(FUSpawn(action1, action2, action3)).to.beKindOf([FUSpawnAction class]);
 			});
 		});
 		
 		it(@"is not nil", ^{
-			expect(group).toNot.beNil();
+			expect(spawn).toNot.beNil();
 		});
 		
 		it(@"contains all three actions", ^{
-			NSArray* actionsArray = [group actions];
+			NSArray* actionsArray = [spawn actions];
 			expect(actionsArray).to.haveCountOf(3);
 			expect(actionsArray).to.contain(action1);
 			expect(actionsArray).to.contain(action2);
 			expect(actionsArray).to.contain(action3);
 		});
 		
-		context(@"calling consumeDeltaTime: on the group with 0.0 seconds", ^{
+		context(@"calling consumeDeltaTime: on the spawn with 0.0 seconds", ^{
 			it(@"does not call consumeDeltaTime: on any actions", ^{
-				[group consumeDeltaTime:0.0];
+				[spawn consumeDeltaTime:0.0];
 				[[verifyCount(action1, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				[[verifyCount(action2, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				[[verifyCount(action3, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 			});
 		});
 		
-		context(@"called consumeDeltaTime: with a positive time on the group", ^{
+		context(@"called consumeDeltaTime: with a positive time on the spawn", ^{
 			__block NSTimeInterval timeLeft1;
 			
 			beforeEach(^{
-				timeLeft1 = [group consumeDeltaTime:1.0];
+				timeLeft1 = [spawn consumeDeltaTime:1.0];
 			});
 			
 			it(@"returns no time left", ^{
@@ -110,12 +110,12 @@ describe(@"A group action", ^{
 				[verify(action3) consumeDeltaTime:1.0];
 			});
 			
-			context(@"called consumeDeltaTime: on the group with one action returning some time left", ^{
+			context(@"called consumeDeltaTime: on the spawn with one action returning some time left", ^{
 				__block NSTimeInterval timeLeft2;
 				
 				beforeEach(^{
 					[given([action3 consumeDeltaTime:2.0]) willReturnDouble:0.5];
-					timeLeft2 = [group consumeDeltaTime:2.0];
+					timeLeft2 = [spawn consumeDeltaTime:2.0];
 				});
 				
 				it(@"returns no time left", ^{
@@ -128,14 +128,14 @@ describe(@"A group action", ^{
 					[verify(action3) consumeDeltaTime:2.0];
 				});
 				
-				context(@"called consumeDeltaTime: on the group with all actions returning some time left", ^{
+				context(@"called consumeDeltaTime: on the spawn with all actions returning some time left", ^{
 					__block NSTimeInterval timeLeft3;
 					
 					beforeEach(^{
 						[given([action1 consumeDeltaTime:3.0]) willReturnDouble:0.8];
 						[given([action2 consumeDeltaTime:3.0]) willReturnDouble:0.2];
 						[given([action3 consumeDeltaTime:3.0]) willReturnDouble:0.5];
-						timeLeft3 = [group consumeDeltaTime:3.0];
+						timeLeft3 = [spawn consumeDeltaTime:3.0];
 					});
 					
 					it(@"returns the smallest time left", ^{
@@ -149,14 +149,14 @@ describe(@"A group action", ^{
 					});
 				});
 				
-				context(@"called consumeDeltaTime with a negative time on the group and with all actions returing some time left", ^{
+				context(@"called consumeDeltaTime with a negative time on the spawn and with all actions returing some time left", ^{
 					__block NSTimeInterval timeLeft5;
 					
 					beforeEach(^{
 						[given([action1 consumeDeltaTime:-5.0]) willReturnDouble:-0.8];
 						[given([action2 consumeDeltaTime:-5.0]) willReturnDouble:-1.2];
 						[given([action3 consumeDeltaTime:-5.0]) willReturnDouble:-2.0];
-						timeLeft5 = [group consumeDeltaTime:-5.0];
+						timeLeft5 = [spawn consumeDeltaTime:-5.0];
 					});
 					
 					it(@"returns -0.8 seconds left", ^{
@@ -170,8 +170,8 @@ describe(@"A group action", ^{
 					});
 				});
 				
-				context(@"called consumeDeltaTime on a copy of the group", ^{
-					__block FUGroupAction* groupCopy;
+				context(@"called consumeDeltaTime on a copy of the spawn", ^{
+					__block FUSpawnAction* spawnCopy;
 					__block NSObject<FUAction>* action1Copy;
 					__block NSObject<FUAction>* action2Copy;
 					__block NSObject<FUAction>* action3Copy;
@@ -186,20 +186,20 @@ describe(@"A group action", ^{
 						action3Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action3 copy]) willReturn:action3Copy];
 						
-						groupCopy = [group copy];
-						[groupCopy consumeDeltaTime:4.0];
+						spawnCopy = [spawn copy];
+						[spawnCopy consumeDeltaTime:4.0];
 					});
 					
 					it(@"is not nil", ^{
-						expect(groupCopy).toNot.beNil();
+						expect(spawnCopy).toNot.beNil();
 					});
 					
 					it(@"is not the same instance", ^{
-						expect(groupCopy).toNot.beIdenticalTo(group);
+						expect(spawnCopy).toNot.beIdenticalTo(spawn);
 					});
 					
 					it(@"contains all three copied actions", ^{
-						NSArray* actionsArray = [groupCopy actions];
+						NSArray* actionsArray = [spawnCopy actions];
 						expect(actionsArray).to.haveCountOf(3);
 						expect(actionsArray).to.contain(action1Copy);
 						expect(actionsArray).to.contain(action2Copy);
@@ -230,12 +230,12 @@ describe(@"A group action", ^{
 			});
 			
 			it(@"does not contain the extra action", ^{
-				expect([group actions]).toNot.contain(extraAction);
+				expect([spawn actions]).toNot.contain(extraAction);
 			});
 			
-			context(@"calling consumeDeltaTime: on the group", ^{
+			context(@"calling consumeDeltaTime: on the spawn", ^{
 				it(@"does not call consumeDeltaTime: on the extra action", ^{
-					[group consumeDeltaTime:10.0];
+					[spawn consumeDeltaTime:10.0];
 					[[verifyCount(extraAction, never()) withMatcher:HC_anything()] consumeDeltaTime:0.0];
 				});
 			});

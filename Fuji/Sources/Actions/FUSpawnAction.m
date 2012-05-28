@@ -1,5 +1,5 @@
 //
-//  FUGroupAction.m
+//  FUSpawnAction.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -9,7 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUGroupAction.h"
+#import "FUSpawnAction.h"
 #import "FUSupport.h"
 
 
@@ -17,14 +17,14 @@ static NSString* const FUArrayNilMessage = @"Expected array to not be nil";
 static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to conform to the FUAction protocol";
 
 
-@interface FUGroupAction ()
+@interface FUSpawnAction ()
 
 @property (nonatomic, copy) NSArray* actions;
 
 @end
 
 
-@implementation FUGroupAction
+@implementation FUSpawnAction
 
 @synthesize actions = _actions;
 
@@ -49,7 +49,7 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	FUGroupAction* copy = [[self class] allocWithZone:zone];
+	FUSpawnAction* copy = [[self class] allocWithZone:zone];
 	[copy setActions:[[NSArray alloc] initWithArray:[self actions] copyItems:YES]];
 	return copy;
 }

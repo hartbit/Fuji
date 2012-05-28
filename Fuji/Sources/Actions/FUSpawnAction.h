@@ -1,5 +1,5 @@
 //
-//  FUGroupAction.h
+//  FUSpawnAction.h
 //  Fuji
 //
 //  Created by David Hart.
@@ -13,7 +13,7 @@
 #import "FUAction.h"
 
 
-@interface FUGroupAction : NSObject<FUAction>
+@interface FUSpawnAction : NSObject<FUAction>
 
 - (id)initWithActions:(NSArray*)actions;
 
@@ -22,9 +22,9 @@
 @end
 
 
-#define FUGroup(actions...) ({ \
+#define FUSpawn(actions...) ({ \
 	id __objects[] = { actions }; \
 	NSUInteger __count = sizeof(__objects) / sizeof(id); \
 	NSArray* __array = [[NSArray alloc] initWithObjects:__objects count:__count]; \
-	[[FUGroupAction alloc] initWithActions:__array]; \
+	[[FUSpawnAction alloc] initWithActions:__array]; \
 })
