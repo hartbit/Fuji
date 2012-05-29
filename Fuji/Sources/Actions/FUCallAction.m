@@ -1,5 +1,5 @@
 //
-//  FUBlockAction.m
+//  FUCallAction.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -9,21 +9,21 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUBlockAction.h"
+#import "FUCallAction.h"
 #import "FUSupport.h"
 
 
-static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
+static NSString* const FUCallNullMessage = @"Expected block to not be nil";
 
 
-@interface FUBlockAction ()
+@interface FUCallAction ()
 
 @property (nonatomic, copy) void (^block)();
 
 @end
 
 
-@implementation FUBlockAction
+@implementation FUCallAction
 
 @synthesize block = _block;
 
@@ -31,7 +31,7 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 - (id)initWithBlock:(void (^)())block
 {
-	FUCheck(block != NULL, FUBlockNullMessage);
+	FUCheck(block != NULL, FUCallNullMessage);
 	
 	if ((self = [super initWithDuration:0.0])) {
 		[self setBlock:block];
@@ -44,7 +44,7 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	FUBlockAction* copy = [super copyWithZone:zone];
+	FUCallAction* copy = [super copyWithZone:zone];
 	[copy setBlock:[self block]];
 	return copy;
 }

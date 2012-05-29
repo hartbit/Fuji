@@ -1,5 +1,5 @@
 //
-//  FUBlockActionSpec.m
+//  FUCallActionSpec.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -14,7 +14,7 @@
 #import "FUTestSupport.h"
 
 
-static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
+static NSString* const FUCallNullMessage = @"Expected block to not be nil";
 
 
 #define FUTestBoolSetsValue(prop, value) \
@@ -64,33 +64,33 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be nil";
 	});
 
 
-SPEC_BEGIN(FUBlockAction)
+SPEC_BEGIN(FUCallAction)
 
 describe(@"A block action", ^{
 	it(@"is a timed action", ^{
-		expect([FUBlockAction class]).to.beSubclassOf([FUTimedAction class]);
+		expect([FUCallAction class]).to.beSubclassOf([FUTimedAction class]);
 	});
 	
 	context(@"initizing with a NULL block", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUBlockAction alloc] initWithBlock:NULL], NSInvalidArgumentException, FUBlockNullMessage);
+			assertThrows([[FUCallAction alloc] initWithBlock:NULL], NSInvalidArgumentException, FUCallNullMessage);
 		});
 	});
 	
 	context(@"initializing via the function with a block", ^{
-		it(@"returns a FUBlockAction", ^{
-			expect(FUBlock(^{})).to.beKindOf([FUBlockAction class]);
+		it(@"returns a FUCallAction", ^{
+			expect(FUCall(^{})).to.beKindOf([FUCallAction class]);
 		});
 	});
 	
 	context(@"initialized with a block", ^{
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		__block NSUInteger callCount;
 		__block NSTimeInterval timeLeft;
 		
 		beforeEach(^{
 			callCount = 0;
-			action = [[FUBlockAction alloc] initWithBlock:^{
+			action = [[FUCallAction alloc] initWithBlock:^{
 				callCount++;
 			}];
 		});
@@ -145,7 +145,7 @@ describe(@"A block action", ^{
 			});
 			
 			context(@"created a copy of the action", ^{
-				__block FUBlockAction* actionCopy;
+				__block FUCallAction* actionCopy;
 				
 				beforeEach(^{
 					actionCopy = [action copy];
@@ -206,7 +206,7 @@ describe(@"A block action", ^{
 	
 	context(@"initialized with the FUSwitchOn function", ^{
 		__block FUBehavior* target;
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		
 		beforeEach(^{
 			target = mock([FUBehavior class]);
@@ -218,7 +218,7 @@ describe(@"A block action", ^{
 	
 	context(@"initialized with the FUSwitchOff function", ^{
 		__block FUBehavior* target;
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		
 		beforeEach(^{
 			target = mock([FUBehavior class]);
@@ -230,7 +230,7 @@ describe(@"A block action", ^{
 	
 	context(@"initialized with the FUToggle function", ^{
 		__block FUBehavior* target;
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		
 		beforeEach(^{
 			target = mock([FUBehavior class]);
@@ -242,7 +242,7 @@ describe(@"A block action", ^{
 	
 	context(@"initialized with the FUEnable function", ^{
 		__block FUBehavior* target;
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		
 		beforeEach(^{
 			target = mock([FUBehavior class]);
@@ -254,7 +254,7 @@ describe(@"A block action", ^{
 	
 	context(@"initialized with the FUDisable function", ^{
 		__block FUBehavior* target;
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		
 		beforeEach(^{
 			target = mock([FUBehavior class]);
@@ -266,7 +266,7 @@ describe(@"A block action", ^{
 	
 	context(@"initialized with the FUToggleEnabled function", ^{
 		__block FUBehavior* target;
-		__block FUBlockAction* action;
+		__block FUCallAction* action;
 		
 		beforeEach(^{
 			target = mock([FUBehavior class]);
