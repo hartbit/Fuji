@@ -11,6 +11,7 @@
 
 #import "FUSceneObject-Internal.h"
 #import "FUVisitor-Internal.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";

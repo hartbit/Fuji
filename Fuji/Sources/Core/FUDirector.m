@@ -16,6 +16,7 @@
 #import "FUEngine-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUGraphicsEngine.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";

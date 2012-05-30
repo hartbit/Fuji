@@ -10,10 +10,11 @@
 //
 
 #import "FUCallAction.h"
-#import "FUSupport.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
+static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 
 
 @interface FUCallAction ()
@@ -66,6 +67,8 @@ FUCallAction* FUCall(FUCallBlock block)
 
 FUCallAction* FUToggle(id target, NSString* property)
 {
+	FUCheckTargetAndProperty(target, property);
+	
 	return FUCall(^{
 		NSNumber* oldValue = [target valueForKey:property];
 		NSNumber* newValue = [NSNumber numberWithBool:![oldValue boolValue]];
@@ -75,12 +78,20 @@ FUCallAction* FUToggle(id target, NSString* property)
 
 FUCallAction* FUSwitchOn(id target, NSString* property)
 {
-	return FUCall(^{ [target setValue:[NSNumber numberWithBool:YES] forKey:property]; });
+	FUCheckTargetAndProperty(target, property);
+	
+	return FUCall(^{
+		[target setValue:[NSNumber numberWithBool:YES] forKey:property];
+	});
 }
 
 FUCallAction* FUSwitchOff(id target, NSString* property)
 {
-	return FUCall(^{ [target setValue:[NSNumber numberWithBool:NO] forKey:property]; });
+	FUCheckTargetAndProperty(target, property);
+	
+	return FUCall(^{
+		[target setValue:[NSNumber numberWithBool:NO] forKey:property];
+	});
 }
 
 FUCallAction* FUToggleEnabled(id target)

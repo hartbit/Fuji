@@ -12,7 +12,7 @@
 #import <GLKit/GLKit.h>
 #import "FUTexture-Internal.h"
 #import "NSBundle+FUAdditions-Internal.h"
-#import "FUSupport.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUTextureNonexistantMessage = @"The texture with 'name=%@' does not exist";

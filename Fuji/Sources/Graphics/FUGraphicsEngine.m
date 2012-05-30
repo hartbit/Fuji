@@ -17,6 +17,7 @@
 #import "FUGraphicsSettings.h"
 #import "FUTexture-Internal.h"
 #import "FUSpriteBuffer-Internal.h"
+#import "FUAssert.h"
 
 
 @interface FUGraphicsRegistrationVisitor : FUVisitor
@@ -64,7 +65,7 @@
 		glDepthFunc(GL_LEQUAL);
 		glClearDepthf(1.0f);
 		
-		FU_CHECK_OPENGL_ERROR();
+		FUCheckOGLError();
 	}
 	
 	return self;
@@ -183,7 +184,7 @@
 	glClearColor(vectorColor.r, vectorColor.g, vectorColor.b, vectorColor.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	FU_CHECK_OPENGL_ERROR();
+	FUCheckOGLError();
 }
 
 @end

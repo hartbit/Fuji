@@ -12,6 +12,7 @@
 #import "FUComponent-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEntity.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";

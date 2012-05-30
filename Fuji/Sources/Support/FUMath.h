@@ -10,7 +10,7 @@
 //
 
 #import <GLKit/GLKit.h>
-#import "FUSupport.h"
+#import "FUAssert.h"
 #import "FUColor.h"
 
 

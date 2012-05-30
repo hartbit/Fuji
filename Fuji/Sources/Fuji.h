@@ -12,8 +12,9 @@
 // Support
 
 #import "FUSupport.h"
-#import	"FUColor.h"
+#import "FUColor.h"
 #import "FUMath.h"
+#import "FUAssert.h"
 
 // Core
 
@@ -31,7 +32,7 @@
 
 #import "FUAction.h"
 #import "FUAnimator.h"
-#import	"FUSpawnAction.h"
+#import "FUSpawnAction.h"
 #import "FUSequenceAction.h"
 #import "FUSpeedAction.h"
 #import "FUTimedAction.h"

@@ -17,6 +17,7 @@
 #import "FUTexture-Internal.h"
 #import "FUAssetStore-Internal.h"
 #import "FUGraphicsTypes-Internal.h"
+#import "FUAssert.h"
 
 
 static const NSUInteger kDefaultCapacity = 100;
@@ -228,7 +229,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-	FU_CHECK_OPENGL_ERROR();
+	FUCheckOGLError();
 }
 
 - (void)updateDataLength
@@ -271,7 +272,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	NSUInteger vertexLength = [self capacity] * kVertexSpriteCount * sizeof(FUVertex);
 	[vertexData setLength:vertexLength];
 	
-	FU_CHECK_OPENGL_ERROR();
+	FUCheckOGLError();
 }
 
 - (void)checkTextureChanges
@@ -350,7 +351,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	glBufferData(GL_ARRAY_BUFFER, vertexIndex * sizeof(FUVertex), vertices, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-	FU_CHECK_OPENGL_ERROR();
+	FUCheckOGLError();
 }
 
 - (void)drawSpritesWithEffect:(GLKBaseEffect*)effect
@@ -378,7 +379,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 	glBindVertexArrayOES(0);
 	
-	FU_CHECK_OPENGL_ERROR();
+	FUCheckOGLError();
 }
 
 @end

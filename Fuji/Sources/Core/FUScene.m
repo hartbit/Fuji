@@ -16,6 +16,7 @@
 #import "FUGraphicsSettings.h"
 #import "FUTransform.h"
 #import "FUEngine.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";

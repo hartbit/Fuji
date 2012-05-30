@@ -15,29 +15,17 @@
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
+static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
+static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
+static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
+static NSString* const FUPropertyNumericalMessage = @"Expected 'property=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
 
 
-#define FUTestBoolSetsValue(prop, value) \
-	it(@"is not nil", ^{ \
-		expect(action).toNot.beNil(); \
-	}); \
-	\
-	context(@"updated with a positive time", ^{ \
-		beforeEach(^{ \
-			[action consumeDeltaTime:1.0]; \
-		}); \
-		\
-		it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
-			[verify(target) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
-		}); \
-		\
-		context(@"updating with a negative time", ^{ \
-			it([NSString stringWithFormat:@"sets %@ to %@", prop, FUStringFromBool(value)], ^{ \
-				[action consumeDeltaTime:-1.0]; \
-				[verifyCount(target, times(2)) setValue:[NSNumber numberWithBool:value] forKey:prop]; \
-			}); \
-		}); \
-	});
+@interface FUBoolObject : NSObject
+@property (nonatomic, getter=isEnabled) BOOL enabled;
+@end
+
 
 #define FUTestBoolTogglesValue(prop) \
 	it(@"is not nil", ^{ \
@@ -46,19 +34,18 @@ static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 	\
 	context(@"updated with a positive time", ^{ \
 		beforeEach(^{ \
-			[given([target valueForKey:prop]) willReturn:[NSNumber numberWithBool:NO]]; \
+			[target setValue:[NSNumber numberWithBool:NO] forKey:prop]; \
 			[action consumeDeltaTime:1.0]; \
 		}); \
 		\
 		it([NSString stringWithFormat:@"sets %@ to YES", prop], ^{ \
-			[verify(target) setValue:[NSNumber numberWithBool:YES] forKey:prop]; \
+			expect([target valueForKey:prop]).to.equal([NSNumber numberWithBool:YES]); \
 		}); \
 		\
 		context(@"updating with a negative time", ^{ \
 			it([NSString stringWithFormat:@"sets %@ to NO", prop], ^{ \
-				[given([target valueForKey:prop]) willReturn:[NSNumber numberWithBool:YES]]; \
 				[action consumeDeltaTime:-1.0]; \
-				[verify(target) setValue:[NSNumber numberWithBool:NO] forKey:prop]; \
+				expect([target valueForKey:prop]).to.equal([NSNumber numberWithBool:NO]); \
 			}); \
 		}); \
 	});
@@ -204,72 +191,304 @@ describe(@"A call action", ^{
 		});
 	});
 	
-	context(@"initialized with the FUSwitchOn function", ^{
-		__block FUBehavior* target;
-		__block FUCallAction* action;
-		
-		beforeEach(^{
-			target = mock([FUBehavior class]);
-			action = FUSwitchOn(target, @"enabled");
+	context(@"FUSwitchOn function", ^{
+		context(@"initializing with a nil object", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUSwitchOn(nil, @"length"), NSInvalidArgumentException, FUTargetNilMessage);
+			});
 		});
 		
-		FUTestBoolSetsValue(@"enabled", YES);
+		context(@"initializing with a nil property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUSwitchOn([NSMutableData data], nil), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with an empty property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUSwitchOn([NSMutableData data], @""), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with a property that is not defined on the object", ^{
+			it(@"throws an exception", ^{
+				id object = [NSMutableData data];
+				NSString* property = @"undefined";
+				assertThrows(FUSwitchOn(object, property), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, object);
+			});
+		});
+		
+		context(@"initializing with a property that is not of a numerical type", ^{
+			it(@"throws an exception", ^{
+				id object = [NSMutableURLRequest requestWithURL:nil];
+				NSString* property = @"URL";
+				assertThrows(FUSwitchOn(object, property), NSInvalidArgumentException, FUPropertyNumericalMessage, property, object);
+			});
+		});
+		
+		context(@"initializing with a property that is readonly", ^{
+			it(@"throws an exception", ^{
+				id object = [NSString string];
+				NSString* property = @"length";
+				assertThrows(FUSwitchOn(object, property), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, object);
+			});
+		});
+		
+		context(@"initialized with valid arguments", ^{
+			__block FUBoolObject* target;
+			__block FUTimedAction* action;
+			
+			beforeEach(^{
+				target = [FUBoolObject new];
+				[target setEnabled:NO];
+				action = FUSwitchOn(target, @"enabled");
+			});
+			
+			it(@"is a timed action", ^{
+				expect(action).to.beKindOf([FUTimedAction class]);
+			});
+
+			context(@"updated with a positive time", ^{
+				beforeEach(^{
+					[action consumeDeltaTime:1.0];
+				});
+				
+				it(@"is enabled", ^{
+					expect([target isEnabled]).to.beTruthy();
+				});
+				
+				context(@"updating with a negative time", ^{
+					it(@"is still enabled", ^{
+						[action consumeDeltaTime:-1.0];
+						expect([target isEnabled]).to.beTruthy();
+					});
+				});
+			});
+		});
 	});
 	
-	context(@"initialized with the FUSwitchOff function", ^{
-		__block FUBehavior* target;
-		__block FUCallAction* action;
-		
-		beforeEach(^{
-			target = mock([FUBehavior class]);
-			action = FUSwitchOff(target, @"enabled");
+	context(@"FUSwitchOff function", ^{
+		context(@"initializing with a nil object", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUSwitchOff(nil, @"length"), NSInvalidArgumentException, FUTargetNilMessage);
+			});
 		});
 		
-		FUTestBoolSetsValue(@"enabled", NO);
+		context(@"initializing with a nil property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUSwitchOff([NSMutableData data], nil), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with an empty property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUSwitchOff([NSMutableData data], @""), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with a property that is not defined on the object", ^{
+			it(@"throws an exception", ^{
+				id object = [NSMutableData data];
+				NSString* property = @"undefined";
+				assertThrows(FUSwitchOff(object, property), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, object);
+			});
+		});
+		
+		context(@"initializing with a property that is not of a numerical type", ^{
+			it(@"throws an exception", ^{
+				id object = [NSMutableURLRequest requestWithURL:nil];
+				NSString* property = @"URL";
+				assertThrows(FUSwitchOff(object, property), NSInvalidArgumentException, FUPropertyNumericalMessage, property, object);
+			});
+		});
+		
+		context(@"initializing with a property that is readonly", ^{
+			it(@"throws an exception", ^{
+				id object = [NSString string];
+				NSString* property = @"length";
+				assertThrows(FUSwitchOff(object, property), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, object);
+			});
+		});
+		
+		context(@"initialized with valid arguments", ^{
+			__block FUBoolObject* target;
+			__block FUCallAction* action;
+			
+			beforeEach(^{
+				target = [FUBoolObject new];
+				[target setEnabled:YES];
+				action = FUSwitchOff(target, @"enabled");
+			});
+			
+			it(@"is a timed action", ^{
+				expect(action).to.beKindOf([FUTimedAction class]);
+			});
+			
+			context(@"updated with a positive time", ^{
+				beforeEach(^{
+					[action consumeDeltaTime:1.0];
+				});
+				
+				it(@"is disabled", ^{
+					expect([target isEnabled]).to.beFalsy();
+				});
+				
+				context(@"updating with a negative time", ^{
+					it(@"is still disabled", ^{
+						[action consumeDeltaTime:-1.0];
+						expect([target isEnabled]).to.beFalsy();
+					});
+				});
+			});
+		});
 	});
 	
-	context(@"initialized with the FUToggle function", ^{
-		__block FUBehavior* target;
-		__block FUCallAction* action;
-		
-		beforeEach(^{
-			target = mock([FUBehavior class]);
-			action = FUToggle(target, @"enabled");
+	context(@"FUToggle function", ^{
+		context(@"initializing with a nil object", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUToggle(nil, @"length"), NSInvalidArgumentException, FUTargetNilMessage);
+			});
 		});
 		
-		FUTestBoolTogglesValue(@"enabled");
+		context(@"initializing with a nil property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUToggle([NSMutableData data], nil), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with an empty property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUToggle([NSMutableData data], @""), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with a property that is not defined on the object", ^{
+			it(@"throws an exception", ^{
+				id object = [NSMutableData data];
+				NSString* property = @"undefined";
+				assertThrows(FUToggle(object, property), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, object);
+			});
+		});
+		
+		context(@"initializing with a property that is not of a numerical type", ^{
+			it(@"throws an exception", ^{
+				id object = [NSMutableURLRequest requestWithURL:nil];
+				NSString* property = @"URL";
+				assertThrows(FUToggle(object, property), NSInvalidArgumentException, FUPropertyNumericalMessage, property, object);
+			});
+		});
+		
+		context(@"initializing with a property that is readonly", ^{
+			it(@"throws an exception", ^{
+				id object = [NSString string];
+				NSString* property = @"length";
+				assertThrows(FUToggle(object, property), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, object);
+			});
+		});
+		
+		context(@"initialized with valid arguments", ^{
+			__block FUBoolObject* target;
+			__block FUCallAction* action;
+			
+			beforeEach(^{
+				target = [FUBoolObject new];
+				[target setEnabled:NO];
+				action = FUToggle(target, @"enabled");
+			});
+			
+			it(@"is a timed action", ^{
+				expect(action).to.beKindOf([FUTimedAction class]);
+			});
+			
+			context(@"updated with a positive time", ^{
+				beforeEach(^{
+					[action consumeDeltaTime:1.0]; \
+				});
+				
+				it(@"is enabled", ^{
+					expect([target isEnabled]).to.beTruthy();
+				});
+			
+				context(@"updating with a negative time", ^{
+					it(@"has toggled to disabled", ^{
+						[action consumeDeltaTime:-1.0];
+						expect([target isEnabled]).to.beFalsy();
+					});
+				});
+			});
+		});
 	});
 	
 	context(@"initialized with the FUEnable function", ^{
-		__block FUBehavior* target;
+		__block FUBoolObject* target;
 		__block FUCallAction* action;
 		
 		beforeEach(^{
-			target = mock([FUBehavior class]);
+			target = [FUBoolObject new];
+			[target setEnabled:NO];
 			action = FUEnable(target);
 		});
 		
-		FUTestBoolSetsValue(@"enabled", YES);
+		it(@"is a timed action", ^{
+			expect(action).to.beKindOf([FUTimedAction class]);
+		});
+		
+		context(@"updated with a positive time", ^{
+			beforeEach(^{
+				[action consumeDeltaTime:1.0];
+			});
+			
+			it(@"is not enabled", ^{
+				expect([target isEnabled]).to.beTruthy();
+			});
+			
+			context(@"updating with a negative time", ^{
+				it(@"is still enabled", ^{
+					[action consumeDeltaTime:-1.0];
+					expect([target isEnabled]).to.beTruthy();
+				});
+			});
+		});
 	});
 	
 	context(@"initialized with the FUDisable function", ^{
-		__block FUBehavior* target;
+		__block FUBoolObject* target;
 		__block FUCallAction* action;
 		
 		beforeEach(^{
-			target = mock([FUBehavior class]);
+			target = [FUBoolObject new];
+			[target setEnabled:YES];
 			action = FUDisable(target);
 		});
 		
-		FUTestBoolSetsValue(@"enabled", NO);
+		it(@"is a timed action", ^{
+			expect(action).to.beKindOf([FUTimedAction class]);
+		});
+		
+		context(@"updated with a positive time", ^{
+			beforeEach(^{
+				[action consumeDeltaTime:1.0];
+			});
+			
+			it(@"is disabled", ^{
+				expect([target isEnabled]).to.beFalsy();
+			});
+			
+			context(@"updating with a negative time", ^{
+				it(@"is still disabled", ^{
+					[action consumeDeltaTime:-1.0];
+					expect([target isEnabled]).to.beFalsy();
+				});
+			});
+		});
 	});
 	
 	context(@"initialized with the FUToggleEnabled function", ^{
-		__block FUBehavior* target;
+		__block FUBoolObject* target;
 		__block FUCallAction* action;
 		
 		beforeEach(^{
-			target = mock([FUBehavior class]);
+			target = [FUBoolObject new];
 			action = FUToggleEnabled(target);
 		});
 		
@@ -278,3 +497,8 @@ describe(@"A call action", ^{
 });
 
 SPEC_END
+
+
+@implementation FUBoolObject
+@synthesize enabled = _enabled;
+@end

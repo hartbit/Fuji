@@ -10,16 +10,13 @@
 //
 
 #import "FUTweenAction.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
-static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
-static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
 static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
-static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
-static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
 
 
 @interface FUTweenAction ()
@@ -65,27 +62,6 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 @end
 
 
-void FUCheckTargetAndProperty(id target, NSString* property)
-{
-	FUCheck(target != nil, FUTargetNilMessage);
-	FUCheck(FUStringIsValid(property), FUPropertyNilMessage);
-	
-	NSNumber* currentValue;
-	
-	@try {
-		currentValue = [target valueForKey:property];
-	} @catch (NSException*) {
-		_FUThrow(NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
-	}
-	
-	@try {
-		[target setValue:currentValue forKey:property];
-	}
-	@catch (NSException*) {
-		_FUThrow(NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
-	}
-}
-
 FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block)
 {
 	return [[FUTweenAction alloc] initWithDuration:duration block:block];
@@ -93,9 +69,7 @@ FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block)
 
 FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* value)
 {
-#ifndef NS_BLOCK_ASSERTIONS
 	FUCheckTargetAndProperty(target, property);
-#endif
 	FUCheck(value != nil, FUValueNilMessage);
 	
 	__block NSNumber* startValue = nil;
@@ -116,9 +90,7 @@ FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property,
 
 FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* property, NSNumber* addend)
 {
-#ifndef NS_BLOCK_ASSERTIONS
 	FUCheckTargetAndProperty(target, property);
-#endif
 	FUCheck(addend != nil, FUAddendNilMessage);
 	
 	__block NSNumber* startValue = nil;
@@ -138,9 +110,7 @@ FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* property
 
 FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* property, NSNumber* factor)
 {
-#ifndef NS_BLOCK_ASSERTIONS
 	FUCheckTargetAndProperty(target, property);
-#endif
 	FUCheck(factor != nil, FUFactorNilMessage);
 	
 	__block NSNumber* startValue = nil;

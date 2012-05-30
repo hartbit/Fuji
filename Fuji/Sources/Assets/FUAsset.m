@@ -10,7 +10,7 @@
 //
 
 #import "FUAsset-Internal.h"
-#import "FUSupport.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUAccessMatchingMessage = @"Call to 'endContentAccess' on 'asset=%@' did not match a previous call to 'beginContentAccess'";

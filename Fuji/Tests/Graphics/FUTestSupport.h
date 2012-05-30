@@ -9,7 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import	"Fuji.h"
+#import "Fuji.h"
 
 
 static OBJC_INLINE BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
@@ -26,6 +26,11 @@ static OBJC_INLINE BOOL FUMatrix4AreClose(GLKMatrix4 left, GLKMatrix4 right)
 	FUAreCloseFloat(left.m10, right.m10) && FUAreCloseFloat(left.m11, right.m11) && FUAreCloseFloat(left.m12, right.m12) && FUAreCloseFloat(left.m13, right.m13) &&
 	FUAreCloseFloat(left.m20, right.m20) && FUAreCloseFloat(left.m21, right.m21) && FUAreCloseFloat(left.m22, right.m22) && FUAreCloseFloat(left.m23, right.m23) &&
 	FUAreCloseFloat(left.m30, right.m30) && FUAreCloseFloat(left.m31, right.m31) && FUAreCloseFloat(left.m32, right.m32) && FUAreCloseFloat(left.m33, right.m33);
+}
+
+static OBJC_INLINE NSString* FUStringFromBool(BOOL value)
+{
+	return value ? @"YES" : @"NO";
 }
 
 

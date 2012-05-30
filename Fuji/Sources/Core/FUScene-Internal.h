@@ -10,7 +10,7 @@
 //
 
 #import "FUScene.h"
-#import	"FUSupport.h"
+#import "FUSupport.h"
 
 
 @class FUDirector;

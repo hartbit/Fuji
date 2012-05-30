@@ -17,11 +17,12 @@
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
+static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
+static NSString* const FUPropertyNumericalMessage = @"Expected 'property=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
 static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
-static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
-static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
 
 
 @interface FUDoubleObject : NSObject
@@ -164,12 +165,6 @@ describe(@"A tween action", ^{
 			});
 		});
 		
-		context(@"initializing with a nil toValue", ^{
-			it(@"throws an exception", ^{
-				assertThrows(FUTweenTo(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUValueNilMessage);
-			});
-		});
-		
 		context(@"initializing with an undefined property", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
@@ -178,11 +173,25 @@ describe(@"A tween action", ^{
 			});
 		});
 		
+		context(@"initializing with a non-numerical property", ^{
+			it(@"throws an exception", ^{
+				id target = [NSMutableURLRequest requestWithURL:nil];
+				NSString* property = @"URL";
+				assertThrows(FUTweenTo(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNumericalMessage, property, target);
+			});
+		});
+		
 		context(@"initializing with a readonly property", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* property = @"length";
 				assertThrows(FUTweenTo(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+			});
+		});
+		
+		context(@"initializing with a nil value", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTweenTo(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUValueNilMessage);
 			});
 		});
 		
@@ -277,12 +286,6 @@ describe(@"A tween action", ^{
 			});
 		});
 		
-		context(@"initializing with a nil byValue", ^{
-			it(@"throws an exception", ^{
-				assertThrows(FUTweenSum(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUAddendNilMessage);
-			});
-		});
-		
 		context(@"initializing with an undefined property", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
@@ -291,11 +294,25 @@ describe(@"A tween action", ^{
 			});
 		});
 		
+		context(@"initializing with a non-numerical property", ^{
+			it(@"throws an exception", ^{
+				id target = [NSMutableURLRequest requestWithURL:nil];
+				NSString* property = @"URL";
+				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNumericalMessage, property, target);
+			});
+		});
+		
 		context(@"initializing with a readonly property", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* property = @"length";
 				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+			});
+		});
+		
+		context(@"initializing with a nil addend", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTweenSum(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUAddendNilMessage);
 			});
 		});
 
@@ -390,12 +407,6 @@ describe(@"A tween action", ^{
 			});
 		});
 		
-		context(@"initializing with a nil byValue", ^{
-			it(@"throws an exception", ^{
-				assertThrows(FUTweenProduct(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUFactorNilMessage);
-			});
-		});
-		
 		context(@"initializing with an undefined property", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
@@ -404,11 +415,25 @@ describe(@"A tween action", ^{
 			});
 		});
 		
+		context(@"initializing with a non-numerical property", ^{
+			it(@"throws an exception", ^{
+				id target = [NSMutableURLRequest requestWithURL:nil];
+				NSString* property = @"URL";
+				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNumericalMessage, property, target);
+			});
+		});
+		
 		context(@"initializing with a readonly property", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* property = @"length";
 				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+			});
+		});
+		
+		context(@"initializing with a nil factor", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTweenProduct(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUFactorNilMessage);
 			});
 		});
 		

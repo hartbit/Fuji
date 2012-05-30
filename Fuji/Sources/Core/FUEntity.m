@@ -16,6 +16,7 @@
 #import "FUScene.h"
 #import "FUComponent-Internal.h"
 #import "FUTransform.h"
+#import "FUAssert.h"
 
 
 static NSString* const FUComponentAncestoryInvalidMessage = @"A non-unique 'component=%@' has a unique parent 'component=%@'";
