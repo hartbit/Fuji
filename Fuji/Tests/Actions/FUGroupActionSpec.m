@@ -100,30 +100,30 @@ describe(@"A group action", ^{
 				expect(actionsArray).to.contain(action3);
 			});
 			
-			context(@"setting a factor between 0 and 1", ^{
-				it(@"sets the same factor on the subactions", ^{
-					[group setFactor:0.5f];
-					[verify(action1) setFactor:0.5f];
-					[verify(action2) setFactor:0.5f];
-					[verify(action3) setFactor:0.5f];
+			context(@"setting a normalized time between 0 and 1", ^{
+				it(@"sets the same normalized time on the subactions", ^{
+					[group setNormalizedTime:0.5f];
+					[verify(action1) setNormalizedTime:0.5f];
+					[verify(action2) setNormalizedTime:0.5f];
+					[verify(action3) setNormalizedTime:0.5f];
 				});
 			});
 			
-			context(@"setting a factor less than 0", ^{
-				it(@"sets the same factor on the subactions", ^{
-					[group setFactor:-0.5f];
-					[verify(action1) setFactor:-0.5f];
-					[verify(action2) setFactor:-0.5f];
-					[verify(action3) setFactor:-0.5f];
+			context(@"setting a normalized time less than 0", ^{
+				it(@"sets the same normalized time on the subactions", ^{
+					[group setNormalizedTime:-0.5f];
+					[verify(action1) setNormalizedTime:-0.5f];
+					[verify(action2) setNormalizedTime:-0.5f];
+					[verify(action3) setNormalizedTime:-0.5f];
 				});
 			});
 			
-			context(@"setting a factor greather than 1", ^{
-				it(@"sets the same factor on the subactions", ^{
-					[group setFactor:1.5f];
-					[verify(action1) setFactor:1.5f];
-					[verify(action2) setFactor:1.5f];
-					[verify(action3) setFactor:1.5f];
+			context(@"setting a normalized time greather than 1", ^{
+				it(@"sets the same normalized time on the subactions", ^{
+					[group setNormalizedTime:1.5f];
+					[verify(action1) setNormalizedTime:1.5f];
+					[verify(action2) setNormalizedTime:1.5f];
+					[verify(action3) setNormalizedTime:1.5f];
 				});
 			});
 			
@@ -162,21 +162,21 @@ describe(@"A group action", ^{
 					expect(actionsArray).to.contain(action3Copy);
 				});
 				
-				context(@"set the factor on the copied group", ^{
+				context(@"set the normalized time on the copied group", ^{
 					beforeEach(^{
-						[groupCopy setFactor:0.6f];
+						[groupCopy setNormalizedTime:0.6f];
 					});
 					
-					it(@"does not set the factor of the original actions", ^{
-						[[verifyCount(action1, never()) withMatcher:HC_anything()] setFactor:0.0f];
-						[[verifyCount(action2, never()) withMatcher:HC_anything()] setFactor:0.0f];
-						[[verifyCount(action3, never()) withMatcher:HC_anything()] setFactor:0.0f];
+					it(@"does not set the normalized time of the original actions", ^{
+						[[verifyCount(action1, never()) withMatcher:HC_anything()] setNormalizedTime:0.0f];
+						[[verifyCount(action2, never()) withMatcher:HC_anything()] setNormalizedTime:0.0f];
+						[[verifyCount(action3, never()) withMatcher:HC_anything()] setNormalizedTime:0.0f];
 					});
 					
-					it(@"sets the factor of the copied actions", ^{
-						[verify(action1Copy) setFactor:0.6f];
-						[verify(action2Copy) setFactor:0.6f];
-						[verify(action3Copy) setFactor:0.6f];
+					it(@"sets the normalized time of the copied actions", ^{
+						[verify(action1Copy) setNormalizedTime:0.6f];
+						[verify(action2Copy) setNormalizedTime:0.6f];
+						[verify(action3Copy) setNormalizedTime:0.6f];
 					});
 				});
 			});
@@ -193,10 +193,10 @@ describe(@"A group action", ^{
 					expect([group actions]).toNot.contain(extraAction);
 				});
 				
-				context(@"setting a factor", ^{
-					it(@"does not set the factor on the extra action", ^{
-						[group setFactor:0.6f];
-						[[verifyCount(extraAction, never()) withMatcher:HC_anything()] setFactor:0.0f];
+				context(@"setting a normalized time", ^{
+					it(@"does not set the normalized time on the extra action", ^{
+						[group setNormalizedTime:0.6f];
+						[[verifyCount(extraAction, never()) withMatcher:HC_anything()] setNormalizedTime:0.0f];
 					});
 				});
 			});

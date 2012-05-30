@@ -13,12 +13,12 @@
 #import "FUSupport.h"
 
 
-static NSString* const FUCallNullMessage = @"Expected block to not be nil";
+static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 
 
 @interface FUCallAction ()
 
-@property (nonatomic, copy) void (^block)();
+@property (nonatomic, copy) FUCallBlock block;
 
 @end
 
@@ -29,9 +29,9 @@ static NSString* const FUCallNullMessage = @"Expected block to not be nil";
 
 #pragma mark - Initialization
 
-- (id)initWithBlock:(void (^)())block
+- (id)initWithBlock:(FUCallBlock)block
 {
-	FUCheck(block != NULL, FUCallNullMessage);
+	FUCheck(block != NULL, FUBlockNullMessage);
 	
 	if ((self = [super initWithDuration:0.0])) {
 		[self setBlock:block];
@@ -57,3 +57,43 @@ static NSString* const FUCallNullMessage = @"Expected block to not be nil";
 }
 
 @end
+
+
+FUCallAction* FUCall(FUCallBlock block)
+{
+	return [[FUCallAction alloc] initWithBlock:block];
+}
+
+FUCallAction* FUToggle(id target, NSString* property)
+{
+	return FUCall(^{
+		NSNumber* oldValue = [target valueForKey:property];
+		NSNumber* newValue = [NSNumber numberWithBool:![oldValue boolValue]];
+		[target setValue:newValue forKey:property];
+	});
+}
+
+FUCallAction* FUSwitchOn(id target, NSString* property)
+{
+	return FUCall(^{ [target setValue:[NSNumber numberWithBool:YES] forKey:property]; });
+}
+
+FUCallAction* FUSwitchOff(id target, NSString* property)
+{
+	return FUCall(^{ [target setValue:[NSNumber numberWithBool:NO] forKey:property]; });
+}
+
+FUCallAction* FUToggleEnabled(id target)
+{
+	return FUToggle(target, @"enabled");
+}
+
+FUCallAction* FUEnable(id target)
+{
+	return FUSwitchOn(target, @"enabled");
+}
+
+FUCallAction* FUDisable(id target)
+{
+	return FUSwitchOff(target, @"enabled");
+}

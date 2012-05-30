@@ -66,3 +66,9 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 }
 
 @end
+
+
+FUSpeedAction* FUSpeed(id<FUAction> action, float speed)
+{
+	return [[FUSpeedAction alloc] initWithAction:action speed:speed];
+}

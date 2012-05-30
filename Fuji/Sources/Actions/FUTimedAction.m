@@ -33,7 +33,7 @@ typedef enum {
 @implementation FUTimedAction
 
 @synthesize duration = _duration;
-@synthesize factor = _factor;
+@synthesize normalizedTime = _normalizedTime;
 
 #pragma mark - Initialization
 
@@ -54,16 +54,16 @@ typedef enum {
 {
 	FUTimedAction* copy = [[self class] allocWithZone:zone];
 	[copy setDuration:[self duration]];
-	copy->_factor = [self factor];
+	copy->_normalizedTime = [self normalizedTime];
 	return copy;
 }
 
 #pragma mark - Properties
 
-- (void)setFactor:(float)factor
+- (void)setNormalizedTime:(float)normalizedTime
 {
-	if (factor != _factor) {
-		_factor = factor;
+	if (normalizedTime != _normalizedTime) {
+		_normalizedTime = normalizedTime;
 		[self update];
 	}
 }
@@ -78,20 +78,20 @@ typedef enum {
 	
 	BOOL isTimeForward = deltaTime > 0.0;
 	NSTimeInterval duration = [self duration];
-	float oldFactor = [self factor];
-	float newFactor;
+	float oldNormalizedTime = [self normalizedTime];
+	float newNormalizedTime;
 	
 	if (duration == 0.0) {
-		newFactor = isTimeForward ? 1.0f : 0.0f;
+		newNormalizedTime = isTimeForward ? 1.0f : 0.0f;
 	} else {
-		newFactor = FUClampFloat(oldFactor + (deltaTime / duration), 0.0f, 1.0f);
+		newNormalizedTime = FUClampFloat(oldNormalizedTime + (deltaTime / duration), 0.0f, 1.0f);
 	}
 	
-	[self setFactor:newFactor];
+	[self setNormalizedTime:newNormalizedTime];
 
 	// Return time left
 	
-	NSTimeInterval frameTime = (oldFactor * duration) + deltaTime;
+	NSTimeInterval frameTime = (oldNormalizedTime * duration) + deltaTime;
 	
 	if (isTimeForward) {
 		return MAX(frameTime - duration, 0.0);
@@ -107,3 +107,9 @@ typedef enum {
 }
 
 @end
+
+
+FUTimedAction* FUDelay(NSTimeInterval duration)
+{
+	return [[FUTimedAction alloc] initWithDuration:duration];
+}

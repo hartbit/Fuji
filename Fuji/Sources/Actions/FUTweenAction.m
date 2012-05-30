@@ -12,9 +12,9 @@
 #import "FUTweenAction.h"
 
 
+static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
-static NSString* const FUFromValueNilMessage = @"Expected fromValue to not be nil";
 static NSString* const FUToValueNilMessage = @"Expected toValue to not be nil";
 static NSString* const FUByValueNilMessage = @"Expected byValue to not be nil";
 static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
@@ -23,67 +23,52 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 
 @interface FUTweenAction ()
 
-@property (nonatomic, strong) id target;
-@property (nonatomic, copy) NSString* property;
-@property (nonatomic, strong) NSNumber* fromValue;
-@property (nonatomic, strong) NSNumber* toValue;
-@property (nonatomic, strong) NSNumber* byValue;
+@property (nonatomic, copy) FUTweenBlock block;
 
 @end
 
 
-
 @implementation FUTweenAction
 
-@synthesize target = _target;
-@synthesize property = _property;
-@synthesize fromValue = _fromValue;
-@synthesize toValue = _toValue;
-@synthesize byValue = _byValue;
+@synthesize block = _block;
 
 #pragma mark - Initialization
 
-- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration toValue:(NSNumber*)toValue
+- (id)initWithDuration:(NSTimeInterval)duration block:(FUTweenBlock)block
 {
-	FUCheck(toValue != nil, FUToValueNilMessage);
+	FUCheck(block != NULL, FUBlockNullMessage);
 	
-	if ((self = [self initWithTarget:target property:property duration:duration])) {
-		[self setToValue:toValue];
+	if ((self = [super initWithDuration:duration])) {
+		[self setBlock:block];
 	}
 	
 	return self;
 }
 
-- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration fromValue:(NSNumber*)fromValue toValue:(NSNumber*)toValue
-{
-	FUCheck(fromValue != nil, FUFromValueNilMessage);
-	FUCheck(toValue != nil, FUToValueNilMessage);
+#pragma mark - NSCopying Methods
 
-	if ((self = [self initWithTarget:target property:property duration:duration])) {
-		[self setFromValue:fromValue];
-		[self setToValue:toValue];
-	}
-	
-	return self;
+- (id)copyWithZone:(NSZone*)zone
+{
+	FUTweenAction* copy = [super copyWithZone:zone];
+	[copy setBlock:[self block]];
+	return copy;
 }
 
-- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration byValue:(NSNumber*)byValue
+#pragma mark - FUTimedAction Methods
+
+- (void)update
 {
-	FUCheck(byValue != nil, FUByValueNilMessage);
-	
-	if ((self = [self initWithTarget:target property:property duration:duration])) {
-		[self setByValue:byValue];
-	}
-	
-	return self;
+	[self block]([self normalizedTime]);
 }
 
-- (id)initWithTarget:(id)target property:(NSString*)property duration:(NSTimeInterval)duration
+@end
+
+
+void FUCheckTargetAndProperty(id target, NSString* property)
 {
 	FUCheck(target != nil, FUTargetNilMessage);
 	FUCheck(FUStringIsValid(property), FUPropertyNilMessage);
-
-#ifndef NS_BLOCK_ASSERTIONS
+	
 	NSNumber* currentValue;
 	
 	@try {
@@ -98,54 +83,64 @@ static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on '
 	@catch (NSException*) {
 		_FUThrow(NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
 	}
+}
+
+FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block)
+{
+	return [[FUTweenAction alloc] initWithDuration:duration block:block];
+}
+
+FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* toValue)
+{
+#ifndef NS_BLOCK_ASSERTIONS
+	FUCheckTargetAndProperty(target, property);
 #endif
+	FUCheck(toValue != nil, FUToValueNilMessage);
 	
-	if ((self = [super initWithDuration:duration])) {
-		[self setTarget:target];
-		[self setProperty:property];
-	}
+	__block NSNumber* fromValue = nil;
+	__block double fromDouble = 0.0;
+	__block double difference = 0.0;
 	
-	return self;
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (fromValue == nil) {
+			fromValue = [target valueForKey:property];
+			fromDouble = [fromValue doubleValue];
+			difference = [toValue doubleValue] - fromDouble;
+		}
+		
+		double currentDouble = fromDouble + t * difference;
+		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+	}];
 }
 
-#pragma mark - NSCopying Methods
-
-- (id)copyWithZone:(NSZone*)zone
+FUTweenAction* FUTweenBy(NSTimeInterval duration, id target, NSString* property, NSNumber* byValue)
 {
-	FUTweenAction* copy = [super copyWithZone:zone];
-	[copy setTarget:[self target]];
-	[copy setProperty:[self property]];
-	[copy setFromValue:[self fromValue]];
-	[copy setToValue:[self toValue]];
-	[copy setByValue:[self byValue]];
-	return copy;
+#ifndef NS_BLOCK_ASSERTIONS
+	FUCheckTargetAndProperty(target, property);
+#endif
+	FUCheck(byValue != nil, FUByValueNilMessage);
+	
+	__block NSNumber* fromValue = nil;
+	__block double fromDouble = 0.0;
+	double difference = [byValue doubleValue];
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (fromValue == nil) {
+			fromValue = [target valueForKey:property];
+			fromDouble = [fromValue doubleValue];
+		}
+		
+		double currentDouble = fromDouble + t * difference;
+		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+	}];
 }
 
-#pragma mark - FUTimedAction
-
-- (void)update
+FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float toRotation)
 {
-	id target = [self target];
-	NSString* property = [self property];
-	NSNumber* fromValue = [self fromValue];
-	NSNumber* toValue = [self toValue];
-	
-	if (fromValue == nil) {
-		fromValue = [target valueForKey:property];
-		[self setFromValue:fromValue];
-	}
-	
-	double fromDouble = [fromValue doubleValue];
-	
-	if (toValue == nil) {
-		double byDouble = [[self byValue] doubleValue];
-		toValue = [NSNumber numberWithDouble:fromDouble + byDouble];
-		[self setToValue:toValue];
-	}
-	
-	double toDouble = [toValue doubleValue];
-	double currentDouble = fromDouble + [self factor] * (toDouble - fromDouble);
-	[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+	return FUTweenTo(duration, target, @"rotation", [NSNumber numberWithFloat:toRotation]);
 }
 
-@end
+FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float byRotation)
+{
+	return FUTweenBy(duration, target, @"rotation", [NSNumber numberWithFloat:byRotation]);
+}

@@ -14,7 +14,7 @@
 #import "FUTestSupport.h"
 
 
-static NSString* const FUCallNullMessage = @"Expected block to not be nil";
+static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 
 
 #define FUTestBoolSetsValue(prop, value) \
@@ -66,14 +66,14 @@ static NSString* const FUCallNullMessage = @"Expected block to not be nil";
 
 SPEC_BEGIN(FUCallAction)
 
-describe(@"A block action", ^{
+describe(@"A call action", ^{
 	it(@"is a timed action", ^{
 		expect([FUCallAction class]).to.beSubclassOf([FUTimedAction class]);
 	});
 	
 	context(@"initizing with a NULL block", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUCallAction alloc] initWithBlock:NULL], NSInvalidArgumentException, FUCallNullMessage);
+			assertThrows([[FUCallAction alloc] initWithBlock:NULL], NSInvalidArgumentException, FUBlockNullMessage);
 		});
 	});
 	
@@ -103,7 +103,7 @@ describe(@"A block action", ^{
 			expect(callCount).to.equal(0);
 		});
 		
-		context(@"calling consumeDeltaTime: with 0.0 seconds", ^{
+		context(@"called consumeDeltaTime: with 0.0 seconds", ^{
 			beforeEach(^{
 				timeLeft = [action consumeDeltaTime:0.0];
 			});

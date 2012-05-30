@@ -20,4 +20,7 @@
 @end
 
 
-FUTimingAction* FUTiming(FUTimedAction* action, FUTimingFunction function);
+static OBJC_INLINE FUTimingAction* FUTiming(FUTimedAction* action, FUTimingFunction function)
+{
+	return [[FUTimingAction alloc] initWithAction:action function:function];
+}

@@ -66,10 +66,10 @@ static NSString* const FUDurationDifferentMessage = @"Expected actions to have t
 
 - (void)update
 {
-	float factor = [self factor];
+	float normalizedTime = [self normalizedTime];
 	
 	for (FUTimedAction* action in [self actions]) {
-		[action setFactor:factor];
+		[action setNormalizedTime:normalizedTime];
 	}
 }
 

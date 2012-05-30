@@ -18,8 +18,11 @@
 - (id)initWithDuration:(NSTimeInterval)duration;
 
 @property (nonatomic, readonly) NSTimeInterval duration;
-@property (nonatomic) float factor;
+@property (nonatomic) float normalizedTime;
 
 - (void)update;
 
 @end
+
+
+FUTimedAction* FUDelay(NSTimeInterval duration);

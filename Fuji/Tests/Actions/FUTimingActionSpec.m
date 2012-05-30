@@ -54,7 +54,7 @@ describe(@"A timing action", ^{
 			[given([subaction duration]) willReturnDouble:2.0];
 			
 			action = [[FUTimingAction alloc] initWithAction:subaction function:FUTimingEaseIn];
-			[action setFactor:0.215f];
+			[action setNormalizedTime:0.215f];
 		});
 		
 		it(@"is not nil", ^{
@@ -65,38 +65,38 @@ describe(@"A timing action", ^{
 			expect([action duration]).to.equal(2.0);
 		});
 		
-		context(@"setting a factor of -0.5f", ^{
-			it(@"sets the subaction with a factor of 0.0f", ^{
-				[action setFactor:-0.5f];
-				[verify(subaction) setFactor:0.0f];
+		context(@"setting a negative normalized time", ^{
+			it(@"sets the subaction with a normalized time of 0.0f", ^{
+				[action setNormalizedTime:-0.5f];
+				[verify(subaction) setNormalizedTime:0.0f];
 			});
 		});
 		
-		context(@"setting a factor of 0.0f", ^{
-			it(@"sets the subaction with a factor of 0.0f", ^{
-				[action setFactor:0.0f];
-				[verify(subaction) setFactor:0.0f];
+		context(@"setting a normalized time of 0.0f", ^{
+			it(@"sets the subaction with a normalized time of 0.0f", ^{
+				[action setNormalizedTime:0.0f];
+				[verify(subaction) setNormalizedTime:0.0f];
 			});
 		});
 		
-		context(@"setting a factor of 0.5f", ^{
-			it(@"sets the subaction with a factor of 0.5f on the ease in curve", ^{
-				[action setFactor:0.5f];
-				[verify(subaction) setFactor:FUTimingEaseIn(0.5f)];
+		context(@"setting a normalized time of 0.5f", ^{
+			it(@"sets the subaction with a normalized time of 0.5f on the ease in curve", ^{
+				[action setNormalizedTime:0.5f];
+				[verify(subaction) setNormalizedTime:FUTimingEaseIn(0.5f)];
 			});
 		});
 		
-		context(@"setting a factor of 1.0f", ^{
-			it(@"sets the subaction with a factor of 1.0f", ^{
-				[action setFactor:1.0f];
-				[verify(subaction) setFactor:FUTimingEaseIn(1.0f)];
+		context(@"setting a normalized time of 1.0f", ^{
+			it(@"sets the subaction with a normalized time of 1.0f", ^{
+				[action setNormalizedTime:1.0f];
+				[verify(subaction) setNormalizedTime:FUTimingEaseIn(1.0f)];
 			});
 		});
 		
-		context(@"setting a factor of 1.5f", ^{
-			it(@"sets the subaction with a factor of 1.0f", ^{
-				[action setFactor:1.5f];
-				[verify(subaction) setFactor:FUTimingEaseIn(1.0f)];
+		context(@"setting a normalized time greater than 1.0f", ^{
+			it(@"sets the subaction with a normalized time of 1.0f", ^{
+				[action setNormalizedTime:1.5f];
+				[verify(subaction) setNormalizedTime:FUTimingEaseIn(1.0f)];
 			});
 		});
 		
@@ -115,17 +115,17 @@ describe(@"A timing action", ^{
 				expect(actionCopy).toNot.beNil();
 			});
 			
-			context(@"set the factor of the copied action", ^{
+			context(@"set the normalized time of the copied action", ^{
 				beforeEach(^{
-					[actionCopy setFactor:0.5f];
+					[actionCopy setNormalizedTime:0.5f];
 				});
 				
 				it(@"does not call update on the original subaction", ^{
 					[[verifyCount(subaction, never()) withMatcher:HC_anything()] update];
 				});
 				
-				it(@"sets the factor of the copied subaction", ^{
-					[verify(subactionCopy) setFactor:FUTimingEaseIn(0.5f)];
+				it(@"sets the normalized time of the copied subaction", ^{
+					[verify(subactionCopy) setNormalizedTime:FUTimingEaseIn(0.5f)];
 				});
 			});
 		});

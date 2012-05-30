@@ -12,48 +12,20 @@
 #import "FUTimedAction.h"
 
 
+typedef void (^FUCallBlock)();
+
+
 @interface FUCallAction : FUTimedAction
 
-- (id)initWithBlock:(void (^)())block;
+- (id)initWithBlock:(FUCallBlock)block;
 
 @end
 
 
-static OBJC_INLINE FUCallAction* FUCall(void (^block)())
-{
-	return [[FUCallAction alloc] initWithBlock:block];
-}
-
-static OBJC_INLINE FUCallAction* FUToggle(id target, NSString* property)
-{
-	return FUCall(^{
-		NSNumber* oldValue = [target valueForKey:property];
-		NSNumber* newValue = [NSNumber numberWithBool:![oldValue boolValue]];
-		[target setValue:newValue forKey:property];
-	});
-}
-
-static OBJC_INLINE FUCallAction* FUSwitchOn(id target, NSString* property)
-{
-	return FUCall(^{ [target setValue:[NSNumber numberWithBool:YES] forKey:property]; });
-}
-
-static OBJC_INLINE FUCallAction* FUSwitchOff(id target, NSString* property)
-{
-	return FUCall(^{ [target setValue:[NSNumber numberWithBool:NO] forKey:property]; });
-}
-
-static OBJC_INLINE FUCallAction* FUToggleEnabled(id target)
-{
-	return FUToggle(target, @"enabled");
-}
-
-static OBJC_INLINE FUCallAction* FUEnable(id target)
-{
-	return FUSwitchOn(target, @"enabled");
-}
-
-static OBJC_INLINE FUCallAction* FUDisable(id target)
-{
-	return FUSwitchOff(target, @"enabled");
-}
+FUCallAction* FUCall(FUCallBlock block);
+FUCallAction* FUToggle(id target, NSString* property);
+FUCallAction* FUSwitchOn(id target, NSString* property);
+FUCallAction* FUSwitchOff(id target, NSString* property);
+FUCallAction* FUToggleEnabled(id target);
+FUCallAction* FUEnable(id target);
+FUCallAction* FUDisable(id target);

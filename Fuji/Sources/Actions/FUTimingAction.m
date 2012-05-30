@@ -59,8 +59,14 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 
 - (void)update
 {
-	float actionFactor = [self function](FUClampFloat([self factor], 0.0f, 1.0f));
-	[[self action] setFactor:actionFactor];
+	float actionNormalizedTime = [self function](FUClampFloat([self normalizedTime], 0.0f, 1.0f));
+	[[self action] setNormalizedTime:actionNormalizedTime];
 }
 
 @end
+
+
+FUTimingAction* FUTiming(FUTimedAction* action, FUTimingFunction function)
+{
+	return [[FUTimingAction alloc] initWithAction:action function:function];
+}

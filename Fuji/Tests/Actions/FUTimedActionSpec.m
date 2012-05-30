@@ -19,7 +19,7 @@ static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to b
 
 @interface FUTestTimedAction : FUTimedAction
 @property (nonatomic) NSUInteger callCount;
-@property (nonatomic) float lastCallFactor;
+@property (nonatomic) float lastNormalizedTime;
 @end
 
 
@@ -72,9 +72,9 @@ describe(@"A timed action", ^{
 				timeLeft = [action consumeDeltaTime:1.0];
 			});
 			
-			it(@"calls update with a factor of 1.0f", ^{
+			it(@"calls update with a normalized time of 1.0f", ^{
 				expect([action callCount]).to.equal(1);
-				expect([action lastCallFactor]).to.equal(1.0f);
+				expect([action lastNormalizedTime]).to.equal(1.0f);
 			});
 			
 			it(@"returns all of the time", ^{
@@ -100,9 +100,9 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:-1.0];
 				});
 				
-				it(@"calls update with a factor of 0.0f", ^{
+				it(@"calls update with a normalized time of 0.0f", ^{
 					expect([action callCount]).to.equal(2);
-					expect([action lastCallFactor]).to.equal(0.0f);
+					expect([action lastNormalizedTime]).to.equal(0.0f);
 				});
 				
 				it(@"returns all of the time", ^{
@@ -143,9 +143,9 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:1.0];
 				});
 				
-				it(@"calls update with a factor of 1.0f", ^{
+				it(@"calls update with a normalized time of 1.0f", ^{
 					expect([action callCount]).to.equal(1);
-					expect([action lastCallFactor]).to.equal(1.0f);
+					expect([action lastNormalizedTime]).to.equal(1.0f);
 				});
 				
 				it(@"returns all of the time", ^{
@@ -175,9 +175,9 @@ describe(@"A timed action", ^{
 				timeLeft = [action consumeDeltaTime:1.0];
 			});
 			
-			it(@"calls update with a factor of 0.5f", ^{
+			it(@"calls update with a normalized time of 0.5f", ^{
 				expect([action callCount]).to.equal(1);
-				expect([action lastCallFactor]).to.beCloseTo(0.5f);
+				expect([action lastNormalizedTime]).to.beCloseTo(0.5f);
 			});
 			
 			it(@"returns no time left", ^{
@@ -189,9 +189,9 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:1.5];
 				});
 				
-				it(@"calls update with a factor of 1.0f", ^{
+				it(@"calls update with a normalized time of 1.0f", ^{
 					expect([action callCount]).to.equal(2);
-					expect([action lastCallFactor]).to.equal(1.0f);
+					expect([action lastNormalizedTime]).to.equal(1.0f);
 				});
 				
 				it(@"returns 0.5 seconds left", ^{
@@ -203,9 +203,9 @@ describe(@"A timed action", ^{
 						timeLeft = [action consumeDeltaTime:-1.0];
 					});
 					
-					it(@"calls update with a factor of 0.5f", ^{
+					it(@"calls update with a normalized time of 0.5f", ^{
 						expect([action callCount]).to.equal(3);
-						expect([action lastCallFactor]).to.equal(0.5f);
+						expect([action lastNormalizedTime]).to.equal(0.5f);
 					});
 					
 					it(@"returns no time left", ^{
@@ -253,9 +253,9 @@ describe(@"A timed action", ^{
 					timeLeft = [action consumeDeltaTime:-1.5];
 				});
 				
-				it(@"calls update with a factor of 0.0f", ^{
+				it(@"calls update with a normalized time of 0.0f", ^{
 					expect([action callCount]).to.equal(2);
-					expect([action lastCallFactor]).to.equal(0.0f);
+					expect([action lastNormalizedTime]).to.equal(0.0f);
 				});
 				
 				it(@"returns -0.5 seconds left", ^{
@@ -267,9 +267,9 @@ describe(@"A timed action", ^{
 						timeLeft = [action consumeDeltaTime:1.0];
 					});
 					
-					it(@"calls update with a factor of 0.5f", ^{
+					it(@"calls update with a normalized time of 0.5f", ^{
 						expect([action callCount]).to.equal(3);
-						expect([action lastCallFactor]).to.equal(0.5f);
+						expect([action lastNormalizedTime]).to.equal(0.5f);
 					});
 					
 					it(@"returns no time left", ^{
@@ -277,6 +277,22 @@ describe(@"A timed action", ^{
 					});
 				});
 			});
+		});
+	});
+	
+	context(@"initialized via the function FUDelay", ^{
+		__block FUTimedAction* delay;
+		
+		beforeEach(^{
+			delay = FUDelay(3.0);
+		});
+		
+		it(@"is a FUTimedAction", ^{
+			expect(delay).to.beKindOf([FUTimedAction class]);
+		});
+		
+		it(@"has the correct duration", ^{
+			expect([delay duration]).to.equal(3.0);
 		});
 	});
 });
@@ -287,12 +303,12 @@ SPEC_END
 @implementation FUTestTimedAction
 
 @synthesize callCount = _callCount;
-@synthesize lastCallFactor = _lastCallFactor;
+@synthesize lastNormalizedTime = _lastNormalizedTime;
 
 - (void)update
 {
 	[self setCallCount:[self callCount] + 1];
-	[self setLastCallFactor:[self factor]];
+	[self setLastNormalizedTime:[self normalizedTime]];
 }
 
 @end
