@@ -23,7 +23,8 @@ typedef void (^FUTweenBlock)(float t);
 
 
 FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block);
-FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* toValue);
-FUTweenAction* FUTweenBy(NSTimeInterval duration, id target, NSString* property, NSNumber* byValue);
-FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float toRotation);
-FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float byRotation);
+FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* value);
+FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* property, NSNumber* addend);
+FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* property, NSNumber* factor);
+FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation);
+FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend);

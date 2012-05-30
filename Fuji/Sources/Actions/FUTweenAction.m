@@ -15,8 +15,9 @@
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
-static NSString* const FUToValueNilMessage = @"Expected toValue to not be nil";
-static NSString* const FUByValueNilMessage = @"Expected byValue to not be nil";
+static NSString* const FUValueNilMessage = @"Expected value to not be nil";
+static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
+static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
 static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
 static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
 
@@ -90,57 +91,80 @@ FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block)
 	return [[FUTweenAction alloc] initWithDuration:duration block:block];
 }
 
-FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* toValue)
+FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* value)
 {
 #ifndef NS_BLOCK_ASSERTIONS
 	FUCheckTargetAndProperty(target, property);
 #endif
-	FUCheck(toValue != nil, FUToValueNilMessage);
+	FUCheck(value != nil, FUValueNilMessage);
 	
-	__block NSNumber* fromValue = nil;
-	__block double fromDouble = 0.0;
+	__block NSNumber* startValue = nil;
+	__block double startDouble = 0.0;
 	__block double difference = 0.0;
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
-		if (fromValue == nil) {
-			fromValue = [target valueForKey:property];
-			fromDouble = [fromValue doubleValue];
-			difference = [toValue doubleValue] - fromDouble;
+		if (startValue == nil) {
+			startValue = [target valueForKey:property];
+			startDouble = [startValue doubleValue];
+			difference = [value doubleValue] - startDouble;
 		}
 		
-		double currentDouble = fromDouble + t * difference;
+		double currentDouble = startDouble + t * difference;
 		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
 	}];
 }
 
-FUTweenAction* FUTweenBy(NSTimeInterval duration, id target, NSString* property, NSNumber* byValue)
+FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* property, NSNumber* addend)
 {
 #ifndef NS_BLOCK_ASSERTIONS
 	FUCheckTargetAndProperty(target, property);
 #endif
-	FUCheck(byValue != nil, FUByValueNilMessage);
+	FUCheck(addend != nil, FUAddendNilMessage);
 	
-	__block NSNumber* fromValue = nil;
-	__block double fromDouble = 0.0;
-	double difference = [byValue doubleValue];
+	__block NSNumber* startValue = nil;
+	__block double startDouble = 0.0;
+	double difference = [addend doubleValue];
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
-		if (fromValue == nil) {
-			fromValue = [target valueForKey:property];
-			fromDouble = [fromValue doubleValue];
+		if (startValue == nil) {
+			startValue = [target valueForKey:property];
+			startDouble = [startValue doubleValue];
 		}
 		
-		double currentDouble = fromDouble + t * difference;
+		double currentDouble = startDouble + t * difference;
 		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
 	}];
 }
 
-FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float toRotation)
+FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* property, NSNumber* factor)
 {
-	return FUTweenTo(duration, target, @"rotation", [NSNumber numberWithFloat:toRotation]);
+#ifndef NS_BLOCK_ASSERTIONS
+	FUCheckTargetAndProperty(target, property);
+#endif
+	FUCheck(factor != nil, FUFactorNilMessage);
+	
+	__block NSNumber* startValue = nil;
+	__block double startDouble = 0.0;
+	__block double difference = 0.0;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (startValue == nil) {
+			startValue = [target valueForKey:property];
+			startDouble = [startValue doubleValue];
+			difference = startDouble * ([factor doubleValue] - 1.0);
+		}
+		
+		double currentDouble = startDouble + t * difference;
+		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+	}];
 }
 
-FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float byRotation)
+FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation)
 {
-	return FUTweenBy(duration, target, @"rotation", [NSNumber numberWithFloat:byRotation]);
+	return FUTweenTo(duration, target, @"rotation", [NSNumber numberWithFloat:rotation]);
+}
+
+FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend)
+{
+	return FUTweenSum(duration, target, @"rotation", [NSNumber numberWithFloat:addend]);
 }

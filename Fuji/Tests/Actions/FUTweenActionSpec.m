@@ -17,8 +17,9 @@
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
 static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
-static NSString* const FUToValueNilMessage = @"Expected toValue to not be nil";
-static NSString* const FUByValueNilMessage = @"Expected byValue to not be nil";
+static NSString* const FUValueNilMessage = @"Expected value to not be nil";
+static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
+static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
 static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
 static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
 
@@ -165,7 +166,7 @@ describe(@"A tween action", ^{
 		
 		context(@"initializing with a nil toValue", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenTo(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUToValueNilMessage);
+				assertThrows(FUTweenTo(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUValueNilMessage);
 			});
 		});
 		
@@ -263,22 +264,22 @@ describe(@"A tween action", ^{
 		});
 	});
 	
-	context(@"the FUTweenBy method", ^{
+	context(@"the FUTweenSum method", ^{
 		context(@"initializing with a nil target", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenBy(0.0, nil, @"property", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenSum(0.0, nil, @"property", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
 			});
 		});
 		
 		context(@"initializing with a nil property", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenBy(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNilMessage);
+				assertThrows(FUTweenSum(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNilMessage);
 			});
 		});
 		
 		context(@"initializing with a nil byValue", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenBy(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUByValueNilMessage);
+				assertThrows(FUTweenSum(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUAddendNilMessage);
 			});
 		});
 		
@@ -286,7 +287,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* property = @"count";
-				assertThrows(FUTweenBy(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
+				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
 			});
 		});
 		
@@ -294,7 +295,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* property = @"length";
-				assertThrows(FUTweenBy(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
 			});
 		});
 
@@ -304,7 +305,7 @@ describe(@"A tween action", ^{
 			
 			beforeEach(^{
 				target = [FUDoubleObject new];
-				tween = FUTweenBy(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
+				tween = FUTweenSum(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
 			});
 			
 			it(@"is not nil", ^{
@@ -370,6 +371,119 @@ describe(@"A tween action", ^{
 					it(@"sets the value half-way after the toValue", ^{
 						[tween setNormalizedTime:1.5f];
 						expect([target doubleValue]).to.equal(5.0);
+					});
+				});
+			});
+		});
+	});
+	
+	context(@"the FUTweenProduct method", ^{
+		context(@"initializing with a nil target", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTweenProduct(0.0, nil, @"property", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+			});
+		});
+		
+		context(@"initializing with a nil property", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTweenProduct(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNilMessage);
+			});
+		});
+		
+		context(@"initializing with a nil byValue", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTweenProduct(0.0, [NSMutableData data], @"length", nil), NSInvalidArgumentException, FUFactorNilMessage);
+			});
+		});
+		
+		context(@"initializing with an undefined property", ^{
+			it(@"throws an exception", ^{
+				id target = [NSString string];
+				NSString* property = @"count";
+				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
+			});
+		});
+		
+		context(@"initializing with a readonly property", ^{
+			it(@"throws an exception", ^{
+				id target = [NSString string];
+				NSString* property = @"length";
+				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+			});
+		});
+		
+		context(@"initialized with valid arguments", ^{
+			__block FUDoubleObject* target;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				target = [FUDoubleObject new];
+				tween = FUTweenProduct(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
+			});
+			
+			it(@"is not nil", ^{
+				expect(tween).toNot.beNil();
+			});
+			
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(1.0);
+			});
+			
+			context(@"set the value on the target to 3.0", ^{
+				beforeEach(^{
+					[target setDoubleValue:3.0];
+				});
+				
+				context(@"set a normalized time of 0.5f", ^{
+					beforeEach(^{
+						[tween setNormalizedTime:0.5f];
+					});
+					
+					it(@"sets the value half-way through", ^{
+						expect([target doubleValue]).to.equal(4.5);
+					});
+					
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the value back to the start value", ^{
+							[tween setNormalizedTime:0.0f];
+							expect([target doubleValue]).to.equal(3.0);
+						});
+					});
+				});
+				
+				context(@"created a copy of the tween", ^{
+					__block FUTweenAction* tweenCopy;
+					
+					beforeEach(^{
+						tweenCopy = [tween copy];
+					});
+					
+					context(@"setting a normalized time of 0.5f", ^{
+						it(@"sets the value half-way through", ^{
+							[tweenCopy setNormalizedTime:0.5f];
+							expect([target doubleValue]).to.equal(4.5);
+						});
+					});
+				});
+				
+				context(@"setting a normalized time of 1.0f", ^{
+					it(@"sets the value to the end value", ^{
+						[tween setNormalizedTime:1.0f];
+						expect([target doubleValue]).to.equal(6.0);
+					});
+				});
+				
+				context(@"setting a factor of -0.5f", ^{
+					it(@"sets the value half-way before the start value", ^{
+						[tween setNormalizedTime:-0.5f];
+						expect([target doubleValue]).to.equal(1.5);
+					});
+				});
+				
+				context(@"setting a factor of 1.5f", ^{
+					it(@"sets the value half-way after the toValue", ^{
+						[tween setNormalizedTime:1.5f];
+						expect([target doubleValue]).to.equal(7.5);
 					});
 				});
 			});
