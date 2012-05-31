@@ -75,5 +75,10 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 	return lessTimeLeft;
 }
 
-
 @end
+
+
+FUSpawnAction* FUSpawn(NSArray* actions)
+{
+	return [[FUSpawnAction alloc] initWithActions:actions];
+}

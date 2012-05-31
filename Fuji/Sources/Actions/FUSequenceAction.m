@@ -103,3 +103,9 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 }
 
 @end
+
+
+FUSequenceAction* FUSequence(NSArray* actions)
+{
+	return [[FUSequenceAction alloc] initWithActions:actions];
+}

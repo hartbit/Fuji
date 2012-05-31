@@ -63,7 +63,7 @@ describe(@"A sequence action", ^{
 		
 		context(@"initializing via the function with three actions", ^{
 			it(@"returns a FUSequenceAction", ^{
-				expect(FUSequence(action1, action2, action3)).to.beKindOf([FUSequenceAction class]);
+				expect(FUSequence([NSArray arrayWithObjects:action1, action2, action3, nil])).to.beKindOf([FUSequenceAction class]);
 			});
 		});
 		

@@ -22,9 +22,4 @@
 @end
 
 
-#define FUSpawn(actions...) ({ \
-	id __objects[] = { actions }; \
-	NSUInteger __count = sizeof(__objects) / sizeof(id); \
-	NSArray* __array = [[NSArray alloc] initWithObjects:__objects count:__count]; \
-	[[FUSpawnAction alloc] initWithActions:__array]; \
-})
+FUSpawnAction* FUSpawn(NSArray* actions);

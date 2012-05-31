@@ -206,7 +206,7 @@ describe(@"A group action", ^{
 			__block FUGroupAction* group;
 			
 			beforeEach(^{
-				group = FUGroup(action1, action2, action3);
+				group = FUGroup([NSArray arrayWithObjects:action1, action2, action3, nil]);
 			});
 			
 			it(@"is a group action", ^{

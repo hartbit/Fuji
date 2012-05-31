@@ -62,7 +62,7 @@ describe(@"A spawn action", ^{
 		
 		context(@"initializing via the function with three actions", ^{
 			it(@"returns a FUSpawnAction", ^{
-				expect(FUSpawn(action1, action2, action3)).to.beKindOf([FUSpawnAction class]);
+				expect(FUSpawn([NSArray arrayWithObjects:action1, action2, action3, nil])).to.beKindOf([FUSpawnAction class]);
 			});
 		});
 		

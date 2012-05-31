@@ -74,3 +74,9 @@ static NSString* const FUDurationDifferentMessage = @"Expected actions to have t
 }
 
 @end
+
+
+FUGroupAction* FUGroup(NSArray* actions)
+{
+	return [[FUGroupAction alloc] initWithActions:actions];
+}
