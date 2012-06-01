@@ -17,7 +17,7 @@
 @implementation FUSpriteRenderer
 
 @synthesize texture = _texture;
-@synthesize color = _color;
+@synthesize tint = _tint;
 
 #pragma mark - FUComponent Class Methods
 
@@ -31,7 +31,7 @@
 - (id)init
 {
 	if ((self = [super init])) {
-		[self setColor:FUColorWhite];
+		[self setTint:FUColorWhite];
 	}
 	
 	return self;

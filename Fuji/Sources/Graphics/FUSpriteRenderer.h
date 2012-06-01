@@ -18,6 +18,6 @@
 @interface FUSpriteRenderer : FUBehavior
 
 @property (nonatomic, copy) NSString* texture;
-@property (nonatomic) GLKVector4 color;
+@property (nonatomic) GLKVector4 tint;
 
 @end

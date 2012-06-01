@@ -49,14 +49,14 @@ describe(@"A sprite renderer component", ^{
 			});
 		});
 		
-		it(@"has a white color", ^{
-			expect(GLKVector4AllEqualToVector4([spriteRenderer color], FUColorWhite)).to.beTruthy();
+		it(@"has a white tint", ^{
+			expect(GLKVector4AllEqualToVector4([spriteRenderer tint], FUColorWhite)).to.beTruthy();
 		});
 		
-		context(@"setting the color to brown", ^{
-			it(@"has it's color property to brown", ^{
-				[spriteRenderer setColor:FUColorBrown];
-				expect(GLKVector4AllEqualToVector4([spriteRenderer color], FUColorBrown)).to.beTruthy();
+		context(@"setting the tint to brown", ^{
+			it(@"has it's tint property to brown", ^{
+				[spriteRenderer setTint:FUColorBrown];
+				expect(GLKVector4AllEqualToVector4([spriteRenderer tint], FUColorBrown)).to.beTruthy();
 			});
 		});
 	});

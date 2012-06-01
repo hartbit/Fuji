@@ -333,7 +333,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 			GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP1);
 			GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP2);
 			GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP3);
-			GLKVector4 color = [sprite color];
+			GLKVector4 color = [sprite tint];
 			
 			vertices[vertexIndex++] = FUVertexMake(p0, color, kT0);
 			vertices[vertexIndex++] = FUVertexMake(p1, color, kT1);
