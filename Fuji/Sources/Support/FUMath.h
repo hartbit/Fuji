@@ -24,11 +24,6 @@ static OBJC_INLINE float FURandomUnit()
 	return (float)arc4random() / 0x100000000;
 }
 
-static OBJC_INLINE GLubyte FURandomByte()
-{
-	return arc4random() / 256;
-}
-
 static OBJC_INLINE float FURandomFloat(float min, float max)
 {
 	return min + (FURandomUnit() * (max - min));
@@ -44,9 +39,9 @@ static OBJC_INLINE NSInteger FURandomInteger(NSInteger min, NSInteger max)
 	return min + (NSInteger)(FURandomUnit() * (max - min + 1));
 }
 
-static OBJC_INLINE FUColor FURandomColor()
+static OBJC_INLINE GLKVector4 FURandomColor()
 {
-	return FUColorMake(FURandomByte(), FURandomByte(), FURandomByte(), FURandomByte());
+	return GLKVector4Make(FURandomUnit(), FURandomUnit(), FURandomUnit(), FURandomUnit());
 }
 
 #pragma mark - General Math Functions

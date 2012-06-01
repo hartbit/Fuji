@@ -16,6 +16,6 @@
 
 @interface FUGraphicsSettings : FUComponent
 
-@property (nonatomic) FUColor backgroundColor;
+@property (nonatomic) GLKVector4 backgroundColor;
 
 @end

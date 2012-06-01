@@ -219,7 +219,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(FUVertex), (GLvoid*)offsetof(FUVertex, position));
 	
 	glEnableVertexAttribArray(GLKVertexAttribColor);
-	glVertexAttribPointer(GLKVertexAttribColor, 4, GL_UNSIGNED_BYTE, GL_FALSE, sizeof(FUVertex), (GLvoid*)offsetof(FUVertex, color));
+	glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(FUVertex), (GLvoid*)offsetof(FUVertex, color));
 	
 	glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
 	glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(FUVertex), (GLvoid*)offsetof(FUVertex, texCoord));
@@ -333,7 +333,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 			GLKVector3 p1 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP1);
 			GLKVector3 p2 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP2);
 			GLKVector3 p3 = GLKMatrix4MultiplyVector3WithTranslation(matrix, kP3);
-			FUColor color = [sprite color];
+			GLKVector4 color = [sprite color];
 			
 			vertices[vertexIndex++] = FUVertexMake(p0, color, kT0);
 			vertices[vertexIndex++] = FUVertexMake(p1, color, kT1);
