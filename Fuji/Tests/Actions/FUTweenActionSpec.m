@@ -15,11 +15,11 @@
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
-static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
-static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
-static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
-static NSString* const FUPropertyNumericalMessage = @"Expected 'property=%@' on 'object=%@' to be of a numerical type";
-static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
+static NSString* const FUObjectNilMessage = @"Expected object to not be nil";
+static NSString* const FUKeyNilMessage = @"Expected key to not be nil or empty";
+static NSString* const FUKeyImmutableMessage = @"Expected 'key=%@' on 'object=%@' to be mutable";
+static NSString* const FUKeyNumericalMessage = @"Expected 'key=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUKeyVector2Message = @"Expected 'key=%@' on 'object=%@' to be of type GLKVector2";
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
 static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
@@ -27,6 +27,14 @@ static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
 
 @interface FUDoubleObject : NSObject
 @property (nonatomic) double doubleValue;
+@end
+
+@interface FUReadonlyVector2 : NSObject
+@property (nonatomic, readonly) GLKVector2 vectorValue;
+@end
+
+@interface FUVector2 : NSObject
+@property (nonatomic) GLKVector2 vectorValue;
 @end
 
 
@@ -153,39 +161,39 @@ describe(@"A tween action", ^{
 	});
 	
 	context(@"the FUTweenTo method", ^{
-		context(@"initializing with a nil target", ^{
+		context(@"initializing with a nil object", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenTo(0.0, nil, @"property", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenTo(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUObjectNilMessage);
 			});
 		});
 		
-		context(@"initializing with a nil property", ^{
+		context(@"initializing with a nil key", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenTo(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNilMessage);
+				assertThrows(FUTweenTo(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNilMessage);
 			});
 		});
 		
-		context(@"initializing with an undefined property", ^{
+		context(@"initializing with an undefined key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSString string];
-				NSString* property = @"count";
-				assertThrows(FUTweenTo(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
+				id object = [NSString string];
+				NSString* key = @"count";
+				STAssertThrows(FUTweenTo(0.0, object, key, [NSNumber numberWithDouble:1.0]), nil);
 			});
 		});
 		
-		context(@"initializing with a non-numerical property", ^{
+		context(@"initializing with a immutable key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSMutableURLRequest requestWithURL:nil];
-				NSString* property = @"URL";
-				assertThrows(FUTweenTo(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNumericalMessage, property, target);
+				id object = [NSString string];
+				NSString* key = @"length";
+				assertThrows(FUTweenTo(0.0, object, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyImmutableMessage, key, object);
 			});
 		});
 		
-		context(@"initializing with a readonly property", ^{
+		context(@"initializing with a non-numerical key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSString string];
-				NSString* property = @"length";
-				assertThrows(FUTweenTo(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+				id object = [NSMutableURLRequest requestWithURL:nil];
+				NSString* key = @"URL";
+				assertThrows(FUTweenTo(0.0, object, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNumericalMessage, key, object);
 			});
 		});
 		
@@ -196,12 +204,12 @@ describe(@"A tween action", ^{
 		});
 		
 		context(@"initialized with valid arguments", ^{
-			__block FUDoubleObject* target;
+			__block FUDoubleObject* object;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				target = [FUDoubleObject new];
-				tween = FUTweenTo(1.0, target, @"doubleValue", [NSNumber numberWithDouble:4.0]);
+				object = [FUDoubleObject new];
+				tween = FUTweenTo(1.0, object, @"doubleValue", [NSNumber numberWithDouble:4.0]);
 			});
 			
 			it(@"is not nil", ^{
@@ -212,9 +220,9 @@ describe(@"A tween action", ^{
 				expect([tween duration]).to.equal(1.0);
 			});
 			
-			context(@"set the value on the target to 2.0", ^{
+			context(@"set the value on the object to 2.0", ^{
 				beforeEach(^{
-					[target setDoubleValue:2.0];
+					[object setDoubleValue:2.0];
 				});
 				
 				context(@"set a normalized time of 0.5f", ^{
@@ -223,13 +231,13 @@ describe(@"A tween action", ^{
 					});
 					
 					it(@"sets the value half-way through", ^{
-						expect([target doubleValue]).to.equal(3.0);
+						expect([object doubleValue]).to.equal(3.0);
 					});
 					
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the value back to the start value", ^{
 							[tween setNormalizedTime:0.0f];
-							expect([target doubleValue]).to.equal(2.0);
+							expect([object doubleValue]).to.equal(2.0);
 						});
 					});
 					
@@ -243,7 +251,7 @@ describe(@"A tween action", ^{
 						context(@"setting a normalized time of 0.0f", ^{
 							it(@"sets the value back to the start value", ^{
 								[tween setNormalizedTime:0.0f];
-								expect([target doubleValue]).to.equal(2.0);
+								expect([object doubleValue]).to.equal(2.0);
 							});
 						});
 					});
@@ -252,21 +260,21 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the value to the toValue", ^{
 						[tween setNormalizedTime:1.0f];
-						expect([target doubleValue]).to.equal(4.0);
+						expect([object doubleValue]).to.equal(4.0);
 					});
 				});
 				
 				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the value half-way before the start value", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect([target doubleValue]).to.equal(1.0);
+						expect([object doubleValue]).to.equal(1.0);
 					});
 				});
 				
 				context(@"setting a setNormalizedTime of 1.5f", ^{
 					it(@"sets the value half-way after the toValue", ^{
 						[tween setNormalizedTime:1.5f];
-						expect([target doubleValue]).to.equal(5.0);
+						expect([object doubleValue]).to.equal(5.0);
 					});
 				});
 			});
@@ -274,39 +282,39 @@ describe(@"A tween action", ^{
 	});
 	
 	context(@"the FUTweenSum method", ^{
-		context(@"initializing with a nil target", ^{
+		context(@"initializing with a nil object", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenSum(0.0, nil, @"property", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenSum(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUObjectNilMessage);
 			});
 		});
 		
-		context(@"initializing with a nil property", ^{
+		context(@"initializing with a nil key", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenSum(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNilMessage);
+				assertThrows(FUTweenSum(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNilMessage);
 			});
 		});
 		
-		context(@"initializing with an undefined property", ^{
+		context(@"initializing with an undefined key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSString string];
-				NSString* property = @"count";
-				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
+				id object = [NSString string];
+				NSString* key = @"count";
+				STAssertThrows(FUTweenSum(0.0, object, key, [NSNumber numberWithDouble:1.0]), nil);
 			});
 		});
 		
-		context(@"initializing with a non-numerical property", ^{
+		context(@"initializing with a immutable key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSMutableURLRequest requestWithURL:nil];
-				NSString* property = @"URL";
-				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNumericalMessage, property, target);
+				id object = [NSString string];
+				NSString* key = @"length";
+				assertThrows(FUTweenSum(0.0, object, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyImmutableMessage, key, object);
 			});
 		});
 		
-		context(@"initializing with a readonly property", ^{
+		context(@"initializing with a non-numerical key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSString string];
-				NSString* property = @"length";
-				assertThrows(FUTweenSum(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+				id object = [NSMutableURLRequest requestWithURL:nil];
+				NSString* key = @"URL";
+				assertThrows(FUTweenSum(0.0, object, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNumericalMessage, key, object);
 			});
 		});
 		
@@ -317,12 +325,12 @@ describe(@"A tween action", ^{
 		});
 
 		context(@"initialized with valid arguments", ^{
-			__block FUDoubleObject* target;
+			__block FUDoubleObject* object;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				target = [FUDoubleObject new];
-				tween = FUTweenSum(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
+				object = [FUDoubleObject new];
+				tween = FUTweenSum(1.0, object, @"doubleValue", [NSNumber numberWithDouble:2.0]);
 			});
 			
 			it(@"is not nil", ^{
@@ -333,9 +341,9 @@ describe(@"A tween action", ^{
 				expect([tween duration]).to.equal(1.0);
 			});
 			
-			context(@"set the value on the target to 2.0", ^{
+			context(@"set the value on the object to 2.0", ^{
 				beforeEach(^{
-					[target setDoubleValue:2.0];
+					[object setDoubleValue:2.0];
 				});
 				
 				context(@"set a normalized time of 0.5f", ^{
@@ -344,13 +352,13 @@ describe(@"A tween action", ^{
 					});
 					
 					it(@"sets the value half-way through", ^{
-						expect([target doubleValue]).to.equal(3.0);
+						expect([object doubleValue]).to.equal(3.0);
 					});
 					
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the value back to the start value", ^{
 							[tween setNormalizedTime:0.0f];
-							expect([target doubleValue]).to.equal(2.0);
+							expect([object doubleValue]).to.equal(2.0);
 						});
 					});
 				});
@@ -365,7 +373,7 @@ describe(@"A tween action", ^{
 					context(@"setting a normalized time of 0.5f", ^{
 						it(@"sets the value half-way through", ^{
 							[tweenCopy setNormalizedTime:0.5f];
-							expect([target doubleValue]).to.equal(3.0);
+							expect([object doubleValue]).to.equal(3.0);
 						});
 					});
 				});
@@ -373,21 +381,21 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the value to the end value", ^{
 						[tween setNormalizedTime:1.0f];
-						expect([target doubleValue]).to.equal(4.0);
+						expect([object doubleValue]).to.equal(4.0);
 					});
 				});
 				
 				context(@"setting a factor of -0.5f", ^{
 					it(@"sets the value half-way before the start value", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect([target doubleValue]).to.equal(1.0);
+						expect([object doubleValue]).to.equal(1.0);
 					});
 				});
 				
 				context(@"setting a factor of 1.5f", ^{
 					it(@"sets the value half-way after the toValue", ^{
 						[tween setNormalizedTime:1.5f];
-						expect([target doubleValue]).to.equal(5.0);
+						expect([object doubleValue]).to.equal(5.0);
 					});
 				});
 			});
@@ -395,39 +403,39 @@ describe(@"A tween action", ^{
 	});
 	
 	context(@"the FUTweenProduct method", ^{
-		context(@"initializing with a nil target", ^{
+		context(@"initializing with a nil object", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenProduct(0.0, nil, @"property", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenProduct(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUObjectNilMessage);
 			});
 		});
 		
-		context(@"initializing with a nil property", ^{
+		context(@"initializing with a nil key", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenProduct(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNilMessage);
+				assertThrows(FUTweenProduct(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNilMessage);
 			});
 		});
 		
-		context(@"initializing with an undefined property", ^{
+		context(@"initializing with an undefined key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSString string];
-				NSString* property = @"count";
-				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
+				id object = [NSString string];
+				NSString* key = @"count";
+				STAssertThrows(FUTweenProduct(0.0, object, key, [NSNumber numberWithDouble:1.0]), nil);
 			});
 		});
 		
-		context(@"initializing with a non-numerical property", ^{
+		context(@"initializing with a immutable key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSMutableURLRequest requestWithURL:nil];
-				NSString* property = @"URL";
-				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyNumericalMessage, property, target);
+				id object = [NSString string];
+				NSString* key = @"length";
+				assertThrows(FUTweenProduct(0.0, object, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyImmutableMessage, key, object);
 			});
 		});
 		
-		context(@"initializing with a readonly property", ^{
+		context(@"initializing with a non-numerical key", ^{
 			it(@"throws an exception", ^{
-				id target = [NSString string];
-				NSString* property = @"length";
-				assertThrows(FUTweenProduct(0.0, target, property, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+				id object = [NSMutableURLRequest requestWithURL:nil];
+				NSString* key = @"URL";
+				assertThrows(FUTweenProduct(0.0, object, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNumericalMessage, key, object);
 			});
 		});
 		
@@ -438,12 +446,12 @@ describe(@"A tween action", ^{
 		});
 		
 		context(@"initialized with valid arguments", ^{
-			__block FUDoubleObject* target;
+			__block FUDoubleObject* object;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				target = [FUDoubleObject new];
-				tween = FUTweenProduct(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
+				object = [FUDoubleObject new];
+				tween = FUTweenProduct(1.0, object, @"doubleValue", [NSNumber numberWithDouble:2.0]);
 			});
 			
 			it(@"is not nil", ^{
@@ -454,9 +462,9 @@ describe(@"A tween action", ^{
 				expect([tween duration]).to.equal(1.0);
 			});
 			
-			context(@"set the value on the target to 3.0", ^{
+			context(@"set the value on the object to 3.0", ^{
 				beforeEach(^{
-					[target setDoubleValue:3.0];
+					[object setDoubleValue:3.0];
 				});
 				
 				context(@"set a normalized time of 0.5f", ^{
@@ -465,13 +473,13 @@ describe(@"A tween action", ^{
 					});
 					
 					it(@"sets the value half-way through", ^{
-						expect([target doubleValue]).to.equal(4.5);
+						expect([object doubleValue]).to.equal(4.5);
 					});
 					
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the value back to the start value", ^{
 							[tween setNormalizedTime:0.0f];
-							expect([target doubleValue]).to.equal(3.0);
+							expect([object doubleValue]).to.equal(3.0);
 						});
 					});
 				});
@@ -486,7 +494,7 @@ describe(@"A tween action", ^{
 					context(@"setting a normalized time of 0.5f", ^{
 						it(@"sets the value half-way through", ^{
 							[tweenCopy setNormalizedTime:0.5f];
-							expect([target doubleValue]).to.equal(4.5);
+							expect([object doubleValue]).to.equal(4.5);
 						});
 					});
 				});
@@ -494,67 +502,123 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the value to the end value", ^{
 						[tween setNormalizedTime:1.0f];
-						expect([target doubleValue]).to.equal(6.0);
+						expect([object doubleValue]).to.equal(6.0);
 					});
 				});
 				
 				context(@"setting a factor of -0.5f", ^{
 					it(@"sets the value half-way before the start value", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect([target doubleValue]).to.equal(1.5);
+						expect([object doubleValue]).to.equal(1.5);
 					});
 				});
 				
 				context(@"setting a factor of 1.5f", ^{
 					it(@"sets the value half-way after the toValue", ^{
 						[tween setNormalizedTime:1.5f];
-						expect([target doubleValue]).to.equal(7.5);
+						expect([object doubleValue]).to.equal(7.5);
 					});
 				});
 			});
 		});
 	});
 	
-	context(@"initialized with the FURotateTo function", ^{
-		__block FUTransform* target;
-		__block FUTweenAction* tween;
-		
-		beforeEach(^{
-			target = mock([FUTransform class]);
-			[given([target valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
-			tween = FURotateTo(2.0, target, 2*M_PI);
+	context(@"FURotateTo function", ^{
+		context(@"initialized with an FUEntity object", ^{
+			__block FUEntity* entity;
+			__block FUTransform* transform;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				entity = mock([FUEntity class]);
+				transform = mock([FUTransform class]);
+				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
+				[given([entity transform]) willReturn:transform];
+				[given([transform valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				tween = FURotateTo(2.0, entity, 2*M_PI);
+			});
+			
+			it(@"has a duration of 2.0", ^{
+				expect([tween duration]).to.equal(2.0);
+			});
+			
+			context(@"setting a normalized time of 1.0f", ^{
+				it(@"sets the rotation to 2*M_PI on the transform", ^{
+					[tween setNormalizedTime:1.0f];
+					[verify(transform) setValue:HC_closeTo(2*M_PI, 2*M_PI*FLT_EPSILON) forKey:@"rotation"];
+				});
+			});
 		});
 		
-		it(@"has a duration of 2.0", ^{
-			expect([tween duration]).to.equal(2.0);
-		});
-		
-		context(@"setting a normalized time of 1.0f", ^{
-			it(@"sets the rotation to 2*M_PI", ^{
-				[tween setNormalizedTime:1.0f];
-				[verify(target) setValue:HC_closeTo(2*M_PI, 2*M_PI*FLT_EPSILON) forKey:@"rotation"];
+		context(@"initialized with an object with a rotation key", ^{
+			__block FUTransform* object;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				object = mock([FUTransform class]);
+				[given([object valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				tween = FURotateTo(2.0, object, 2*M_PI);
+			});
+			
+			it(@"has a duration of 2.0", ^{
+				expect([tween duration]).to.equal(2.0);
+			});
+			
+			context(@"setting a normalized time of 1.0f", ^{
+				it(@"sets the rotation to 2*M_PI", ^{
+					[tween setNormalizedTime:1.0f];
+					[verify(object) setValue:HC_closeTo(2*M_PI, 2*M_PI*FLT_EPSILON) forKey:@"rotation"];
+				});
 			});
 		});
 	});
 	
-	context(@"initialized with the FURotateBy function", ^{
-		__block FUTransform* target;
-		__block FUTweenAction* tween;
-		
-		beforeEach(^{
-			target = mock([FUTransform class]);
-			[given([target valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
-			tween = FURotateBy(2.0, target, M_PI);
+	context(@"FURotateBy function", ^{
+		context(@"initialized with an FUEntity object", ^{
+			__block FUEntity* entity;
+			__block FUTransform* transform;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				entity = mock([FUEntity class]);
+				transform = mock([FUTransform class]);
+				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
+				[given([entity transform]) willReturn:transform];
+				[given([transform valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				tween = FURotateBy(2.0, entity, M_PI);
+			});
+			
+			it(@"has a duration of 2.0", ^{
+				expect([tween duration]).to.equal(2.0);
+			});
+			
+			context(@"setting a normalized time of 1.0f", ^{
+				it(@"sets the rotation to 2*M_PI on the transform", ^{
+					[tween setNormalizedTime:1.0f];
+					[verify(transform) setValue:HC_closeTo(2*M_PI, 2*M_PI*FLT_EPSILON) forKey:@"rotation"];
+				});
+			});
 		});
-			 
-		it(@"has a duration of 2.0", ^{
-			expect([tween duration]).to.equal(2.0);
-		});
 		
-		context(@"setting a normalized time of 1.0f", ^{
-			it(@"sets the rotation to 2*M_PI", ^{
-				[tween setNormalizedTime:1.0f];
-				[verify(target) setValue:HC_closeTo(2*M_PI, 2*M_PI*FLT_EPSILON) forKey:@"rotation"];
+		context(@"initialized with on object with a rotation key", ^{
+			__block FUTransform* object;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				object = mock([FUTransform class]);
+				[given([object valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				tween = FURotateBy(2.0, object, M_PI);
+			});
+			
+			it(@"has a duration of 2.0", ^{
+				expect([tween duration]).to.equal(2.0);
+			});
+			
+			context(@"setting a normalized time of 1.0f", ^{
+				it(@"sets the rotation to 2*M_PI", ^{
+					[tween setNormalizedTime:1.0f];
+					[verify(object) setValue:HC_closeTo(2*M_PI, 2*M_PI*FLT_EPSILON) forKey:@"rotation"];
+				});
 			});
 		});
 	});
@@ -565,4 +629,12 @@ SPEC_END
 
 @implementation FUDoubleObject
 @synthesize doubleValue = _doubleValue;
+@end
+
+@implementation FUReadonlyVector2
+@synthesize vectorValue = _vectorValue;
+@end
+
+@implementation FUVector2
+@synthesize vectorValue = _vectorValue;
 @end

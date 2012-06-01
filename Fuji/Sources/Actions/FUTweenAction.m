@@ -11,9 +11,12 @@
 
 #import "FUTweenAction.h"
 #import "FUAssert.h"
+#import "FUEntity-Internal.h"
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
+static NSString* const FUKeyNumericalMessage = @"Expected 'key=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUKeyVector2Message = @"Excepcted 'key=%@' on 'object=%@' to be of type GLKVector2";
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
 static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
@@ -67,9 +70,9 @@ FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block)
 	return [[FUTweenAction alloc] initWithDuration:duration block:block];
 }
 
-FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property, NSNumber* value)
+FUTweenAction* FUTweenTo(NSTimeInterval duration, id object, NSString* key, NSNumber* value)
 {
-	FUCheckTargetAndProperty(target, property);
+	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
 	FUCheck(value != nil, FUValueNilMessage);
 	
 	__block NSNumber* startValue = nil;
@@ -78,19 +81,19 @@ FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* property,
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
 		if (startValue == nil) {
-			startValue = [target valueForKey:property];
+			startValue = [object valueForKey:key];
 			startDouble = [startValue doubleValue];
 			difference = [value doubleValue] - startDouble;
 		}
 		
 		double currentDouble = startDouble + t * difference;
-		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+		[object setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
 	}];
 }
 
-FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* property, NSNumber* addend)
+FUTweenAction* FUTweenSum(NSTimeInterval duration, id object, NSString* key, NSNumber* addend)
 {
-	FUCheckTargetAndProperty(target, property);
+	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
 	FUCheck(addend != nil, FUAddendNilMessage);
 	
 	__block NSNumber* startValue = nil;
@@ -99,18 +102,18 @@ FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* property
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
 		if (startValue == nil) {
-			startValue = [target valueForKey:property];
+			startValue = [object valueForKey:key];
 			startDouble = [startValue doubleValue];
 		}
 		
 		double currentDouble = startDouble + t * difference;
-		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+		[object setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
 	}];
 }
 
-FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* property, NSNumber* factor)
+FUTweenAction* FUTweenProduct(NSTimeInterval duration, id object, NSString* key, NSNumber* factor)
 {
-	FUCheckTargetAndProperty(target, property);
+	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
 	FUCheck(factor != nil, FUFactorNilMessage);
 	
 	__block NSNumber* startValue = nil;
@@ -119,22 +122,24 @@ FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* prop
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
 		if (startValue == nil) {
-			startValue = [target valueForKey:property];
+			startValue = [object valueForKey:key];
 			startDouble = [startValue doubleValue];
 			difference = startDouble * ([factor doubleValue] - 1.0);
 		}
 		
 		double currentDouble = startDouble + t * difference;
-		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:property];
+		[object setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
 	}];
 }
 
-FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation)
+FUTweenAction* FURotateTo(NSTimeInterval duration, id object, float rotation)
 {
-	return FUTweenTo(duration, target, @"rotation", [NSNumber numberWithFloat:rotation]);
+	id realObject = [object isKindOfClass:[FUEntity class]] ? [(FUEntity*)object transform] : object;
+	return FUTweenTo(duration, realObject, @"rotation", [NSNumber numberWithFloat:rotation]);
 }
 
-FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend)
+FUTweenAction* FURotateBy(NSTimeInterval duration, id object, float addend)
 {
-	return FUTweenSum(duration, target, @"rotation", [NSNumber numberWithFloat:addend]);
+	id realObject = [object isKindOfClass:[FUEntity class]] ? [(FUEntity*)object transform] : object;
+	return FUTweenSum(duration, realObject, @"rotation", [NSNumber numberWithFloat:addend]);
 }

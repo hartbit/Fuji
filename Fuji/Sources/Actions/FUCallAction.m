@@ -14,6 +14,7 @@
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
+static NSString* const FUKeyNumericalMessage = @"Expected 'key=%@' on 'object=%@' to be of a numerical type";
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 
 
@@ -65,46 +66,46 @@ FUCallAction* FUCall(FUCallBlock block)
 	return [[FUCallAction alloc] initWithBlock:block];
 }
 
-FUCallAction* FUToggle(id target, NSString* property)
+FUCallAction* FUToggle(id object, NSString* key)
 {
-	FUCheckTargetAndProperty(target, property);
+	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
 	
 	return FUCall(^{
-		NSNumber* oldValue = [target valueForKey:property];
+		NSNumber* oldValue = [object valueForKey:key];
 		NSNumber* newValue = [NSNumber numberWithBool:![oldValue boolValue]];
-		[target setValue:newValue forKey:property];
+		[object setValue:newValue forKey:key];
 	});
 }
 
-FUCallAction* FUSwitchOn(id target, NSString* property)
+FUCallAction* FUSwitchOn(id object, NSString* key)
 {
-	FUCheckTargetAndProperty(target, property);
+	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
 	
 	return FUCall(^{
-		[target setValue:[NSNumber numberWithBool:YES] forKey:property];
+		[object setValue:[NSNumber numberWithBool:YES] forKey:key];
 	});
 }
 
-FUCallAction* FUSwitchOff(id target, NSString* property)
+FUCallAction* FUSwitchOff(id object, NSString* key)
 {
-	FUCheckTargetAndProperty(target, property);
+	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
 	
 	return FUCall(^{
-		[target setValue:[NSNumber numberWithBool:NO] forKey:property];
+		[object setValue:[NSNumber numberWithBool:NO] forKey:key];
 	});
 }
 
-FUCallAction* FUToggleEnabled(id target)
+FUCallAction* FUToggleEnabled(id object)
 {
-	return FUToggle(target, @"enabled");
+	return FUToggle(object, @"enabled");
 }
 
-FUCallAction* FUEnable(id target)
+FUCallAction* FUEnable(id object)
 {
-	return FUSwitchOn(target, @"enabled");
+	return FUSwitchOn(object, @"enabled");
 }
 
-FUCallAction* FUDisable(id target)
+FUCallAction* FUDisable(id object)
 {
-	return FUSwitchOff(target, @"enabled");
+	return FUSwitchOff(object, @"enabled");
 }

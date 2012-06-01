@@ -9,32 +9,24 @@
 #import "FUAssert.h"
 
 
-static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
-static NSString* const FUPropertyNilMessage = @"Expected property to not be nil or empty";
-static NSString* const FUPropertyUndefinedMessage = @"The 'property=%@' is not defined for 'object=%@'";
-static NSString* const FUPropertyNumericalMessage = @"Expected 'property=%@' on 'object=%@' to be of a numerical type";
-static NSString* const FUPropertyReadonlyMessage = @"Expected 'property=%@' on 'object=%@' to be readwrite but was readonly";
+static NSString* const FUObjectNilMessage = @"Expected object to not be nil";
+static NSString* const FUKeyNilMessage = @"Expected key to not be nil or empty";
+static NSString* const FUKeyImmutableMessage = @"Expected 'key=%@' on 'object=%@' to be mutable";
 
 
-void FUCheckTargetAndProperty(id target, NSString* property)
+id FUValueForKey(id object, NSString* key)
 {
-	FUCheck(target != nil, FUTargetNilMessage);
-	FUCheck(FUStringIsValid(property), FUPropertyNilMessage);
+	FUCheck(object != nil, FUObjectNilMessage);
+	FUCheck(FUStringIsValid(key), FUKeyNilMessage);
 	
-	NSNumber* currentValue;
-	
-	@try {
-		currentValue = [target valueForKey:property];
-	} @catch (NSException*) {
-		_FUThrow(NSInvalidArgumentException, FUPropertyUndefinedMessage, property, target);
-	}
-	
-	FUCheck([currentValue isKindOfClass:[NSNumber class]], FUPropertyNumericalMessage, property, target);
+	id currentValue = [object valueForKey:key];
 	
 	@try {
-		[target setValue:currentValue forKey:property];
+		[object setValue:currentValue forKey:key];
 	}
 	@catch (NSException*) {
-		_FUThrow(NSInvalidArgumentException, FUPropertyReadonlyMessage, property, target);
+		_FUThrow(NSInvalidArgumentException, FUKeyImmutableMessage, key, object);
 	}
+	
+	return currentValue;
 }

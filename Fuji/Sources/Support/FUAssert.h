@@ -28,8 +28,6 @@
 	} \
 } while (0)
 
-void FUCheckTargetAndProperty(id object, NSString* key);
-
 #else
 
 #define _FUAssert(condition, reason, ...)
@@ -37,10 +35,10 @@ void FUCheckTargetAndProperty(id object, NSString* key);
 #define FUAssert(condition, reason, ...)
 #define FUCheckOGLError()
 
-void FUCheckTargetAndProperty(id object, NSString* key) { }
-
 #endif
 
+
+id FUValueForKey(id object, NSString* key);
 
 static OBJC_INLINE BOOL FUStringIsValid(NSString* string)
 {
