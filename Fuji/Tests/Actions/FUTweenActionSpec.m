@@ -45,12 +45,6 @@ describe(@"A tween action", ^{
 		});
 	});
 	
-	context(@"initializing via the function with a block", ^{
-		it(@"returns a FUTweenAction", ^{
-			expect(FUTween(2.0, ^(float t) {})).to.beKindOf([FUTweenAction class]);
-		});
-	});
-	
 	context(@"initialized with a block", ^{
 		__block FUTweenAction* action;
 		__block NSUInteger callCount;
@@ -150,6 +144,28 @@ describe(@"A tween action", ^{
 				[action setNormalizedTime:1.5f];
 				expect(callCount).to.equal(1);
 				expect(normalizedTime).to.equal(1.5f);
+			});
+		});
+	});
+	
+	context(@"initialized with the FUTween function", ^{
+		__block FUTweenAction* tween;
+		__block BOOL wasCalled = NO;
+		
+		beforeEach(^{
+			tween = FUTween(2.0, ^(float t) {
+				wasCalled = YES;
+			});
+		});		
+		
+		it(@"has a duration of 2.0", ^{
+			expect([tween duration]).to.equal(2.0);
+		});
+		
+		context(@"setting the normalized time", ^{
+			it(@"calls the block", ^{
+				[tween setNormalizedTime:1.0f];
+				expect(wasCalled).to.beTruthy();
 			});
 		});
 	});
@@ -529,12 +545,8 @@ describe(@"A tween action", ^{
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				target = ((id (^)())[dict objectForKey:@"target"])();
-				tween = ((id (^)())[dict objectForKey:@"tween"])();
-			});
-			
-			it(@"is not nil", ^{
-				expect(tween).toNot.beNil();
+				void (^setupBlock)(FUTestObject**, FUTweenAction**) = [dict objectForKey:@"setupBlock"];
+				setupBlock(&target, &tween);
 			});
 			
 			it(@"has the correct duration", ^{
@@ -571,7 +583,7 @@ describe(@"A tween action", ^{
 						
 						context(@"setting a normalized time of 0.0f", ^{
 							it(@"sets the value back to the start value", ^{
-								[tween setNormalizedTime:0.0f];
+								[tweenCopy setNormalizedTime:0.0f];
 								expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 							});
 						});
@@ -602,31 +614,21 @@ describe(@"A tween action", ^{
 		});
 		
 		context(@"initializing with an entity", ^{
-			__block FUEntity* entity;
-			
-			beforeEach(^{
-				entity = mock([FUEntity class]);
+			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^(FUTestObject** target, FUTweenAction** tween) {
+				FUEntity* entity = mock([FUEntity class]);
 				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
-			});
-			
-			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^{
-				FUTestObject* target = [FUTestObject new];
-				[given([entity transform]) willReturn:target];
-				return target;
-			} copy], @"target",[^{
-				return FUMoveTo(1.0, entity, GLKVector2Make(2.0f, 3.0f));
-			} copy], @"tween", nil]);
+				
+				*target = [FUTestObject new];
+				[given([entity transform]) willReturn:*target];
+				*tween = FUMoveTo(1.0, entity, GLKVector2Make(2.0f, 3.0f));
+			} copy], @"setupBlock", nil]);
 		});
 		
 		context(@"initializing with an object with a position property", ^{
-			__block FUTestObject* target;
-			
-			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^{
-				target = [FUTestObject new];
-				return target;
-			} copy], @"target",[^{
-				return FUMoveTo(1.0, target, GLKVector2Make(2.0f, 3.0f));
-			} copy], @"tween", nil]);
+			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^(FUTestObject** target, FUTweenAction** tween) {
+				*target = [FUTestObject new];
+				*tween = FUMoveTo(1.0, *target, GLKVector2Make(2.0f, 3.0f));
+			} copy], @"setupBlock", nil]);
 		});
 	});
 	
