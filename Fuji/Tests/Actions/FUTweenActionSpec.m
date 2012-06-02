@@ -94,10 +94,6 @@ describe(@"A tween action", ^{
 					actionCopy = [action copy];
 				});
 				
-				it(@"is not nil", ^{
-					expect(actionCopy).toNot.beNil();
-				});
-				
 				it(@"is not the same instance", ^{
 					expect(actionCopy).toNot.beIdenticalTo(action);
 				});
@@ -218,10 +214,6 @@ describe(@"A tween action", ^{
 				tween = FUTweenTo(1.0, target, @"doubleValue", [NSNumber numberWithDouble:4.0]);
 			});
 			
-			it(@"is not nil", ^{
-				expect(tween).toNot.beNil();
-			});
-			
 			it(@"has the correct duration", ^{
 				expect([tween duration]).to.equal(1.0);
 			});
@@ -339,10 +331,6 @@ describe(@"A tween action", ^{
 				tween = FUTweenSum(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
 			});
 			
-			it(@"is not nil", ^{
-				expect(tween).toNot.beNil();
-			});
-			
 			it(@"has the correct duration", ^{
 				expect([tween duration]).to.equal(1.0);
 			});
@@ -458,10 +446,6 @@ describe(@"A tween action", ^{
 			beforeEach(^{
 				target = [FUTestObject new];
 				tween = FUTweenProduct(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
-			});
-			
-			it(@"is not nil", ^{
-				expect(tween).toNot.beNil();
 			});
 			
 			it(@"has the correct duration", ^{

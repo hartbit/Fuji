@@ -57,10 +57,6 @@ describe(@"A timing action", ^{
 			[action setNormalizedTime:0.215f];
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
 		it(@"has the same duration as it's subaction", ^{
 			expect([action duration]).to.equal(2.0);
 		});
@@ -109,10 +105,6 @@ describe(@"A timing action", ^{
 				[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
 				
 				actionCopy = [action copy];
-			});
-			
-			it(@"is not nil", ^{
-				expect(actionCopy).toNot.beNil();
 			});
 			
 			context(@"set the normalized time of the copied action", ^{

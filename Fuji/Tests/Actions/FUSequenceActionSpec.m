@@ -67,10 +67,6 @@ describe(@"A sequence action", ^{
 			});
 		});
 		
-		it(@"is not nil", ^{
-			expect(sequence).toNot.beNil();
-		});
-		
 		it(@"contains all three actions", ^{
 			NSArray* actionsArray = [sequence actions];
 			expect(actionsArray).to.haveCountOf(3);
@@ -181,10 +177,6 @@ describe(@"A sequence action", ^{
 						[given([action3 copy]) willReturn:action3Copy];
 						
 						sequenceCopy = [sequence copy];
-					});
-					
-					it(@"is not nil", ^{
-						expect(sequenceCopy).toNot.beNil();
 					});
 					
 					it(@"is not the same instance", ^{

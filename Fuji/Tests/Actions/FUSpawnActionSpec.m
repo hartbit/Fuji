@@ -66,10 +66,6 @@ describe(@"A spawn action", ^{
 			});
 		});
 		
-		it(@"is not nil", ^{
-			expect(spawn).toNot.beNil();
-		});
-		
 		it(@"contains all three actions", ^{
 			NSArray* actionsArray = [spawn actions];
 			expect(actionsArray).to.haveCountOf(3);
@@ -182,10 +178,6 @@ describe(@"A spawn action", ^{
 						
 						spawnCopy = [spawn copy];
 						[spawnCopy consumeDeltaTime:4.0];
-					});
-					
-					it(@"is not nil", ^{
-						expect(spawnCopy).toNot.beNil();
 					});
 					
 					it(@"is not the same instance", ^{

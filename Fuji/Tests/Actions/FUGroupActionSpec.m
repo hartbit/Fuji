@@ -84,10 +84,6 @@ describe(@"A group action", ^{
 				group = [[FUGroupAction alloc] initWithActions:actions];
 			});
 			
-			it(@"is not nil", ^{
-				expect(group).toNot.beNil();
-			});
-			
 			it(@"has the same duration as the actions", ^{
 				expect([group duration]).to.equal(2.0);
 			});
@@ -144,10 +140,6 @@ describe(@"A group action", ^{
 					[given([action3 copy]) willReturn:action3Copy];
 					
 					groupCopy = [group copy];
-				});
-				
-				it(@"is not nil", ^{
-					expect(groupCopy).toNot.beNil();
 				});
 				
 				it(@"is not the same instance", ^{

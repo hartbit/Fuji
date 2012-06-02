@@ -28,10 +28,6 @@ describe(@"An animator", ^{
 			animator = [FUAnimator new];
 		});
 		
-		it(@"is not nil", ^{
-			expect(animator).toNot.beNil();
-		});
-		
 		context(@"adding a nil action", ^{
 			it(@"throws an exception", ^{
 				assertThrows([animator runAction:nil], NSInvalidArgumentException, FUActionNilMessage);
@@ -90,10 +86,6 @@ describe(@"An animator", ^{
 						[given([action2 copy]) willReturn:action2Copy];
 						
 						animatorCopy = [animator copy];
-					});
-					
-					it(@"is not nil", ^{
-						expect(animatorCopy).toNot.beNil();
 					});
 					
 					it(@"is not the same instance", ^{

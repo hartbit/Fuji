@@ -61,10 +61,6 @@ describe(@"A component object", ^{
 			component = [[FUComponent alloc] initWithEntity:entity];
 		});
 		
-		it(@"is not nil", ^{
-			expect(component).toNot.beNil();
-		});
-		
 		it(@"has the entity property set", ^{
 			expect([component entity]).to.beIdenticalTo(entity);
 		});

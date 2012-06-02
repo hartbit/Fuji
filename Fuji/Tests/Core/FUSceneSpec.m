@@ -39,10 +39,6 @@ describe(@"A scene", ^{
 			scene = [FUScene scene];
 		});
 		
-		it(@"is not nil", ^{
-			expect(scene).toNot.beNil();
-		});
-		
 		it(@"has it's director property at nil", ^{
 			expect([scene director]).to.beNil();
 		});

@@ -48,10 +48,6 @@ describe(@"A texture", ^{
 			name = [texture name];
 		});
 		
-		it(@"is not nil", ^{
-			expect(texture).toNot.beNil();
-		});
-		
 		it(@"has a valid texture name", ^{
 			expect(glIsTexture(name)).to.beTruthy();
 		});
@@ -89,10 +85,6 @@ describe(@"A texture", ^{
 				asyncTexture = texture;
 			}];
 			FU_WAIT_UNTIL(asyncTexture != nil);
-		});
-		
-		it(@"is not nil", ^{
-			expect(asyncTexture).toNot.beNil();
 		});
 		
 		it(@"has a valid texture name", ^{

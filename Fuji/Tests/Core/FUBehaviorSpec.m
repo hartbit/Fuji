@@ -38,10 +38,6 @@ describe(@"A behavior object", ^{
 			behavior = [[FUBehavior alloc] initWithEntity:entity];
 		});
 		
-		it(@"is not nil", ^{
-			expect(behavior).toNot.beNil();
-		});
-		
 		it(@"is enabled by default", ^{
 			expect([behavior isEnabled]).to.beTruthy();
 		});

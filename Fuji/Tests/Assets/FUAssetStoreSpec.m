@@ -39,10 +39,6 @@ describe(@"An asset store", ^{
 			assetStore = [FUAssetStore new];
 		});
 		
-		it(@"is not nil", ^{
-			expect(assetStore).toNot.beNil();
-		});
-		
 		context(@"asking for a nil texture", ^{
 			it(@"throws an exception", ^{
 				assertThrows([assetStore textureWithName:nil], NSInvalidArgumentException, FUNameNilMessage);
@@ -61,10 +57,6 @@ describe(@"An asset store", ^{
 			beforeEach(^{
 				assetStore = [FUAssetStore new];
 				texture = [assetStore textureWithName:TEXTURE_VALID1];
-			});
-			
-			it(@"is not nil", ^{
-				expect(texture).toNot.beNil();
 			});
 			
 			it(@"has an access count of 1", ^{

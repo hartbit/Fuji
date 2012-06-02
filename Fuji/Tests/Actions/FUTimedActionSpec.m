@@ -45,10 +45,6 @@ describe(@"A timed action", ^{
 			action = [FUTestTimedAction new];
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
 		it(@"has a duration of 0.0", ^{
 			expect([action duration]).to.equal(0.0);
 		});
@@ -162,10 +158,6 @@ describe(@"A timed action", ^{
 			action = [[FUTestTimedAction alloc] initWithDuration:2.0];
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
 		it(@"has a duration of 2.0", ^{
 			expect([action duration]).to.equal(2.0);
 		});
@@ -218,10 +210,6 @@ describe(@"A timed action", ^{
 					
 					beforeEach(^{
 						actionCopy = [action copy];
-					});
-					
-					it(@"is not nil", ^{
-						expect(actionCopy).toNot.beNil();
 					});
 					
 					it(@"is not the same instance", ^{

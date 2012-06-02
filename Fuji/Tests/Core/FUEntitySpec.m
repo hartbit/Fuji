@@ -78,10 +78,6 @@ describe(@"An entity", ^{
 			entity = [[FUEntity alloc] initWithScene:scene];
 		});
 		
-		it(@"is not nil", ^{
-			expect(entity).toNot.beNil();
-		});
-		
 		it(@"has a transform component", ^{
 			FUTransform* transform = [entity componentWithClass:[FUTransform class]];
 			expect(transform).toNot.beNil();
@@ -423,10 +419,6 @@ describe(@"An entity", ^{
 		
 		beforeEach(^{
 			entity = [[FUTestEntity alloc] initWithScene:mock([FUScene class])];
-		});
-		
-		it(@"is not nil", ^{
-			expect(entity).toNot.beNil();
 		});
 			
 		context(@"adding a mock component", ^{

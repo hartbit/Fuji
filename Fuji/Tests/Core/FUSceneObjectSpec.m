@@ -48,10 +48,6 @@ describe(@"A scene", ^{
 			sceneObject = [[FUSceneObject alloc] initWithScene:scene];
 		});
 		
-		it(@"is not nil", ^{
-			expect(sceneObject).toNot.beNil();
-		});
-		
 		it(@"has the scene property set", ^{
 			expect([sceneObject scene]).to.beIdenticalTo(scene);
 		});

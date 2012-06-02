@@ -42,10 +42,6 @@ describe(@"A speed action", ^{
 			action = [[FUSpeedAction alloc] initWithAction:subaction speed:1.0];
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
 		it(@"has the action", ^{
 			expect([action action]).to.beIdenticalTo(subaction);
 		});
@@ -124,10 +120,6 @@ describe(@"A speed action", ^{
 					[[given([subaction copyWithZone:nil]) withMatcher:HC_anything()] willReturn:subactionCopy];
 					
 					actionCopy = [action copy];
-				});
-				
-				it(@"is not nil", ^{
-					expect(actionCopy).toNot.beNil();
 				});
 				
 				it(@"is not the same instance", ^{

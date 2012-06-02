@@ -33,10 +33,6 @@ describe(@"An asset", ^{
 			asset = [FUAsset new];
 		});
 		
-		it(@"is not nil", ^{
-			expect(asset).toNot.beNil();
-		});
-		
 		it(@"is not discarded", ^{
 			expect([asset isContentDiscarded]).to.beFalsy();
 		});

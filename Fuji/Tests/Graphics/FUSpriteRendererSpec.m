@@ -34,10 +34,6 @@ describe(@"A sprite renderer component", ^{
 			spriteRenderer = [[FUSpriteRenderer alloc] initWithEntity:entity];
 		});
 		
-		it(@"is not nil", ^{
-			expect(spriteRenderer).toNot.beNil();
-		});
-		
 		it(@"has a nil texture", ^{
 			expect([spriteRenderer texture]).to.beNil();
 		});

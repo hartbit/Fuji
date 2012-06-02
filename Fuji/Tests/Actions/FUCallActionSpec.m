@@ -57,10 +57,6 @@ describe(@"A call action", ^{
 			}];
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
 		it(@"was not called", ^{
 			expect(callCount).to.equal(0);
 		});
@@ -111,10 +107,6 @@ describe(@"A call action", ^{
 				
 				beforeEach(^{
 					actionCopy = [action copy];
-				});
-				
-				it(@"is not nil", ^{
-					expect(actionCopy).toNot.beNil();
 				});
 				
 				it(@"is not the same instance", ^{
