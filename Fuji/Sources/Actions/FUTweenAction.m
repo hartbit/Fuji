@@ -12,6 +12,7 @@
 #import "FUTweenAction.h"
 #import "FUAssert.h"
 #import "FUEntity-Internal.h"
+#import "FUTransform.h"
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
@@ -20,6 +21,7 @@ static NSString* const FUKeyVector2Message = @"Excepcted 'key=%@' on 'object=%@'
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
 static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
+static NSString* const FUObjectNilMessage = @"Expected object to not be nil";
 
 
 @interface FUTweenAction ()
@@ -130,6 +132,31 @@ FUTweenAction* FUTweenProduct(NSTimeInterval duration, id object, NSString* key,
 		double currentDouble = startDouble + t * difference;
 		[object setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
 	}];
+}
+
+FUTweenAction* FUMoveTo(NSTimeInterval duration, id object, GLKVector2 position)
+{
+	FUCheck(object != nil, FUObjectNilMessage);
+	
+	id realObject = [object isKindOfClass:[FUEntity class]] ? [(FUEntity*)object transform] : object;
+	
+	__block BOOL hasStarted = NO;
+	__block GLKVector2 startPosition;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (!hasStarted) {
+			startPosition = [(FUTransform*)realObject position];
+			hasStarted = YES;
+		}
+		
+		GLKVector2 currentPosition = GLKVector2Lerp(startPosition, position, t);
+		[(FUTransform*)realObject setPosition:currentPosition];
+	}];
+}
+
+FUTweenAction* FUMoveBy(NSTimeInterval duration, id object, GLKVector2 translation)
+{
+	return nil;
 }
 
 FUTweenAction* FURotateTo(NSTimeInterval duration, id object, float rotation)

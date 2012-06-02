@@ -25,16 +25,10 @@ static NSString* const FUAddendNilMessage = @"Expected addend to not be nil";
 static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
 
 
-@interface FUDoubleObject : NSObject
+@interface FUTestObject : NSObject
 @property (nonatomic) double doubleValue;
-@end
-
-@interface FUReadonlyVector2 : NSObject
-@property (nonatomic, readonly) GLKVector2 vectorValue;
-@end
-
-@interface FUVector2 : NSObject
-@property (nonatomic) GLKVector2 vectorValue;
+@property (nonatomic) GLKVector2 position;
+@property (nonatomic) GLKVector2 scale;
 @end
 
 
@@ -160,7 +154,7 @@ describe(@"A tween action", ^{
 		});
 	});
 	
-	context(@"the FUTweenTo method", ^{
+	context(@"the FUTweenTo function", ^{
 		context(@"initializing with a nil object", ^{
 			it(@"throws an exception", ^{
 				assertThrows(FUTweenTo(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUObjectNilMessage);
@@ -204,11 +198,11 @@ describe(@"A tween action", ^{
 		});
 		
 		context(@"initialized with valid arguments", ^{
-			__block FUDoubleObject* object;
+			__block FUTestObject* object;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				object = [FUDoubleObject new];
+				object = [FUTestObject new];
 				tween = FUTweenTo(1.0, object, @"doubleValue", [NSNumber numberWithDouble:4.0]);
 			});
 			
@@ -281,7 +275,7 @@ describe(@"A tween action", ^{
 		});
 	});
 	
-	context(@"the FUTweenSum method", ^{
+	context(@"the FUTweenSum function", ^{
 		context(@"initializing with a nil object", ^{
 			it(@"throws an exception", ^{
 				assertThrows(FUTweenSum(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUObjectNilMessage);
@@ -325,11 +319,11 @@ describe(@"A tween action", ^{
 		});
 
 		context(@"initialized with valid arguments", ^{
-			__block FUDoubleObject* object;
+			__block FUTestObject* object;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				object = [FUDoubleObject new];
+				object = [FUTestObject new];
 				tween = FUTweenSum(1.0, object, @"doubleValue", [NSNumber numberWithDouble:2.0]);
 			});
 			
@@ -402,7 +396,7 @@ describe(@"A tween action", ^{
 		});
 	});
 	
-	context(@"the FUTweenProduct method", ^{
+	context(@"the FUTweenProduct function", ^{
 		context(@"initializing with a nil object", ^{
 			it(@"throws an exception", ^{
 				assertThrows(FUTweenProduct(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUObjectNilMessage);
@@ -446,11 +440,11 @@ describe(@"A tween action", ^{
 		});
 		
 		context(@"initialized with valid arguments", ^{
-			__block FUDoubleObject* object;
+			__block FUTestObject* object;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				object = [FUDoubleObject new];
+				object = [FUTestObject new];
 				tween = FUTweenProduct(1.0, object, @"doubleValue", [NSNumber numberWithDouble:2.0]);
 			});
 			
@@ -520,6 +514,119 @@ describe(@"A tween action", ^{
 					});
 				});
 			});
+		});
+	});
+	
+	context(@"the FUMoveTo function", ^{
+		context(@"initializing with a nil object", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUMoveTo(0.0, nil, GLKVector2One), NSInvalidArgumentException, FUObjectNilMessage);
+			});
+		});
+		
+		sharedExamplesFor(@"a FUMoveTo action", ^(NSDictionary* dict) {
+			__block FUTestObject* target;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				target = ((id (^)())[dict objectForKey:@"target"])();
+				tween = ((id (^)())[dict objectForKey:@"tween"])();
+			});
+			
+			it(@"is not nil", ^{
+				expect(tween).toNot.beNil();
+			});
+			
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(1.0);
+			});
+			
+			context(@"set the position of the transform to (1.0f, 0.0f)", ^{
+				beforeEach(^{
+					[target setPosition:GLKVector2Make(1.0f, 0.0f)];
+				});
+				
+				context(@"set a normalized time of 0.5f", ^{
+					beforeEach(^{
+						[tween setNormalizedTime:0.5f];
+					});
+					
+					it(@"sets the value half-way through", ^{
+						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.5f, 1.5f))).to.beTruthy();
+					});
+					
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the value back to the start value", ^{
+							[tween setNormalizedTime:0.0f];
+							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+						});
+					});
+					
+					context(@"created a copy of the tween", ^{
+						__block FUTweenAction* tweenCopy;
+						
+						beforeEach(^{
+							tweenCopy = [tween copy];
+						});
+						
+						context(@"setting a normalized time of 0.0f", ^{
+							it(@"sets the value back to the start value", ^{
+								[tween setNormalizedTime:0.0f];
+								expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							});
+						});
+					});
+				});
+				
+				context(@"setting a normalized time of 1.0f", ^{
+					it(@"sets the value to the end value", ^{
+						[tween setNormalizedTime:1.0f];
+						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+					});
+				});
+				
+				context(@"setting a normalized time of -0.5f", ^{
+					it(@"sets the value half-way before the start value", ^{
+						[tween setNormalizedTime:-0.5f];
+						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(0.5f, -1.5f))).to.beTruthy();
+					});
+				});
+				
+				context(@"setting a setNormalizedTime of 1.5f", ^{
+					it(@"sets the value half-way after the end value", ^{
+						[tween setNormalizedTime:1.5f];
+						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.5f, 4.5f))).to.beTruthy();
+					});
+				});
+			});
+		});
+		
+		context(@"initializing with an entity", ^{
+			__block FUEntity* entity;
+			
+			beforeEach(^{
+				entity = mock([FUEntity class]);
+				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
+			});
+			
+			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^{
+				FUTestObject* target = [FUTestObject new];
+				[given([entity transform]) willReturn:target];
+				return target;
+			} copy], @"target",[^{
+				return FUMoveTo(1.0, entity, GLKVector2Make(2.0f, 3.0f));
+			} copy], @"tween", nil]);
+		});
+		
+		context(@"initializing with an object with a position property", ^{
+			__block FUTestObject* target;
+			
+			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^{
+				target = [FUTestObject new];
+				return target;
+			} copy], @"target",[^{
+				return FUMoveTo(1.0, target, GLKVector2Make(2.0f, 3.0f));
+			} copy], @"tween", nil]);
 		});
 	});
 	
@@ -627,14 +734,8 @@ describe(@"A tween action", ^{
 SPEC_END
 
 
-@implementation FUDoubleObject
+@implementation FUTestObject
 @synthesize doubleValue = _doubleValue;
-@end
-
-@implementation FUReadonlyVector2
-@synthesize vectorValue = _vectorValue;
-@end
-
-@implementation FUVector2
-@synthesize vectorValue = _vectorValue;
+@synthesize position = _position;
+@synthesize scale = _scale;
 @end
