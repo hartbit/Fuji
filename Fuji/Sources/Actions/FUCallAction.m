@@ -14,7 +14,7 @@
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
-static NSString* const FUKeyNumericalMessage = @"Expected 'key=%@' on 'object=%@' to be of a numerical type";
+static NSString* const FUKeyNumericalMessage = @"Expected 'key=%@' on 'target=%@' to be of a numerical type";
 static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 
 
@@ -66,46 +66,46 @@ FUCallAction* FUCall(FUCallBlock block)
 	return [[FUCallAction alloc] initWithBlock:block];
 }
 
-FUCallAction* FUToggle(id object, NSString* key)
+FUCallAction* FUToggle(id target, NSString* key)
 {
-	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
+	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	
 	return FUCall(^{
-		NSNumber* oldValue = [object valueForKey:key];
+		NSNumber* oldValue = [target valueForKey:key];
 		NSNumber* newValue = [NSNumber numberWithBool:![oldValue boolValue]];
-		[object setValue:newValue forKey:key];
+		[target setValue:newValue forKey:key];
 	});
 }
 
-FUCallAction* FUSwitchOn(id object, NSString* key)
+FUCallAction* FUSwitchOn(id target, NSString* key)
 {
-	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
+	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	
 	return FUCall(^{
-		[object setValue:[NSNumber numberWithBool:YES] forKey:key];
+		[target setValue:[NSNumber numberWithBool:YES] forKey:key];
 	});
 }
 
-FUCallAction* FUSwitchOff(id object, NSString* key)
+FUCallAction* FUSwitchOff(id target, NSString* key)
 {
-	FUCheck([FUValueForKey(object, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, object);
+	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	
 	return FUCall(^{
-		[object setValue:[NSNumber numberWithBool:NO] forKey:key];
+		[target setValue:[NSNumber numberWithBool:NO] forKey:key];
 	});
 }
 
-FUCallAction* FUToggleEnabled(id object)
+FUCallAction* FUToggleEnabled(id target)
 {
-	return FUToggle(object, @"enabled");
+	return FUToggle(target, @"enabled");
 }
 
-FUCallAction* FUEnable(id object)
+FUCallAction* FUEnable(id target)
 {
-	return FUSwitchOn(object, @"enabled");
+	return FUSwitchOn(target, @"enabled");
 }
 
-FUCallAction* FUDisable(id object)
+FUCallAction* FUDisable(id target)
 {
-	return FUSwitchOff(object, @"enabled");
+	return FUSwitchOff(target, @"enabled");
 }

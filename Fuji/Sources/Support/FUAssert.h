@@ -38,7 +38,7 @@
 #endif
 
 
-id FUValueForKey(id object, NSString* key);
+id FUValueForKey(id target, NSString* key);
 
 static OBJC_INLINE BOOL FUStringIsValid(NSString* string)
 {

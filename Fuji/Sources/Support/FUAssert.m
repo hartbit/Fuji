@@ -9,23 +9,23 @@
 #import "FUAssert.h"
 
 
-static NSString* const FUObjectNilMessage = @"Expected object to not be nil";
+static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 static NSString* const FUKeyNilMessage = @"Expected key to not be nil or empty";
-static NSString* const FUKeyImmutableMessage = @"Expected 'key=%@' on 'object=%@' to be mutable";
+static NSString* const FUKeyImmutableMessage = @"Expected 'key=%@' on 'target=%@' to be mutable";
 
 
-id FUValueForKey(id object, NSString* key)
+id FUValueForKey(id target, NSString* key)
 {
-	FUCheck(object != nil, FUObjectNilMessage);
+	FUCheck(target != nil, FUTargetNilMessage);
 	FUCheck(FUStringIsValid(key), FUKeyNilMessage);
 	
-	id currentValue = [object valueForKey:key];
+	id currentValue = [target valueForKey:key];
 	
 	@try {
-		[object setValue:currentValue forKey:key];
+		[target setValue:currentValue forKey:key];
 	}
 	@catch (NSException*) {
-		_FUThrow(NSInvalidArgumentException, FUKeyImmutableMessage, key, object);
+		_FUThrow(NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
 	}
 	
 	return currentValue;

@@ -23,9 +23,9 @@ typedef void (^FUCallBlock)();
 
 
 FUCallAction* FUCall(FUCallBlock block);
-FUCallAction* FUToggle(id object, NSString* key);
-FUCallAction* FUSwitchOn(id object, NSString* key);
-FUCallAction* FUSwitchOff(id object, NSString* key);
-FUCallAction* FUToggleEnabled(id object);
-FUCallAction* FUEnable(id object);
-FUCallAction* FUDisable(id object);
+FUCallAction* FUToggle(id target, NSString* key);
+FUCallAction* FUSwitchOn(id target, NSString* key);
+FUCallAction* FUSwitchOff(id target, NSString* key);
+FUCallAction* FUToggleEnabled(id target);
+FUCallAction* FUEnable(id target);
+FUCallAction* FUDisable(id target);
