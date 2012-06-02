@@ -165,7 +165,24 @@ FUTweenAction* FUMoveTo(NSTimeInterval duration, id target, GLKVector2 position)
 
 FUTweenAction* FUMoveBy(NSTimeInterval duration, id target, GLKVector2 translation)
 {
-	return nil;
+	FUCheck(target != nil, FUTargetNilMessage);
+	
+	id realTarget = FURealTarget(target);
+	
+	__block BOOL hasStarted = NO;
+	__block GLKVector2 startPosition;
+	__block GLKVector2 endPosition;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (!hasStarted) {
+			startPosition = [(FUTransform*)realTarget position];
+			endPosition = GLKVector2Add(startPosition, translation);
+			hasStarted = YES;
+		}
+		
+		GLKVector2 currentPosition = GLKVector2Lerp(startPosition, endPosition, t);
+		[(FUTransform*)realTarget setPosition:currentPosition];
+	}];
 }
 
 FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation)
