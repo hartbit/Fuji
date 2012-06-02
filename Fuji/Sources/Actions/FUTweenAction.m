@@ -67,15 +67,6 @@ static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 @end
 
 
-static id OBJC_INLINE FURealTarget(id target)
-{
-	if ([target isKindOfClass:[FUEntity class]]) {
-		return [(FUEntity*)target transform];
-	} else {
-		return target;
-	}
-}
-
 FUTweenAction* FUTween(NSTimeInterval duration, FUTweenBlock block)
 {
 	return [[FUTweenAction alloc] initWithDuration:duration block:block];
@@ -141,6 +132,15 @@ FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* key,
 		double currentDouble = startDouble + t * difference;
 		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
 	}];
+}
+
+static id OBJC_INLINE FURealTarget(id target)
+{
+	if ([target isKindOfClass:[FUEntity class]]) {
+		return [(FUEntity*)target transform];
+	} else {
+		return target;
+	}
 }
 
 FUTweenAction* FUMoveTo(NSTimeInterval duration, id target, GLKVector2 position)

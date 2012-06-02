@@ -58,10 +58,6 @@ describe(@"A tween action", ^{
 			}];
 		});
 		
-		it(@"is not nil", ^{
-			expect(action).toNot.beNil();
-		});
-		
 		it(@"was not called", ^{
 			expect(callCount).to.equal(0);
 		});
@@ -395,14 +391,14 @@ describe(@"A tween action", ^{
 					});
 				});
 				
-				context(@"setting a factor of -0.5f", ^{
+				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the value half-way before the start value", ^{
 						[tween setNormalizedTime:-0.5f];
 						expect([target doubleValue]).to.equal(1.0);
 					});
 				});
 				
-				context(@"setting a factor of 1.5f", ^{
+				context(@"setting a normalized time of 1.5f", ^{
 					it(@"sets the value half-way after the toValue", ^{
 						[tween setNormalizedTime:1.5f];
 						expect([target doubleValue]).to.equal(5.0);
@@ -516,14 +512,14 @@ describe(@"A tween action", ^{
 					});
 				});
 				
-				context(@"setting a factor of -0.5f", ^{
+				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the value half-way before the start value", ^{
 						[tween setNormalizedTime:-0.5f];
 						expect([target doubleValue]).to.equal(1.5);
 					});
 				});
 				
-				context(@"setting a factor of 1.5f", ^{
+				context(@"setting a normalized time of 1.5f", ^{
 					it(@"sets the value half-way after the toValue", ^{
 						[tween setNormalizedTime:1.5f];
 						expect([target doubleValue]).to.equal(7.5);
@@ -540,20 +536,20 @@ describe(@"A tween action", ^{
 			});
 		});
 		
-		sharedExamplesFor(@"a FUMoveTo action", ^(NSDictionary* dict) {
+		context(@"initialized with a target with a position property", ^{
 			__block FUTestObject* target;
 			__block FUTweenAction* tween;
 			
 			beforeEach(^{
-				void (^setupBlock)(FUTestObject**, FUTweenAction**) = [dict objectForKey:@"setupBlock"];
-				setupBlock(&target, &tween);
+				target = [FUTestObject new];
+				tween = FUMoveTo(2.0, target, GLKVector2Make(2.0f, 3.0f));
 			});
 			
 			it(@"has the correct duration", ^{
-				expect([tween duration]).to.equal(1.0);
+				expect([tween duration]).to.equal(2.0);
 			});
 			
-			context(@"set the position of the transform to (1.0f, 0.0f)", ^{
+			context(@"set the position of the target to (1.0f, 0.0f)", ^{
 				beforeEach(^{
 					[target setPosition:GLKVector2Make(1.0f, 0.0f)];
 				});
@@ -563,7 +559,7 @@ describe(@"A tween action", ^{
 						[tween setNormalizedTime:0.5f];
 					});
 					
-					it(@"sets the value half-way through", ^{
+					it(@"sets the position half-way through", ^{
 						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.5f, 1.5f))).to.beTruthy();
 					});
 					
@@ -573,39 +569,39 @@ describe(@"A tween action", ^{
 							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
+				});
+				
+				context(@"created a copy of the tween", ^{
+					__block FUTweenAction* tweenCopy;
 					
-					context(@"created a copy of the tween", ^{
-						__block FUTweenAction* tweenCopy;
-						
-						beforeEach(^{
-							tweenCopy = [tween copy];
-						});
-						
-						context(@"setting a normalized time of 0.0f", ^{
-							it(@"sets the value back to the start value", ^{
-								[tweenCopy setNormalizedTime:0.0f];
-								expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
-							});
+					beforeEach(^{
+						tweenCopy = [tween copy];
+					});
+					
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the position back to the start value", ^{
+							[tweenCopy setNormalizedTime:0.0f];
+							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
 				
 				context(@"setting a normalized time of 1.0f", ^{
-					it(@"sets the value to the end value", ^{
+					it(@"sets the position to the end position", ^{
 						[tween setNormalizedTime:1.0f];
 						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of -0.5f", ^{
-					it(@"sets the value half-way before the start value", ^{
+					it(@"sets the position half-way before the start position", ^{
 						[tween setNormalizedTime:-0.5f];
 						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(0.5f, -1.5f))).to.beTruthy();
 					});
 				});
 				
-				context(@"setting a setNormalizedTime of 1.5f", ^{
-					it(@"sets the value half-way after the end value", ^{
+				context(@"setting a normalized time of 1.5f", ^{
+					it(@"sets the position half-way after the end position", ^{
 						[tween setNormalizedTime:1.5f];
 						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.5f, 4.5f))).to.beTruthy();
 					});
@@ -614,21 +610,30 @@ describe(@"A tween action", ^{
 		});
 		
 		context(@"initializing with an entity", ^{
-			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^(FUTestObject** target, FUTweenAction** tween) {
-				FUEntity* entity = mock([FUEntity class]);
+			__block FUEntity* entity;
+			__block FUTestObject* target;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				entity = mock([FUEntity class]);
 				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
 				
-				*target = [FUTestObject new];
-				[given([entity transform]) willReturn:*target];
-				*tween = FUMoveTo(1.0, entity, GLKVector2Make(2.0f, 3.0f));
-			} copy], @"setupBlock", nil]);
-		});
-		
-		context(@"initializing with an target with a position property", ^{
-			itBehavesLike(@"a FUMoveTo action", [NSDictionary dictionaryWithObjectsAndKeys:[^(FUTestObject** target, FUTweenAction** tween) {
-				*target = [FUTestObject new];
-				*tween = FUMoveTo(1.0, *target, GLKVector2Make(2.0f, 3.0f));
-			} copy], @"setupBlock", nil]);
+				target = [FUTestObject new];
+				[given([entity transform]) willReturn:target];
+				
+				tween = FUMoveTo(3.0, entity, GLKVector2Make(2.0f, 3.0f));
+			});
+			
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(3.0);
+			});
+			
+			context(@"setting the normalized time to 1.0f", ^{
+				it(@"sets the position of the target to the final position", ^{
+					[tween setNormalizedTime:1.0f];
+					expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+				});
+			});
 		});
 	});
 	
