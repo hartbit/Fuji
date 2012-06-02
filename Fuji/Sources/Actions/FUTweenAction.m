@@ -77,15 +77,15 @@ FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* key, NSNu
 	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	FUCheck(value != nil, FUValueNilMessage);
 	
-	__block NSNumber* startValue = nil;
+	__block BOOL hasStarted = NO;
 	__block double startDouble = 0.0;
 	__block double difference = 0.0;
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
-		if (startValue == nil) {
-			startValue = [target valueForKey:key];
-			startDouble = [startValue doubleValue];
+		if (!hasStarted) {
+			startDouble = [[target valueForKey:key] doubleValue];
 			difference = [value doubleValue] - startDouble;
+			hasStarted = YES;
 		}
 		
 		double currentDouble = startDouble + t * difference;
@@ -98,14 +98,14 @@ FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* key, NSN
 	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	FUCheck(addend != nil, FUAddendNilMessage);
 	
-	__block NSNumber* startValue = nil;
+	__block BOOL hasStarted = NO;
 	__block double startDouble = 0.0;
 	double difference = [addend doubleValue];
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
-		if (startValue == nil) {
-			startValue = [target valueForKey:key];
-			startDouble = [startValue doubleValue];
+		if (!hasStarted) {
+			startDouble = [[target valueForKey:key] doubleValue];
+			hasStarted = YES;
 		}
 		
 		double currentDouble = startDouble + t * difference;
@@ -118,15 +118,15 @@ FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* key,
 	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	FUCheck(factor != nil, FUFactorNilMessage);
 	
-	__block NSNumber* startValue = nil;
+	__block BOOL hasStarted = NO;
 	__block double startDouble = 0.0;
 	__block double difference = 0.0;
 	
 	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
-		if (startValue == nil) {
-			startValue = [target valueForKey:key];
-			startDouble = [startValue doubleValue];
+		if (!hasStarted) {
+			startDouble = [[target valueForKey:key] doubleValue];
 			difference = startDouble * ([factor doubleValue] - 1.0);
+			hasStarted = YES;
 		}
 		
 		double currentDouble = startDouble + t * difference;
@@ -193,4 +193,46 @@ FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation)
 FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend)
 {
 	return FUTweenSum(duration, FURealTarget(target), @"rotation", [NSNumber numberWithFloat:addend]);
+}
+
+FUTweenAction* FUScaleTo(NSTimeInterval duration, id target, GLKVector2 scale)
+{
+	FUCheck(target != nil, FUTargetNilMessage);
+	
+	id realTarget = FURealTarget(target);
+	
+	__block BOOL hasStarted = NO;
+	__block GLKVector2 startScale;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (!hasStarted) {
+			startScale = [(FUTransform*)realTarget scale];
+			hasStarted = YES;
+		}
+		
+		GLKVector2 currentScale = GLKVector2Lerp(startScale, scale, t);
+		[(FUTransform*)realTarget setScale:currentScale];
+	}];
+}
+
+FUTweenAction* FUScaleBy(NSTimeInterval duration, id target, GLKVector2 factor)
+{
+	FUCheck(target != nil, FUTargetNilMessage);
+	
+	id realTarget = FURealTarget(target);
+	
+	__block BOOL hasStarted = NO;
+	__block GLKVector2 startScale;
+	__block GLKVector2 endScale;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (!hasStarted) {
+			startScale = [(FUTransform*)realTarget scale];
+			endScale = GLKVector2Multiply(startScale, factor);
+			hasStarted = YES;
+		}
+		
+		GLKVector2 currentScale = GLKVector2Lerp(startScale, endScale, t);
+		[(FUTransform*)realTarget setScale:currentScale];
+	}];
 }
