@@ -16,10 +16,12 @@
 
 @class FUComponent;
 @class FUTransform;
+@class FURenderer;
 
 @interface FUEntity : FUSceneObject
 
 @property (nonatomic, WEAK, readonly) FUTransform* transform;
+@property (nonatomic, WEAK, readonly) FURenderer* renderer;
 
 - (id)addComponentWithClass:(Class)componentClass;
 - (void)removeComponent:(FUComponent*)component;

@@ -10,14 +10,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GLKit/GLKit.h>
-#import "FUBehavior.h"
-#import "FUColor.h"
+#import "FURenderer.h"
 
 
-@interface FUSpriteRenderer : FUBehavior
+@interface FUSpriteRenderer : FURenderer
 
 @property (nonatomic, copy) NSString* texture;
-@property (nonatomic) GLKVector4 tint;
 
 @end

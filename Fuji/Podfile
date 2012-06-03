@@ -2,7 +2,7 @@ platform :ios, :deployment_target=>'5.0'
 
 target :test do
 	dependency 'Specta', :git => 'https://github.com/TrahDivad/specta.git'
-	dependency 'Expecta', :git => 'https://github.com/TrahDivad/expecta.git', :commit => 'cd7f741ae2aefa4ccfe67e45c1c0d3981a051ffa'
+	dependency 'Expecta'
 	dependency do |spec|
 		spec.name			= 'OCMockito'
 		spec.version		= '0.22'

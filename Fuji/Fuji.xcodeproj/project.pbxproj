@@ -63,6 +63,7 @@
 		634E2A8D155018A70012C4FB /* FUAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8B155018A70012C4FB /* FUAnimator.m */; };
 		634E2A90155018BE0012C4FB /* FUAnimatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E2A8E155018BE0012C4FB /* FUAnimatorSpec.m */; };
 		634E2A9A15501BC50012C4FB /* FUTimedAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 634E2A9815501BC50012C4FB /* FUTimedAction.h */; };
+		6354E5C4157B730C00A0E8EA /* FURendererSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E5C3157B730C00A0E8EA /* FURendererSpec.m */; };
 		636A987714F4ED0700FF2D12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987614F4ED0700FF2D12 /* UIKit.framework */; };
 		636A987914F4ED0B00FF2D12 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A987814F4ED0B00FF2D12 /* GLKit.framework */; };
 		63822774151A29960009D036 /* FUGraphicsSettingsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */; };
@@ -135,6 +136,9 @@
 		63E9158B1535E16600F7864B /* FUSceneObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E915891535E16600F7864B /* FUSceneObject.h */; };
 		63E9158C1535E16600F7864B /* FUSceneObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E9158A1535E16600F7864B /* FUSceneObject.m */; };
 		63E9158D1535E16600F7864B /* FUSceneObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E9158A1535E16600F7864B /* FUSceneObject.m */; };
+		63F2280F157A4F45000EB08C /* FURenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F2280D157A4F45000EB08C /* FURenderer.h */; };
+		63F22810157A4F45000EB08C /* FURenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2280E157A4F45000EB08C /* FURenderer.m */; };
+		63F22811157A4F45000EB08C /* FURenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2280E157A4F45000EB08C /* FURenderer.m */; };
 		63F339B21506633200BF36A9 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F339B11506633200BF36A9 /* libPods-test.a */; };
 		63F7B86A1525F4C500F3064D /* FUDirectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F7B8681525F4C300F3064D /* FUDirectorSpec.m */; };
 		63F7B86F1525FA9100F3064D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F7B86E1525FA9100F3064D /* CoreGraphics.framework */; };
@@ -200,6 +204,7 @@
 		634E2A9615501B820012C4FB /* FUTimedActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTimedActionSpec.m; sourceTree = "<group>"; };
 		634E2A9815501BC50012C4FB /* FUTimedAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUTimedAction.h; sourceTree = "<group>"; };
 		634E2A9915501BC50012C4FB /* FUTimedAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUTimedAction.m; sourceTree = "<group>"; };
+		6354E5C3157B730C00A0E8EA /* FURendererSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FURendererSpec.m; sourceTree = "<group>"; };
 		636A987614F4ED0700FF2D12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		636A987814F4ED0B00FF2D12 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		637F980E153D599D007E7053 /* FUAssetStore-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUAssetStore-Internal.h"; sourceTree = "<group>"; };
@@ -271,6 +276,8 @@
 		63E915891535E16600F7864B /* FUSceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSceneObject.h; sourceTree = "<group>"; };
 		63E9158A1535E16600F7864B /* FUSceneObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSceneObject.m; sourceTree = "<group>"; };
 		63E9158E1535E1D200F7864B /* FUSceneObject-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUSceneObject-Internal.h"; sourceTree = "<group>"; };
+		63F2280D157A4F45000EB08C /* FURenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FURenderer.h; sourceTree = "<group>"; };
+		63F2280E157A4F45000EB08C /* FURenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FURenderer.m; sourceTree = "<group>"; };
 		63F339B11506633200BF36A9 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F339B41506665700BF36A9 /* Pods-test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
 		63F7B8681525F4C300F3064D /* FUDirectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDirectorSpec.m; sourceTree = "<group>"; };
@@ -460,6 +467,7 @@
 			children = (
 				6382275E1519E38B0009D036 /* FUGraphicsSettings.h */,
 				63822767151A1B300009D036 /* FUTransform.h */,
+				63F2280D157A4F45000EB08C /* FURenderer.h */,
 				634E08C51529E85800D5C3F8 /* FUSpriteRenderer.h */,
 				63F7B8741526019600F3064D /* FUGraphicsEngine.h */,
 			);
@@ -471,6 +479,7 @@
 			children = (
 				6382275F1519E38B0009D036 /* FUGraphicsSettings.m */,
 				63822768151A1B300009D036 /* FUTransform.m */,
+				63F2280E157A4F45000EB08C /* FURenderer.m */,
 				634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */,
 				63F7B8751526019600F3064D /* FUGraphicsEngine.m */,
 				6301B2C11545938200DA9994 /* FUSpriteBuffer.m */,
@@ -574,6 +583,7 @@
 				63F7B8721526012900F3064D /* FUGraphicsEngineSpec.m */,
 				638227551519DFEE0009D036 /* FUGraphicsSettingsSpec.m */,
 				63822765151A1A800009D036 /* FUTransformSpec.m */,
+				6354E5C3157B730C00A0E8EA /* FURendererSpec.m */,
 				634E08BB1529DB1C00D5C3F8 /* FUSpriteRendererSpec.m */,
 			);
 			path = Graphics;
@@ -724,6 +734,7 @@
 				634B7DA2156D1688009A5E42 /* FUTestAction.h in Headers */,
 				631BD7C81573BF94006D837E /* FUGroupAction.h in Headers */,
 				63F99A511576665E00082003 /* FUAssert.h in Headers */,
+				63F2280F157A4F45000EB08C /* FURenderer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +888,7 @@
 				631BD7C91573BF94006D837E /* FUGroupAction.m in Sources */,
 				63F99A471576361B00082003 /* FUTweenAction.m in Sources */,
 				63F99A521576665E00082003 /* FUAssert.m in Sources */,
+				63F22810157A4F45000EB08C /* FURenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -948,6 +960,8 @@
 				638363B01575122300125898 /* FUTweenActionSpec.m in Sources */,
 				638363B51575125B00125898 /* FUTweenAction.m in Sources */,
 				63F99A531576665E00082003 /* FUAssert.m in Sources */,
+				63F22811157A4F45000EB08C /* FURenderer.m in Sources */,
+				6354E5C4157B730C00A0E8EA /* FURendererSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

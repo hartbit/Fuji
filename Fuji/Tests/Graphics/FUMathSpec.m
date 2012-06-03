@@ -80,26 +80,34 @@ describe(@"FUMath", ^{
 			expect(FUAreCloseFloat(1.0f, 1.0f+FLT_EPSILON)).to.beTruthy();
 		});
 		
-		it(@"0.0f and FLT_EPSILON are not close", ^{
-			expect(FUAreCloseFloat(0.0f, FLT_EPSILON)).to.beFalsy();
+		it(@"0.0f and FLT_EPSILON are close", ^{
+			expect(FUAreCloseFloat(0.0f, FLT_EPSILON)).to.beTruthy();
+		});
+		
+		it(@"-FLT_EPSILON and FLT_EPSILON are not close", ^{
+			expect(FUAreCloseFloat(-FLT_EPSILON, FLT_EPSILON)).to.beFalsy();
 		});
 	});
 	
 	context(@"FUAreCloseDouble", ^{
 		it(@"1.0 and 1.1 are not close", ^{
-			expect(FUAreCloseFloat(1.0, 1.1)).to.beFalsy();
+			expect(FUAreCloseDouble(1.0, 1.1)).to.beFalsy();
 		});
 		
-		it(@"1.0 and (1.0+FLT_EPSILON) are close", ^{
-			expect(FUAreCloseFloat(1.0, 1.0+FLT_EPSILON)).to.beTruthy();
+		it(@"1.0 and (1.0+FLT_EPSILON) are not close", ^{
+			expect(FUAreCloseDouble(1.0, 1.0+FLT_EPSILON)).to.beFalsy();
 		});
 		
 		it(@"1.0 and (1.0+DBL_EPSILON) are close", ^{
-			expect(FUAreCloseFloat(1.0, 1.0+DBL_EPSILON)).to.beTruthy();
+			expect(FUAreCloseDouble(1.0, 1.0+DBL_EPSILON)).to.beTruthy();
 		});
 		
-		it(@"0.0 and DBL_EPSILON are not close", ^{
-			expect(FUAreCloseFloat(0.0, DBL_EPSILON)).to.beFalsy();
+		it(@"0.0 and DBL_EPSILON are close", ^{
+			expect(FUAreCloseDouble(0.0, DBL_EPSILON)).to.beTruthy();
+		});
+		
+		it(@"-DBL_EPSILON and DBL_EPSILON are not close", ^{
+			expect(FUAreCloseDouble(-DBL_EPSILON, DBL_EPSILON)).to.beFalsy();
 		});
 	});
 });

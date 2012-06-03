@@ -1,5 +1,5 @@
 //
-//  FUTestAction.h
+//  FURenderer.h
 //  Fuji
 //
 //  Created by David Hart.
@@ -9,10 +9,12 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import <Foundation/Foundation.h>
-#import "Fuji.h"
+#import <GLKit/GLKit.h>
+#import "FUBehavior.h"
 
 
-@interface FUTestAction : NSObject <FUAction>
+@interface FURenderer : FUBehavior
+
+@property (nonatomic) GLKVector4 tint;
 
 @end

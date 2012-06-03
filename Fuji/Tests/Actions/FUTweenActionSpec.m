@@ -29,6 +29,7 @@ static NSString* const FUFactorNilMessage = @"Expected factor to not be nil";
 @property (nonatomic) double doubleValue;
 @property (nonatomic) GLKVector2 position;
 @property (nonatomic) GLKVector2 scale;
+@property (nonatomic) GLKVector4 tint;
 @end
 
 
@@ -544,13 +545,13 @@ describe(@"A tween action", ^{
 					});
 					
 					it(@"sets the position half-way through", ^{
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.5f, 1.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(1.5f, 1.5f))).to.beTruthy();
 					});
 					
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the value back to the start position", ^{
 							[tween setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -565,7 +566,7 @@ describe(@"A tween action", ^{
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the position back to the start position", ^{
 							[tweenCopy setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -573,21 +574,21 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the position to the end position", ^{
 						[tween setNormalizedTime:1.0f];
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the position half-way before the start position", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(0.5f, -1.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(0.5f, -1.5f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of 1.5f", ^{
 					it(@"sets the position half-way after the end position", ^{
 						[tween setNormalizedTime:1.5f];
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.5f, 4.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(2.5f, 4.5f))).to.beTruthy();
 					});
 				});
 			});
@@ -615,7 +616,7 @@ describe(@"A tween action", ^{
 			context(@"setting the normalized time to 1.0f", ^{
 				it(@"sets the position of the target to the final position", ^{
 					[tween setNormalizedTime:1.0f];
-					expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+					expect(FUVector2AreClose([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
 				});
 			});
 		});
@@ -652,13 +653,13 @@ describe(@"A tween action", ^{
 					});
 					
 					it(@"sets the position half-way through", ^{
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 1.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(2.0f, 1.5f))).to.beTruthy();
 					});
 					
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the value back to the start position", ^{
 							[tween setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -673,7 +674,7 @@ describe(@"A tween action", ^{
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the position back to the start position", ^{
 							[tweenCopy setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target position], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -681,21 +682,21 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the position to the end position", ^{
 						[tween setNormalizedTime:1.0f];
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(3.0f, 3.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(3.0f, 3.0f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the position half-way before the start position", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(0.0f, -1.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(0.0f, -1.5f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of 1.5f", ^{
 					it(@"sets the position half-way after the end position", ^{
 						[tween setNormalizedTime:1.5f];
-						expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(4.0f, 4.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target position], GLKVector2Make(4.0f, 4.5f))).to.beTruthy();
 					});
 				});
 			});
@@ -723,7 +724,7 @@ describe(@"A tween action", ^{
 			context(@"setting the normalized time to 1.0f", ^{
 				it(@"sets the position of the target to the final position", ^{
 					[tween setNormalizedTime:1.0f];
-					expect(GLKVector2AllEqualToVector2([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+					expect(FUVector2AreClose([target position], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
 				});
 			});
 		});
@@ -860,13 +861,13 @@ describe(@"A tween action", ^{
 					});
 					
 					it(@"sets the scale half-way through", ^{
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(1.5f, 1.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(1.5f, 1.5f))).to.beTruthy();
 					});
 					
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the scale back to the start scale", ^{
 							[tween setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -881,7 +882,7 @@ describe(@"A tween action", ^{
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the scale back to the start scale", ^{
 							[tweenCopy setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -889,21 +890,21 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the scale to the end scale", ^{
 						[tween setNormalizedTime:1.0f];
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the scale half-way before the start scale", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(0.5f, -1.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(0.5f, -1.5f))).to.beTruthy();
 					});
 				});
 				
 				context(@"setting a normalized time of 1.5f", ^{
 					it(@"sets the scale half-way after the end scale", ^{
 						[tween setNormalizedTime:1.5f];
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(2.5f, 4.5f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(2.5f, 4.5f))).to.beTruthy();
 					});
 				});
 			});
@@ -931,7 +932,7 @@ describe(@"A tween action", ^{
 			context(@"setting the normalized time to 1.0f", ^{
 				it(@"sets the scale of the target to the final scale", ^{
 					[tween setNormalizedTime:1.0f];
-					expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
+					expect(FUVector2AreClose([target scale], GLKVector2Make(2.0f, 3.0f))).to.beTruthy();
 				});
 			});
 		});
@@ -968,13 +969,13 @@ describe(@"A tween action", ^{
 					});
 				
 					it(@"sets the scale half-way through", ^{
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(1.5f, 0.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(1.5f, 0.0f))).to.beTruthy();
 					});
 				
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the value back to the start scale", ^{
 							[tween setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -989,7 +990,7 @@ describe(@"A tween action", ^{
 					context(@"setting a normalized time of 0.0f", ^{
 						it(@"sets the scale back to the start scale", ^{
 							[tweenCopy setNormalizedTime:0.0f];
-							expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
+							expect(FUVector2AreClose([target scale], GLKVector2Make(1.0f, 0.0f))).to.beTruthy();
 						});
 					});
 				});
@@ -997,21 +998,21 @@ describe(@"A tween action", ^{
 				context(@"setting a normalized time of 1.0f", ^{
 					it(@"sets the scale to the end scale", ^{
 						[tween setNormalizedTime:1.0f];
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(2.0f, 0.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(2.0f, 0.0f))).to.beTruthy();
 					});
 				});
 			
 				context(@"setting a normalized time of -0.5f", ^{
 					it(@"sets the scale half-way before the start scale", ^{
 						[tween setNormalizedTime:-0.5f];
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(0.5f, 0.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(0.5f, 0.0f))).to.beTruthy();
 					});
 				});
 			
 				context(@"setting a normalized time of 1.5f", ^{
 					it(@"sets the scale half-way after the end scale", ^{
 						[tween setNormalizedTime:1.5f];
-						expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(2.5f, 0.0f))).to.beTruthy();
+						expect(FUVector2AreClose([target scale], GLKVector2Make(2.5f, 0.0f))).to.beTruthy();
 					});
 				});
 			});
@@ -1039,7 +1040,115 @@ describe(@"A tween action", ^{
 			context(@"setting the normalized time to 1.0f", ^{
 				it(@"sets the scale of the target to the final scale", ^{
 					[tween setNormalizedTime:1.0f];
-					expect(GLKVector2AllEqualToVector2([target scale], GLKVector2Make(0.0f, 0.0f))).to.beTruthy();
+					expect(FUVector2AreClose([target scale], GLKVector2Make(0.0f, 0.0f))).to.beTruthy();
+				});
+			});
+		});
+	});
+
+	context(@"the FUTintTo function", ^{
+		context(@"initializing with a nil target", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTintTo(0.0, nil, FUColorBlue), NSInvalidArgumentException, FUTargetNilMessage);
+			});
+		});
+	
+		context(@"initialized with a target with a color property", ^{
+			__block FUTestObject* target;
+			__block FUTweenAction* tween;
+		
+			beforeEach(^{
+				target = [FUTestObject new];
+				tween = FUTintTo(2.0, target, GLKVector4Make(0.5f, -0.2f, 1.0f, 0.2f));
+			});
+		
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(2.0);
+			});
+		
+			context(@"set the color of the target to (1.0f, 0.0f)", ^{
+				beforeEach(^{
+					[target setTint:GLKVector4Make(0.2f, 0.1f, 0.0f, 0.8f)];
+				});
+			
+				context(@"set a normalized time of 0.5f", ^{
+					beforeEach(^{
+						[tween setNormalizedTime:0.5f];
+					});
+				
+					it(@"sets the tint half-way through", ^{
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.35f, -0.05f, 0.5f, 0.5f))).to.beTruthy();
+					});
+				
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the tint back to the start color", ^{
+							[tween setNormalizedTime:0.0f];
+							expect(FUVector4AreClose([target tint], GLKVector4Make(0.2f, 0.1f, 0.0f, 0.8f))).to.beTruthy();
+						});
+					});
+				});
+			
+				context(@"created a copy of the tween", ^{
+					__block FUTweenAction* tweenCopy;
+				
+					beforeEach(^{
+						tweenCopy = [tween copy];
+					});
+				
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the tint back to the start color", ^{
+							[tweenCopy setNormalizedTime:0.0f];
+							expect(FUVector4AreClose([target tint], GLKVector4Make(0.2f, 0.1f, 0.0f, 0.8f))).to.beTruthy();
+						});
+					});
+				});
+			
+				context(@"setting a normalized time of 1.0f", ^{
+					it(@"sets the tint to the end color", ^{
+						[tween setNormalizedTime:1.0f];
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.5f, -0.2f, 1.0f, 0.2f))).to.beTruthy();
+					});
+				});
+			
+				context(@"setting a normalized time of -0.5f", ^{
+					it(@"sets the tint half-way before the start color", ^{
+						[tween setNormalizedTime:-0.5f];
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.05f, 0.25f, -0.5f, 1.1f))).to.beTruthy();
+					});
+				});
+			
+				context(@"setting a normalized time of 1.5f", ^{
+					it(@"sets the tint half-way after the end color", ^{
+						[tween setNormalizedTime:1.5f];
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.65f, -0.35f, 1.5f, -0.1f))).to.beTruthy();
+					});
+				});
+			});
+		});
+	
+		context(@"initializing with an entity", ^{
+			__block FUEntity* entity;
+			__block FUTestObject* target;
+			__block FUTweenAction* tween;
+		
+			beforeEach(^{
+				entity = mock([FUEntity class]);
+				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
+			
+				target = [FUTestObject new];
+				[given([entity renderer]) willReturn:target];
+			
+				tween = FUTintTo(3.0, entity, GLKVector4Make(0.5f, -0.2f, 1.0f, 0.2f));
+			});
+		
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(3.0);
+			});
+		
+			context(@"setting the normalized time to 1.0f", ^{
+				it(@"sets the tint of the target to the final color", ^{
+					[tween setNormalizedTime:1.0f];
+					expect(FUVector4AreClose([target tint], GLKVector4Make(0.5f, -0.2f, 1.0f, 0.2f))).to.beTruthy();
 				});
 			});
 		});
@@ -1053,4 +1162,5 @@ SPEC_END
 @synthesize doubleValue = _doubleValue;
 @synthesize position = _position;
 @synthesize scale = _scale;
+@synthesize tint = _tint;
 @end

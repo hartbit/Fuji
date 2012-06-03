@@ -32,5 +32,5 @@ FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation);
 FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend);
 FUTweenAction* FUScaleTo(NSTimeInterval duration, id target, GLKVector2 scale);
 FUTweenAction* FUScaleBy(NSTimeInterval duration, id target, GLKVector2 factor);
-//FUTweenAction* FUTintTo(NSTimeInterval duration, id object, GLKVector4 tint);
-//FUTweenAction* FUTintBy(NSTimeInterval duration, id object, GLKVector4 color);
+FUTweenAction* FUTintTo(NSTimeInterval duration, id target, GLKVector4 color);
+//FUTweenAction* FUTintBy(NSTimeInterval duration, id object, GLKVector4 factor);

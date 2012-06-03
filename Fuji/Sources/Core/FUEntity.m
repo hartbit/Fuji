@@ -16,6 +16,7 @@
 #import "FUScene.h"
 #import "FUComponent-Internal.h"
 #import "FUTransform.h"
+#import "FURenderer.h"
 #import "FUAssert.h"
 
 
@@ -73,13 +74,16 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 @synthesize scene = _scene;
 @synthesize transform = _transform;
+@synthesize renderer = _renderer;
 @synthesize components = _components;
 
 #pragma mark - Class Methods
 
 + (NSDictionary*)componentProperties
 {
-	return [NSDictionary dictionaryWithObjectsAndKeys:[FUTransform class], @"transform", nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			[FUTransform class], @"transform",
+			[FURenderer class], @"renderer", nil];
 }
 
 + (NSDictionary*)allComponentProperties

@@ -12,6 +12,21 @@
 #import "Fuji.h"
 
 
+static OBJC_INLINE BOOL FUVector2AreClose(GLKVector2 left, GLKVector2 right)
+{
+	return FUAreCloseFloat(left.x, right.x) && FUAreCloseFloat(left.y, right.y);
+}
+
+static OBJC_INLINE BOOL FUVector3AreClose(GLKVector3 left, GLKVector3 right)
+{
+	return FUAreCloseFloat(left.x, right.x) && FUAreCloseFloat(left.y, right.y) && FUAreCloseFloat(left.z, right.z);
+}
+
+static OBJC_INLINE BOOL FUVector4AreClose(GLKVector4 left, GLKVector4 right)
+{
+	return FUAreCloseFloat(left.x, right.x) && FUAreCloseFloat(left.y, right.y) && FUAreCloseFloat(left.z, right.z) && FUAreCloseFloat(left.w, right.w);
+}
+
 static OBJC_INLINE BOOL FUMatrix4AreEqual(GLKMatrix4 left, GLKMatrix4 right)
 {
 	return (left.m00 == right.m00) && (left.m01 == right.m01) && (left.m02 == right.m02) && (left.m03 == right.m03) &&
@@ -27,6 +42,7 @@ static OBJC_INLINE BOOL FUMatrix4AreClose(GLKMatrix4 left, GLKMatrix4 right)
 	FUAreCloseFloat(left.m20, right.m20) && FUAreCloseFloat(left.m21, right.m21) && FUAreCloseFloat(left.m22, right.m22) && FUAreCloseFloat(left.m23, right.m23) &&
 	FUAreCloseFloat(left.m30, right.m30) && FUAreCloseFloat(left.m31, right.m31) && FUAreCloseFloat(left.m32, right.m32) && FUAreCloseFloat(left.m33, right.m33);
 }
+
 
 static OBJC_INLINE NSString* FUStringFromBool(BOOL value)
 {

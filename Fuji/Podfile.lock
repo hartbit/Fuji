@@ -6,6 +6,6 @@ PODS:
   - Specta (0.1.4)
 
 DEPENDENCIES:
-  - Expecta (from `https://github.com/TrahDivad/expecta.git', commit `cd7f741ae2aefa4ccfe67e45c1c0d3981a051ffa')
+  - Expecta
   - OCMockito (defined in Podfile)
   - Specta (from `https://github.com/TrahDivad/specta.git')

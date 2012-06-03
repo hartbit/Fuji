@@ -91,6 +91,18 @@ describe(@"An entity", ^{
 			expect([entity transform]).to.beIdenticalTo(transform);
 		});
 		
+		it(@"the renderer property returns nil", ^{
+			expect([entity componentWithClass:[FURenderer class]]).to.beNil();
+		});
+		
+		context(@"adding a renderer", ^{
+			it(@"the renderer property returns the renderer", ^{
+				FURenderer* renderer = [entity addComponentWithClass:[FURenderer class]];
+				expect(renderer).toNot.beNil();
+				expect([entity renderer]).to.beIdenticalTo(renderer);
+			});
+		});
+		
 		it(@"does not register the transform component", ^{
 			[verifyCount(director, never()) didAddSceneObject:[entity transform]];
 		});

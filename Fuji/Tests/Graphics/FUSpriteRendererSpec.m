@@ -17,12 +17,8 @@
 SPEC_BEGIN(FUSpriteRenderer)
 
 describe(@"A sprite renderer component", ^{
-	it(@"is a behavior", ^{
-		expect([FUSpriteRenderer class]).to.beSubclassOf([FUBehavior class]);
-	});
-
-	it(@"requires a FUTransform", ^{
-		expect([FUSpriteRenderer requiredComponents]).to.contain([FUTransform class]);
+	it(@"is a renderer", ^{
+		expect([FUSpriteRenderer class]).to.beSubclassOf([FURenderer class]);
 	});
 	
 	context(@"initiailized", ^{
@@ -42,17 +38,6 @@ describe(@"A sprite renderer component", ^{
 			it(@"has it's texture property to Test.png", ^{
 				[spriteRenderer setTexture:@"Test.png"];
 				expect([spriteRenderer texture]).to.equal(@"Test.png");
-			});
-		});
-		
-		it(@"has a white tint", ^{
-			expect(GLKVector4AllEqualToVector4([spriteRenderer tint], FUColorWhite)).to.beTruthy();
-		});
-		
-		context(@"setting the tint to brown", ^{
-			it(@"has it's tint property to brown", ^{
-				[spriteRenderer setTint:FUColorBrown];
-				expect(GLKVector4AllEqualToVector4([spriteRenderer tint], FUColorBrown)).to.beTruthy();
 			});
 		});
 	});

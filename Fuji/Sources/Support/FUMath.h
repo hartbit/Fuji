@@ -65,7 +65,7 @@ static OBJC_INLINE BOOL FUAreCloseFloat(float a, float b)
 	float diff = ABS(a - b);
 	float absA = ABS(a);
 	float absB = ABS(b);
-	float largest = (absB > absA) ? absB : absA;
+	float largest = MAX((absB > absA) ? absB : absA, 1.0f);
 	return (diff <= largest * FLT_EPSILON);
 }
 
@@ -74,6 +74,6 @@ static OBJC_INLINE BOOL FUAreCloseDouble(double a, double b)
 	double diff = ABS(a - b);
 	double absA = ABS(a);
 	double absB = ABS(b);
-	double largest = (absB > absA) ? absB : absA;
+	double largest = MAX((absB > absA) ? absB : absA, 1.0f);
 	return (diff <= largest * DBL_EPSILON);
 }

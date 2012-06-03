@@ -13,6 +13,7 @@
 #import "FUAssert.h"
 #import "FUEntity-Internal.h"
 #import "FUTransform.h"
+#import "FURenderer.h"
 
 
 static NSString* const FUBlockNullMessage = @"Expected block to not be NULL";
@@ -234,5 +235,34 @@ FUTweenAction* FUScaleBy(NSTimeInterval duration, id target, GLKVector2 factor)
 		
 		GLKVector2 currentScale = GLKVector2Lerp(startScale, endScale, t);
 		[(FUTransform*)realTarget setScale:currentScale];
+	}];
+}
+
+static OBJC_INLINE FURenderer* FURendererTarget(id target)
+{
+	if ([target isKindOfClass:[FUEntity class]]) {
+		return [(FUEntity*)target renderer];
+	} else {
+		return target;
+	}
+}
+
+FUTweenAction* FUTintTo(NSTimeInterval duration, id target, GLKVector4 color)
+{
+	FUCheck(target != nil, FUTargetNilMessage);
+	
+	FURenderer* realTarget = FURendererTarget(target);
+	
+	__block BOOL hasStarted = NO;
+	__block GLKVector4 startColor;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (!hasStarted) {
+			startColor = [realTarget tint];
+			hasStarted = YES;
+		}
+		
+		GLKVector4 currentColor = GLKVector4Lerp(startColor, color, t);
+		[realTarget setTint:currentColor];
 	}];
 }
