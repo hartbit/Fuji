@@ -135,7 +135,7 @@ FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* key,
 	}];
 }
 
-static id OBJC_INLINE FURealTarget(id target)
+static id OBJC_INLINE FUTransformTarget(id target)
 {
 	if ([target isKindOfClass:[FUEntity class]]) {
 		return [(FUEntity*)target transform];
@@ -148,7 +148,7 @@ FUTweenAction* FUMoveTo(NSTimeInterval duration, id target, GLKVector2 position)
 {
 	FUCheck(target != nil, FUTargetNilMessage);
 	
-	id realTarget = FURealTarget(target);
+	id realTarget = FUTransformTarget(target);
 	
 	__block BOOL hasStarted = NO;
 	__block GLKVector2 startPosition;
@@ -168,7 +168,7 @@ FUTweenAction* FUMoveBy(NSTimeInterval duration, id target, GLKVector2 translati
 {
 	FUCheck(target != nil, FUTargetNilMessage);
 	
-	id realTarget = FURealTarget(target);
+	id realTarget = FUTransformTarget(target);
 	
 	__block BOOL hasStarted = NO;
 	__block GLKVector2 startPosition;
@@ -188,19 +188,19 @@ FUTweenAction* FUMoveBy(NSTimeInterval duration, id target, GLKVector2 translati
 
 FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation)
 {
-	return FUTweenTo(duration, FURealTarget(target), @"rotation", [NSNumber numberWithFloat:rotation]);
+	return FUTweenTo(duration, FUTransformTarget(target), @"rotation", [NSNumber numberWithFloat:rotation]);
 }
 
 FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend)
 {
-	return FUTweenSum(duration, FURealTarget(target), @"rotation", [NSNumber numberWithFloat:addend]);
+	return FUTweenSum(duration, FUTransformTarget(target), @"rotation", [NSNumber numberWithFloat:addend]);
 }
 
 FUTweenAction* FUScaleTo(NSTimeInterval duration, id target, GLKVector2 scale)
 {
 	FUCheck(target != nil, FUTargetNilMessage);
 	
-	id realTarget = FURealTarget(target);
+	id realTarget = FUTransformTarget(target);
 	
 	__block BOOL hasStarted = NO;
 	__block GLKVector2 startScale;
@@ -220,7 +220,7 @@ FUTweenAction* FUScaleBy(NSTimeInterval duration, id target, GLKVector2 factor)
 {
 	FUCheck(target != nil, FUTargetNilMessage);
 	
-	id realTarget = FURealTarget(target);
+	id realTarget = FUTransformTarget(target);
 	
 	__block BOOL hasStarted = NO;
 	__block GLKVector2 startScale;
@@ -263,6 +263,28 @@ FUTweenAction* FUTintTo(NSTimeInterval duration, id target, GLKVector4 color)
 		}
 		
 		GLKVector4 currentColor = GLKVector4Lerp(startColor, color, t);
+		[realTarget setTint:currentColor];
+	}];
+}
+
+FUTweenAction* FUTintBy(NSTimeInterval duration, id target, GLKVector4 factor)
+{
+	FUCheck(target != nil, FUTargetNilMessage);
+	
+	FURenderer* realTarget = FURendererTarget(target);
+	
+	__block BOOL hasStarted = NO;
+	__block GLKVector4 startColor;
+	__block GLKVector4 endColor;
+	
+	return [[FUTweenAction alloc] initWithDuration:duration block:^(float t) {
+		if (!hasStarted) {
+			startColor = [realTarget tint];
+			endColor = GLKVector4Multiply(startColor, factor);
+			hasStarted = YES;
+		}
+		
+		GLKVector4 currentColor = GLKVector4Lerp(startColor, endColor, t);
 		[realTarget setTint:currentColor];
 	}];
 }

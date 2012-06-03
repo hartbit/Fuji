@@ -1153,6 +1153,114 @@ describe(@"A tween action", ^{
 			});
 		});
 	});
+	
+	context(@"the FUTintBy function", ^{
+		context(@"initializing with a nil target", ^{
+			it(@"throws an exception", ^{
+				assertThrows(FUTintBy(0.0, nil, FUColorBlue), NSInvalidArgumentException, FUTargetNilMessage);
+			});
+		});
+		
+		context(@"initialized with a target with a color property", ^{
+			__block FUTestObject* target;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				target = [FUTestObject new];
+				tween = FUTintBy(2.0, target, GLKVector4Make(0.5f, -0.2f, 1.0f, 0.2f));
+			});
+			
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(2.0);
+			});
+			
+			context(@"set the color of the target to (1.0f, 0.0f)", ^{
+				beforeEach(^{
+					[target setTint:GLKVector4Make(0.2f, 0.1f, 0.0f, 0.8f)];
+				});
+				
+				context(@"set a normalized time of 0.5f", ^{
+					beforeEach(^{
+						[tween setNormalizedTime:0.5f];
+					});
+					
+					it(@"sets the tint half-way through", ^{
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.15f, 0.04f, 0.0f, 0.48f))).to.beTruthy();
+					});
+					
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the tint back to the start color", ^{
+							[tween setNormalizedTime:0.0f];
+							expect(FUVector4AreClose([target tint], GLKVector4Make(0.2f, 0.1f, 0.0f, 0.8f))).to.beTruthy();
+						});
+					});
+				});
+				
+				context(@"created a copy of the tween", ^{
+					__block FUTweenAction* tweenCopy;
+					
+					beforeEach(^{
+						tweenCopy = [tween copy];
+					});
+					
+					context(@"setting a normalized time of 0.0f", ^{
+						it(@"sets the tint back to the start color", ^{
+							[tweenCopy setNormalizedTime:0.0f];
+							expect(FUVector4AreClose([target tint], GLKVector4Make(0.2f, 0.1f, 0.0f, 0.8f))).to.beTruthy();
+						});
+					});
+				});
+				
+				context(@"setting a normalized time of 1.0f", ^{
+					it(@"sets the tint to the end color", ^{
+						[tween setNormalizedTime:1.0f];
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.1f, -0.02f, 0.0f, 0.16f))).to.beTruthy();
+					});
+				});
+				
+				context(@"setting a normalized time of -0.5f", ^{
+					it(@"sets the tint half-way before the start color", ^{
+						[tween setNormalizedTime:-0.5f];
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.25f, 0.16f, 0.0f, 1.12f))).to.beTruthy();
+					});
+				});
+				
+				context(@"setting a normalized time of 1.5f", ^{
+					it(@"sets the tint half-way after the end color", ^{
+						[tween setNormalizedTime:1.5f];
+						expect(FUVector4AreClose([target tint], GLKVector4Make(0.05f, -0.08f, 0.0f, -0.16f))).to.beTruthy();
+					});
+				});
+			});
+		});
+		
+		context(@"initializing with an entity", ^{
+			__block FUEntity* entity;
+			__block FUTestObject* target;
+			__block FUTweenAction* tween;
+			
+			beforeEach(^{
+				entity = mock([FUEntity class]);
+				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
+				
+				target = [FUTestObject new];
+				[given([entity renderer]) willReturn:target];
+				
+				tween = FUTintBy(3.0, entity, GLKVector4Make(0.5f, -0.2f, 1.0f, 0.2f));
+			});
+			
+			it(@"has the correct duration", ^{
+				expect([tween duration]).to.equal(3.0);
+			});
+			
+			context(@"setting the normalized time to 1.0f", ^{
+				it(@"sets the tint of the target to the final color", ^{
+					[tween setNormalizedTime:1.0f];
+					expect(FUVector4AreClose([target tint], GLKVector4Make(0.0f, 0.0f, 0.0f, 0.0f))).to.beTruthy();
+				});
+			});
+		});
+	});
 });
 
 SPEC_END
