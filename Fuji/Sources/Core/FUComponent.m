@@ -34,6 +34,11 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 	return [NSSet set];
 }
 
++ (NSSet*)requiredEngines
+{
+	return [NSSet set];
+}
+
 + (NSSet*)allRequiredComponents
 {
 	static NSMutableDictionary* sComponents;
@@ -54,6 +59,28 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 	}
 	
 	return classComponents;
+}
+
++ (NSSet*)allRequiredEngines
+{
+	static NSMutableDictionary* sEngines;
+	
+	if (sEngines == nil) {
+		sEngines = [NSMutableDictionary dictionary];
+	}
+	
+	NSMutableSet* classEngines = [sEngines objectForKey:self];
+	
+	if (classEngines == nil) {
+		classEngines = [NSMutableSet setWithSet:[self requiredEngines]];
+		
+		if (self != [FUComponent class]) {
+			NSSet* allSuperclassEngines = [[self superclass] allRequiredEngines];
+			[classEngines unionSet:allSuperclassEngines];		
+		}
+	}
+	
+	return classEngines;
 }
 
 #pragma mark - Initialization

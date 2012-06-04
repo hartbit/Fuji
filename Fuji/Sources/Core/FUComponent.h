@@ -22,6 +22,7 @@
 
 + (BOOL)isUnique;
 + (NSSet*)requiredComponents;
++ (NSSet*)requiredEngines;
 
 - (void)removeFromEntity;
 

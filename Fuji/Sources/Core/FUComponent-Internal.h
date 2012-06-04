@@ -21,6 +21,7 @@
 @property (nonatomic, WEAK) FUEntity* entity;
 
 + (NSSet*)allRequiredComponents;
++ (NSSet*)allRequiredEngines;
 
 - (id)initWithEntity:(FUEntity*)entity;
 

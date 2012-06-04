@@ -37,6 +37,10 @@ describe(@"A component object", ^{
 		expect([FUComponent requiredComponents]).to.beEmpty();
 	});
 	
+	it(@"does not require any engines by default", ^{
+		expect([FUComponent requiredEngines]).to.beEmpty();
+	});
+	
 	context(@"initializing with init", ^{
 		it(@"throws an exception", ^{
 			assertThrows([FUComponent new], NSInternalInconsistencyException, @"Can not create a scene object outside of a scene");
