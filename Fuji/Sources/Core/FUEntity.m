@@ -51,8 +51,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 		
 		if (![currentAncestor isUnique] && [parentClass isUnique]) {
 			_FUThrow(NSInvalidArgumentException, FUComponentAncestoryInvalidMessage, NSStringFromClass(currentAncestor), NSStringFromClass(parentClass));
-		}
-		else if ([currentAncestor isUnique] && ![parentClass isUnique]) {
+		} else if ([currentAncestor isUnique] && ![parentClass isUnique]) {
 			oldestUniqueAncestor = currentAncestor;
 		}
 		

@@ -69,8 +69,7 @@ static OBJC_INLINE NSString* FUStringFromBool(BOOL value)
 	NSString* __expectedReason = STComposeString(expectedReason, ##__VA_ARGS__); \
 	@try { \
 		(expr);\
-	} \
-	@catch (NSException* exception) { \
+	} @catch (NSException* exception) { \
 		__caughtException = YES; \
 		if (![expectedName isEqualToString:[exception name]]) { \
 			NSString* description = STComposeString(@"(Expected exception: (name: %@))", expectedName); \

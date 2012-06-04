@@ -26,8 +26,7 @@ id FUValueForKey(id target, NSString* key)
 	
 	@try {
 		[target setValue:currentValue forKey:key];
-	}
-	@catch (NSException*) {
+	} @catch (NSException*) {
 		_FUThrow(NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
 	}
 	

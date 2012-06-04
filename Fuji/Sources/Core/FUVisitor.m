@@ -49,8 +49,7 @@
 		}
 		
 		[classSelectors setObject:selectorString forKey:sceneObjectClass];
-	}
-	else if ([selectorString length] != 0) {
+	} else if ([selectorString length] != 0) {
 		selector = NSSelectorFromString(selectorString);
 	}
 	
