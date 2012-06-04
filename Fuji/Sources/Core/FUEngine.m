@@ -10,11 +10,44 @@
 //
 
 #import "FUEngine-Internal.h"
+#import "FUAssert.h"
+
+
+static NSString* const FUCreationInvalidMessage = @"Can not create an engine object outside of a director";
+
+
+@interface FUEngine ()
+
+@property (nonatomic, WEAK) FUDirector* director;
+@property (nonatomic, getter=isInitializing) BOOL initializing;
+
+@end
 
 
 @implementation FUEngine
 
 @synthesize director = _director;
+@synthesize initializing = _initializing;
+
+#pragma mark - Initialization Methods
+
+- (id)init
+{
+	FUAssert([self isInitializing], FUCreationInvalidMessage);
+	return [super init];
+}
+
+- (id)initWithDirector:(FUDirector*)director
+{
+	[self setInitializing:YES];
+	
+	if ((self = [self init])) {
+		[self setInitializing:NO];
+		[self setDirector:director];
+	}
+	
+	return self;
+}
 
 #pragma mark - Public Methods
 

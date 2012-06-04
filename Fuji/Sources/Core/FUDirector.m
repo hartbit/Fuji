@@ -22,7 +22,7 @@
 static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
-static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
+static NSString* const FUEngineClassNullMessage = @"Expected 'engineClass' to not be NULL";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
 static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
@@ -56,7 +56,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		[EAGLContext setCurrentContext:[self context]];
-		[self addEngine:[FUGraphicsEngine new]];
 	}
 	
 	return self;
@@ -130,14 +129,18 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 #pragma mark - Public Methods
 
-- (void)addEngine:(FUEngine*)engine
+- (FUEngine*)requireEngineWithClass:(Class)engineClass;
 {
-	FUCheck(engine != nil, FUEngineNilMessage);
-	FUCheck([engine director] != self, FUEngineAlreadyInDirector, engine);
-	FUCheck([engine director] == nil, FUEngineAlreadyUsedMessage, engine, [engine director]);
+	FUCheck(engineClass != NULL, FUEngineClassNullMessage);
 	
+	for (FUEngine* engine in [self engines]) {
+		if ([engine isKindOfClass:engineClass]) {
+			return engine;
+		}
+	}
+	
+	FUEngine* engine = [[engineClass alloc] initWithDirector:self];
 	[[self engines] addObject:engine];
-	[engine setDirector:self];
 	
 	FUVisitor* registrationVisitor = [engine registrationVisitor];
 	
@@ -150,6 +153,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	if (unregistrationVisitor != nil) {
 		[[[self unregistrationVisitor] visitors] addObject:unregistrationVisitor];
 	}
+	
+	return engine;
 }
 
 - (NSArray*)allEngines

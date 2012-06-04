@@ -13,6 +13,7 @@
 #import "Fuji.h"
 #import "FUVisitor-Internal.h"
 #import "FUDirector-Internal.h"
+#import "FUScene-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
 #import "FUTestSupport.h"
@@ -21,7 +22,7 @@
 static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
-static NSString* const FUEngineNilMessage = @"Expected 'engine' to not be nil";
+static NSString* const FUEngineClassNullMessage = @"Expected 'engineClass' to not be NULL";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
 static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
@@ -77,14 +78,8 @@ describe(@"A director", ^{
 			expect([director scene]).to.beNil();
 		});
 		
-		it(@"has a graphics engine", ^{
-			for (FUEngine* engine in [director allEngines]) {
-				if ([engine isKindOfClass:[FUGraphicsEngine class]]) {
-					return;
-				}
-			}
-			
-		   STFail(nil);
+		it(@"has no engines", ^{
+			expect([director allEngines]).to.beEmpty();
 		});
 		
 		it(@"automatically rotates in all orientations", ^{
@@ -94,18 +89,9 @@ describe(@"A director", ^{
 			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
 		});
 		
-		context(@"adding a nil engine", ^{
+		context(@"require an engine class of NULL", ^{
 			it(@"throws an exception", ^{
-				assertThrows([director addEngine:nil], NSInvalidArgumentException, FUEngineNilMessage);
-			});
-		});
-		
-		context(@"adding an engine that already has a director", ^{
-			it(@"throws an exception", ^{
-				FUEngine* engine = mock([FUEngine class]);
-				FUDirector* otherDirector = mock([FUDirector class]);
-				[given([engine director]) willReturn:otherDirector];
-				assertThrows([director addEngine:engine], NSInvalidArgumentException, FUEngineAlreadyUsedMessage, engine, otherDirector);
+				assertThrows([director requireEngineWithClass:NULL], NSInvalidArgumentException, FUEngineClassNullMessage);
 			});
 		});
 		
@@ -119,9 +105,11 @@ describe(@"A director", ^{
 		});
 			
 		context(@"created and added a mock engine", ^{
+			__block Class engineClass;
 			__block FUEngine* engine;
 			__block FUVisitor* registrationVisitor;
 			__block FUVisitor* unregistrationVisitor;
+			__block FUEngine* returnedEngine;
 			
 			beforeEach(^{
 				engine = mock([FUEngine class]);
@@ -129,21 +117,28 @@ describe(@"A director", ^{
 				[given([engine registrationVisitor]) willReturn:registrationVisitor];
 				unregistrationVisitor = mock([FUVisitor class]);
 				[given([engine unregistrationVisitor]) willReturn:unregistrationVisitor];
-				[director addEngine:engine];
+				
+				engineClass = mockClass([FUEngine class]);
+				[given([engineClass alloc]) willReturn:engine];
+				[given([engine initWithDirector:director]) willReturn:engine];
+				returnedEngine = [director requireEngineWithClass:engineClass];
 			});
 			
 			it(@"set the engine's director property", ^{
-				[verify(engine) setDirector:director];
+				[verify(engine) initWithDirector:director];
+			});
+			
+			it(@"returned the engine", ^{
+				expect(returnedEngine).to.beIdenticalTo(engine);
 			});
 			
 			it(@"contains the engine", ^{
 				expect([director allEngines]).to.contain(engine);
 			});
 			
-			context(@"adding the same engine again", ^{
-				it(@"throws an exception", ^{
-					[given([engine director]) willReturn:director];
-					assertThrows([director addEngine:engine], NSInvalidArgumentException, FUEngineAlreadyInDirector, engine);
+			context(@"requiring the same engine class again", ^{
+				it(@"returns the same engine", ^{
+					expect([director requireEngineWithClass:engineClass]).to.beIdenticalTo(engine);
 				});
 			});
 			

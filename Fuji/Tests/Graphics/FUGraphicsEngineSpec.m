@@ -11,6 +11,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUEngine-Internal.h"
 #import "FUComponent-Internal.h"
 
 
@@ -28,7 +29,8 @@ describe(@"The graphics engine", ^{
 			EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 			[EAGLContext setCurrentContext:context];
 			
-			graphicsEngine = [FUGraphicsEngine new];
+			FUDirector* director = mock([FUDirector class]);
+			graphicsEngine = [[FUGraphicsEngine alloc] initWithDirector:director];
 		});
 		
 		it(@"is not nil", ^{

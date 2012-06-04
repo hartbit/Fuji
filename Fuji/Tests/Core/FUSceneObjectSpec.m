@@ -17,7 +17,6 @@
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";
-static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 
 
 SPEC_BEGIN(FUSceneObject)
@@ -30,12 +29,6 @@ describe(@"A scene", ^{
 	context(@"initialized with init", ^{
 		it(@"throws an exception", ^{
 			assertThrows([FUSceneObject new], NSInternalInconsistencyException, FUCreationInvalidMessage);
-		});
-	});
-	
-	context(@"initialized with a nil scene", ^{
-		it(@"throws an exception", ^{
-			assertThrows([[FUSceneObject alloc] initWithScene:nil], NSInvalidArgumentException, FUSceneNilMessage);
 		});
 	});
 	

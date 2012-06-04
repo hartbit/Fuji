@@ -11,8 +11,12 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUTestSupport.h"
 #import "FUEngine-Internal.h"
 #import "FUSceneObject-Internal.h"
+
+
+static NSString* const FUCreationInvalidMessage = @"Can not create an engine object outside of a director";
 
 
 SPEC_BEGIN(FUEngine)
@@ -22,15 +26,23 @@ describe(@"An engine", ^{
 		expect([[FUEngine class] conformsToProtocol:@protocol(FUInterfaceRotating)]).to.beTruthy();
 	});
 	
-	context(@"initialized", ^{
+	context(@"initilalizing with init", ^{
+		it(@"throws an exception", ^{
+			assertThrows([FUEngine new], NSInternalInconsistencyException, FUCreationInvalidMessage);
+		});
+	});
+	
+	context(@"initialized with a director", ^{
+		__block FUDirector* director;
 		__block FUEngine* engine;
 		
 		beforeEach(^{
-			engine = [FUEngine new];
+			director = mock([FUDirector class]);
+			engine = [[FUEngine alloc] initWithDirector:director];
 		});
 		
-		it(@"has no director", ^{
-			expect([engine director]).to.beNil();
+		it(@"has the director property set correctly", ^{
+			expect([engine director]).to.beIdenticalTo(director);
 		});
 		
 		it(@"has no registration visitor", ^{

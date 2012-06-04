@@ -24,7 +24,7 @@
 
 - (id)initWithAssetStore:(FUAssetStore*)assetStore;
 
-- (void)addEngine:(FUEngine*)engine;
+- (FUEngine*)requireEngineWithClass:(Class)engineClass;
 - (NSArray*)allEngines;
 
 - (void)loadScene:(FUScene*)scene;

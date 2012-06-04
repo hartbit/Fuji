@@ -15,7 +15,6 @@
 
 
 static NSString* const FUCreationInvalidMessage = @"Can not create a scene object outside of a scene";
-static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 
 
 @interface FUSceneObject ()
@@ -35,14 +34,11 @@ static NSString* const FUSceneNilMessage = @"Expected 'scene' to not be nil";
 - (id)init
 {
 	FUAssert([self isInitializing], FUCreationInvalidMessage);
-	
 	return [super init];
 }
 
 - (id)initWithScene:(FUScene*)scene
 {
-	FUCheck(scene != nil, FUSceneNilMessage);
-	
 	[self setInitializing:YES];
 	
 	if ((self = [self init])) {

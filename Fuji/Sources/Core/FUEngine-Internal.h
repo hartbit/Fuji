@@ -16,6 +16,6 @@
 
 @interface FUEngine ()
 
-@property (nonatomic, WEAK) FUDirector* director;
+- (id)initWithDirector:(FUDirector*)director;
 
 @end
