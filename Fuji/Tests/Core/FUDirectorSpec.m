@@ -23,6 +23,7 @@ static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not b
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
 static NSString* const FUEngineClassNullMessage = @"Expected 'engineClass' to not be NULL";
+static NSString* const FUEngineClassInvalidMessage = @"Expected 'engineClass=%@' to be a subclass of FUEngine (excluded)";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
 static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
@@ -95,6 +96,18 @@ describe(@"A director", ^{
 			});
 		});
 		
+		context(@"require a class that does not subclass FUEngine", ^{
+			it(@"throws an exception", ^{
+				assertThrows([director requireEngineWithClass:[NSString class]], NSInvalidArgumentException, FUEngineClassInvalidMessage, [NSString class]);
+			});
+		});
+		
+		context(@"require the FUEngine class", ^{
+			it(@"throws an exception", ^{
+				assertThrows([director requireEngineWithClass:[FUEngine class]], NSInvalidArgumentException, FUEngineClassInvalidMessage, [FUEngine class]);
+			});
+		});
+		
 		context(@"loading a scene that already has a director", ^{
 			it(@"throws an exception", ^{
 				FUScene* scene = mock([FUScene class]);
@@ -119,6 +132,7 @@ describe(@"A director", ^{
 				[given([engine unregistrationVisitor]) willReturn:unregistrationVisitor];
 				
 				engineClass = mockClass([FUEngine class]);
+				[given([engineClass isSubclassOfClass:[FUEngine class]]) willReturnBool:YES];
 				[given([engineClass alloc]) willReturn:engine];
 				[given([engine initWithDirector:director]) willReturn:engine];
 				returnedEngine = [director requireEngineWithClass:engineClass];
@@ -138,7 +152,33 @@ describe(@"A director", ^{
 			
 			context(@"requiring the same engine class again", ^{
 				it(@"returns the same engine", ^{
-					expect([director requireEngineWithClass:engineClass]).to.beIdenticalTo(engine);
+					[given([engineClass alloc]) willReturn:nil];
+					[given([engine isKindOfClass:engineClass]) willReturnBool:YES];
+					expect([director requireEngineWithClass:engineClass] == engine).to.beTruthy();
+				});
+			});
+			
+			context(@"requiring a superclass of the engine", ^{
+				it(@"returns the same engine", ^{
+					Class engineSuperclass = mockClass([FUEngine class]);
+					[given([engineSuperclass isSubclassOfClass:[FUEngine class]]) willReturnBool:YES];
+					FUEngine* superclassEngine = mock([FUEngine class]);
+					[given([engineSuperclass alloc]) willReturn:superclassEngine];
+					[given([superclassEngine initWithDirector:director]) willReturn:superclassEngine];
+					[given([engine isKindOfClass:engineSuperclass]) willReturnBool:YES];
+					expect([director requireEngineWithClass:engineSuperclass] == engine).to.beTruthy();
+				});
+			});
+			
+			context(@"requiring a subclass of the engine", ^{
+				it(@"returns a new engine", ^{
+					Class engineSubclass = mockClass([FUEngine class]);
+					[given([engineSubclass isSubclassOfClass:[FUEngine class]]) willReturnBool:YES];
+					FUEngine* subclassEngine = mock([FUEngine class]);
+					[given([engineSubclass alloc]) willReturn:subclassEngine];
+					[given([subclassEngine initWithDirector:director]) willReturn:subclassEngine];
+					[given([engine isKindOfClass:engineSubclass]) willReturnBool:NO];
+					expect([director requireEngineWithClass:engineSubclass] == subclassEngine).to.beTruthy();
 				});
 			});
 			

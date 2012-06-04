@@ -23,6 +23,7 @@ static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not b
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
 static NSString* const FUEngineClassNullMessage = @"Expected 'engineClass' to not be NULL";
+static NSString* const FUEngineClassInvalidMessage = @"Expected 'engineClass=%@' to be a subclass of FUEngine (excluded)";
 static NSString* const FUEngineAlreadyUsedMessage = @"The 'engine=%@' is already used in another 'director=%@'";
 static NSString* const FUEngineAlreadyInDirector = @"The 'engine=%@' is already used in this director.'";
 static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not be nil";
@@ -132,6 +133,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 - (FUEngine*)requireEngineWithClass:(Class)engineClass;
 {
 	FUCheck(engineClass != NULL, FUEngineClassNullMessage);
+	FUCheck([engineClass isSubclassOfClass:[FUEngine class]] && (engineClass != [FUEngine class]), FUEngineClassInvalidMessage, engineClass);
 	
 	for (FUEngine* engine in [self engines]) {
 		if ([engine isKindOfClass:engineClass]) {

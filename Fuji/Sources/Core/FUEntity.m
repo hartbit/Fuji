@@ -22,7 +22,7 @@
 
 static NSString* const FUComponentAncestoryInvalidMessage = @"A non-unique 'component=%@' has a unique parent 'component=%@'";
 static NSString* const FUComponentClassInvalidMessage = @"Expected 'componentClass=%@' to be a subclass of FUComponent (excluded)";
-static NSString* const FUComponentUniqueAndExistsMessage = @"'componentClass=%@' is unique and another component of that class already exists";
+static NSString* const FUComponentUniqueAndExistsMessage = @"The 'componentClass=%@' is unique and another component of that class already exists";
 static NSString* const FUComponentNilMessage = @"Expected 'component' to not be nil";
 static NSString* const FUComponentNonexistentMessage = @"Can not remove a 'component=%@' that does not exist";
 static NSString* const FURequiredComponentTypeMessage = @"Expected 'requiredComponent=%@' to be of type Class";
