@@ -20,6 +20,7 @@
 
 
 static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
+static NSString* const FUOrientationInvalidMessage = @"Expected 'validOrientations=%i' to be greater than 0 and less than 16";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
 static NSString* const FUEngineClassNullMessage = @"Expected 'engineClass' to not be NULL";
@@ -57,6 +58,50 @@ describe(@"A director", ^{
 		it(@"has a valid asset store", ^{
 			expect([director assetStore]).toNot.beNil();
 		});
+		
+		it(@"has all orientations as valid", ^{
+			expect([director validOrientations]).to.equal(FUOrientationPortrait |
+														  FUOrientationPortraitUpsideDown |
+														  FUOrientationLandscapeLeft |
+														  FUOrientationLandscapeRight);
+		});
+		
+		it(@"automatically rotates in all orientations", ^{
+			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beTruthy();
+			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
+			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
+			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
+		});
+		
+		context(@"setting no valid orientation", ^{
+			it(@"throws an exception", ^{
+				assertThrows([director setValidOrientations:FUOrientationNone], NSInvalidArgumentException, FUOrientationInvalidMessage, FUOrientationNone);
+			});
+		});
+		
+		context(@"setting an invalid orientation", ^{
+			it(@"throws an exception", ^{
+				FUOrientation invalidOrientation = FUOrientationLandscapeLeft << 1;
+				assertThrows([director setValidOrientations:invalidOrientation], NSInvalidArgumentException, FUOrientationInvalidMessage, invalidOrientation);
+			});
+		});
+		
+		context(@"setting a reduced number of orientations", ^{
+			beforeEach(^{
+				[director setValidOrientations:FUOrientationPortraitUpsideDown | FUOrientationLandscapeRight];
+			});
+			
+			it(@"has the correct valid orientations", ^{
+				expect([director validOrientations]).to.equal(FUOrientationPortraitUpsideDown | FUOrientationLandscapeRight);
+			});
+			
+			it(@"automatically rotates to the valid orientations", ^{
+				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beFalsy();
+				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
+				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beFalsy();
+				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
+			});
+		});
 
 		context(@"initializing a new director with the current asset store", ^{
 			it(@"shares the same asset store", ^{
@@ -81,13 +126,6 @@ describe(@"A director", ^{
 		
 		it(@"has no engines", ^{
 			expect([director allEngines]).to.beEmpty();
-		});
-		
-		it(@"automatically rotates in all orientations", ^{
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beTruthy();
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
 		});
 		
 		context(@"require an engine class of NULL", ^{

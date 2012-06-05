@@ -10,7 +10,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+
+
+#define FUOrientationFromInterfaceOrientation(orientation) 1 << ((orientation) - 1)
+
+typedef enum {
+	FUOrientationNone = 0,
+	FUOrientationPortrait = FUOrientationFromInterfaceOrientation(UIInterfaceOrientationPortrait),
+	FUOrientationPortraitUpsideDown = FUOrientationFromInterfaceOrientation(UIInterfaceOrientationPortraitUpsideDown),
+	FUOrientationLandscapeLeft = FUOrientationFromInterfaceOrientation(UIInterfaceOrientationLandscapeLeft),
+	FUOrientationLandscapeRight = FUOrientationFromInterfaceOrientation(UIInterfaceOrientationLandscapeRight)
+} FUOrientation;
 
 
 @class FUAssetStore;
@@ -19,13 +31,11 @@
 
 @interface FUDirector : GLKViewController<GLKViewDelegate>
 
-@property (nonatomic, strong, readonly) FUAssetStore* assetStore;
-@property (nonatomic, strong, readonly) FUScene* scene;
-
 - (id)initWithAssetStore:(FUAssetStore*)assetStore;
 
-- (FUEngine*)requireEngineWithClass:(Class)engineClass;
-- (NSArray*)allEngines;
+@property (nonatomic, strong, readonly) FUAssetStore* assetStore;
+@property (nonatomic, strong, readonly) FUScene* scene;
+@property (nonatomic) FUOrientation validOrientations;
 
 - (void)loadScene:(FUScene*)scene;
 

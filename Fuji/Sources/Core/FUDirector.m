@@ -10,7 +10,7 @@
 //
 
 #import "FUDirector-Internal.h"
-#import "FUProxyVisitor-Internal.h"
+#import "FUDirectorVisitor-Internal.h"
 #import "FUAssetStore.h"
 #import "FUScene-Internal.h"
 #import "FUEngine-Internal.h"
@@ -20,6 +20,7 @@
 
 
 static NSString* const FUAssetStoreNilMessage = @"Expected 'assetStore' to not be nil";
+static NSString* const FUOrientationInvalidMessage = @"Expected 'validOrientations=%i' to be greater than 0 and less than 16";
 static NSString* const FUSceneAlreadyUsedMessage = @"The 'scene=%@' is already showing in another 'director=%@'";
 static NSString* const FUSceneAlreadyInDirector = @"The 'scene=%@' is already showing in this director";
 static NSString* const FUEngineClassNullMessage = @"Expected 'engineClass' to not be NULL";
@@ -36,8 +37,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 @property (nonatomic, strong) FUScene* scene;
 @property (nonatomic, strong) EAGLContext* context;
 @property (nonatomic, strong) NSMutableArray* engines;
-@property (nonatomic, strong) FUProxyVisitor* registrationVisitor;
-@property (nonatomic, strong) FUProxyVisitor* unregistrationVisitor;
+@property (nonatomic, strong) FUDirectorVisitor* registrationVisitor;
+@property (nonatomic, strong) FUDirectorVisitor* unregistrationVisitor;
 
 @end
 
@@ -46,6 +47,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @synthesize assetStore = _assetStore;
 @synthesize scene = _scene;
+@synthesize validOrientations = _validOrientations;
 @synthesize context = _context;
 @synthesize engines = _engines;
 @synthesize registrationVisitor = _registrationVisitor;
@@ -57,6 +59,11 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 {
 	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		[EAGLContext setCurrentContext:[self context]];
+		
+		[self setValidOrientations:FUOrientationPortrait |
+		 FUOrientationPortraitUpsideDown |
+		 FUOrientationLandscapeLeft |
+		 FUOrientationLandscapeRight];
 	}
 	
 	return self;
@@ -82,6 +89,12 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	}
 	
 	return _assetStore;
+}
+
+- (void)setValidOrientations:(FUOrientation)validOrientations
+{
+	FUCheck((validOrientations > 0) && (validOrientations < 16), FUOrientationInvalidMessage, validOrientations);
+	_validOrientations = validOrientations;
 }
 
 - (EAGLContext*)context
@@ -110,25 +123,39 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return _engines;
 }
 
-- (FUProxyVisitor*)registrationVisitor
+- (FUDirectorVisitor*)registrationVisitor
 {
 	if (_registrationVisitor == nil) {
-		[self setRegistrationVisitor:[FUProxyVisitor new]];
+		[self setRegistrationVisitor:[[FUDirectorVisitor alloc] initWithDirector:self]];
 	}
 	
 	return _registrationVisitor;
 }
 
-- (FUProxyVisitor*)unregistrationVisitor
+- (FUDirectorVisitor*)unregistrationVisitor
 {
 	if (_unregistrationVisitor == nil) {
-		[self setUnregistrationVisitor:[FUProxyVisitor new]];
+		[self setUnregistrationVisitor:[[FUDirectorVisitor alloc] initWithDirector:nil]];
 	}
 	
 	return _unregistrationVisitor;
 }
 
 #pragma mark - Public Methods
+
+- (void)loadScene:(FUScene*)scene
+{
+	FUCheck([scene director] != self, FUSceneAlreadyInDirector, scene);
+	FUCheck([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
+	
+	[self unregisterAll];
+	[[self scene] setDirector:nil];
+	[self setScene:scene];
+	[scene setDirector:self];
+	[self didAddSceneObject:scene];
+}
+
+#pragma mark - Internal Methods
 
 - (FUEngine*)requireEngineWithClass:(Class)engineClass;
 {
@@ -164,18 +191,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return [NSArray arrayWithArray:[self engines]];
 }
 
-- (void)loadScene:(FUScene*)scene
-{
-	FUCheck([scene director] != self, FUSceneAlreadyInDirector, scene);
-	FUCheck([scene director] == nil, FUSceneAlreadyUsedMessage, scene, [scene director]);
-	
-	[self unregisterAll];
-	[[self scene] setDirector:nil];
-	[self setScene:scene];
-	[scene setDirector:self];
-	[self didAddSceneObject:scene];
-}
-
 #pragma mark - UIViewController Methods
 
 - (void)viewDidLoad
@@ -196,7 +211,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-	return YES;
+	return ([self validOrientations] & FUOrientationFromInterfaceOrientation(toInterfaceOrientation)) != FUOrientationNone;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

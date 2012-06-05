@@ -1,5 +1,5 @@
 //
-//  FUProxyVisitor-Internal.h
+//  FUDirectorVisitor-Internal.h
 //  Fuji
 //
 //  Created by David Hart.
@@ -11,10 +11,16 @@
 
 #import <Foundation/Foundation.h>
 #import "FUVisitor.h"
+#import "FUSupport.h"
 
 
-@interface FUProxyVisitor : FUVisitor
+@class FUDirector;
 
+@interface FUDirectorVisitor : FUVisitor
+
+- (id)initWithDirector:(FUDirector*)director;
+
+@property (nonatomic, WEAK, readonly) FUDirector* director;
 @property (nonatomic, strong, readonly) NSMutableArray* visitors;
 
 @end

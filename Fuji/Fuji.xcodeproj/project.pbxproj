@@ -123,9 +123,9 @@
 		63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D6349F153F08C900C7C648 /* FUVisitor.h */; };
 		63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
 		63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A0153F08C900C7C648 /* FUVisitor.m */; };
-		63D634A8153F1A9800C7C648 /* FUProxyVisitor-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D634A6153F1A9700C7C648 /* FUProxyVisitor-Internal.h */; };
-		63D634A9153F1A9800C7C648 /* FUProxyVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A7153F1A9800C7C648 /* FUProxyVisitor.m */; };
-		63D634AA153F1C6C00C7C648 /* FUProxyVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A7153F1A9800C7C648 /* FUProxyVisitor.m */; };
+		63D634A8153F1A9800C7C648 /* FUDirectorVisitor-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D634A6153F1A9700C7C648 /* FUDirectorVisitor-Internal.h */; };
+		63D634A9153F1A9800C7C648 /* FUDirectorVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A7153F1A9800C7C648 /* FUDirectorVisitor.m */; };
+		63D634AA153F1C6C00C7C648 /* FUDirectorVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D634A7153F1A9800C7C648 /* FUDirectorVisitor.m */; };
 		63E58DAE156BC6A900E148BD /* FUSpawnAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E58DAC156BC6A900E148BD /* FUSpawnAction.h */; };
 		63E58DAF156BC6A900E148BD /* FUSpawnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E58DAD156BC6A900E148BD /* FUSpawnAction.m */; };
 		63E58DB0156BC6A900E148BD /* FUSpawnAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E58DAD156BC6A900E148BD /* FUSpawnAction.m */; };
@@ -266,8 +266,8 @@
 		63D634A0153F08C900C7C648 /* FUVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUVisitor.m; sourceTree = "<group>"; };
 		63D634A4153F119500C7C648 /* FUVisitor-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUVisitor-Internal.h"; sourceTree = "<group>"; };
 		63D634A5153F157F00C7C648 /* FUDirector-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FUDirector-Internal.h"; sourceTree = "<group>"; };
-		63D634A6153F1A9700C7C648 /* FUProxyVisitor-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUProxyVisitor-Internal.h"; sourceTree = "<group>"; };
-		63D634A7153F1A9800C7C648 /* FUProxyVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUProxyVisitor.m; sourceTree = "<group>"; };
+		63D634A6153F1A9700C7C648 /* FUDirectorVisitor-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUDirectorVisitor-Internal.h"; sourceTree = "<group>"; };
+		63D634A7153F1A9800C7C648 /* FUDirectorVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUDirectorVisitor.m; sourceTree = "<group>"; };
 		63E58DA9156BBEB900E148BD /* FUSpawnActionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpawnActionSpec.m; sourceTree = "<group>"; };
 		63E58DAC156BC6A900E148BD /* FUSpawnAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUSpawnAction.h; sourceTree = "<group>"; };
 		63E58DAD156BC6A900E148BD /* FUSpawnAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUSpawnAction.m; sourceTree = "<group>"; };
@@ -409,8 +409,8 @@
 			isa = PBXGroup;
 			children = (
 				63D634A4153F119500C7C648 /* FUVisitor-Internal.h */,
-				63D634A6153F1A9700C7C648 /* FUProxyVisitor-Internal.h */,
 				63D634A5153F157F00C7C648 /* FUDirector-Internal.h */,
+				63D634A6153F1A9700C7C648 /* FUDirectorVisitor-Internal.h */,
 				63F7B882152608C200F3064D /* FUEngine-Internal.h */,
 				63E9158E1535E1D200F7864B /* FUSceneObject-Internal.h */,
 				633D3C30150DFF9C0061FB36 /* FUEntity-Internal.h */,
@@ -450,8 +450,8 @@
 			isa = PBXGroup;
 			children = (
 				63D634A0153F08C900C7C648 /* FUVisitor.m */,
-				63D634A7153F1A9800C7C648 /* FUProxyVisitor.m */,
 				6397C52F151A33B500457829 /* FUDirector.m */,
+				63D634A7153F1A9800C7C648 /* FUDirectorVisitor.m */,
 				63F7B87E1526088200F3064D /* FUEngine.m */,
 				63E9158A1535E16600F7864B /* FUSceneObject.m */,
 				63117F2314FFAD3700A04563 /* FUEntity.m */,
@@ -714,7 +714,7 @@
 				634E08C71529E85800D5C3F8 /* FUSpriteRenderer.h in Headers */,
 				63E9158B1535E16600F7864B /* FUSceneObject.h in Headers */,
 				63D634A1153F08C900C7C648 /* FUVisitor.h in Headers */,
-				63D634A8153F1A9800C7C648 /* FUProxyVisitor-Internal.h in Headers */,
+				63D634A8153F1A9800C7C648 /* FUDirectorVisitor-Internal.h in Headers */,
 				63093F8C153FF94E00AC8CA8 /* FUTexture-Internal.h in Headers */,
 				639CE443154003F3000D4A48 /* NSBundle+FUAdditions-Internal.h in Headers */,
 				639CE44715402C15000D4A48 /* FUAssetStore.h in Headers */,
@@ -867,7 +867,7 @@
 				634E08C81529E85800D5C3F8 /* FUSpriteRenderer.m in Sources */,
 				63E9158C1535E16600F7864B /* FUSceneObject.m in Sources */,
 				63D634A2153F08C900C7C648 /* FUVisitor.m in Sources */,
-				63D634A9153F1A9800C7C648 /* FUProxyVisitor.m in Sources */,
+				63D634A9153F1A9800C7C648 /* FUDirectorVisitor.m in Sources */,
 				63093F8E153FF94E00AC8CA8 /* FUTexture.m in Sources */,
 				639CE44815402C15000D4A48 /* FUAssetStore.m in Sources */,
 				631DD3F515418573008AA626 /* FUAsset.m in Sources */,
@@ -925,7 +925,7 @@
 				6335C57E153ADDD800022A4F /* FUAssetStoreSpec.m in Sources */,
 				63D6349D153F066200C7C648 /* FUVisitorSpec.m in Sources */,
 				63D634A3153F08C900C7C648 /* FUVisitor.m in Sources */,
-				63D634AA153F1C6C00C7C648 /* FUProxyVisitor.m in Sources */,
+				63D634AA153F1C6C00C7C648 /* FUDirectorVisitor.m in Sources */,
 				63093F8F153FF94E00AC8CA8 /* FUTexture.m in Sources */,
 				639CE436153FFBBD000D4A48 /* FUTextureSpec.m in Sources */,
 				639CE43A153FFF4D000D4A48 /* NSBundle+FUAdditions.m in Sources */,

@@ -16,6 +16,9 @@
 
 @interface FUDirector ()
 
+- (FUEngine*)requireEngineWithClass:(Class)engineClass;
+- (NSArray*)allEngines;
+
 - (void)didAddSceneObject:(FUSceneObject*)sceneObject;
 - (void)willRemoveSceneObject:(FUSceneObject*)sceneObject;
 
