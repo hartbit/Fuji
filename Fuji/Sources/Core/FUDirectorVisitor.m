@@ -17,7 +17,6 @@
 
 @interface FUDirectorVisitor ()
 
-@property (nonatomic, WEAK) FUDirector* director;
 @property (nonatomic, strong) NSMutableArray* visitors;
 
 @end
@@ -25,19 +24,7 @@
 
 @implementation FUDirectorVisitor
 
-@synthesize director = _director;
 @synthesize visitors = _visitors;
-
-#pragma mark - Initialization
-
-- (id)initWithDirector:(FUDirector*)director
-{
-	if ((self = [super init])) {
-		[self setDirector:director];
-	}
-	
-	return self;
-}
 
 #pragma mark - Properties
 
@@ -54,13 +41,6 @@
 
 - (void)visitSceneObject:(FUSceneObject*)sceneObject
 {
-//	FUDirector* director = [self director];
-//	
-//	if ((director != nil) && [sceneObject isKindOfClass:[FUComponent class]]) {
-//		for (Class engineClass in [[sceneObject class] allRequiredEngines]) {
-//			[director requireEngineWithClass:engineClass];
-//		}
-//	}
 	
 	for (FUVisitor* visitor in [self visitors]) {
 		[visitor visitSceneObject:sceneObject];

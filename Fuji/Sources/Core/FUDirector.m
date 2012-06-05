@@ -126,7 +126,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 - (FUDirectorVisitor*)registrationVisitor
 {
 	if (_registrationVisitor == nil) {
-		[self setRegistrationVisitor:[[FUDirectorVisitor alloc] initWithDirector:self]];
+		[self setRegistrationVisitor:[FUDirectorVisitor new]];
 	}
 	
 	return _registrationVisitor;
@@ -135,7 +135,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 - (FUDirectorVisitor*)unregistrationVisitor
 {
 	if (_unregistrationVisitor == nil) {
-		[self setUnregistrationVisitor:[[FUDirectorVisitor alloc] initWithDirector:nil]];
+		[self setUnregistrationVisitor:[FUDirectorVisitor new]];
 	}
 	
 	return _unregistrationVisitor;

@@ -11,6 +11,7 @@
 
 #import "FUSceneObject-Internal.h"
 #import "FUVisitor-Internal.h"
+#import "FUScene-Internal.h"
 #import "FUAssert.h"
 
 
@@ -47,6 +48,13 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a scene objec
 	}
 	
 	return self;
+}
+
+#pragma mark - Properties
+
+- (FUDirector*)director
+{
+	return [[self scene] director];
 }
 
 #pragma mark - UIInterfaceRotation Methods

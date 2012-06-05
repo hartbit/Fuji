@@ -45,6 +45,18 @@ describe(@"A scene", ^{
 			expect([sceneObject scene]).to.beIdenticalTo(scene);
 		});
 		
+		it(@"has the director property set to nil", ^{
+			expect([sceneObject director]).to.beNil();
+		});
+		
+		context(@"giving the scene a director", ^{
+			it(@"has the director pointing to the new director", ^{
+				FUDirector* director = mock([FUDirector class]);
+				[given([scene director]) willReturn:director];
+				expect([sceneObject director]).to.beIdenticalTo(director);
+			});
+		});
+		
 		context(@"accepting a visitor", ^{
 			it(@"calls the visitSceneObject: method on the visitor", ^{
 				FUVisitor* visitor = mock([FUVisitor class]);

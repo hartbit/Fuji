@@ -18,9 +18,6 @@
 
 @interface FUDirectorVisitor : FUVisitor
 
-- (id)initWithDirector:(FUDirector*)director;
-
-@property (nonatomic, WEAK, readonly) FUDirector* director;
 @property (nonatomic, strong, readonly) NSMutableArray* visitors;
 
 @end

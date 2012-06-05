@@ -11,11 +11,17 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
+#import "FUDirector-Internal.h"
+#import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
 #import "FUTestSupport.h"
 
 
 static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
+
+
+@interface FURequirementComponent : FUComponent
+@end
 
 
 SPEC_BEGIN(FUComponent)
@@ -53,16 +59,19 @@ describe(@"A component object", ^{
 		});
 	});
 	
-	context(@"initialized", ^{
+	context(@"initialized with a test component", ^{
+		__block FUDirector* director;
 		__block FUScene* scene;
 		__block FUEntity* entity;
 		__block FUComponent* component;
 		
 		beforeEach(^{
+			director = mock([FUDirector class]);
 			scene = mock([FUScene class]);
+			[given([scene director]) willReturn:director];
 			entity = mock([FUEntity class]);
 			[given([entity scene]) willReturn:scene];
-			component = [[FUComponent alloc] initWithEntity:entity];
+			component = [[FURequirementComponent alloc] initWithEntity:entity];
 		});
 		
 		it(@"has the entity property set", ^{
@@ -79,7 +88,33 @@ describe(@"A component object", ^{
 				[verify(entity) removeComponent:component];
 			});
 		});
+		
+		context(@"visiting the component", ^{
+			it(@"requires the required engines from the director", ^{
+				[component acceptVisitor:nil];
+				
+				for (Class engineClass in [FURequirementComponent requiredEngines]) {
+					[verify(director) requireEngineWithClass:engineClass];
+				}
+			});
+		});
 	});
 });
 
 SPEC_END
+
+
+@implementation FURequirementComponent
++ (NSSet*)requiredEngines
+{
+	static NSSet* requiredEngines = nil;
+	
+	if (requiredEngines == nil) {
+		Class engineClass1 = mockClass([FUEngine class]);
+		Class engineClass2 = mockClass([FUEngine class]);
+		requiredEngines = [NSSet setWithObjects:engineClass1, engineClass2, nil];
+	}
+	
+	return requiredEngines;
+}
+@end

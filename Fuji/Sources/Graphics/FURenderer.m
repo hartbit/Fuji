@@ -10,8 +10,10 @@
 //
 
 #import "FURenderer.h"
+#import "FUGraphicsEngine.h"
 #import "FUTransform.h"
 #import "FUColor.h"
+
 
 
 @implementation FURenderer
@@ -23,6 +25,11 @@
 + (NSSet*)requiredComponents
 {
 	return [NSSet setWithObject:[FUTransform class]];
+}
+
++ (NSSet*)requiredEngines
+{
+	return [NSSet setWithObject:[FUGraphicsEngine class]];
 }
 
 #pragma mark - Initialization

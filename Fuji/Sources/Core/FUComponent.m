@@ -11,6 +11,7 @@
 
 #import "FUComponent-Internal.h"
 #import "FUSceneObject-Internal.h"
+#import "FUDirector-Internal.h"
 #import "FUEntity.h"
 #import "FUAssert.h"
 
@@ -101,6 +102,17 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 - (void)removeFromEntity
 {
 	[[self entity] removeComponent:self];
+}
+
+#pragma mark - FUSceneObject Methods
+
+- (void)acceptVisitor:(FUVisitor*)visitor
+{
+	[super acceptVisitor:visitor];
+	
+	for (Class engineClass in [[self class] requiredEngines]) {
+		[[self director] requireEngineWithClass:engineClass];
+	}	
 }
 
 #pragma mark - FUInterfaceRotating Methods

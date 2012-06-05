@@ -25,6 +25,10 @@ describe(@"A renderer component", ^{
 		expect([FURenderer requiredComponents]).to.contain([FUTransform class]);
 	});
 	
+	it(@"requires a FUGraphicsEngine", ^{
+		expect([FURenderer requiredEngines]).to.contain([FUGraphicsEngine class]);
+	});
+	
 	context(@"initiailized", ^{
 		__block FURenderer* renderer;
 		
