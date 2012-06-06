@@ -1,5 +1,4 @@
-Fuji: Simplified BSD License
-============================
+# Fuji: Simplified BSD License
 
 Copyright (c) 2012, hart[dev]  
 All rights reserved.
