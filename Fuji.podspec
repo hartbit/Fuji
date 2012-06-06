@@ -7,9 +7,10 @@ Pod::Spec.new do |s|
   s.author    = { 'David Hart' => 'david@hart-dev.com' }
   s.source    = { :git => 'https://github.com/TrahDivad/Fuji.git' }
 
-  s.platform               = :ios, '5.0'
-  s.source_files           = 'Fuji/Sources/**/*.{h,m}'
-  s.requires_arc           = true
+  s.platform      = :ios, '5.0'
+  s.source_files  = 'Fuji/Sources/**/*.{h,m}'
+  s.requires_arc  = true
+  s.frameworks    = ['Foundation', 'CoreGraphics', 'OpenGLES', 'GLKit', 'UIKit']
   
   s.documentation = { :appledoc => [
     '--product-name', s.name,
