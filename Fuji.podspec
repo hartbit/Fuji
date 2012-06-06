@@ -1,24 +1,19 @@
-Pod::Spec.new do |fuji|
-  fuji.name     = 'Fuji'
-  fuji.version  = '0.1'
-  fuji.license  = 'MIT'
-  fuji.summary  = 'An iOS game development framework with a clean and extensible component-base design.'
-  fuji.homepage = 'http://TrahDivad.github.com/Fuji/'
-  fuji.author   = { 'David Hart' => 'david@hart-dev.com' }
-  fuji.source   = { :git => 'https://github.com/TrahDivad/Fuji.git' }
+Pod::Spec.new do |s|
+  s.name      = 'Fuji'
+  s.version   = '0.0.1'
+  s.license   = { :type => 'Simplified BSD', :file => 'LICENSE.md' }
+  s.summary   = 'An iOS game development framework with a clean and extensible component-base design.'
+  s.homepage  = 'http://TrahDivad.github.com/Fuji/'
+  s.author    = { 'David Hart' => 'david@hart-dev.com' }
+  s.source    = { :git => 'https://github.com/TrahDivad/Fuji.git' }
 
-  fuji.platform = :ios
-  fuji.clean_paths = 'Documentation', 'Tests'
-
-  fuji.subspec 'Core' do |core|
-    core.summary      = 'Fuji/Core defines the foundation upon which all other Fuji components are built.'
-    core.source_files = 'Sources/Core'
-  end
-
-  fuji.subspec 'Graphics' do |graphics|
-    graphics.summary  = 'Fuji/Graphics contains all components for 2d graphics drawing with OpenGL.'
-    core.source_files = 'Sources/Graphics'
-
-    dependency 'Fuji/Graphics'
-  end
+  s.platform               = :ios, '5.0'
+  s.source_files           = 'Fuji/Sources/**/*.{h,m}'
+  s.requires_arc           = true
+  
+  s.documentation = { :appledoc => [
+    '--product-name', s.name,
+    '--project-version', s.version,
+    '--project-company', 'hart[dev]',
+    '--company-id', 'com.hart-dev']}
 end
