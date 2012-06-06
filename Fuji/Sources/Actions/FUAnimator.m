@@ -11,6 +11,7 @@
 
 #import "FUAnimator.h"
 #import "FUAction.h"
+#import "FUDirector-Internal.h"
 #import "FUSupport.h"
 
 
@@ -56,8 +57,12 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 	[[self actions] addObject:action];
 }
 
-- (void)updateWithDeltaTime:(NSTimeInterval)deltaTime
+#pragma mark - FUUpdatableComponent Methods
+
+- (void)update
 {
+	NSTimeInterval deltaTime = [[self director] timeSinceLastUpdate];
+	
 	if (deltaTime == 0.0) {
 		return;
 	}

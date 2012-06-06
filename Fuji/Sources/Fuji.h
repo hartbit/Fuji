@@ -30,6 +30,8 @@
 
 // Actions
 
+#import "FUUpdateEngine.h"
+#import "FUUpdatableComponent.h"
 #import "FUAction.h"
 #import "FUAnimator.h"
 #import "FUSpawnAction.h"

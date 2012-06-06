@@ -1,5 +1,5 @@
 //
-//  FUAnimator.h
+//  FUUpdatableComponent.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -9,14 +9,23 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import <Foundation/Foundation.h>
 #import "FUUpdatableComponent.h"
+#import "FUUpdateEngine.h"
 
 
-@protocol FUAction;
+@implementation FUUpdatableComponent
 
-@interface FUAnimator : FUUpdatableComponent
+#pragma mark - FUComponent Class Methods
 
-- (void)runAction:(id<FUAction>)action;
++ (NSSet*)requiredEngines
+{
+	return [NSSet setWithObject:[FUUpdateEngine class]];
+}
+
+#pragma mark - Public Methods
+
+- (void)update
+{
+}
 
 @end

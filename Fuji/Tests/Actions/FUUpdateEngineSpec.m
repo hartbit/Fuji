@@ -1,5 +1,5 @@
 //
-//  FUAnimator.h
+//  FUUpdateEngineSpec.m
 //  Fuji
 //
 //  Created by David Hart.
@@ -9,14 +9,16 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import <Foundation/Foundation.h>
-#import "FUUpdatableComponent.h"
+#include "Prefix.pch"
+#import "Fuji.h"
 
 
-@protocol FUAction;
+SPEC_BEGIN(FUUpdateEngine)
 
-@interface FUAnimator : FUUpdatableComponent
+describe(@"An update engine", ^{
+	it(@"is an engine", ^{
+		expect([FUUpdateEngine class]).to.beSubclassOf([FUEngine class]);
+	});
+});
 
-- (void)runAction:(id<FUAction>)action;
-
-@end
+SPEC_END

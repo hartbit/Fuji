@@ -28,11 +28,10 @@ describe(@"A behavior object", ^{
 	});
 	
 	context(@"initialized", ^{
-		__block FUScene* scene;
 		__block FUBehavior* behavior;
 		
 		beforeEach(^{
-			scene = mock([FUScene class]);
+			FUScene* scene = mock([FUScene class]);
 			FUEntity* entity = mock([FUEntity class]);
 			[given([entity scene]) willReturn:scene];
 			behavior = [[FUBehavior alloc] initWithEntity:entity];
