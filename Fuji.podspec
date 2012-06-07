@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary   = 'An iOS game development framework with a clean and extensible component-base design.'
   s.homepage  = 'http://TrahDivad.github.com/Fuji/'
   s.author    = { 'David Hart' => 'david@hart-dev.com' }
-  s.source    = { :git => 'https://github.com/TrahDivad/Fuji.git' }
+  s.source    = { :git => 'https://github.com/TrahDivad/Fuji.git', :commit => '141a3904c46a1a35dde525917e28dd44c1122067' }
 
   s.platform      = :ios, '5.0'
   s.source_files  = 'Fuji/Sources/**/*.{h,m}'
