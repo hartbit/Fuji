@@ -1,10 +1,34 @@
 # Fuji
 
-Fuji is an iOS game development framework based on an entity-component design.
+Fuji is an Objective-C 2D game framework that is simple, extensible, and documentated. It currently only builds on iOS.
+
+It strives to be simple by following [convention over configuration](http://en.wikipedia.org/wiki/Convention_over_configuration), but without loosing any flexibility by offering many points of extensibility. It also makes a priority of containning quality documentation that is always complete and up to date.
+
+## Features
+
+* Flexible entity-component model.
+* Powerful and expressive animation system.
+* Intelligent asset management.
+
+## Installation
+
+Fuji uses [CocoaPods](https://github.com/CocoaPods/CocoaPods). If you have never used it before, these steps will get you started:
+
+1. Create an empty Xcode project.
+2. Run the following commands from the project directory:
+
+	```bash
+	$ sudo gem install cocoapods --pre
+	$ pod setup
+	$ echo -e "platform :ios, '5.0'\n\ndependency 'Fuji'" > Podfile
+	$ pod install
+	```
+
+3. Open and work from the newly created Xcode Workspace.
 
 ## Setup
 
-Here is an example of setting up Fuji in the `application:didFinishLaunchingWithOptions:` method. `FUDirector` is a subclass of `GLKViewController`, so that's why we can call the `setPreferredFramesPerSecond:` on it and why we are setting it as the `rootViewControllerz`.
+Here is an example of setting up Fuji in the `application:didFinishLaunchingWithOptions:` method.
 
 ```objective-c
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
@@ -19,9 +43,11 @@ Here is an example of setting up Fuji in the `application:didFinishLaunchingWith
 }
 ```
 
+`FUDirector` is a subclass of `GLKViewController`, so we can call `setPreferredFramesPerSecond:` on it and set it as the `rootViewController`.
+
 ## Entities and Components
 
-Fuji follows an entity-component model. Each object in a scene is represented by an instance of the `FUEntity` class, and each entity is defined by it's components, instances of the `FUComponent` class. They model the behavior and properties of that entity. Here's an example for creating and positioning a sprite in the scene:
+Fuji follows an entity-component model. Each object in a scene is represented by an instance of the `FUEntity` class, and each entity is defined by it's components, instances of the `FUComponent` class. They model the behavior and properties of that entity. Here's a sample code that creates and positios a sprite in the scene:
 
 ```objective-c
 FUEntity* entity = [scene createEntity];
