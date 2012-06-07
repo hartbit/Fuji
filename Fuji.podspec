@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.requires_arc  = true
   s.frameworks    = ['Foundation', 'CoreGraphics', 'OpenGLES', 'GLKit', 'UIKit']
   
-  s.documentation = :appledoc => [
+  s.documentation = { :appledoc => [
     '--index-desc' ]}
 end
