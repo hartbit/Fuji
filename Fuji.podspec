@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.frameworks    = ['Foundation', 'CoreGraphics', 'OpenGLES', 'GLKit', 'UIKit']
   
   s.documentation = { :appledoc => [
-    '--index-desc' ]}
+    '--index-desc', ' ']}
 end
