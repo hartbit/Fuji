@@ -11,10 +11,5 @@ Pod::Spec.new do |s|
   s.source_files  = 'Fuji/Sources/**/*.{h,m}'
   s.requires_arc  = true
   s.frameworks    = ['Foundation', 'CoreGraphics', 'OpenGLES', 'GLKit', 'UIKit']
-  
-  s.documentation = { :appledoc => [
-    '--product-name', s.name,
-    '--project-version', s.version,
-    '--project-company', 'hart[dev]',
-    '--company-id', 'com.hart-dev']}
+  s.documentation = :appledoc
 end
