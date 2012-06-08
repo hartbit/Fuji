@@ -160,7 +160,8 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 - (FUEngine*)requireEngineWithClass:(Class)engineClass;
 {
 	FUCheck(engineClass != NULL, FUEngineClassNullMessage);
-	FUCheck([engineClass isSubclassOfClass:[FUEngine class]] && (engineClass != [FUEngine class]), FUEngineClassInvalidMessage, engineClass);
+	FUCheck([engineClass isSubclassOfClass:[FUEngine class]] &&
+			(engineClass != [FUEngine class]), FUEngineClassInvalidMessage, engineClass);
 	
 	for (FUEngine* engine in [self engines]) {
 		if ([engine isKindOfClass:engineClass]) {

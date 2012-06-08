@@ -447,9 +447,9 @@
 		6344E8E91547168F002D728E /* Public Headers */ = {
 			isa = PBXGroup;
 			children = (
-				63D6349F153F08C900C7C648 /* FUVisitor.h */,
 				6397C52E151A33B500457829 /* FUDirector.h */,
 				631241231529F1ED00E30DC6 /* FUInterfaceRotating.h */,
+				63D6349F153F08C900C7C648 /* FUVisitor.h */,
 				63F7B87D1526088200F3064D /* FUEngine.h */,
 				63E915891535E16600F7864B /* FUSceneObject.h */,
 				63117F2214FFAD3700A04563 /* FUEntity.h */,
