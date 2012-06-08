@@ -1,6 +1,7 @@
 platform :ios, '5.0'
 
 target :test do
+	link_with 'FujiTests'
 	dependency 'Specta'
 	dependency 'Expecta'
 	dependency do |spec|
