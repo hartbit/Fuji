@@ -1,8 +1,8 @@
 # Fuji
 
-Fuji is an Objective-C 2D game framework that is simple, extensible, and documentated. It currently only builds on iOS.
+Fuji is an Objective-C 2D game framework that is simple, extensible, and documented. It strives for simplicity by following [convention over configuration](http://en.wikipedia.org/wiki/Convention_over_configuration), but without loosing any flexibility through many points of extensibility. It also tries to offer quality documentation that is always complete and up to date.
 
-It strives to be simple by following [convention over configuration](http://en.wikipedia.org/wiki/Convention_over_configuration), but without loosing any flexibility by offering many points of extensibility. It also makes a priority of containning quality documentation that is always complete and up to date.
+Fuji is based on GLKit and therefore requires iOS 5.0. Support for OS X 10.8 is planned.
 
 ## Features
 
