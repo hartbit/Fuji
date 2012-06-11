@@ -166,13 +166,13 @@ describe(@"A tween action", ^{
 	context(@"the FUTweenTo function", ^{
 		context(@"initializing with a nil target", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenTo(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenTo(0.0, nil, @"key", @1.0), NSInvalidArgumentException, FUTargetNilMessage);
 			});
 		});
 		
 		context(@"initializing with a nil key", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenTo(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNilMessage);
+				assertThrows(FUTweenTo(0.0, [NSString string], nil, @1.0), NSInvalidArgumentException, FUKeyNilMessage);
 			});
 		});
 		
@@ -180,7 +180,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* key = @"count";
-				STAssertThrows(FUTweenTo(0.0, target, key, [NSNumber numberWithDouble:1.0]), nil);
+				STAssertThrows(FUTweenTo(0.0, target, key, @1.0), nil);
 			});
 		});
 		
@@ -188,7 +188,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* key = @"length";
-				assertThrows(FUTweenTo(0.0, target, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
+				assertThrows(FUTweenTo(0.0, target, key, @1.0), NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
 			});
 		});
 		
@@ -196,7 +196,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSMutableURLRequest requestWithURL:nil];
 				NSString* key = @"URL";
-				assertThrows(FUTweenTo(0.0, target, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNumericalMessage, key, target);
+				assertThrows(FUTweenTo(0.0, target, key, @1.0), NSInvalidArgumentException, FUKeyNumericalMessage, key, target);
 			});
 		});
 		
@@ -212,7 +212,7 @@ describe(@"A tween action", ^{
 			
 			beforeEach(^{
 				target = [FUTestObject new];
-				tween = FUTweenTo(1.0, target, @"doubleValue", [NSNumber numberWithDouble:4.0]);
+				tween = FUTweenTo(1.0, target, @"doubleValue", @4.0);
 			});
 			
 			it(@"has the correct duration", ^{
@@ -283,13 +283,13 @@ describe(@"A tween action", ^{
 	context(@"the FUTweenSum function", ^{
 		context(@"initializing with a nil target", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenSum(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenSum(0.0, nil, @"key", @1.0), NSInvalidArgumentException, FUTargetNilMessage);
 			});
 		});
 		
 		context(@"initializing with a nil key", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenSum(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNilMessage);
+				assertThrows(FUTweenSum(0.0, [NSString string], nil, @1.0), NSInvalidArgumentException, FUKeyNilMessage);
 			});
 		});
 		
@@ -297,7 +297,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* key = @"count";
-				STAssertThrows(FUTweenSum(0.0, target, key, [NSNumber numberWithDouble:1.0]), nil);
+				STAssertThrows(FUTweenSum(0.0, target, key, @1.0), nil);
 			});
 		});
 		
@@ -305,7 +305,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* key = @"length";
-				assertThrows(FUTweenSum(0.0, target, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
+				assertThrows(FUTweenSum(0.0, target, key, @1.0), NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
 			});
 		});
 		
@@ -313,7 +313,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSMutableURLRequest requestWithURL:nil];
 				NSString* key = @"URL";
-				assertThrows(FUTweenSum(0.0, target, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNumericalMessage, key, target);
+				assertThrows(FUTweenSum(0.0, target, key, @1.0), NSInvalidArgumentException, FUKeyNumericalMessage, key, target);
 			});
 		});
 		
@@ -329,7 +329,7 @@ describe(@"A tween action", ^{
 			
 			beforeEach(^{
 				target = [FUTestObject new];
-				tween = FUTweenSum(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
+				tween = FUTweenSum(1.0, target, @"doubleValue", @2.0);
 			});
 			
 			it(@"has the correct duration", ^{
@@ -400,13 +400,13 @@ describe(@"A tween action", ^{
 	context(@"the FUTweenProduct function", ^{
 		context(@"initializing with a nil target", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenProduct(0.0, nil, @"key", [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUTargetNilMessage);
+				assertThrows(FUTweenProduct(0.0, nil, @"key", @1.0), NSInvalidArgumentException, FUTargetNilMessage);
 			});
 		});
 		
 		context(@"initializing with a nil key", ^{
 			it(@"throws an exception", ^{
-				assertThrows(FUTweenProduct(0.0, [NSString string], nil, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNilMessage);
+				assertThrows(FUTweenProduct(0.0, [NSString string], nil, @1.0), NSInvalidArgumentException, FUKeyNilMessage);
 			});
 		});
 		
@@ -414,7 +414,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* key = @"count";
-				STAssertThrows(FUTweenProduct(0.0, target, key, [NSNumber numberWithDouble:1.0]), nil);
+				STAssertThrows(FUTweenProduct(0.0, target, key, @1.0), nil);
 			});
 		});
 		
@@ -422,7 +422,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSString string];
 				NSString* key = @"length";
-				assertThrows(FUTweenProduct(0.0, target, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
+				assertThrows(FUTweenProduct(0.0, target, key, @1.0), NSInvalidArgumentException, FUKeyImmutableMessage, key, target);
 			});
 		});
 		
@@ -430,7 +430,7 @@ describe(@"A tween action", ^{
 			it(@"throws an exception", ^{
 				id target = [NSMutableURLRequest requestWithURL:nil];
 				NSString* key = @"URL";
-				assertThrows(FUTweenProduct(0.0, target, key, [NSNumber numberWithDouble:1.0]), NSInvalidArgumentException, FUKeyNumericalMessage, key, target);
+				assertThrows(FUTweenProduct(0.0, target, key, @1.0), NSInvalidArgumentException, FUKeyNumericalMessage, key, target);
 			});
 		});
 		
@@ -446,7 +446,7 @@ describe(@"A tween action", ^{
 			
 			beforeEach(^{
 				target = [FUTestObject new];
-				tween = FUTweenProduct(1.0, target, @"doubleValue", [NSNumber numberWithDouble:2.0]);
+				tween = FUTweenProduct(1.0, target, @"doubleValue", @2.0);
 			});
 			
 			it(@"has the correct duration", ^{
@@ -741,7 +741,7 @@ describe(@"A tween action", ^{
 				transform = mock([FUTransform class]);
 				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
 				[given([entity transform]) willReturn:transform];
-				[given([transform valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				[given([transform valueForKey:@"rotation"]) willReturn:@M_PI];
 				tween = FURotateTo(2.0, entity, 2*M_PI);
 			});
 			
@@ -763,7 +763,7 @@ describe(@"A tween action", ^{
 			
 			beforeEach(^{
 				target = mock([FUTransform class]);
-				[given([target valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				[given([target valueForKey:@"rotation"]) willReturn:@M_PI];
 				tween = FURotateTo(2.0, target, 2*M_PI);
 			});
 			
@@ -813,7 +813,7 @@ describe(@"A tween action", ^{
 			
 			beforeEach(^{
 				target = mock([FUTransform class]);
-				[given([target valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
+				[given([target valueForKey:@"rotation"]) willReturn:@M_PI];
 				tween = FURotateBy(2.0, target, M_PI);
 			});
 			
@@ -1267,8 +1267,4 @@ SPEC_END
 
 
 @implementation FUTestObject
-@synthesize doubleValue = _doubleValue;
-@synthesize position = _position;
-@synthesize scale = _scale;
-@synthesize tint = _tint;
 @end

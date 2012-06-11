@@ -17,8 +17,6 @@
 
 @implementation FUAutoContentAccessingProxy
 
-@synthesize target = _target;
-
 static id autoContentAccessingProxy(id self, SEL _cmd)
 {
 	return [FUAutoContentAccessingProxy proxyWithTarget:self];

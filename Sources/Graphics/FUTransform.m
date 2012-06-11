@@ -23,13 +23,6 @@
 
 @implementation FUTransform
 
-@synthesize position = _position;
-@synthesize depth = _depth;
-@synthesize rotation = _rotation;
-@synthesize scale = _scale;
-@synthesize matrix = _matrix;
-@synthesize matrixNeedsUpdate = _matrixNeedsUpdate;
-
 #pragma mark - Initialization
 
 - (id)init

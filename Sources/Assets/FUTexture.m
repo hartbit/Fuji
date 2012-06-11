@@ -29,8 +29,6 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 
 @implementation FUTexture
 
-@synthesize info = _info;
-
 #pragma mark - Class Methods
 
 + (GLKTextureLoader*)asynchronousLoader

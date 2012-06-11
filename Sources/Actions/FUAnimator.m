@@ -27,8 +27,6 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 @implementation FUAnimator
 
-@synthesize actions = _actions;
-
 #pragma mark - Initialization
 
 - (id)copyWithZone:(NSZone*)zone

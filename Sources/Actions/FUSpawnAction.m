@@ -26,8 +26,6 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 @implementation FUSpawnAction
 
-@synthesize actions = _actions;
-
 #pragma mark - Initialization
 
 - (id)initWithActions:(NSArray*)actions

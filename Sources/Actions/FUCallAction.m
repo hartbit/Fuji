@@ -27,8 +27,6 @@ static NSString* const FUValueNilMessage = @"Expected value to not be nil";
 
 @implementation FUCallAction
 
-@synthesize block = _block;
-
 #pragma mark - Initialization
 
 - (id)initWithBlock:(FUCallBlock)block
@@ -82,7 +80,7 @@ FUCallAction* FUSwitchOn(id target, NSString* key)
 	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	
 	return FUCall(^{
-		[target setValue:[NSNumber numberWithBool:YES] forKey:key];
+		[target setValue:@YES forKey:key];
 	});
 }
 
@@ -91,7 +89,7 @@ FUCallAction* FUSwitchOff(id target, NSString* key)
 	FUCheck([FUValueForKey(target, key) isKindOfClass:[NSNumber class]], FUKeyNumericalMessage, key, target);
 	
 	return FUCall(^{
-		[target setValue:[NSNumber numberWithBool:NO] forKey:key];
+		[target setValue:@NO forKey:key];
 	});
 }
 

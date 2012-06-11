@@ -14,6 +14,4 @@
 
 @implementation FUSpriteRenderer
 
-@synthesize texture = _texture;
-
 @end

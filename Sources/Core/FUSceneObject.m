@@ -27,9 +27,6 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a scene objec
 
 @implementation FUSceneObject
 
-@synthesize scene = _scene;
-@synthesize initializing = _initializing;
-
 #pragma mark - Initialization
 
 - (id)init

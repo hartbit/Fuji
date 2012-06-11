@@ -23,11 +23,6 @@
 
 @implementation FUSpriteBatch
 
-@synthesize drawIndex = _drawIndex;
-@synthesize drawCount = _drawCount;
-@synthesize texture = _texture;
-@synthesize sprites = _sprites;
-
 #pragma mark - Initialization
 
 - (id)initWithTexture:(FUTexture*)texture

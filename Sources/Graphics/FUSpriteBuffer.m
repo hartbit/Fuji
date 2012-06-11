@@ -42,16 +42,6 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 @implementation FUSpriteBuffer
 
-@synthesize capacity = _capacity;
-@synthesize count = _count;
-@synthesize spriteBatches = _spriteBatches;
-@synthesize indexData = _indexData;
-@synthesize vertexData = _vertexData;
-@synthesize vertexArray = _vertexArray;
-@synthesize indexBuffer = _indexBuffer;
-@synthesize vertexBuffer = _vertexBuffer;
-@synthesize assetStore = _assetStore;
-
 #pragma mark - Initialization
 
 - (id)init

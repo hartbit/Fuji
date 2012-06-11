@@ -62,7 +62,7 @@ const FUTimingFunction FUTimingElasticIn = ^(float t) {
 	}
 	
 	float inverseT = t - 1.0f;
-	return -1.0f * powf(2.0f, 10.0f * inverseT) * sin((inverseT - elasticS) * (2 * M_PI) / elasticP);
+	return -1.0f * powf(2.0f, 10.0f * inverseT) * sinf((inverseT - elasticS) * (2 * M_PI) / elasticP);
 };
 
 const FUTimingFunction FUTimingElasticOut = ^(float t) {

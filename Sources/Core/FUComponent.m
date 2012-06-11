@@ -21,8 +21,6 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 @implementation FUComponent
 
-@synthesize entity = _entity;
-
 #pragma mark - Class Methods
 
 + (BOOL)isUnique

@@ -26,8 +26,6 @@ static NSString* const FUDurationDifferentMessage = @"Expected actions to have t
 
 @implementation FUGroupAction
 
-@synthesize actions = _actions;
-
 #pragma mark - Initialization
 
 - (id)initWithActions:(NSArray*)actions

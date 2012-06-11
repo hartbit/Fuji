@@ -27,9 +27,6 @@ static NSString* const FUFunctionNullMessage = @"Expected 'function' to not be N
 
 @implementation FUTimingAction
 
-@synthesize action = _action;
-@synthesize function = _function;
-
 #pragma mark - Initialization
 
 - (id)initWithAction:(FUTimedAction*)action function:(FUTimingFunction)function

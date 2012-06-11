@@ -45,14 +45,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 @implementation FUDirector
 
-@synthesize assetStore = _assetStore;
-@synthesize scene = _scene;
-@synthesize validOrientations = _validOrientations;
-@synthesize context = _context;
-@synthesize engines = _engines;
-@synthesize registrationVisitor = _registrationVisitor;
-@synthesize unregistrationVisitor = _unregistrationVisitor;
-
 #pragma mark - Initialization
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil

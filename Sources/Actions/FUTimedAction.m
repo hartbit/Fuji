@@ -32,9 +32,6 @@ typedef enum {
 
 @implementation FUTimedAction
 
-@synthesize duration = _duration;
-@synthesize normalizedTime = _normalizedTime;
-
 #pragma mark - Initialization
 
 - (id)initWithDuration:(NSTimeInterval)duration

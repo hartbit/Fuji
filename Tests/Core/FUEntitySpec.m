@@ -473,7 +473,6 @@ SPEC_END
 @end
 
 @implementation FUTestComponent
-@synthesize initCallCount = _initCallCount;
 
 - (BOOL)wasInitCalled
 {

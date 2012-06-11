@@ -486,5 +486,4 @@ SPEC_END
 
 
 @implementation FUBoolObject
-@synthesize enabled = _enabled;
 @end

@@ -25,9 +25,6 @@ static NSString* const FUActionNilMessage = @"Expected 'action' to not be nil";
 
 @implementation FUSpeedAction
 
-@synthesize action = _action;
-@synthesize speed = _speed;
-
 #pragma mark - Initialization
 
 - (id)initWithAction:(id<FUAction>)action speed:(float)speed

@@ -15,8 +15,6 @@
 
 @implementation FUGraphicsSettings
 
-@synthesize backgroundColor = _backgroundColor;
-
 #pragma mark - Initialization
 
 - (id)init

@@ -28,10 +28,6 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 
 @implementation FUSequenceAction
 
-@synthesize complete = _complete;
-@synthesize actions = _actions;
-@synthesize actionIndex = _actionIndex;
-
 #pragma mark - Initialization
 
 - (id)initWithActions:(NSArray*)actions

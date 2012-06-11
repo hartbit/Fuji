@@ -14,8 +14,6 @@
 
 @implementation FUBehavior
 
-@synthesize enabled = _enabled;
-
 #pragma mark - Initialization
 
 - (id)init

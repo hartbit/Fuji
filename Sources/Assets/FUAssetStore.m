@@ -26,8 +26,6 @@ static NSString* const FUNameNilMessage = @"Expected 'name' to not be nil or emp
 
 @implementation FUAssetStore
 
-@synthesize cache = _cache;
-
 #pragma mark - Properties
 
 - (NSCache*)cache

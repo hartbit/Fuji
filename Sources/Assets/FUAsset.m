@@ -26,8 +26,6 @@ static NSString* const FUAccessMessage = @"Accessing 'asset=%@' without a prior 
 
 @implementation FUAsset
 
-@synthesize accessCount = _accessCount;
-
 #pragma mark - Initialization
 
 - (id)init

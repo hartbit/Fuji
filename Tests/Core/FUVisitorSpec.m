@@ -75,12 +75,10 @@ SPEC_END
 @implementation FUChildSceneObject @end
 
 @implementation FUParentVisitor
-@synthesize parentVisitCount = _parentVisitCount;
 - (void)visitFUParentSceneObject:(FUParentSceneObject*)sceneObject { _parentVisitCount++; }
 @end
 
 @implementation FUChildVisitor
-@synthesize childVisitCount = _childVisitCount;
 - (void)visitFUChildSceneObject:(FUChildSceneObject*)sceneObject { _childVisitCount++; }
 @end
 

@@ -24,8 +24,6 @@
 
 @implementation FUDirectorVisitor
 
-@synthesize visitors = _visitors;
-
 #pragma mark - Properties
 
 - (NSMutableArray*)visitors

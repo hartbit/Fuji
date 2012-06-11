@@ -71,11 +71,6 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 @implementation FUEntity
 
-@synthesize scene = _scene;
-@synthesize transform = _transform;
-@synthesize renderer = _renderer;
-@synthesize components = _components;
-
 #pragma mark - Class Methods
 
 + (NSDictionary*)componentProperties

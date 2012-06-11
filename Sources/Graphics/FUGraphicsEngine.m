@@ -47,12 +47,6 @@
 
 @implementation FUGraphicsEngine
 
-@synthesize registrationVisitor = _registrationVisitor;
-@synthesize unregistrationVisitor = _unregistrationVisitor;
-@synthesize effect = _effect;
-@synthesize settings = _settings;
-@synthesize spriteBuffer = _spriteBuffer;
-
 #pragma mark - Initialization
 
 - (id)init

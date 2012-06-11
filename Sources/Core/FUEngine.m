@@ -26,9 +26,6 @@ static NSString* const FUCreationInvalidMessage = @"Can not create an engine obj
 
 @implementation FUEngine
 
-@synthesize director = _director;
-@synthesize initializing = _initializing;
-
 #pragma mark - Initialization Methods
 
 - (id)init

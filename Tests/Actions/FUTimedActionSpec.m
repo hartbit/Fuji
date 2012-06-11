@@ -290,9 +290,6 @@ SPEC_END
 
 @implementation FUTestTimedAction
 
-@synthesize callCount = _callCount;
-@synthesize lastNormalizedTime = _lastNormalizedTime;
-
 - (void)update
 {
 	[self setCallCount:[self callCount] + 1];

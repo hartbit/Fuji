@@ -34,8 +34,6 @@ static NSString* const FUTargetNilMessage = @"Expected target to not be nil";
 
 @implementation FUTweenAction
 
-@synthesize block = _block;
-
 #pragma mark - Initialization
 
 - (id)initWithDuration:(NSTimeInterval)duration block:(FUTweenBlock)block

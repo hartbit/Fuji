@@ -18,8 +18,6 @@
 
 @implementation FURenderer
 
-@synthesize tint = _tint;
-
 #pragma mark - FUComponent Class Methods
 
 + (NSSet*)requiredComponents
