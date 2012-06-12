@@ -99,13 +99,6 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return _context;
 }
 
-- (void)setContext:(EAGLContext*)context
-{
-	if (_context != context) {
-		_context = context;
-	}
-}
-
 - (NSMutableArray*)engines
 {
 	if (_engines == nil) {

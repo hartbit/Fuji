@@ -33,6 +33,8 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 @implementation FUScene
 
+@synthesize director = _director;
+
 #pragma mark - Class Methods
 
 + (NSDictionary*)componentProperties

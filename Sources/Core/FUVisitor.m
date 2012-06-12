@@ -33,7 +33,7 @@
 	
 	if (classSelectors == nil) {
 		classSelectors = [NSMutableDictionary dictionary];
-		[sSelectors setObject:classSelectors forKey:self];
+		[sSelectors setObject:classSelectors forKey:(id<NSCopying>)self];
 	}
 	
 	NSString* selectorString = [classSelectors objectForKey:sceneObjectClass];
@@ -48,7 +48,7 @@
 			selectorString = (selector != NULL) ? NSStringFromSelector(selector) : [NSString string];
 		}
 		
-		[classSelectors setObject:selectorString forKey:sceneObjectClass];
+		[classSelectors setObject:selectorString forKey:(id<NSCopying>)sceneObjectClass];
 	} else if ([selectorString length] != 0) {
 		selector = NSSelectorFromString(selectorString);
 	}
@@ -72,7 +72,7 @@
 			selectorString = [self selectorForClass:[sceneObjectClass superclass] inDictionary:dictionary];
 		}
 		
-		[dictionary setObject:selectorString forKey:sceneObjectClass];
+		[dictionary setObject:selectorString forKey:(id<NSCopying>)sceneObjectClass];
 	}
 	
 	return selectorString;
