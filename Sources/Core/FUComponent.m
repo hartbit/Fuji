@@ -106,11 +106,11 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 
 - (void)acceptVisitor:(FUVisitor*)visitor
 {
-	[super acceptVisitor:visitor];
-	
 	for (Class engineClass in [[self class] requiredEngines]) {
 		[[self director] requireEngineWithClass:engineClass];
-	}	
+	}
+	
+	[super acceptVisitor:visitor];
 }
 
 #pragma mark - FUInterfaceRotating Methods

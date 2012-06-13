@@ -21,6 +21,10 @@ describe(@"The graphics settings", ^{
 		expect([FUGraphicsSettings class]).to.beASubclassOf([FUComponent class]);
 	});
 	
+	it(@"requires a FUGraphicsEngine", ^{
+		expect([FURenderer requiredEngines]).to.contain([FUGraphicsEngine class]);
+	});
+	
 	context(@"initialized", ^{
 		__block FUGraphicsSettings* graphics;
 		

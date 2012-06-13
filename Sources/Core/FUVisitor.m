@@ -56,28 +56,6 @@
 	return selector;
 }
 
-+ (NSString*)selectorForClass:(Class)sceneObjectClass inDictionary:(NSMutableDictionary*)dictionary
-{	
-	if (![sceneObjectClass isSubclassOfClass:[FUSceneObject class]]) {
-		return [NSString string];
-	}
-	
-	NSString* selectorString = dictionary[sceneObjectClass];
-	
-	if (selectorString == nil) {
-		selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(sceneObjectClass)];
-		SEL selector = NSSelectorFromString(selectorString);
-		
-		if (![self instancesRespondToSelector:selector]) {
-			selectorString = [self selectorForClass:[sceneObjectClass superclass] inDictionary:dictionary];
-		}
-		
-		dictionary[(id<NSCopying>)sceneObjectClass] = selectorString;
-	}
-	
-	return selectorString;
-}
-
 #pragma mark - Internal Methods
 
 - (void)visitSceneObject:(FUSceneObject*)sceneObject

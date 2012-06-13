@@ -10,10 +10,18 @@
 //
 
 #import "FUGraphicsSettings.h"
+#import "FUGraphicsEngine.h"
 #import "FUColor.h"
 
 
 @implementation FUGraphicsSettings
+
+#pragma mark - FUComponent Class Methods
+
++ (NSSet*)requiredEngines
+{
+	return [NSSet setWithObject:[FUGraphicsEngine class]];
+}
 
 #pragma mark - Initialization
 

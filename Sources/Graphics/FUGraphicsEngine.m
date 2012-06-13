@@ -187,9 +187,9 @@
 
 @synthesize graphicsEngine = _graphicsEngine;
 
-- (void)visitFUScene:(FUScene*)scene
+- (void)visitFUGraphicsSettings:(FUGraphicsSettings*)graphicsSettings
 {
-	[[self graphicsEngine] setSettings:[scene graphics]];
+	[[self graphicsEngine] setSettings:graphicsSettings];
 }
 
 - (void)visitFUSpriteRenderer:(FUSpriteRenderer*)renderer

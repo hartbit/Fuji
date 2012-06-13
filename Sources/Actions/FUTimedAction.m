@@ -16,11 +16,11 @@
 static NSString* const FUDurationNegativeMessage = @"Expected 'duration=%g' to be positive";
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, FUTimedState) {
 	FUTimedStateStart = -1,
 	FUTimedStateNone = 0,
 	FUTimedStateEnd = 1
-} FUTimedState;
+};
 
 
 @interface FUTimedAction ()
