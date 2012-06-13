@@ -28,8 +28,8 @@ static const NSUInteger kVertexSpriteCount = 4;
 @interface FUSpriteBuffer ()
 
 @property (nonatomic, WEAK) FUAssetStore* assetStore;
-@property (nonatomic) NSUInteger capacity;
-@property (nonatomic) NSUInteger count;
+@property (nonatomic) FUIndex capacity;
+@property (nonatomic) FUIndex count;
 @property (nonatomic, strong) NSMutableDictionary* spriteBatches;
 @property (nonatomic, strong) NSMutableData* indexData;
 @property (nonatomic, strong) NSMutableData* vertexData;
@@ -54,7 +54,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	return [self initWithAssetStore:assetStore capacity:kDefaultCapacity];
 }
 
-- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity
+- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(unsigned short)capacity
 {
 	if ((self = [super init])) {
 		[self setAssetStore:assetStore];
@@ -74,7 +74,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 #pragma mark - Properties
 
-- (void)setCapacity:(NSUInteger)capacity
+- (void)setCapacity:(FUIndex)capacity
 {
 	if (capacity != _capacity) {
 		_capacity = capacity;
@@ -82,7 +82,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	}
 }
 
-- (void)setCount:(NSUInteger)count
+- (void)setCount:(FUIndex)count
 {
 	if (count != _count) {
 		_count = count;
@@ -153,7 +153,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 {
 	NSString* textureString = [sprite texture];
 	id textureKey = (textureString != nil) ? textureString : [NSNull null];
-	FUSpriteBatch* batch = [[self spriteBatches] objectForKey:textureKey];
+	FUSpriteBatch* batch = [self spriteBatches][textureKey];
 	
 	if (batch == nil) {
 		if (textureString != nil) {
@@ -163,7 +163,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 			batch = [FUSpriteBatch new];
 		}
 				
-		[[self spriteBatches] setObject:batch forKey:textureKey];
+		[self spriteBatches][textureKey] = batch;
 	}
 	
 	[batch addSprite:sprite];
@@ -174,7 +174,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 {
 	NSString* textureString = [sprite texture];
 	id textureKey = (textureString != nil) ? textureString : [NSNull null];
-	FUSpriteBatch* batch = [[self spriteBatches] objectForKey:textureKey];
+	FUSpriteBatch* batch = [self spriteBatches][textureKey];
 	
 	[batch removeSprite:sprite];
 	[self setCount:[self count] - 1];
@@ -226,16 +226,16 @@ static const NSUInteger kVertexSpriteCount = 4;
 {
 	NSMutableData* indexData = [self indexData];
 	
-	NSUInteger oldCapacity = [indexData length] / sizeof(FUIndex);
-	NSUInteger newCapacity = [self capacity];
+	FUIndex oldCapacity = (FUIndex)[indexData length] / sizeof(FUIndex);
+	FUIndex newCapacity = [self capacity];
 
 	NSUInteger indexLength = newCapacity * kIndexSpriteCount * sizeof(FUIndex);
 	[indexData setLength:indexLength];
 	
 	FUIndex* indices = [indexData mutableBytes];
-	NSUInteger indexIndex = oldCapacity * kIndexSpriteCount;
-	NSUInteger vertexIndex = oldCapacity * kVertexSpriteCount;
-	NSUInteger indexCount = newCapacity * kIndexSpriteCount;
+	FUIndex indexIndex = (FUIndex)oldCapacity * kIndexSpriteCount;
+	FUIndex vertexIndex = oldCapacity * kVertexSpriteCount;
+	FUIndex indexCount = newCapacity * kIndexSpriteCount;
 	FUIndex index0, index1, index2, index3;
 	
 	while (indexIndex < indexCount) {
@@ -254,7 +254,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 	if ([self indexBuffer] != 0) {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [self indexBuffer]);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, [indexData length], indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)[indexData length], indices, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
@@ -338,7 +338,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	}];
 	
 	glBindBuffer(GL_ARRAY_BUFFER, [self vertexBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, vertexIndex * sizeof(FUVertex), vertices, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(vertexIndex * sizeof(FUVertex)), vertices, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
 	FUCheckOGLError();
@@ -364,7 +364,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 		
 		NSUInteger indexCount = [batch drawCount] * kIndexSpriteCount;
 		NSUInteger indexOffset = [batch drawIndex] * kIndexSpriteCount * sizeof(FUIndex);
-		glDrawElements(GL_TRIANGLES, indexCount, FU_INDEX_TYPE, (GLvoid*)indexOffset);
+		glDrawElements(GL_TRIANGLES, (GLsizei)indexCount, FU_INDEX_TYPE, (GLvoid*)indexOffset);
 	}];
 
 	glBindVertexArrayOES(0);

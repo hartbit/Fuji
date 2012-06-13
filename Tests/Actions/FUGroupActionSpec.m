@@ -34,14 +34,14 @@ describe(@"A group action", ^{
 	
 	context(@"initilized with an empty array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUGroupAction alloc] initWithActions:[NSArray array]], NSInvalidArgumentException, FUArrayNilEmptyMessage);
+			assertThrows([[FUGroupAction alloc] initWithActions:@[]], NSInvalidArgumentException, FUArrayNilEmptyMessage);
 		});
 	});
 	
 	context(@"initializing with an array containing an object that is not a FUTimedAction", ^{
 		it(@"throws an exception", ^{
 			id object = [FUSpawnAction new];
-			NSArray* array = [NSArray arrayWithObject:object];
+			NSArray* array = @[object];
 			assertThrows([[FUGroupAction alloc] initWithActions:array], NSInvalidArgumentException, FUActionSubclassMessage, object);
 		});
 	});
@@ -50,7 +50,7 @@ describe(@"A group action", ^{
 		it(@"throws an exception", ^{
 			FUTimedAction* action1 = [[FUTimedAction alloc] initWithDuration:1.0];
 			FUTimedAction* action2 = [[FUTimedAction alloc] initWithDuration:2.0];
-			NSArray* array = [NSArray arrayWithObjects:action1, action2, nil];
+			NSArray* array = @[action1, action2];
 			assertThrows([[FUGroupAction alloc] initWithActions:array], NSInvalidArgumentException, FUDurationDifferentMessage);
 		});
 	});
@@ -198,7 +198,7 @@ describe(@"A group action", ^{
 			__block FUGroupAction* group;
 			
 			beforeEach(^{
-				group = FUGroup([NSArray arrayWithObjects:action1, action2, action3, nil]);
+				group = FUGroup(@[action1, action2, action3]);
 			});
 			
 			it(@"is a group action", ^{

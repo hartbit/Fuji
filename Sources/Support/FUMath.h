@@ -49,13 +49,15 @@ static OBJC_INLINE GLKVector4 FURandomColor()
 static OBJC_INLINE float FUClampFloat(float value, float min, float max)
 {
 	FUCheck(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
-	return MIN(MAX(value, min), max);
+	float temp = MAX(value, min);
+	return MIN(temp, max);
 }
 
 static OBJC_INLINE double FUClampDouble(double value, double min, double max)
 {
 	FUCheck(min <= max, @"Expected 'min=%g' to be less than or equal to 'max=%g'", min, max);
-	return MIN(MAX(value, min), max);
+	double temp = MAX(value, min);
+	return MIN(temp, max);
 }
 
 // Comparison functions from http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/

@@ -19,7 +19,7 @@
 @interface FUSpriteBuffer : NSObject
 
 - (id)initWithAssetStore:(FUAssetStore*)assetStore;
-- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity;
+- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(unsigned short)capacity;
 
 - (void)addSprite:(FUSpriteRenderer*)sprite;
 - (void)removeSprite:(FUSpriteRenderer*)sprite;

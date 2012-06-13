@@ -29,14 +29,14 @@
 		sSelectors = [NSMutableDictionary dictionary];
 	}
 	
-	NSMutableDictionary* classSelectors = [sSelectors objectForKey:self];
+	NSMutableDictionary* classSelectors = sSelectors[self];
 	
 	if (classSelectors == nil) {
 		classSelectors = [NSMutableDictionary dictionary];
-		[sSelectors setObject:classSelectors forKey:(id<NSCopying>)self];
+		sSelectors[(id<NSCopying>)self] = classSelectors;
 	}
 	
-	NSString* selectorString = [classSelectors objectForKey:sceneObjectClass];
+	NSString* selectorString = classSelectors[sceneObjectClass];
 	SEL selector = NULL;
 	
 	if (selectorString == nil) {
@@ -48,7 +48,7 @@
 			selectorString = (selector != NULL) ? NSStringFromSelector(selector) : [NSString string];
 		}
 		
-		[classSelectors setObject:selectorString forKey:(id<NSCopying>)sceneObjectClass];
+		classSelectors[(id<NSCopying>)sceneObjectClass] = selectorString;
 	} else if ([selectorString length] != 0) {
 		selector = NSSelectorFromString(selectorString);
 	}
@@ -62,7 +62,7 @@
 		return [NSString string];
 	}
 	
-	NSString* selectorString = [dictionary objectForKey:sceneObjectClass];
+	NSString* selectorString = dictionary[sceneObjectClass];
 	
 	if (selectorString == nil) {
 		selectorString = [NSString stringWithFormat:@"visit%@:", NSStringFromClass(sceneObjectClass)];
@@ -72,7 +72,7 @@
 			selectorString = [self selectorForClass:[sceneObjectClass superclass] inDictionary:dictionary];
 		}
 		
-		[dictionary setObject:selectorString forKey:(id<NSCopying>)sceneObjectClass];
+		dictionary[(id<NSCopying>)sceneObjectClass] = selectorString;
 	}
 	
 	return selectorString;

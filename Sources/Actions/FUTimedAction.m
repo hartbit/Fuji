@@ -81,7 +81,7 @@ typedef enum {
 	if (duration == 0.0) {
 		newNormalizedTime = isTimeForward ? 1.0f : 0.0f;
 	} else {
-		newNormalizedTime = FUClampFloat(oldNormalizedTime + (deltaTime / duration), 0.0f, 1.0f);
+		newNormalizedTime = FUClampFloat(oldNormalizedTime + (float)(deltaTime / duration), 0.0f, 1.0f);
 	}
 	
 	[self setNormalizedTime:newNormalizedTime];

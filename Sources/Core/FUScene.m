@@ -39,7 +39,9 @@ static NSString* const FUEntityNonexistentMessage = @"Can not remove a 'entity=%
 
 + (NSDictionary*)componentProperties
 {
-	return [NSDictionary dictionaryWithObjectsAndKeys:[FUGraphicsSettings class], @"graphics", nil];
+	return @{
+		@"graphics": [FUGraphicsSettings class]
+	};
 }
 
 #pragma mark - Initialization

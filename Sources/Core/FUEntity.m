@@ -75,9 +75,10 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 
 + (NSDictionary*)componentProperties
 {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			[FUTransform class], @"transform",
-			[FURenderer class], @"renderer", nil];
+	return @{
+		@"transform": [FUTransform class],
+		@"renderer": [FURenderer class]
+	};
 }
 
 + (NSDictionary*)allComponentProperties
@@ -88,7 +89,7 @@ static Class FUGetOldestUniqueAncestorClass(Class componentClass)
 		sProperties = [NSMutableDictionary dictionary];
 	}
 	
-	NSMutableDictionary* classProperties = [sProperties objectForKey:self];
+	NSMutableDictionary* classProperties = sProperties[self];
 	
 	if (classProperties == nil) {
 		classProperties = [NSMutableDictionary dictionaryWithDictionary:[self componentProperties]];

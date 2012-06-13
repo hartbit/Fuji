@@ -32,7 +32,7 @@ static NSString* const FUDurationDifferentMessage = @"Expected actions to have t
 {
 	FUCheck([actions count] > 0, FUArrayNilEmptyMessage);
 	
-	FUTimedAction* firstAction = [actions objectAtIndex:0];
+	FUTimedAction* firstAction = actions[0];
 	FUCheck([firstAction isKindOfClass:[FUTimedAction class]], FUActionSubclassMessage, firstAction);
 	
 	NSTimeInterval duration = [firstAction duration];

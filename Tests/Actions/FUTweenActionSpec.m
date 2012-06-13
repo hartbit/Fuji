@@ -742,7 +742,7 @@ describe(@"A tween action", ^{
 				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
 				[given([entity transform]) willReturn:transform];
 				[given([transform valueForKey:@"rotation"]) willReturn:@M_PI];
-				tween = FURotateTo(2.0, entity, 2*M_PI);
+				tween = FURotateTo(2.0, entity, 2*(float)M_PI);
 			});
 			
 			it(@"has a duration of 2.0", ^{
@@ -764,7 +764,7 @@ describe(@"A tween action", ^{
 			beforeEach(^{
 				target = mock([FUTransform class]);
 				[given([target valueForKey:@"rotation"]) willReturn:@M_PI];
-				tween = FURotateTo(2.0, target, 2*M_PI);
+				tween = FURotateTo(2.0, target, 2*(float)M_PI);
 			});
 			
 			it(@"has a duration of 2.0", ^{
@@ -791,8 +791,8 @@ describe(@"A tween action", ^{
 				transform = mock([FUTransform class]);
 				[given([entity isKindOfClass:[FUEntity class]]) willReturnBool:YES];
 				[given([entity transform]) willReturn:transform];
-				[given([transform valueForKey:@"rotation"]) willReturn:[NSNumber numberWithFloat:M_PI]];
-				tween = FURotateBy(2.0, entity, M_PI);
+				[given([transform valueForKey:@"rotation"]) willReturn:@((float)M_PI)];
+				tween = FURotateBy(2.0, entity, (float)M_PI);
 			});
 			
 			it(@"has a duration of 2.0", ^{
@@ -814,7 +814,7 @@ describe(@"A tween action", ^{
 			beforeEach(^{
 				target = mock([FUTransform class]);
 				[given([target valueForKey:@"rotation"]) willReturn:@M_PI];
-				tween = FURotateBy(2.0, target, M_PI);
+				tween = FURotateBy(2.0, target, (float)M_PI);
 			});
 			
 			it(@"has a duration of 2.0", ^{

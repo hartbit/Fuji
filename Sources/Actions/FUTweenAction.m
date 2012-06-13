@@ -88,7 +88,7 @@ FUTweenAction* FUTweenTo(NSTimeInterval duration, id target, NSString* key, NSNu
 		}
 		
 		double currentDouble = startDouble + t * difference;
-		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
+		[target setValue:@(currentDouble) forKey:key];
 	}];
 }
 
@@ -108,7 +108,7 @@ FUTweenAction* FUTweenSum(NSTimeInterval duration, id target, NSString* key, NSN
 		}
 		
 		double currentDouble = startDouble + t * difference;
-		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
+		[target setValue:@(currentDouble) forKey:key];
 	}];
 }
 
@@ -129,7 +129,7 @@ FUTweenAction* FUTweenProduct(NSTimeInterval duration, id target, NSString* key,
 		}
 		
 		double currentDouble = startDouble + t * difference;
-		[target setValue:[NSNumber numberWithDouble:currentDouble] forKey:key];
+		[target setValue:@(currentDouble) forKey:key];
 	}];
 }
 
@@ -186,12 +186,12 @@ FUTweenAction* FUMoveBy(NSTimeInterval duration, id target, GLKVector2 translati
 
 FUTweenAction* FURotateTo(NSTimeInterval duration, id target, float rotation)
 {
-	return FUTweenTo(duration, FUTransformTarget(target), @"rotation", [NSNumber numberWithFloat:rotation]);
+	return FUTweenTo(duration, FUTransformTarget(target), @"rotation", @(rotation));
 }
 
 FUTweenAction* FURotateBy(NSTimeInterval duration, id target, float addend)
 {
-	return FUTweenSum(duration, FUTransformTarget(target), @"rotation", [NSNumber numberWithFloat:addend]);
+	return FUTweenSum(duration, FUTransformTarget(target), @"rotation", @(addend));
 }
 
 FUTweenAction* FUScaleTo(NSTimeInterval duration, id target, GLKVector2 scale)

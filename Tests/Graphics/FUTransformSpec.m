@@ -111,7 +111,7 @@ describe(@"A transform component", ^{
 		
 		context(@"set the rotation to Pi", ^{
 			beforeEach(^{
-				[transform setRotation:M_PI];
+				[transform setRotation:(float)M_PI];
 			});
 			
 			it(@"has a rotation of Pi", ^{
@@ -119,7 +119,7 @@ describe(@"A transform component", ^{
 			});
 			
 			it(@"has a matrix with a rotation of Pi around Z", ^{
-				GLKMatrix4 rotationMatrix = GLKMatrix4MakeZRotation(M_PI);
+				GLKMatrix4 rotationMatrix = GLKMatrix4MakeZRotation((float)M_PI);
 				expect(FUMatrix4AreClose([transform matrix], rotationMatrix)).to.beTruthy();
 			});
 		});
@@ -144,8 +144,8 @@ describe(@"A transform component", ^{
 		
 		context(@"set the scale factors seperately to (1.4, 0.8)", ^{
 			beforeEach(^{
-				[transform setScaleX:1.4];
-				[transform setScaleY:0.8];
+				[transform setScaleX:1.4f];
+				[transform setScaleY:0.8f];
 			});
 			
 			it(@"has a scale of (1.4, 0.8)", ^{
@@ -156,7 +156,7 @@ describe(@"A transform component", ^{
 			});
 			
 			it(@"has a matrix with a scale of (1.4, 0.8)", ^{
-				GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(1.4, 0.8, 1);
+				GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(1.4f, 0.8f, 1.0f);
 				expect(FUMatrix4AreEqual([transform matrix], scaleMatrix)).to.beTruthy();
 			});
 		});

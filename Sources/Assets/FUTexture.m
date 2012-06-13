@@ -40,7 +40,7 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 	}
 	
 	EAGLSharegroup* sharegroup = [[EAGLContext currentContext] sharegroup];
-	GLKTextureLoader* loader = [sTextureLoaders objectForKey:sharegroup];
+	GLKTextureLoader* loader = sTextureLoaders[sharegroup];
 	
 	if (loader == nil) {
 		loader = [[GLKTextureLoader alloc] initWithSharegroup:sharegroup];

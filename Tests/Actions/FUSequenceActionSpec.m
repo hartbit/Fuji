@@ -34,14 +34,14 @@ describe(@"A sequence action", ^{
 	
 	context(@"initilized with an empty array", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUSequenceAction alloc] initWithActions:[NSArray array]], NSInvalidArgumentException, FUArrayNilEmptyMessage);
+			assertThrows([[FUSequenceAction alloc] initWithActions:@[]], NSInvalidArgumentException, FUArrayNilEmptyMessage);
 		});
 	});
 	
 	context(@"initializing with an array containing an object that is not an FUAction", ^{
 		it(@"throws an exception", ^{
 			id object = [NSString string];
-			NSArray* array = [NSArray arrayWithObject:object];
+			NSArray* array = @[object];
 			assertThrows([[FUSequenceAction alloc] initWithActions:array], NSInvalidArgumentException, FUActionProtocolMessage, object);
 		});
 	});

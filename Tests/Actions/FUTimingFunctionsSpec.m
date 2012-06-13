@@ -22,6 +22,13 @@
 		it(@"has a max value of 1.0f", ^{ \
 			expect(_function(1.0f)).to.equal(1.0f); \
 		}); \
+		it(@"it clamps values less than 0.0f to 0.0f", ^{ \
+			expect(_function(-0.5f)).to.equal(0.0f); \
+		});	\
+		\
+		it(@"it clamps values greater than 1.0f to 1.0f", ^{ \
+			expect(_function(1.5f)).to.equal(1.0f); \
+		});	\
 	});
 
 

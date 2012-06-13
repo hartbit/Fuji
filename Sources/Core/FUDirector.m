@@ -61,7 +61,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 	return self;
 }
 
-- (id)initWithAssetStore:(FUAssetStore*)assetStore;
+- (id)initWithAssetStore:(FUAssetStore*)assetStore
 {
 	FUCheck(assetStore != nil, FUAssetStoreNilMessage);
 	
@@ -142,7 +142,7 @@ static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@'
 
 #pragma mark - Internal Methods
 
-- (FUEngine*)requireEngineWithClass:(Class)engineClass;
+- (FUEngine*)requireEngineWithClass:(Class)engineClass
 {
 	FUCheck(engineClass != NULL, FUEngineClassNullMessage);
 	FUCheck([engineClass isSubclassOfClass:[FUEngine class]] &&

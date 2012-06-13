@@ -68,30 +68,16 @@ static NSString* const FUActionProtocolMessage = @"Expected 'action=%@' to confo
 	NSArray* actions = [self actions];
 	NSUInteger actionCount = [actions count];
 	NSUInteger actionIndex = [self actionIndex];
-
-	__block NSTimeInterval timeLeft = deltaTime;
+	NSTimeInterval timeLeft = deltaTime;
 	
-	BOOL (^updateActionAtIndex)(NSInteger index) = ^(NSInteger index) {
-		id<FUAction> action = [actions objectAtIndex:index];
+	BOOL isTimeReversing = deltaTime < 0.0;
+	for (NSUInteger index = actionIndex; index < actionCount; isTimeReversing ? index-- : index++) {
+		id<FUAction> action = actions[index];
 		timeLeft = [action consumeDeltaTime:timeLeft];
 		
 		if (timeLeft == 0.0) {
 			[self setActionIndex:index];
-			return YES;
-		} else {
-			return NO;
-		}
-	};
-	
-	if (deltaTime < 0.0) {
-		for (NSInteger index = actionIndex; index >= 0; index--) {
-			BOOL shouldStop = updateActionAtIndex(index);
-			if (shouldStop) break;
-		}
-	} else {
-		for (NSInteger index = actionIndex; index < actionCount; index++) {
-			BOOL shouldStop = updateActionAtIndex(index);
-			if (shouldStop) break;
+			break;
 		}
 	}
 	

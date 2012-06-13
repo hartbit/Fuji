@@ -1,11 +1,11 @@
 PODS:
   - Expecta (0.2.0)
-  - OCHamcrest (1.7)
-  - OCMockito (0.22):
-    - OCHamcrest
+  - OCHamcrest (1.8)
+  - OCMockito (0.22)
   - Specta (0.1.5)
 
 DEPENDENCIES:
-  - Expecta
+  - Expecta (from `https://github.com/TrahDivad/expecta.git')
+  - OCHamcrest (defined in Podfile)
   - OCMockito (defined in Podfile)
   - Specta

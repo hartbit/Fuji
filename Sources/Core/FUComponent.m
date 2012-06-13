@@ -46,7 +46,7 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 		sComponents = [NSMutableDictionary dictionary];
 	}
 	
-	NSMutableSet* classComponents = [sComponents objectForKey:self];
+	NSMutableSet* classComponents = sComponents[self];
 	
 	if (classComponents == nil) {
 		classComponents = [NSMutableSet setWithSet:[self requiredComponents]];
@@ -68,7 +68,7 @@ static NSString* const FUEntityNilMessage = @"Expected 'entity' to not be nil";
 		sEngines = [NSMutableDictionary dictionary];
 	}
 	
-	NSMutableSet* classEngines = [sEngines objectForKey:self];
+	NSMutableSet* classEngines = sEngines[self];
 	
 	if (classEngines == nil) {
 		classEngines = [NSMutableSet setWithSet:[self requiredEngines]];
