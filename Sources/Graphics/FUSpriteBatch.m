@@ -10,12 +10,17 @@
 //
 
 #import "FUSpriteBatch-Internal.h"
+#import "FUSpriteRenderer.h"
+#import "FUTransform.h"
+#import "FUEntity.h"
+#import "FUTexture-Internal.h"
 #import "FUSupport.h"
 
 
 @interface FUSpriteBatch ()
 
 @property (nonatomic, strong) FUTexture* texture;
+@property (nonatomic, strong) NSString* textureName;
 @property (nonatomic, strong) NSMutableArray* sprites;
 
 @end
@@ -25,10 +30,11 @@
 
 #pragma mark - Initialization
 
-- (id)initWithTexture:(FUTexture*)texture
+- (id)initWithTexture:(FUTexture*)texture withName:(NSString*)name
 {
 	if ((self = [super init])) {
 		[self setTexture:texture];
+		[self setTextureName:name];
 	}
 	
 	return self;
@@ -44,7 +50,7 @@
 - (NSMutableArray*)sprites
 {
 	if (_sprites == nil) {
-		[self setSprites:[NSMutableArray array]];
+		[self setSprites:[NSMutableArray new]];
 	}
 	
 	return _sprites;
@@ -60,6 +66,29 @@
 - (void)removeSprite:(FUSpriteRenderer*)sprite
 {
 	[[self sprites] removeObject:sprite];
+}
+
+- (NSArray*)removeInvalidSprites
+{
+	NSMutableArray* sprites = [self sprites];
+	NSString* textureName = [self textureName];
+	BOOL hasTexture = [self texture] != nil;
+	
+	NSIndexSet* invalidSpriteIndices = [sprites indexesOfObjectsPassingTest:^BOOL(FUSpriteRenderer* sprite, NSUInteger index, BOOL* stop) {
+		if (hasTexture) {
+			return ![[sprite texture] isEqualToString:textureName];
+		} else {
+			return [sprite texture] != nil;
+		}
+	}];
+
+	NSArray* invalidSprites = [sprites objectsAtIndexes:invalidSpriteIndices];
+	
+	for (FUSpriteRenderer* sprite in invalidSprites) {
+		[self removeSprite:sprite];
+	}
+	
+	return invalidSprites;
 }
 
 #pragma mark - NSFastEnumeration Methods

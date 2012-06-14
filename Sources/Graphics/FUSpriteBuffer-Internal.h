@@ -18,8 +18,10 @@
 
 @interface FUSpriteBuffer : NSObject
 
+@property (nonatomic, strong, readonly) NSMutableDictionary* spriteBatches;
+
 - (id)initWithAssetStore:(FUAssetStore*)assetStore;
-- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(unsigned short)capacity;
+- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity;
 
 - (void)addSprite:(FUSpriteRenderer*)sprite;
 - (void)removeSprite:(FUSpriteRenderer*)sprite;

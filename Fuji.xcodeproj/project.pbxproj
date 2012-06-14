@@ -491,11 +491,11 @@
 		634D8CE31547E60D00E1E119 /* Implementation Files */ = {
 			isa = PBXGroup;
 			children = (
-				63F7B8751526019600F3064D /* FUGraphicsEngine.m */,
 				6382275F1519E38B0009D036 /* FUGraphicsSettings.m */,
 				63822768151A1B300009D036 /* FUTransform.m */,
 				63F2280E157A4F45000EB08C /* FURenderer.m */,
 				634E08C61529E85800D5C3F8 /* FUSpriteRenderer.m */,
+				63F7B8751526019600F3064D /* FUGraphicsEngine.m */,
 				6301B2C11545938200DA9994 /* FUSpriteBuffer.m */,
 				63D3CE5B1546C9E80033BA8E /* FUSpriteBatch.m */,
 			);

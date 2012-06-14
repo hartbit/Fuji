@@ -23,14 +23,22 @@
 static const NSUInteger kDefaultCapacity = 100;
 static const NSUInteger kIndexSpriteCount = 6;
 static const NSUInteger kVertexSpriteCount = 4;
+static const NSUInteger kMaxSpriteCount = (1 << 16) / kVertexSpriteCount;
+
+
+static OBJC_INLINE NSString* FUTextureKeyFromPath(NSString* path)
+{
+	return (path != nil) ? path : @"";
+}
 
 
 @interface FUSpriteBuffer ()
 
 @property (nonatomic, WEAK) FUAssetStore* assetStore;
-@property (nonatomic) FUIndex capacity;
-@property (nonatomic) FUIndex count;
+@property (nonatomic) NSUInteger capacity;
+@property (nonatomic) NSUInteger count;
 @property (nonatomic, strong) NSMutableDictionary* spriteBatches;
+@property (nonatomic, strong) NSMutableDictionary* spriteLinks;
 @property (nonatomic, strong) NSMutableData* indexData;
 @property (nonatomic, strong) NSMutableData* vertexData;
 @property (nonatomic) GLuint vertexArray;
@@ -54,7 +62,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 	return [self initWithAssetStore:assetStore capacity:kDefaultCapacity];
 }
 
-- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(unsigned short)capacity
+- (id)initWithAssetStore:(FUAssetStore*)assetStore capacity:(NSUInteger)capacity
 {
 	if ((self = [super init])) {
 		[self setAssetStore:assetStore];
@@ -74,15 +82,17 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 #pragma mark - Properties
 
-- (void)setCapacity:(FUIndex)capacity
+- (void)setCapacity:(NSUInteger)capacity
 {
+	FUAssert(capacity < kMaxSpriteCount, @"The number of sprites is limited to '%i'", kMaxSpriteCount);
+	
 	if (capacity != _capacity) {
 		_capacity = capacity;
 		[self updateDataLength];
 	}
 }
 
-- (void)setCount:(FUIndex)count
+- (void)setCount:(NSUInteger)count
 {
 	if (count != _count) {
 		_count = count;
@@ -100,6 +110,15 @@ static const NSUInteger kVertexSpriteCount = 4;
 	}
 	
 	return _spriteBatches;
+}
+
+- (NSMutableDictionary*)spriteLinks
+{
+	if (_spriteLinks == nil) {
+		[self setSpriteLinks:[NSMutableDictionary dictionary]];
+	}
+	
+	return _spriteLinks;
 }
 
 - (NSMutableData*)indexData
@@ -151,36 +170,41 @@ static const NSUInteger kVertexSpriteCount = 4;
 
 - (void)addSprite:(FUSpriteRenderer*)sprite
 {
-	NSString* textureString = [sprite texture];
-	id textureKey = (textureString != nil) ? textureString : [NSNull null];
+	NSString* textureKey = FUTextureKeyFromPath([sprite texture]);
 	FUSpriteBatch* batch = [self spriteBatches][textureKey];
 	
 	if (batch == nil) {
-		if (textureString != nil) {
-			FUTexture* texture = [[self assetStore] textureWithName:textureString];
-			batch = [[FUSpriteBatch alloc] initWithTexture:texture];
-		} else {
-			batch = [FUSpriteBatch new];
+		FUTexture* texture = nil;
+		
+		if ([textureKey length] > 0) {
+			texture = [[self assetStore] textureWithName:textureKey];
 		}
-				
+		
+		batch = [[FUSpriteBatch alloc] initWithTexture:texture withName:textureKey];
 		[self spriteBatches][textureKey] = batch;
 	}
 	
 	[batch addSprite:sprite];
+	[self spriteLinks][@((NSUInteger)sprite)] = batch;
 	[self setCount:[self count] + 1];
 }
 
 - (void)removeSprite:(FUSpriteRenderer*)sprite
 {
-	NSString* textureString = [sprite texture];
-	id textureKey = (textureString != nil) ? textureString : [NSNull null];
-	FUSpriteBatch* batch = [self spriteBatches][textureKey];
+	NSNumber* linksKey = @((NSUInteger)sprite);
+	NSMutableDictionary* spriteLinks = [self spriteLinks];
+	FUSpriteBatch* batch = spriteLinks[linksKey];
+	
+	if (batch == nil) {
+		return;
+	}
 	
 	[batch removeSprite:sprite];
+	[spriteLinks removeObjectForKey:linksKey];
 	[self setCount:[self count] - 1];
 	
 	if ([batch count] == 0) {
-		[[self spriteBatches] removeObjectForKey:textureKey];
+		[[self spriteBatches] removeObjectForKey:[batch textureName]];
 	}
 }
 
@@ -218,24 +242,22 @@ static const NSUInteger kVertexSpriteCount = 4;
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	FUCheckOGLError();
 }
 
 - (void)updateDataLength
 {
 	NSMutableData* indexData = [self indexData];
 	
-	FUIndex oldCapacity = (FUIndex)[indexData length] / sizeof(FUIndex);
-	FUIndex newCapacity = [self capacity];
+	NSUInteger oldCapacity = [indexData length] / sizeof(FUIndex);
+	NSUInteger newCapacity = [self capacity];
 
 	NSUInteger indexLength = newCapacity * kIndexSpriteCount * sizeof(FUIndex);
 	[indexData setLength:indexLength];
 	
 	FUIndex* indices = [indexData mutableBytes];
-	FUIndex indexIndex = (FUIndex)oldCapacity * kIndexSpriteCount;
-	FUIndex vertexIndex = oldCapacity * kVertexSpriteCount;
-	FUIndex indexCount = newCapacity * kIndexSpriteCount;
+	NSUInteger indexIndex = oldCapacity * kIndexSpriteCount;
+	FUIndex vertexIndex = (FUIndex)(oldCapacity * kVertexSpriteCount);
+	NSUInteger indexCount = newCapacity * kIndexSpriteCount;
 	FUIndex index0, index1, index2, index3;
 	
 	while (indexIndex < indexCount) {
@@ -261,28 +283,22 @@ static const NSUInteger kVertexSpriteCount = 4;
 	NSMutableData* vertexData = [self vertexData];
 	NSUInteger vertexLength = [self capacity] * kVertexSpriteCount * sizeof(FUVertex);
 	[vertexData setLength:vertexLength];
-	
-	FUCheckOGLError();
 }
 
 - (void)checkTextureChanges
 {
-	NSMutableArray* spritesToUpdate = [NSMutableArray array];
-	
-	[[self spriteBatches] enumerateKeysAndObjectsUsingBlock:^(id textureKey, FUSpriteBatch* batch, BOOL* stop) {
-		for (FUSpriteRenderer* sprite in batch) {
-			NSString* spriteTexture = [sprite texture];
+	[[self spriteBatches] enumerateKeysAndObjectsUsingBlock:^(NSString* batchKey, FUSpriteBatch* batch, BOOL* stop) {
+		NSArray* invalidSprites = [batch removeInvalidSprites];
+		NSUInteger numberOfInvalidSprites = [invalidSprites count];
+		
+		if (numberOfInvalidSprites > 0) {
+			[self setCount:[self count] - numberOfInvalidSprites];
 			
-			if (((textureKey == [NSNull null]) && (spriteTexture != nil)) || ![spriteTexture isEqualToString:textureKey]) {
-				[spritesToUpdate addObject:sprite];
+			for (FUSpriteRenderer* sprite in invalidSprites) {
+				[self addSprite:sprite];
 			}
 		}
 	}];
-	
-	for (FUSpriteRenderer* sprite in spritesToUpdate) {
-		[self removeSprite:sprite];
-		[self addSprite:sprite];
-	}
 }
 
 - (void)fillVertexBuffer
@@ -310,7 +326,7 @@ static const NSUInteger kVertexSpriteCount = 4;
 		GLKVector3 kP2 = { halfWidth, -halfHeight, 0 };
 		GLKVector3 kP3 = { halfWidth, halfHeight, 0 };
 		
-		[batch setDrawIndex:drawIndex];
+		[batch setDrawOffset:drawIndex];
 		NSUInteger drawCount = 0;
 		
 		for (FUSpriteRenderer* sprite in batch) {
@@ -340,8 +356,6 @@ static const NSUInteger kVertexSpriteCount = 4;
 	glBindBuffer(GL_ARRAY_BUFFER, [self vertexBuffer]);
 	glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(vertexIndex * sizeof(FUVertex)), vertices, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	FUCheckOGLError();
 }
 
 - (void)drawSpritesWithEffect:(GLKBaseEffect*)effect
@@ -357,19 +371,17 @@ static const NSUInteger kVertexSpriteCount = 4;
 			return;
 		}
 		
-		if ([textureProperty name] != [texture name]) {
-			[textureProperty setName:[texture name]];
+		if ([textureProperty name] != [texture identifier]) {
+			[textureProperty setName:[texture identifier]];
 			[effect prepareToDraw];
 		}
 		
 		NSUInteger indexCount = [batch drawCount] * kIndexSpriteCount;
-		NSUInteger indexOffset = [batch drawIndex] * kIndexSpriteCount * sizeof(FUIndex);
+		NSUInteger indexOffset = [batch drawOffset] * kIndexSpriteCount * sizeof(FUIndex);
 		glDrawElements(GL_TRIANGLES, (GLsizei)indexCount, FU_INDEX_TYPE, (GLvoid*)indexOffset);
 	}];
 
 	glBindVertexArrayOES(0);
-	
-	FUCheckOGLError();
 }
 
 @end

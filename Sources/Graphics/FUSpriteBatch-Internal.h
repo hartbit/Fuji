@@ -10,6 +10,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FUGraphicsTypes-Internal.h"
 
 
 @class FUTexture;
@@ -17,14 +18,17 @@
 
 @interface FUSpriteBatch : NSObject <NSFastEnumeration>
 
-@property (nonatomic) NSUInteger drawIndex;
-@property (nonatomic) NSUInteger drawCount;
 @property (nonatomic, strong, readonly) FUTexture* texture;
+@property (nonatomic, strong, readonly) NSString* textureName;
+@property (nonatomic, strong, readonly) NSMutableArray* sprites;
 @property (nonatomic, readonly) NSUInteger count;
+@property (nonatomic) NSUInteger drawOffset;
+@property (nonatomic) NSUInteger drawCount;
 
-- (id)initWithTexture:(FUTexture*)texture;
+- (id)initWithTexture:(FUTexture*)texture withName:(NSString*)name;
 
 - (void)addSprite:(FUSpriteRenderer*)sprite;
 - (void)removeSprite:(FUSpriteRenderer*)sprite;
+- (NSArray*)removeInvalidSprites;
 
 @end

@@ -24,19 +24,11 @@
 #define FUCheck(condition, reason, ...) _FUAssert(condition, NSInvalidArgumentException, reason, ##__VA_ARGS__)
 #define FUAssert(condition, reason, ...) _FUAssert(condition, NSInternalInconsistencyException, reason, ##__VA_ARGS__) 
 
-#define FUCheckOGLError() do { \
-	GLenum __error = glGetError(); \
-	if (__error) { \
-		NSLog(@"OpenGL Error: 0x%04X in %s %d", __error, __FUNCTION__, __LINE__); \
-	} \
-} while (0)
-
 #else
 
 #define _FUAssert(condition, reason, ...)
 #define FUCheck(condition, reason, ...)
 #define FUAssert(condition, reason, ...)
-#define FUCheckOGLError()
 
 #endif
 

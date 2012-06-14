@@ -92,7 +92,7 @@ static NSString* NSStringFromGLKTextureLoaderError(GLKTextureLoaderError error);
 
 #pragma mark - Properties
 
-- (GLuint)name
+- (GLuint)identifier
 {
 	[self verifyAccessibility];
 	return [[self info] name];

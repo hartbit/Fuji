@@ -19,6 +19,10 @@
 #import "FUSpriteBuffer-Internal.h"
 #import "FUAssert.h"
 
+#import "FUSpriteBatch-Internal.h"
+#import "FUSpriteRenderer.h"
+#import "FUTransform.h"
+
 
 @interface FUGraphicsRegistrationVisitor : FUVisitor
 @property (nonatomic, WEAK) FUGraphicsEngine* graphicsEngine;
@@ -58,8 +62,6 @@
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glDepthFunc(GL_LEQUAL);
 		glClearDepthf(1.0f);
-		
-		FUCheckOGLError();
 	}
 	
 	return self;
@@ -129,18 +131,18 @@
 
 - (void)update
 {
-//	NSTimeInterval speed = [[self director] timeSinceFirstResume] * 5;
-//	
-//	[[self drawBatches] enumerateKeysAndObjectsUsingBlock:^(id key, FUDrawBatch* batch, BOOL* stop) {
-//		[[batch	renderers] enumerateObjectsUsingBlock:^(FUSpriteRenderer* renderer, NSUInteger idx, BOOL* stop) {
-//			FUTransform* transform = [[renderer entity] transform];
-//			float scale = cosf(idx + speed) * 0.25f + 1.0f;
-//			[transform setScale:GLKVector2Make(scale, scale)];
-//			
-//			float rotation = 0.1f * (idx + speed) * M_PI;
-//			[transform setRotation:rotation];
-//		}];
-//	}];
+	NSTimeInterval speed = [[self director] timeSinceFirstResume] * 5;
+	
+	[[[self spriteBuffer] spriteBatches] enumerateKeysAndObjectsUsingBlock:^(id key, FUSpriteBatch* batch, BOOL* stop) {
+		[[batch	sprites] enumerateObjectsUsingBlock:^(FUSpriteRenderer* renderer, NSUInteger idx, BOOL* stop) {
+			FUTransform* transform = [[renderer entity] transform];
+			float scale = cosf(idx + (float)speed) * 0.25f + 1.0f;
+			[transform setScale:GLKVector2Make(scale, scale)];
+			
+			float rotation = (float)(0.1 * (idx + speed) * M_PI);
+			[transform setRotation:rotation];
+		}];
+	}];
 }
 
 - (void)draw
@@ -176,8 +178,6 @@
 	GLKVector4 backgroundColor = (settings != nil) ? [settings backgroundColor] : FUColorBlack;
 	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	FUCheckOGLError();
 }
 
 @end
