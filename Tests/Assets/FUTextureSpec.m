@@ -41,15 +41,15 @@ describe(@"A texture", ^{
 	
 	context(@"initialized with a valid texture", ^{
 		__block FUTexture* texture;
-		__block GLuint name;
+		__block GLuint identifier;
 		
 		beforeEach(^{
 			texture = [[FUTexture alloc] initWithName:TEXTURE_VALID1];
-			name = [texture name];
+			identifier = [texture identifier];
 		});
 		
-		it(@"has a valid texture name", ^{
-			expect(glIsTexture(name)).to.beTruthy();
+		it(@"has a valid identifier", ^{
+			expect(glIsTexture(identifier)).to.beTruthy();
 		});
 		
 		it(@"has the correct size", ^{
@@ -62,16 +62,16 @@ describe(@"A texture", ^{
 				[texture endContentAccess];
 			});
 			
-			context(@"accessing the name", ^{
+			context(@"accessing the identifier", ^{
 				it(@"throws an exception", ^{
-					assertThrows([texture name], NSInternalInconsistencyException, @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'", texture);
+					assertThrows([texture identifier], NSInternalInconsistencyException, @"Accessing 'asset=%@' without a prior call to 'beginContentAccess'", texture);
 				});
 			});
 			
 			context(@"calling discardContentIfPossible", ^{
-				it(@"invalidates the texture name", ^{
+				it(@"invalidates the identifier", ^{
 					[texture discardContentIfPossible];
-					expect(glIsTexture(name)).to.beFalsy();
+					expect(glIsTexture(identifier)).to.beFalsy();
 				});
 			});
 		});
@@ -87,8 +87,8 @@ describe(@"A texture", ^{
 			FU_WAIT_UNTIL(asyncTexture != nil);
 		});
 		
-		it(@"has a valid texture name", ^{
-			expect([asyncTexture name]).toNot.equal(0);
+		it(@"has a valid identifier", ^{
+			expect([asyncTexture identifier]).toNot.equal(0);
 		});
 		
 		it(@"has the correct size", ^{

@@ -64,18 +64,18 @@ describe(@"An asset store", ^{
 			});
 			
 			context(@"asking for same texture again", ^{
-				it(@"returns a different instance with the same name", ^{
+				it(@"returns a different instance with the same identifier", ^{
 					FUTexture* newTexture = [assetStore textureWithName:TEXTURE_VALID1];
 					expect(newTexture).toNot.beIdenticalTo(texture);
-					expect([newTexture name]).to.equal([texture name]);
+					expect([newTexture identifier]).to.equal([texture identifier]);
 				});
 			});
 			
 			context(@"asking for a different texture", ^{
-				it(@"returns a different instance with a different name", ^{
+				it(@"returns a different instance with a different identifier", ^{
 					FUTexture* newTexture = [assetStore textureWithName:TEXTURE_VALID2];
 					expect(newTexture).toNot.beIdenticalTo(texture);
-					expect([newTexture name]).toNot.equal([texture name]);
+					expect([newTexture identifier]).toNot.equal([texture identifier]);
 				});
 			});
 		});
