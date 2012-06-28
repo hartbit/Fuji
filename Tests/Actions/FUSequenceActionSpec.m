@@ -57,13 +57,13 @@ describe(@"A sequence action", ^{
 			action1 = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			action2 = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 			action3 = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
-			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
+			actions = [@[action1, action2, action3] mutableCopy];
 			sequence = [[FUSequenceAction alloc] initWithActions:actions];
 		});
 		
 		context(@"initializing via the function with three actions", ^{
 			it(@"returns a FUSequenceAction", ^{
-				expect(FUSequence([NSArray arrayWithObjects:action1, action2, action3, nil])).to.beKindOf([FUSequenceAction class]);
+				expect(FUSequence(@[action1, action2, action3])).to.beKindOf([FUSequenceAction class]);
 			});
 		});
 		

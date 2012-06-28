@@ -74,7 +74,7 @@ describe(@"A group action", ^{
 			[given([action3 isKindOfClass:[FUTimedAction class]]) willReturnBool:YES];
 			[given([action3 duration]) willReturnDouble:2.0];
 			
-			actions = [NSMutableArray arrayWithObjects:action1, action2, action3, nil];
+			actions = [@[action1, action2, action3] mutableCopy];
 		});
 		
 		context(@"initializing with the default initializer", ^{
