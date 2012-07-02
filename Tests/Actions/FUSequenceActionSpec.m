@@ -169,12 +169,15 @@ describe(@"A sequence action", ^{
 					beforeEach(^{
 						action1Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action1 copy]) willReturn:action1Copy];
+						[[given([action1 copyWithZone:nil]) withMatcher:HC_anything()] willReturn:action1Copy];
 						
 						action2Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action2 copy]) willReturn:action2Copy];
+						[[given([action2 copyWithZone:nil]) withMatcher:HC_anything()] willReturn:action2Copy];
 						
 						action3Copy = mockObjectAndProtocol([NSObject class], @protocol(FUAction));
 						[given([action3 copy]) willReturn:action3Copy];
+						[[given([action3 copyWithZone:nil]) withMatcher:HC_anything()] willReturn:action3Copy];
 						
 						sequenceCopy = [sequence copy];
 					});
