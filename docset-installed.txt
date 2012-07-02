@@ -1,4 +1,0 @@
-Documentation set was installed to Xcode!
-
-Path: /Users/david/Library/Developer/Shared/Documentation/DocSets/com.hart-dev.Fuji.docset
-Time: 2012-06-08 13:17:42 +0000
