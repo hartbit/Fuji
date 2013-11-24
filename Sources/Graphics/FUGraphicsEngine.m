@@ -12,7 +12,7 @@
 #import "FUGraphicsEngine.h"
 #import "FUColor.h"
 #import "FUVisitor.h"
-#import "FUDirector.h"
+#import "FUViewController.h"
 #import "FUScene.h"
 #import "FUGraphicsSettings.h"
 #import "FUTexture-Internal.h"
@@ -55,7 +55,7 @@
 
 - (id)init
 {
-	if ((self = [super init])) {
+	if (self = [super init]) {
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);

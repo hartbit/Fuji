@@ -11,7 +11,7 @@
 
 #import "FUComponent-Internal.h"
 #import "FUSceneObject-Internal.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUEntity.h"
 #import "FUAssert.h"
 

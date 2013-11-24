@@ -12,7 +12,7 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUVisitor-Internal.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUScene-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUTestSupport.h"
@@ -86,10 +86,10 @@ describe(@"A scene", ^{
 		});
 		
 		context(@"set a director on the scene", ^{
-			__block FUDirector* director;
+			__block FUViewController * director;
 			
 			beforeEach(^{
-				director = mock([FUDirector class]);
+				director = mock([FUViewController class]);
 				[scene setDirector:director];
 			});
 			

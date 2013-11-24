@@ -12,7 +12,7 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUVisitor-Internal.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUScene-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUEngine-Internal.h"
@@ -31,127 +31,90 @@ static NSString* const FUSceneObjectNilMessage = @"Expected 'sceneObject' to not
 static NSString* const FUSceneObjectInvalidMessage = @"Expected 'sceneObject=%@' to have the same 'director=%@'";
 
 
-SPEC_BEGIN(FUDirector)
+SPEC_BEGIN(FUViewController)
 
-describe(@"A director", ^{
+describe(@"A fuji view controller", ^{
 	it(@"is a subclass of GLKViewController", ^{
-		expect([FUDirector class]).to.beASubclassOf([GLKViewController class]);
+		expect([FUViewController class]).to.beASubclassOf([GLKViewController class]);
 	});
 	
 	context(@"initializing a new director with a nil asset store", ^{
 		it(@"throws an exception", ^{
-			assertThrows([[FUDirector alloc] initWithAssetStore:nil], NSInvalidArgumentException, FUAssetStoreNilMessage);
+			assertThrows([[FUViewController alloc] initWithAssetStore:nil], NSInvalidArgumentException, FUAssetStoreNilMessage);
 		});
 	});
 	
 	context(@"initialized", ^{
-		__block FUDirector* director;
+		__block FUViewController* viewController;
 		
 		beforeEach(^{
-			director = [FUDirector new];
+			viewController = [FUViewController new];
 		});
 		
 		it(@"has a valid opengl view", ^{
-			expect([director view]).to.beKindOf([GLKView class]);
+			expect([viewController view]).to.beKindOf([GLKView class]);
 		});
 		
 		it(@"has a valid asset store", ^{
-			expect([director assetStore]).toNot.beNil();
-		});
-		
-		it(@"has all orientations as valid", ^{
-			expect([director validOrientations]).to.equal(FUOrientationPortrait |
-														  FUOrientationPortraitUpsideDown |
-														  FUOrientationLandscapeLeft |
-														  FUOrientationLandscapeRight);
+			expect([viewController assetStore]).toNot.beNil();
 		});
 		
 		it(@"automatically rotates in all orientations", ^{
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beTruthy();
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
-			expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
-		});
-		
-		context(@"setting no valid orientation", ^{
-			it(@"throws an exception", ^{
-				assertThrows([director setValidOrientations:FUOrientationNone], NSInvalidArgumentException, FUOrientationInvalidMessage, FUOrientationNone);
-			});
-		});
-		
-		context(@"setting an invalid orientation", ^{
-			it(@"throws an exception", ^{
-				FUOrientation invalidOrientation = FUOrientationLandscapeLeft << 1;
-				assertThrows([director setValidOrientations:invalidOrientation], NSInvalidArgumentException, FUOrientationInvalidMessage, invalidOrientation);
-			});
-		});
-		
-		context(@"setting a reduced number of orientations", ^{
-			beforeEach(^{
-				[director setValidOrientations:FUOrientationPortraitUpsideDown | FUOrientationLandscapeRight];
-			});
-			
-			it(@"has the correct valid orientations", ^{
-				expect([director validOrientations]).to.equal(FUOrientationPortraitUpsideDown | FUOrientationLandscapeRight);
-			});
-			
-			it(@"automatically rotates to the valid orientations", ^{
-				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beFalsy();
-				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
-				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beFalsy();
-				expect([director shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
-			});
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortrait]).to.beTruthy();
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationPortraitUpsideDown]).to.beTruthy();
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeLeft]).to.beTruthy();
+			expect([viewController shouldAutorotateToInterfaceOrientation:UIInterfaceOrientationLandscapeRight]).to.beTruthy();
 		});
 
-		context(@"initializing a new director with the current asset store", ^{
+		context(@"initializing a new view controller with the current asset store", ^{
 			it(@"shares the same asset store", ^{
-				FUDirector* newDirector = [[FUDirector alloc] initWithAssetStore:[director assetStore]];
-				expect([newDirector assetStore]).to.beIdenticalTo([director assetStore]);
+				FUViewController* newViewController = [[FUViewController alloc] initWithAssetStore:[viewController assetStore]];
+				expect([newViewController assetStore]).to.beIdenticalTo([viewController assetStore]);
 			});
 		});
 
 		it(@"is the delegate of the opengl view", ^{
-			expect([(GLKView*)[director view] delegate]).to.beIdenticalTo(director);
+			expect([(GLKView*)[viewController view] delegate]).to.beIdenticalTo(viewController);
 		});
 		
 		it(@"has it's view at the same size as the screen", ^{
-			CGSize viewSize = [[director view] bounds].size;
+			CGSize viewSize = [[viewController view] bounds].size;
 			CGSize screenSize = [[UIScreen mainScreen] bounds].size;
 			expect(CGSizeEqualToSize(viewSize, screenSize)).to.beTruthy();
 		});
 		
 		it(@"has an nil scene", ^{
-			expect([director scene]).to.beNil();
+			expect([viewController scene]).to.beNil();
 		});
 		
 		it(@"has no engines", ^{
-			expect([director allEngines]).to.beEmpty();
+			expect([viewController allEngines]).to.beEmpty();
 		});
 		
 		context(@"require an engine class of NULL", ^{
 			it(@"throws an exception", ^{
-				assertThrows([director requireEngineWithClass:NULL], NSInvalidArgumentException, FUEngineClassNullMessage);
+				assertThrows([viewController requireEngineWithClass:NULL], NSInvalidArgumentException, FUEngineClassNullMessage);
 			});
 		});
 		
 		context(@"require a class that does not subclass FUEngine", ^{
 			it(@"throws an exception", ^{
-				assertThrows([director requireEngineWithClass:[NSString class]], NSInvalidArgumentException, FUEngineClassInvalidMessage, [NSString class]);
+				assertThrows([viewController requireEngineWithClass:[NSString class]], NSInvalidArgumentException, FUEngineClassInvalidMessage, [NSString class]);
 			});
 		});
 		
 		context(@"require the FUEngine class", ^{
 			it(@"throws an exception", ^{
-				assertThrows([director requireEngineWithClass:[FUEngine class]], NSInvalidArgumentException, FUEngineClassInvalidMessage, [FUEngine class]);
+				assertThrows([viewController requireEngineWithClass:[FUEngine class]], NSInvalidArgumentException, FUEngineClassInvalidMessage, [FUEngine class]);
 			});
 		});
 		
 		context(@"loading a scene that already has a director", ^{
 			it(@"throws an exception", ^{
 				FUScene* scene = mock([FUScene class]);
-				FUDirector* otherDirector = mock([FUDirector class]);
+				FUViewController * otherDirector = mock([FUViewController class]);
 				[given([scene director]) willReturn:otherDirector];
-				assertThrows([director loadScene:scene], NSInvalidArgumentException, FUSceneAlreadyUsedMessage, scene, otherDirector);
+				assertThrows([viewController loadScene:scene], NSInvalidArgumentException, FUSceneAlreadyUsedMessage, scene, otherDirector);
 			});
 		});
 			
@@ -172,12 +135,12 @@ describe(@"A director", ^{
 				engineClass = mockClass([FUEngine class]);
 				[given([engineClass isSubclassOfClass:[FUEngine class]]) willReturnBool:YES];
 				[given([engineClass alloc]) willReturn:engine];
-				[given([engine initWithDirector:director]) willReturn:engine];
-				returnedEngine = [director requireEngineWithClass:engineClass];
+				[given([engine initWithDirector:viewController]) willReturn:engine];
+				returnedEngine = [viewController requireEngineWithClass:engineClass];
 			});
 			
-			it(@"set the engine's director property", ^{
-				[verify(engine) initWithDirector:director];
+			it(@"set the engine's view controller property", ^{
+				[verify(engine) initWithDirector:viewController];
 			});
 			
 			it(@"returned the engine", ^{
@@ -185,14 +148,14 @@ describe(@"A director", ^{
 			});
 			
 			it(@"contains the engine", ^{
-				expect([director allEngines]).to.contain(engine);
+				expect([viewController allEngines]).to.contain(engine);
 			});
 			
 			context(@"requiring the same engine class again", ^{
 				it(@"returns the same engine", ^{
 					[given([engineClass alloc]) willReturn:nil];
 					[given([engine isKindOfClass:engineClass]) willReturnBool:YES];
-					expect([director requireEngineWithClass:engineClass] == engine).to.beTruthy();
+					expect([viewController requireEngineWithClass:engineClass] == engine).to.beTruthy();
 				});
 			});
 			
@@ -202,9 +165,9 @@ describe(@"A director", ^{
 					[given([engineSuperclass isSubclassOfClass:[FUEngine class]]) willReturnBool:YES];
 					FUEngine* superclassEngine = mock([FUEngine class]);
 					[given([engineSuperclass alloc]) willReturn:superclassEngine];
-					[given([superclassEngine initWithDirector:director]) willReturn:superclassEngine];
+					[given([superclassEngine initWithDirector:viewController]) willReturn:superclassEngine];
 					[given([engine isKindOfClass:engineSuperclass]) willReturnBool:YES];
-					expect([director requireEngineWithClass:engineSuperclass] == engine).to.beTruthy();
+					expect([viewController requireEngineWithClass:engineSuperclass] == engine).to.beTruthy();
 				});
 			});
 			
@@ -214,21 +177,21 @@ describe(@"A director", ^{
 					[given([engineSubclass isSubclassOfClass:[FUEngine class]]) willReturnBool:YES];
 					FUEngine* subclassEngine = mock([FUEngine class]);
 					[given([engineSubclass alloc]) willReturn:subclassEngine];
-					[given([subclassEngine initWithDirector:director]) willReturn:subclassEngine];
+					[given([subclassEngine initWithDirector:viewController]) willReturn:subclassEngine];
 					[given([engine isKindOfClass:engineSubclass]) willReturnBool:NO];
-					expect([director requireEngineWithClass:engineSubclass] == subclassEngine).to.beTruthy();
+					expect([viewController requireEngineWithClass:engineSubclass] == subclassEngine).to.beTruthy();
 				});
 			});
 			
 			context(@"calling the rotation methods", ^{
 				it(@"called the rotation methods on it's engine", ^{
-					[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					[viewController willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 					[verify(engine) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 					
-					[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+					[viewController willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 					[verify(engine) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 					
-					[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+					[viewController didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 					[verify(engine) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 				});
 			});
@@ -238,15 +201,15 @@ describe(@"A director", ^{
 				
 				beforeEach(^{
 					scene = mock([FUScene class]);
-					[director loadScene:scene];
+					[viewController loadScene:scene];
 				});
 				
 				it(@"has the scene property set", ^{
-					expect([director scene]).to.beIdenticalTo(scene);
+					expect([viewController scene]).to.beIdenticalTo(scene);
 				});
 				
 				it(@"set it's scene director property point to itself", ^{
-					[verify(scene) setDirector:director];
+					[verify(scene) setDirector:viewController];
 				});
 				
 				it(@"called the unregisterAll method on the engine", ^{
@@ -259,20 +222,20 @@ describe(@"A director", ^{
 				
 				context(@"loading the same scene again", ^{
 					it(@"throws an exception", ^{
-						[given([scene director]) willReturn:director];
-						assertThrows([director loadScene:scene], NSInvalidArgumentException, FUSceneAlreadyInDirector, scene);
+						[given([scene director]) willReturn:viewController];
+						assertThrows([viewController loadScene:scene], NSInvalidArgumentException, FUSceneAlreadyInDirector, scene);
 					});
 				});
 				
 				context(@"calling the rotation methods", ^{
 					it(@"called the rotation methods on it's scene", ^{
-						[director willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[viewController willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 						[verify(scene) willRotateToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 						
-						[director willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
+						[viewController willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 						[verify(scene) willAnimateRotationToInterfaceOrientation:UIInterfaceOrientationPortrait duration:1];
 						
-						[director didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
+						[viewController didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 						[verify(scene) didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
 					});
 				});
@@ -286,14 +249,14 @@ describe(@"A director", ^{
 					
 					context(@"calling didAddSceneObject: with the scene", ^{
 						it(@"calls the engine's registration visitor visit method with the scene object", ^{
-							[director didAddSceneObject:sceneObject];
+							[viewController didAddSceneObject:sceneObject];
 							[verify(registrationVisitor) visitSceneObject:sceneObject];
 						});
 					});
 					
 					context(@"calling didRemoveSceneObject: with the scene", ^{
 						it(@"calls the engine's unregistration visitor visit method with the scene object", ^{
-							[director willRemoveSceneObject:sceneObject];
+							[viewController willRemoveSceneObject:sceneObject];
 							[verify(unregistrationVisitor) visitSceneObject:sceneObject];
 						});
 					});
@@ -301,11 +264,11 @@ describe(@"A director", ^{
 				
 				context(@"load a nil scene", ^{
 					beforeEach(^{
-						[director loadScene:nil];
+						[viewController loadScene:nil];
 					});
 					
 					it(@"set the scene property to nil", ^{
-						expect([director scene]).to.beNil();
+						expect([viewController scene]).to.beNil();
 					});
 					
 					it(@"set the director property of the previous scene to nil", ^{
@@ -324,14 +287,14 @@ describe(@"A director", ^{
 			
 			context(@"calling the GLKViewController update method", ^{
 				it(@"calls the engine update method", ^{
-					[(id)director update];
+					[(id)viewController update];
 					[verify(engine) update];
 				});
 			});
 			
 			context(@"calling the GLKViewDelegate draw method", ^{
 				it(@"draws the engine's draw method", ^{
-					[director glkView:nil drawInRect:CGRectZero];
+					[viewController glkView:nil drawInRect:CGRectZero];
 					[verify(engine) draw];
 				});
 			});

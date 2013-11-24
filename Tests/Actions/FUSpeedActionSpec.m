@@ -9,6 +9,7 @@
 //  it under the terms of the Simplified BSD License.
 //
 
+#import <OCHamcrest/HCIsAnything.h>
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUTestSupport.h"

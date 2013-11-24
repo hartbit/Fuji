@@ -14,12 +14,12 @@
 #import "FUSupport.h"
 
 
-@class FUDirector;
+@class FUViewController;
 @class FUVisitor;
 
 @interface FUEngine : NSObject<FUInterfaceRotating>
 
-@property (nonatomic, WEAK, readonly) FUDirector* director;
+@property (nonatomic, WEAK, readonly) FUViewController * director;
 
 - (FUVisitor*)registrationVisitor;
 - (FUVisitor*)unregistrationVisitor;

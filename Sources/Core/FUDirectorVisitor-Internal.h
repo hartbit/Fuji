@@ -14,7 +14,7 @@
 #import "FUSupport.h"
 
 
-@class FUDirector;
+@class FUViewController;
 
 @interface FUDirectorVisitor : FUVisitor
 

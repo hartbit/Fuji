@@ -33,11 +33,11 @@ describe(@"An engine", ^{
 	});
 	
 	context(@"initialized with a director", ^{
-		__block FUDirector* director;
+		__block FUViewController * director;
 		__block FUEngine* engine;
 		
 		beforeEach(^{
-			director = mock([FUDirector class]);
+			director = mock([FUViewController class]);
 			engine = [[FUEngine alloc] initWithDirector:director];
 		});
 		

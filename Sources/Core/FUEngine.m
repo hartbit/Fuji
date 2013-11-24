@@ -18,7 +18,7 @@ static NSString* const FUCreationInvalidMessage = @"Can not create an engine obj
 
 @interface FUEngine ()
 
-@property (nonatomic, WEAK) FUDirector* director;
+@property (nonatomic, WEAK) FUViewController * director;
 @property (nonatomic, getter=isInitializing) BOOL initializing;
 
 @end
@@ -34,7 +34,7 @@ static NSString* const FUCreationInvalidMessage = @"Can not create an engine obj
 	return [super init];
 }
 
-- (id)initWithDirector:(FUDirector*)director
+- (id)initWithDirector:(FUViewController *)director
 {
 	[self setInitializing:YES];
 	

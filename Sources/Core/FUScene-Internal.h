@@ -13,10 +13,10 @@
 #import "FUSupport.h"
 
 
-@class FUDirector;
+@class FUViewController;
 
 @interface FUScene ()
 
-@property (nonatomic, WEAK) FUDirector* director;
+@property (nonatomic, WEAK) FUViewController * director;
 
 @end

@@ -20,7 +20,7 @@
 
 #import "FUSceneObject.h"
 #import "FUVisitor.h"
-#import "FUDirector.h"
+#import "FUViewController.h"
 #import "FUInterfaceRotating.h"
 #import "FUEngine.h"
 #import "FUEntity.h"

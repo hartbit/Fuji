@@ -19,6 +19,6 @@
 @interface FUSceneObject : NSObject<FUInterfaceRotating>
 
 @property (nonatomic, WEAK, readonly) FUScene* scene;
-@property (nonatomic, WEAK, readonly) FUDirector* director;
+@property (nonatomic, WEAK, readonly) FUViewController * director;
 
 @end

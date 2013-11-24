@@ -51,7 +51,7 @@ describe(@"A scene", ^{
 		
 		context(@"giving the scene a director", ^{
 			it(@"has the director pointing to the new director", ^{
-				FUDirector* director = mock([FUDirector class]);
+				FUViewController * director = mock([FUViewController class]);
 				[given([scene director]) willReturn:director];
 				expect([sceneObject director]).to.beIdenticalTo(director);
 			});

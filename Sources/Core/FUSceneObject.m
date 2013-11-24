@@ -49,7 +49,7 @@ static NSString* const FUCreationInvalidMessage = @"Can not create a scene objec
 
 #pragma mark - Properties
 
-- (FUDirector*)director
+- (FUViewController *)director
 {
 	return [[self scene] director];
 }

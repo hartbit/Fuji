@@ -13,7 +13,7 @@
 #import "FUEntity.h"
 
 
-@class FUDirector;
+@class FUViewController;
 @class FUGraphicsSettings;
 
 @interface FUScene : FUEntity

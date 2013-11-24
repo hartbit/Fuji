@@ -12,7 +12,7 @@
 #include "Prefix.pch"
 #import "Fuji.h"
 #import "FUVisitor-Internal.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
 #import "FUTestSupport.h"
@@ -67,12 +67,12 @@ describe(@"An entity", ^{
 	});
 	
 	context(@"initialized with a valid scene", ^{
-		__block FUDirector* director;
+		__block FUViewController * director;
 		__block FUScene* scene;
 		__block FUEntity* entity;
 		
 		beforeEach(^{
-			director = mock([FUDirector class]);
+			director = mock([FUViewController class]);
 			scene = mock([FUScene class]);
 			[given([scene director]) willReturn:director];
 			entity = [[FUEntity alloc] initWithScene:scene];

@@ -1,5 +1,5 @@
 //
-//  FUDirector-Internal.h
+//  FUViewController-Internal.h
 //  Fuji
 //
 //  Created by David Hart.
@@ -9,12 +9,12 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#import "FUDirector.h"
+#import "FUViewController.h"
 
 
 @class FUSceneObject;
 
-@interface FUDirector ()
+@interface FUViewController ()
 
 - (FUEngine*)requireEngineWithClass:(Class)engineClass;
 - (NSArray*)allEngines;

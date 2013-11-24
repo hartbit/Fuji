@@ -12,10 +12,10 @@
 #import "FUEngine.h"
 
 
-@class FUDirector;
+@class FUViewController;
 
 @interface FUEngine ()
 
-- (id)initWithDirector:(FUDirector*)director;
+- (id)initWithDirector:(FUViewController *)director;
 
 @end

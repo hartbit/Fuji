@@ -11,7 +11,6 @@
 
 #import "FUDirectorVisitor-Internal.h"
 #import "FUVisitor-Internal.h"
-#import "FUDirector-Internal.h"
 #import "FUComponent-Internal.h"
 
 
@@ -39,7 +38,6 @@
 
 - (void)visitSceneObject:(FUSceneObject*)sceneObject
 {
-	
 	for (FUVisitor* visitor in [self visitors]) {
 		[visitor visitSceneObject:sceneObject];
 	}

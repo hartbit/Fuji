@@ -11,7 +11,7 @@
 
 #import "FUAnimator.h"
 #import "FUAction.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUSupport.h"
 
 

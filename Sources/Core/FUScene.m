@@ -11,11 +11,10 @@
 
 #import <objc/runtime.h>
 #import "FUScene-Internal.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUGraphicsSettings.h"
 #import "FUTransform.h"
-#import "FUEngine.h"
 #import "FUAssert.h"
 
 

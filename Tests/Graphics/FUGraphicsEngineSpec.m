@@ -29,7 +29,7 @@ describe(@"The graphics engine", ^{
 			EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 			[EAGLContext setCurrentContext:context];
 			
-			FUDirector* director = mock([FUDirector class]);
+			FUViewController * director = mock([FUViewController class]);
 			graphicsEngine = [[FUGraphicsEngine alloc] initWithDirector:director];
 		});
 		

@@ -9,8 +9,6 @@
 //  it under the terms of the Simplified BSD License.
 //
 
-#include "Prefix.pch"
-#import "Fuji.h"
 #import <objc/runtime.h>
 
 

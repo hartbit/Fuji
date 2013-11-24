@@ -13,7 +13,7 @@
 #import "NSBundle+FUAdditions-Internal.h"
 #import "UIDevice+FUAdditions-Internal.h"
 #import "UIScreen+FUAdditions-Internal.h"
-#import "FUDirector.h"
+#import "FUViewController.h"
 #import "FUSupport.h"
 
 
@@ -26,7 +26,7 @@
 	static NSBundle* sCurrentBundle;
 	
 	if (sCurrentBundle == nil) {
-		sCurrentBundle = [NSBundle bundleForClass:[FUDirector class]];
+		sCurrentBundle = [NSBundle bundleForClass:[FUViewController class]];
 	}
 	
 	return sCurrentBundle;

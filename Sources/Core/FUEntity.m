@@ -11,7 +11,7 @@
 
 #import <objc/runtime.h>
 #import "FUEntity-Internal.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUScene.h"
 #import "FUComponent-Internal.h"

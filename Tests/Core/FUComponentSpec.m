@@ -11,7 +11,7 @@
 
 #include "Prefix.pch"
 #import "Fuji.h"
-#import "FUDirector-Internal.h"
+#import "FUViewController-Internal.h"
 #import "FUSceneObject-Internal.h"
 #import "FUComponent-Internal.h"
 #import "FUTestSupport.h"
@@ -60,13 +60,13 @@ describe(@"A component object", ^{
 	});
 	
 	context(@"initialized with a test component", ^{
-		__block FUDirector* director;
+		__block FUViewController * director;
 		__block FUScene* scene;
 		__block FUEntity* entity;
 		__block FUComponent* component;
 		
 		beforeEach(^{
-			director = mock([FUDirector class]);
+			director = mock([FUViewController class]);
 			scene = mock([FUScene class]);
 			[given([scene director]) willReturn:director];
 			entity = mock([FUEntity class]);

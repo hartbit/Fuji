@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class FUDirector;
+@class FUViewController;
 
 @protocol FUInterfaceRotating<NSObject>
 
