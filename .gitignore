@@ -15,5 +15,7 @@ xcuserdata
 
 Pods
 
-
 docset-installed.txt
+
+.idea/workspace.xml
+.idea/tasks.xml
